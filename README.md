@@ -8,7 +8,7 @@ All features supported by Torch.NET at this moment are described in the Tutorial
 ## Compiling assembly
 * Download and unzip this repository.
 * Go to Implementation\ and run Compile.bat.
-* All done! Now You can take torch.dll, torch.xml and torch.pdb from the implementation\Release folder and them to your project!
+* All done! Now You can take torch.dll, torch.xml and torch.pdb from the implementation\Release folder and add them to your project!
 
 ## Check out torch.dll
 On C#:
