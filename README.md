@@ -40,3 +40,5 @@ begin
 end.
 ```
 This code will write "Torch.NET ver. 0.1 -> build 24.09.2019" or another version you are using.
+
+## Tutorials
