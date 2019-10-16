@@ -152,7 +152,7 @@ Torch.Tensor([[1, 2, 3],
               [4, 5, 6]], dtype=float32)
 ```
 
-Importantly, the input array should be in WHCB format.
+**Importantly, the input array should be in WHCB format.**
 
 ### From shape
 
@@ -240,9 +240,38 @@ C#:
 var t = new Tensor(2, 3, 4, dtype: DType.int8);
 ```
 
-PascalABC.NET does not support positional arguments, so you should fill all the rest dimensions by 1 and fill "requires_grad" parameter(**only floating point tensors can require gradients!**)
+PascalABC.NET does not support positional arguments, so you should fill all the rest dimensions by 1 and fill "requires_grad" parameter(**only floating point tensor can require gradients!**)
 
 PascalABC.NET:
+
 ```Pascal
 var t := new Tensor(2, 2, 3, 1, 1, False, DType.int8);
 ```
+
+**Dimensions entered in the constructor must be in the WHCB format.**
+
+And the last way to create the tensor is using of instance of torch.Size structure.
+
+C#:
+
+```C#
+var t = new Tensor(new Size(2, 2));
+Console.WriteLine(t);
+```
+
+PascalABC.NET:
+
+```Pascal
+var t := new Tensor(new Size(2, 2));
+Console.WriteLine(t);
+```
+
+With this code, we create a 2x2 tensor.
+
+```
+Torch.Tensor([[0, 0],
+              [0, 0]], dtype=float32)
+```
+
+This designer supports "dtype" and "requires_grad" positional arguments.
+**Dimensions entered in the torch.Size constructor must be in the WHCB format.**
