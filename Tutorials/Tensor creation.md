@@ -1,5 +1,5 @@
 # Tensor creation
-## From given data
+## From a given data
 The simplest way to create the torch.Tensor is explicit conversion from the standard .NET number.
 C#:
 ```C#
