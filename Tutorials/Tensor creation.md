@@ -122,3 +122,34 @@ Torch.Tensor([1.5, 2.3, 5, 3, -1.2], dtype=float32)
 Torch.Tensor([1, 2, 5, 3, -1], dtype=int32)
 Torch.Tensor([1.5, 2.298828, 5, 3, -1.199219], dtype=float16)
 ```
+
+Let's try to initialize the tensor from the multidimensional .NET array.
+
+C#:
+
+```C#
+var fm = new float[3, 2];
+fm[0, 0] = 1; fm[1, 0] = 2; fm[2, 0] = 3;
+fm[0, 1] = 4; fm[1, 1] = 5; fm[2, 1] = 6;
+var t := new Tensor(fm);
+Console.WriteLine(t);
+```
+
+PascalABC.NET:
+
+```Pascal
+var fm := new Single[3, 2];
+fm[0, 0] := 1; fm[1, 0] := 2; fm[2, 0] := 3;
+fm[0, 1] := 4; fm[1, 1] := 5; fm[2, 1] := 6;
+var t := new Tensor(fm);
+Console.WriteLine(t);
+```
+
+If you run that code, you can see this:
+
+```
+Torch.Tensor([[1, 2, 3],
+              [4, 5, 6]], dtype=float32)
+```
+
+Importantly, the input array should be in WHCB format.
