@@ -1,2 +1,2 @@
 # Torch.NET
-PyTorch-like framework for AI on .NET Framework
+PyTorch-like framework for AI on Microsoft .NET Framework
