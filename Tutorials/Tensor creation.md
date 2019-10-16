@@ -131,7 +131,7 @@ C#:
 var fm = new float[3, 2];
 fm[0, 0] = 1; fm[1, 0] = 2; fm[2, 0] = 3;
 fm[0, 1] = 4; fm[1, 1] = 5; fm[2, 1] = 6;
-var t := new Tensor(fm);
+var t = new Tensor(fm);
 Console.WriteLine(t);
 ```
 
