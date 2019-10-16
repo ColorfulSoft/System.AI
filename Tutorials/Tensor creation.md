@@ -170,7 +170,7 @@ Console.WriteLine(t);
 PascalABC.NET:
 
 ```Pascal
-var t := new Tensor(DType.float64, True);
+var t := new Tensor(DType.float64);
 Console.WriteLine(t);
 ```
 
@@ -180,7 +180,7 @@ The code will print this line:
 Torch.Tensor(0, dtype=float64)
 ```
 
-By default, the returned tensor have no gradients, but you can create diffirentiable tensor using executing the following code:
+By default, the returned tensor have no gradients, but you can create diffirentiable tensor using the following code:
 
 C#:
 
@@ -200,4 +200,49 @@ This code will print `True`, but if you will try to create bool or integer tenso
 
 ```
 TorchException: Only Tensors of floating point dtype can require gradients.
+```
+
+Another way is used to create multidimensional tensors.
+
+C#:
+
+```C#
+var t = new Tensor(2, 2, 3);
+Console.WriteLine(t);
+```
+
+PascalABC.NET:
+
+```Pascal
+var t := new Tensor(2, 2, 3);
+Console.WriteLine(t);
+```
+
+This code will print the following:
+
+```
+Torch.Tensor([[[0, 0],
+               [0, 0]],
+
+              [[0, 0],
+               [0, 0]],
+
+              [[0, 0],
+               [0, 0]]], dtype=float32)
+```
+
+By default, all tensors will be initialized in float32 data type. You can change default data type using instruments in torch.Torch.
+If you want to create the tensor of different type, you should pass destination DType to designer's parameter "dtype".
+
+C#:
+
+```C#
+var t = new Tensor(2, 3, 4, dtype: DType.int8);
+```
+
+PascalABC.NET does not support positional arguments, so you should fill all the rest dimensions by 1 and fill "requires_grad" parameter(**only floating point tensors can require gradients!**)
+
+PascalABC.NET:
+```Pascal
+var t := new Tensor(2, 2, 3, 1, 1, False, DType.int8);
 ```
