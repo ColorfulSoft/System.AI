@@ -153,3 +153,51 @@ Torch.Tensor([[1, 2, 3],
 ```
 
 Importantly, the input array should be in WHCB format.
+
+### From shape
+
+Sometimes it is necessary to create an empty tensor of certain sizes. To do this, you can use specialized designers.
+
+If you want to create a 0-dim tensor, you should use constructor with two parameters (dtype and requires_grad) and dtype is mandatory.
+
+C#:
+
+```C#
+var t = new Tensor(DType.float64);
+Console.WriteLine(t);
+```
+
+PascalABC.NET:
+
+```Pascal
+var t := new Tensor(DType.float64, True);
+Console.WriteLine(t);
+```
+
+The code will print this line:
+
+```
+Torch.Tensor(0, dtype=float64)
+```
+
+By default, the returned tensor have no gradients, but you can create diffirentiable tensor using executing the following code:
+
+C#:
+
+```C#
+var t = new Tensor(DType.float64, true);
+Console.WriteLine(t.requires_grad);
+```
+
+PascalABC.NET:
+
+```Pascal
+var t := new Tensor(DType.float64, True);
+Console.WriteLine(t.requires_grad);
+```
+
+This code will print `True`, but if you will try to create bool or integer tensor with gradients, the following exception will be ocurred:
+
+```
+TorchException: Only Tensors of floating point dtype can require gradients.
+```
