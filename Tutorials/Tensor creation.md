@@ -63,7 +63,7 @@ Explicit conversion does not support the initialization-time type conversion, i.
 
 ### From standard .NET array
 
-Another initialization option is to create tensors from standard .NET arrays. The designers of the torch.Tensor supports one-dimensional and multidimensional arrays of all standard .NET numeric types.
+Another initialization option is to create tensors from standard .NET arrays. The designers of the torch.Tensor supports one-dimensional and multidimensional arrays of all standard .NET numeric types. For example, let's create the tensor from a 1-dim Half array.
 
 C#:
 
@@ -87,3 +87,4 @@ This code should return the following message:
 UserWarning: Hardware support for type float16 is not available in the .NET Framework, so a software implementation is used. You should use float32 or float64 to speed up your application.
 Torch.Tensor([1.5, 2.298828, 5, 3, -1.199219], dtype=float16)
 ```
+For now, Microsoft .NET Fromework does not support hardware work with Half data type on the CPU, so when you try to create a tensor of type Half, a warning will be displayed. This warning is displayed once per program session.
