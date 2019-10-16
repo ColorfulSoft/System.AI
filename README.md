@@ -1,6 +1,9 @@
 # Torch.NET
 PyTorch-like framework for AI on Microsoft .NET Framework
 
+# Supported features
+All features supported by Torch.NET at this moment are described in the Tutorials section. If something is not there, then this opportunity has not yet been implemented, but will appear soon. Information about updates can be seen in the Tutorials section or here:
+
 # Getting started
 ## Compiling assembly
 * Download and unzip this repository.
