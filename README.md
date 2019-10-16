@@ -47,3 +47,6 @@ end.
 This code will write "Torch.NET ver. 0.1 -> build 24.09.2019" or another version you are using.
 
 ## Tutorials
+*Tensor creation: https://github.com/ColorfulSoft/Torch.NET/blob/master/Tutorials/Tensor%20creation.md
+
+More tutorials can be found here: https://github.com/ColorfulSoft/Torch.NET/blob/master/Tutorials
