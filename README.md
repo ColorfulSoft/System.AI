@@ -7,7 +7,7 @@ PyTorch-like framework for AI on Microsoft .NET Framework
 * Go to Implementation\ and run Compile.bat.
 * All done! Now You can take in the implementation\Release torch files.dll, torch.xml, torch.pdb and add them to your project!
 
-## Check torch.dll
+## Check out torch.dll
 On C#:
 ```C#
 using System;
