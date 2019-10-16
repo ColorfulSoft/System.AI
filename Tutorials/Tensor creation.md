@@ -87,4 +87,38 @@ This code should return the following message:
 UserWarning: Hardware support for type float16 is not available in the .NET Framework, so a software implementation is used. You should use float32 or float64 to speed up your application.
 Torch.Tensor([1.5, 2.298828, 5, 3, -1.199219], dtype=float16)
 ```
-For now, Microsoft .NET Fromework does not support hardware work with Half data type on the CPU, so when you try to create a tensor of type Half, a warning will be displayed. This warning is displayed once per program session.
+For now, Microsoft .NET Framework does not support hardware work with Half data type on the CPU, so when you try to create a tensor of type Half, a warning will be displayed. This warning is displayed once per program session.
+
+If you want to create a tensor with a data type other than the input, you must use the dtype parameter.
+
+C#:
+
+```C#
+var float_array = new float[]{1.5f, 2.3f, 5, 3, -1.2f};
+var single = new Tensor(float_array);
+var int32 = new Tensor(float_array, dtype: DType.int32);// or var int32 = new Tensor(float_array, DType.int32);
+var half = new Tensor(float_array, dtype: DType.float16);// or var half = new Tensor(float_array, DType.float16);
+Console.WriteLine(single);
+Console.WriteLine(int32);
+Console.WriteLine(half);
+```
+
+PascalABC.NET:
+
+```Pascal
+var float_array := new Single[](1.5, 2.3, 5, 3, -1.2);
+var single := new Tensor(float_array);
+var int32 := new Tensor(float_array, DType.int32);
+var half := new Tensor(float_array, DType.float16);
+Console.WriteLine(single);
+Console.WriteLine(int32);
+Console.WriteLine(half);
+```
+
+This code writes the following:
+
+```
+Torch.Tensor([1.5, 2.3, 5, 3, -1.2], dtype=float32)
+Torch.Tensor([1, 2, 5, 3, -1], dtype=int32)
+Torch.Tensor([1.5, 2.298828, 5, 3, -1.199219], dtype=float16)
+```
