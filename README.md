@@ -5,6 +5,12 @@ PyTorch-like framework for AI on Microsoft .NET Framework
 All features supported by Torch.NET at this moment are described in the Tutorials section. If something is not there, then this opportunity has not yet been implemented, but will appear soon. Information about updates can be seen in the Tutorials section or here: https://github.com/ColorfulSoft/Torch.NET/blob/master/UPDATES.md
 
 # Getting started
+## System requirements
+* Windows XP or later. Windows 7 is recommended. For now, not tested on different OS.
+* Microsoft .NET Framework 4.0 and later. For now, not tested on Mono and different versions of MS .NET Framework.
+* 128 MB of RAM
+* 256 MB of free disk space.
+
 ## Compiling assembly
 * Download and unzip this repository.
 * Go to Implementation\ and run Compile.bat.
