@@ -180,7 +180,7 @@
 #*    END OF TERMS AND CONDITIONS
 #***************************************************************************************************
 
-#-> Latest commit: Brykin Gleb, 13.10.2019.
+#-> Latest commit: Brykin Gleb, 19.10.2019.
 
 # Ответный файл для компиляции torch.dll
 
@@ -230,6 +230,10 @@
 "src\Torch.NET\torch\Torch.cs"
 "src\Torch.NET\torch\TorchException.cs"
 "src\Torch.NET\torchvision\models\AlexNet.cs"
+
+# Файлы исходного кода ImageIO.NET
+
+"src\ImageIO.NET\ImageIO.cs"
 
 # Файлы исходного кода сторонних библиотек, используемых в Torch.NET
 
