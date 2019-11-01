@@ -1,4 +1,4 @@
-﻿#***************************************************************************************************
+#***************************************************************************************************
 #* (C) ColorfulSoft corp., 2019. All rights reserved.
 #* This code is distributed under the Apache v2 license.
 #*
@@ -236,16 +236,6 @@
 "src\ImageIO.NET\ImageIO.cs"
 
 # Файлы исходного кода сторонних библиотек, используемых в Torch.NET
-
-# OpenCL.NET; source from https://github.com/cass-support/opencl.net
-
-"src\OpenCL.NET\Driver\OpenCLDriver.cs"
-"src\OpenCL.NET\Driver\Types.cs"
-"src\OpenCL.NET\OpenGL\OpenCLGLDriver.cs"
-"src\OpenCL.NET\OpenGL\Types.cs"
-"src\OpenCL.NET\OpenCL.cs"
-"src\OpenCL.NET\OpenCLException.cs"
-"src\OpenCL.NET\Types.cs"
 
 # System.Half; source from https://sourceforge.net/projects/csharp-half/ by ladislavlang
 
