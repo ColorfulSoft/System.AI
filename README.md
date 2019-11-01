@@ -3,6 +3,7 @@ PyTorch-like framework for AI on Microsoft .NET Framework
 
 # Supported features
 All features supported by Torch.NET at this moment are described in the Tutorials section. If something is not there, then this opportunity has not yet been implemented, but will appear soon. Information about updates can be seen in the Tutorials section or here: https://github.com/ColorfulSoft/Torch.NET/blob/master/UPDATES.md
+**GPU calculations are implemented in an extension (separate library). This version includes only CPU Backend implemented in C#. This version is officially cross-platform.**
 
 # Getting started
 ## System requirements
