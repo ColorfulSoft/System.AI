@@ -180,7 +180,7 @@
 //*    END OF TERMS AND CONDITIONS
 //***************************************************************************************************
 
-//-> Latest commit: Brykin Gleb, 24.09.2019.
+//-> Latest commit: Brykin Gleb, 02.11.2019.
 
 using System;
 using System.Reflection;
@@ -188,7 +188,7 @@ using System.Reflection;
     [assembly: AssemblyTitle("Torch.NET")]
     [assembly: AssemblyDescription("Artificial intelligence, linear algebra, auto-differentiation.")]
     [assembly: AssemblyConfiguration("")]
-    [assembly: AssemblyVersion("0.24.09.2019")]
+    [assembly: AssemblyVersion("0.02.11.2019")]
     [assembly: AssemblyCompany("ColorfulSoft")]
     [assembly: AssemblyProduct("Torch.NET")]
     [assembly: AssemblyCopyright("© ColorfulSoft")]

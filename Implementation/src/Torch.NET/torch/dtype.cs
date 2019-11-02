@@ -183,52 +183,60 @@
 //-> Latest commit: Brykin Gleb, 02.11.2019.
 
 using System;
-using System.Collections.Generic;
 
 public static partial class torch
 {
 
-    ///<summary>Warning output module.</summary>
-    internal static class __Warnings
+    ///<summary>Supported data types.</summary>
+    public enum dtype
     {
 
-        ///<summary>Texts of warnings that have already been issued.</summary>
-        private static List<string> __showed_messages;
+        ///<summary>16-bit floating point. Alias for dtype.half.</summary>
+        float16,
 
-        ///<summary>Initializes the warnings module.</summary>
-        static __Warnings()
-        {
-            __showed_messages = new List<string>();
-        }
+        ///<summary>16-bit floating point. Alias for dtype.float16.</summary>
+        half,
 
-        ///<summary>Displays a warning.</summary>
-        public static void warn(string message, bool uncontrollable = false)
-        {
-            if(torch.warnings_are_enabled)
-            {
-                if(uncontrollable)
-                {
-                    var last_color = Console.ForegroundColor;
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("UserWarning: " + message);
-                    Console.ForegroundColor = last_color;
-                }
-                else
-                {
-                    if(!(__showed_messages.Exists((string str) =>
-                    {
-                        return (str == message);
-                    })))
-                    {
-                        var last_color = Console.ForegroundColor;
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("UserWarning: " + message);
-                        Console.ForegroundColor = last_color;
-                        __showed_messages.Add(message);
-                    }
-                }
-            }
-        }
+        ///<summary>32-bit floating point. Alias for dtype.float.</summary>
+        float32,
+
+        ///<summary>32-bit floating point. Alias for dtype.float32.</summary>
+        @float,
+
+        ///<summary>64-bit floating point. Alias for dtype.double.</summary>
+        float64,
+
+        ///<summary>64-bit floating point. Alias for dtype.float64.</summary>
+        @double,
+
+        ///<summary>8-bit integer (unsigned).</summary>
+        uint8,
+
+        ///<summary>8-bit integer (signed).</summary>
+        int8,
+
+        ///<summary>16-bit integer (signed). Alias for dtype.short.</summary>
+        int16,
+
+        ///<summary>16-bit integer (signed). Alias for dtype.int16.</summary>
+        @short,
+
+        ///<summary>32-bit integer (signed). Alias for dtype.int.</summary>
+        int32,
+
+        ///<summary>32-bit integer (signed). Alias for dtype.int32.</summary>
+        @int,
+
+        ///<summary>64-bit integer (signed). Alias for dtype.long.</summary>
+        int64,
+
+        ///<summary>64-bit integer (signed). Alias for dtype.int64.</summary>
+        @long,
+
+        ///<summary>Boolean.</summary>
+        @bool,
+
+        @default
 
     }
 

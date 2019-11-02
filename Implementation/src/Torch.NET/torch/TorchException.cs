@@ -180,11 +180,11 @@
 //*    END OF TERMS AND CONDITIONS
 //***************************************************************************************************
 
-//-> Latest commit: Brykin Gleb, 24.09.2019.
+//-> Latest commit: Brykin Gleb, 02.11.2019.
 
 using System;
 
-namespace torch
+public static partial class torch
 {
 
     ///<summary>The exception raised by an internal error in the Torch library.</summary>
