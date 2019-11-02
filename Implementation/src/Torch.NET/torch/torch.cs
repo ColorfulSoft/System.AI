@@ -232,7 +232,7 @@ public static partial class torch
     }
 
     ///<summary>Specifies the required default data type.</summary>
-    public static void set_default_type(dtype dtype)
+    public static void set_default_tensor_type(dtype dtype)
     {
         if(default_dtype == dtype)
         {
