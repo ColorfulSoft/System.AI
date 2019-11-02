@@ -184,322 +184,422 @@
 
 using System;
 
-public sealed partial class Tensor
+public static partial class torch
 {
 
-    public Tensor zeros_like()
+    public sealed partial class Tensor
     {
-        var result = new Tensor(this.size, this.dtype, this.requires_grad);
-        return result;
-    }
 
-    public Tensor squeeze()
-    {
-        switch(this.__ndim)
+        ///<summary>Returns a tensor filled with the scalar value 0, with the same size as input.</summary>
+        ///<param name = "input">The size of input will determine size of the output tensor.</param>
+        ///<param name = "dtype">The desired data type of returned Tensor. Default: if default, defaults to the dtype of input.</param>
+        ///<param name = "requires_grad">If autograd should record operations on the returned tensor. Default: false.</param>
+        public Tensor zeros_like(dtype dtype = dtype.@default, bool requires_grad = false)
         {
-            case 0:
+            if((this.dtype == dtype.@bool) || (dtype == dtype.@bool))
             {
-                return this.__link();
+                throw new torch.TorchException("TorchException: zeros_like() is not supported for Boolean tensors.");
             }
-            case 1:
+            var result = new Tensor(this.size, (dtype == dtype.@default) ? this.dtype : dtype, requires_grad);
+            return result;
+        }
+
+        ///<summary>Returns a tensor filled with the scalar value 1, with the same size as input.</summary>
+        ///<param name = "input">The size of input will determine size of the output tensor.</param>
+        ///<param name = "dtype">The desired data type of returned Tensor. Default: if default, defaults to the dtype of input.</param>
+        ///<param name = "requires_grad">If autograd should record operations on the returned tensor. Default: false.</param>
+        public Tensor ones_like(dtype dtype = dtype.@default, bool requires_grad = false)
+        {
+            var result = new Tensor(this.size, (dtype == dtype.@default) ? this.dtype : dtype, requires_grad);
+            switch(result.dtype)
             {
-                var y = this.__link();
-                if(y.__width == 1)
+                case torch.dtype.float16:
+                case torch.dtype.half:
                 {
-                    y.__ndim = 0;
+                    for(int i = 0; i < result.__data_float16.Length; i++)
+                    {
+                        result.__data_float16[i] = 1;
+                    }
+                    break;
                 }
-                return y;
-            }
-            case 2:
-            {
-                var y = this.__link();
-                if(y.__width == 1)
+                case torch.dtype.float32:
+                case torch.dtype.@float:
                 {
-                    if(y.__height == 1)
+                    for(int i = 0; i < result.__data_float32.Length; i++)
+                    {
+                        result.__data_float32[i] = 1;
+                    }
+                    break;
+                }
+                case torch.dtype.float64:
+                case torch.dtype.@double:
+                {
+                    for(int i = 0; i < result.__data_float64.Length; i++)
+                    {
+                        result.__data_float64[i] = 1;
+                    }
+                    break;
+                }
+                case torch.dtype.int8:
+                {
+                    for(int i = 0; i < result.__data_int8.Length; i++)
+                    {
+                        result.__data_int8[i] = 1;
+                    }
+                    break;
+                }
+                case torch.dtype.uint8:
+                {
+                    for(int i = 0; i < result.__data_uint8.Length; i++)
+                    {
+                        result.__data_uint8[i] = 1;
+                    }
+                    break;
+                }
+                case torch.dtype.int16:
+                case torch.dtype.@short:
+                {
+                    for(int i = 0; i < result.__data_int16.Length; i++)
+                    {
+                        result.__data_int16[i] = 1;
+                    }
+                    break;
+                }
+                case torch.dtype.int32:
+                case torch.dtype.@int:
+                {
+                    for(int i = 0; i < result.__data_int32.Length; i++)
+                    {
+                        result.__data_int32[i] = 1;
+                    }
+                    break;
+                }
+                case torch.dtype.int64:
+                case torch.dtype.@long:
+                {
+                    for(int i = 0; i < result.__data_int64.Length; i++)
+                    {
+                        result.__data_int64[i] = 1;
+                    }
+                    break;
+                }
+                case torch.dtype.@bool:
+                {
+                    throw new torch.TorchException("TorchException: ones_like is not supported for Boolean tensors.");
+                }
+            }
+            return result;
+        }
+
+        public Tensor squeeze()
+        {
+            switch(this.__ndim)
+            {
+                case 0:
+                {
+                    return this.__link();
+                }
+                case 1:
+                {
+                    var y = this.__link();
+                    if(y.__width == 1)
                     {
                         y.__ndim = 0;
                     }
-                    else
-                    {
-                        y.__ndim = 1;
-                        y.__width = y.__height;
-                    }
+                    return y;
                 }
-                else
+                case 2:
                 {
-                    if(y.__height == 1)
+                    var y = this.__link();
+                    if(y.__width == 1)
                     {
-                        y.__ndim = 1;
-                    }
-                }
-                return y;
-            }
-            case 3:
-            {
-                var y = this.__link();
-                if(y.__width == 1)
-                {
-                    if(y.__height == 1)
-                    {
-                        if(y.__depth == 1)
+                        if(y.__height == 1)
                         {
                             y.__ndim = 0;
                         }
                         else
                         {
                             y.__ndim = 1;
-                            y.__width = y.__depth;
+                            y.__width = y.__height;
                         }
                     }
                     else
                     {
-                        if(y.__depth == 1)
-                        {
-                            y.__ndim = 1;
-                            y.__width = y.__height;
-                        }
-                        else
-                        {
-                            y.__width = y.__height;
-                            y.__height = y.__depth;
-                        }
-                    }
-                }
-                else
-                {
-                    if(y.__height == 1)
-                    {
-                        if(y.__depth == 1)
+                        if(y.__height == 1)
                         {
                             y.__ndim = 1;
                         }
-                        else
-                        {
-                            y.__ndim = 2;
-                            y.__height = y.__depth;
-                        }
                     }
+                    return y;
                 }
-                return y;
-            }
-            case 4:
-            {
-                var y = this.__link();
-                if(y.__width == 1)
+                case 3:
                 {
-                    if(y.__height == 1)
+                    var y = this.__link();
+                    if(y.__width == 1)
                     {
-                        if(y.__depth == 1)
+                        if(y.__height == 1)
                         {
-                            if(y.__time == 1)
+                            if(y.__depth == 1)
                             {
                                 y.__ndim = 0;
                             }
                             else
                             {
                                 y.__ndim = 1;
-                                y.__width = y.__time;
+                                y.__width = y.__depth;
                             }
                         }
                         else
                         {
-                            if(y.__time == 1)
+                            if(y.__depth == 1)
                             {
                                 y.__ndim = 1;
-                                y.__width = y.__depth;
+                                y.__width = y.__height;
                             }
                             else
                             {
-                                y.__ndim = 2;
-                                y.__width = y.__depth;
-                                y.__height = y.__time;
+                                y.__width = y.__height;
+                                y.__height = y.__depth;
                             }
                         }
                     }
                     else
                     {
-                        if(y.__depth == 1)
+                        if(y.__height == 1)
                         {
-                            if(y.__time == 1)
+                            if(y.__depth == 1)
                             {
                                 y.__ndim = 1;
-                                y.__width = y.__height;
                             }
                             else
                             {
                                 y.__ndim = 2;
-                                y.__width = y.__height;
-                                y.__height = y.__time;
-                            }
-                        }
-                        else
-                        {
-                            if(y.__time == 1)
-                            {
-                                y.__ndim = 2;
-                                y.__width = y.__height;
                                 y.__height = y.__depth;
-                            }
-                            else
-                            {
-                                y.__ndim = 3;
-                                y.__width = y.__height;
-                                y.__height = y.__depth;
-                                y.__depth = y.__time;
                             }
                         }
                     }
+                    return y;
                 }
-                else
+                case 4:
                 {
-                    if(y.__height == 1)
+                    var y = this.__link();
+                    if(y.__width == 1)
                     {
-                        if(y.__depth == 1)
+                        if(y.__height == 1)
                         {
-                            if(y.__time == 1)
+                            if(y.__depth == 1)
                             {
-                                y.__ndim = 1;
+                                if(y.__time == 1)
+                                {
+                                    y.__ndim = 0;
+                                }
+                                else
+                                {
+                                    y.__ndim = 1;
+                                    y.__width = y.__time;
+                                }
                             }
                             else
                             {
-                                y.__ndim = 2;
-                                y.__height = y.__time;
+                                if(y.__time == 1)
+                                {
+                                    y.__ndim = 1;
+                                    y.__width = y.__depth;
+                                }
+                                else
+                                {
+                                    y.__ndim = 2;
+                                    y.__width = y.__depth;
+                                    y.__height = y.__time;
+                                }
                             }
                         }
                         else
                         {
-                            if(y.__time == 1)
+                            if(y.__depth == 1)
                             {
-                                y.__ndim = 2;
-                                y.__height = y.__depth;
+                                if(y.__time == 1)
+                                {
+                                    y.__ndim = 1;
+                                    y.__width = y.__height;
+                                }
+                                else
+                                {
+                                    y.__ndim = 2;
+                                    y.__width = y.__height;
+                                    y.__height = y.__time;
+                                }
                             }
                             else
                             {
-                                y.__ndim = 3;
-                                y.__height = y.__depth;
-                                y.__depth = y.__time;
+                                if(y.__time == 1)
+                                {
+                                    y.__ndim = 2;
+                                    y.__width = y.__height;
+                                    y.__height = y.__depth;
+                                }
+                                else
+                                {
+                                    y.__ndim = 3;
+                                    y.__width = y.__height;
+                                    y.__height = y.__depth;
+                                    y.__depth = y.__time;
+                                }
                             }
                         }
                     }
+                    else
+                    {
+                        if(y.__height == 1)
+                        {
+                            if(y.__depth == 1)
+                            {
+                                if(y.__time == 1)
+                                {
+                                    y.__ndim = 1;
+                                }
+                                else
+                                {
+                                    y.__ndim = 2;
+                                    y.__height = y.__time;
+                                }
+                            }
+                            else
+                            {
+                                if(y.__time == 1)
+                                {
+                                    y.__ndim = 2;
+                                    y.__height = y.__depth;
+                                }
+                                else
+                                {
+                                    y.__ndim = 3;
+                                    y.__height = y.__depth;
+                                    y.__depth = y.__time;
+                                }
+                            }
+                        }
+                    }
+                    return y;
                 }
-                return y;
-            }
-            default:
-            {
-                return null;
-            }
-        }
-    }
-
-    public Tensor grad
-    {
-
-        get
-        {
-            try
-            {
-                return new Tensor(this.__grad_float16, this.__grad_float32, this.__grad_float64, this.__ndim, this.__width, this.__height, this.__depth, this.__time, this.__batch);
-            }
-            catch(Exception e)
-            {
-                return null;
+                default:
+                {
+                    return null;
+                }
             }
         }
 
-    }
-
-    public void backward()
-    {
-        if(this.__ndim == 0)
+        public Tensor grad
         {
-            if(this.requires_grad == false)
+
+            get
             {
-                throw new torch.TorchException("TorchException: element 0 of the tensor does not require grad and does not have a backward function.");
+                try
+                {
+                    return new Tensor(this.__grad_float16, this.__grad_float32, this.__grad_float64, this.__ndim, this.__width, this.__height, this.__depth, this.__time, this.__batch);
+                }
+                catch(Exception e)
+                {
+                    return null;
+                }
             }
+
+        }
+
+        public void backward()
+        {
+            if(this.__ndim == 0)
+            {
+                if(this.requires_grad == false)
+                {
+                    throw new torch.TorchException("TorchException: element 0 of the tensor does not require grad and does not have a backward function.");
+                }
+                switch(this.dtype)
+                {
+                    case torch.dtype.float16:
+                    case torch.dtype.half:
+                    {
+                        this.__grad_float16[0] = (Half)1f;
+                        break;
+                    }
+                    case torch.dtype.float32:
+                    case torch.dtype.@float:
+                    {
+                        this.__grad_float32[0] = 1f;
+                        break;
+                    }
+                    case torch.dtype.float64:
+                    case torch.dtype.@double:
+                    {
+                        this.__grad_float64[0] = 1f;
+                        break;
+                    }
+                }
+                if(this.__backward_fn != null)
+                {
+                    this.__backward_fn();
+                }
+            }
+            else
+            {
+                throw new torch.TorchException("TorchException: Grad can be implicitly created only for scalar outputs.");
+            }
+        }
+
+        ///<summary>Converts the current instance to a string representation.</summary>
+        public override string ToString()
+        {
             switch(this.dtype)
             {
                 case torch.dtype.float16:
                 case torch.dtype.half:
                 {
-                    this.__grad_float16[0] = (Half)1f;
-                    break;
+                    return this.__print_tensor(this.__data_float16);
                 }
                 case torch.dtype.float32:
                 case torch.dtype.@float:
                 {
-                    this.__grad_float32[0] = 1f;
-                    break;
+                    return this.__print_tensor(this.__data_float32);
                 }
                 case torch.dtype.float64:
                 case torch.dtype.@double:
                 {
-                    this.__grad_float64[0] = 1f;
-                    break;
+                    return this.__print_tensor(this.__data_float64);
+                }
+                case torch.dtype.int8:
+                {
+                    return this.__print_tensor(this.__data_int8);
+                }
+                case torch.dtype.uint8:
+                {
+                    return this.__print_tensor(this.__data_uint8);
+                }
+                case torch.dtype.int16:
+                case torch.dtype.@short:
+                {
+                    return this.__print_tensor(this.__data_int16);
+                }
+                case torch.dtype.int32:
+                case torch.dtype.@int:
+                {
+                    return this.__print_tensor(this.__data_int32);
+                }
+                case torch.dtype.int64:
+                case torch.dtype.@long:
+                {
+                    return this.__print_tensor(this.__data_int64);
+                }
+                case torch.dtype.@bool:
+                {
+                    return this.__print_tensor(this.__data_bool);
+                }
+                default:
+                {
+                    return "torch.Tensor";
                 }
             }
-            if(this.__backward_fn != null)
-            {
-                this.__backward_fn();
-            }
         }
-        else
-        {
-            throw new torch.TorchException("TorchException: Grad can be implicitly created only for scalar outputs.");
-        }
-    }
 
-    ///<summary>Converts the current instance to a string representation.</summary>
-    public override string ToString()
-    {
-        switch(this.dtype)
-        {
-            case torch.dtype.float16:
-            case torch.dtype.half:
-            {
-                return this.__print_tensor(this.__data_float16);
-            }
-            case torch.dtype.float32:
-            case torch.dtype.@float:
-            {
-                return this.__print_tensor(this.__data_float32);
-            }
-            case torch.dtype.float64:
-            case torch.dtype.@double:
-            {
-                return this.__print_tensor(this.__data_float64);
-            }
-            case torch.dtype.int8:
-            {
-                return this.__print_tensor(this.__data_int8);
-            }
-            case torch.dtype.uint8:
-            {
-                return this.__print_tensor(this.__data_uint8);
-            }
-            case torch.dtype.int16:
-            case torch.dtype.@short:
-            {
-                return this.__print_tensor(this.__data_int16);
-            }
-            case torch.dtype.int32:
-            case torch.dtype.@int:
-            {
-                return this.__print_tensor(this.__data_int32);
-            }
-            case torch.dtype.int64:
-            case torch.dtype.@long:
-            {
-                return this.__print_tensor(this.__data_int64);
-            }
-            case torch.dtype.@bool:
-            {
-                return this.__print_tensor(this.__data_bool);
-            }
-            default:
-            {
-                return "torch.Tensor";
-            }
-        }
     }
 
 }

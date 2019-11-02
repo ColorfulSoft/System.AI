@@ -184,822 +184,801 @@
 
 using System;
 
-public sealed partial class Tensor
+public static partial class torch
 {
 
-    //------------------------------
-    //-> Fast(unsafe) access methods
-    //------------------------------
-
-    //-> __unsafe_get*[x, y, d, t, b]
-
-    ///<summary>Gets the value of a 5-D Tensor without checking that the indices are out of the Tensor.</summary>
-    ///<param name = "x">Index by Width.</param>
-    ///<param name = "y">Index by Height.</param>
-    ///<param name = "d">Index by Channel.</param>
-    ///<param name = "t">Index by Time.</param>
-    ///<param name = "b">Index by Batch.</param>
-    internal Half __unsafe_get_float16(int x = 0, int y = 0, int d = 0, int t = 0, int b = 0)
+    public sealed partial class Tensor
     {
-        return this.__data_float16[((((y * this.__width) + x) * this.__depth + d) * this.__time + t) * this.__batch + b];
-    }
 
-    ///<summary>Gets the value of a 5-D Tensor without checking that the indices are out of the Tensor.</summary>
-    ///<param name = "x">Index by Width.</param>
-    ///<param name = "y">Index by Height.</param>
-    ///<param name = "d">Index by Channel.</param>
-    ///<param name = "t">Index by Time.</param>
-    ///<param name = "b">Index by Batch.</param>
-    internal float __unsafe_get_float32(int x = 0, int y = 0, int d = 0, int t = 0, int b = 0)
-    {
-        return this.__data_float32[((((y * this.__width) + x) * this.__depth + d) * this.__time + t) * this.__batch + b];
-    }
+        //------------------------------
+        //-> Fast(unsafe) access methods
+        //------------------------------
 
-    ///<summary>Gets the value of a 5-D Tensor without checking that the indices are out of the Tensor.</summary>
-    ///<param name = "x">Index by Width.</param>
-    ///<param name = "y">Index by Height.</param>
-    ///<param name = "d">Index by Channel.</param>
-    ///<param name = "t">Index by Time.</param>
-    ///<param name = "b">Index by Batch.</param>
-    internal double __unsafe_get_float64(int x = 0, int y = 0, int d = 0, int t = 0, int b = 0)
-    {
-        return this.__data_float64[((((y * this.__width) + x) * this.__depth + d) * this.__time + t) * this.__batch + b];
-    }
+        //-> __unsafe_get*[x, y, d, t, b]
 
-    ///<summary>Gets the value of a 5-D Tensor without checking that the indices are out of the Tensor.</summary>
-    ///<param name = "x">Index by Width.</param>
-    ///<param name = "y">Index by Height.</param>
-    ///<param name = "d">Index by Channel.</param>
-    ///<param name = "t">Index by Time.</param>
-    ///<param name = "b">Index by Batch.</param>
-    internal byte __unsafe_get_uint8(int x = 0, int y = 0, int d = 0, int t = 0, int b = 0)
-    {
-        return this.__data_uint8[((((y * this.__width) + x) * this.__depth + d) * this.__time + t) * this.__batch + b];
-    }
-
-    ///<summary>Gets the value of a 5-D Tensor without checking that the indices are out of the Tensor.</summary>
-    ///<param name = "x">Index by Width.</param>
-    ///<param name = "y">Index by Height.</param>
-    ///<param name = "d">Index by Channel.</param>
-    ///<param name = "t">Index by Time.</param>
-    ///<param name = "b">Index by Batch.</param>
-    internal sbyte __unsafe_get_int8(int x = 0, int y = 0, int d = 0, int t = 0, int b = 0)
-    {
-        return this.__data_int8[((((y * this.__width) + x) * this.__depth + d) * this.__time + t) * this.__batch + b];
-    }
-
-    ///<summary>Gets the value of a 5-D Tensor without checking that the indices are out of the Tensor.</summary>
-    ///<param name = "x">Index by Width.</param>
-    ///<param name = "y">Index by Height.</param>
-    ///<param name = "d">Index by Channel.</param>
-    ///<param name = "t">Index by Time.</param>
-    ///<param name = "b">Index by Batch.</param>
-    internal short __unsafe_get_int16(int x = 0, int y = 0, int d = 0, int t = 0, int b = 0)
-    {
-        return this.__data_int16[((((y * this.__width) + x) * this.__depth + d) * this.__time + t) * this.__batch + b];
-    }
-
-    ///<summary>Gets the value of a 5-D Tensor without checking that the indices are out of the Tensor.</summary>
-    ///<param name = "x">Index by Width.</param>
-    ///<param name = "y">Index by Height.</param>
-    ///<param name = "d">Index by Channel.</param>
-    ///<param name = "t">Index by Time.</param>
-    ///<param name = "b">Index by Batch.</param>
-    internal int __unsafe_get_int32(int x = 0, int y = 0, int d = 0, int t = 0, int b = 0)
-    {
-        return this.__data_int32[((((y * this.__width) + x) * this.__depth + d) * this.__time + t) * this.__batch + b];
-    }
-
-    ///<summary>Gets the value of a 5-D Tensor without checking that the indices are out of the Tensor.</summary>
-    ///<param name = "x">Index by Width.</param>
-    ///<param name = "y">Index by Height.</param>
-    ///<param name = "d">Index by Channel.</param>
-    ///<param name = "t">Index by Time.</param>
-    ///<param name = "b">Index by Batch.</param>
-    internal long __unsafe_get_int64(int x = 0, int y = 0, int d = 0, int t = 0, int b = 0)
-    {
-        return this.__data_int64[((((y * this.__width) + x) * this.__depth + d) * this.__time + t) * this.__batch + b];
-    }
-
-    ///<summary>Gets the value of a 5-D Tensor without checking that the indices are out of the Tensor.</summary>
-    ///<param name = "x">Index by Width.</param>
-    ///<param name = "y">Index by Height.</param>
-    ///<param name = "d">Index by Channel.</param>
-    ///<param name = "t">Index by Time.</param>
-    ///<param name = "b">Index by Batch.</param>
-    internal bool __unsafe_get_bool(int x = 0, int y = 0, int d = 0, int t = 0, int b = 0)
-    {
-        return this.__data_bool[((((y * this.__width) + x) * this.__depth + d) * this.__time + t) * this.__batch + b];
-    }
-
-    //-> __unsafe_set*[x, y, d, t, b]
-
-    ///<summary>Sets the value of a 5-D Tensor without checking that the indices are out of the Tensor.</summary>
-    ///<param name = "x">Index by Width.</param>
-    ///<param name = "y">Index by Height.</param>
-    ///<param name = "d">Index by Channel.</param>
-    ///<param name = "t">Index by Time.</param>
-    ///<param name = "b">Index by Batch.</param>
-    ///<param name = "v">The new value of the Tensor element.</param>
-    internal void __unsafe_set_float16(Half v, int x = 0, int y = 0, int d = 0, int t = 0, int b = 0)
-    {
-        this.__data_float16[((((y * this.__width) + x) * this.__depth + d) * this.__time + t) * this.__batch + b] = v;
-    }
-
-    ///<summary>Sets the value of a 5-D Tensor without checking that the indices are out of the Tensor.</summary>
-    ///<param name = "x">Index by Width.</param>
-    ///<param name = "y">Index by Height.</param>
-    ///<param name = "d">Index by Channel.</param>
-    ///<param name = "t">Index by Time.</param>
-    ///<param name = "b">Index by Batch.</param>
-    ///<param name = "v">The new value of the Tensor element.</param>
-    internal void __unsafe_set_float32(float v, int x = 0, int y = 0, int d = 0, int t = 0, int b = 0)
-    {
-        this.__data_float32[((((y * this.__width) + x) * this.__depth + d) * this.__time + t) * this.__batch + b] = v;
-    }
-
-    ///<summary>Sets the value of a 5-D Tensor without checking that the indices are out of the Tensor.</summary>
-    ///<param name = "x">Index by Width.</param>
-    ///<param name = "y">Index by Height.</param>
-    ///<param name = "d">Index by Channel.</param>
-    ///<param name = "t">Index by Time.</param>
-    ///<param name = "b">Index by Batch.</param>
-    ///<param name = "v">The new value of the Tensor element.</param>
-    internal void __unsafe_set_float64(double v, int x = 0, int y = 0, int d = 0, int t = 0, int b = 0)
-    {
-        this.__data_float64[((((y * this.__width) + x) * this.__depth + d) * this.__time + t) * this.__batch + b] = v;
-    }
-
-    ///<summary>Sets the value of a 5-D Tensor without checking that the indices are out of the Tensor.</summary>
-    ///<param name = "x">Index by Width.</param>
-    ///<param name = "y">Index by Height.</param>
-    ///<param name = "d">Index by Channel.</param>
-    ///<param name = "t">Index by Time.</param>
-    ///<param name = "b">Index by Batch.</param>
-    ///<param name = "v">The new value of the Tensor element.</param>
-    internal void __unsafe_set_uint8(byte v, int x = 0, int y = 0, int d = 0, int t = 0, int b = 0)
-    {
-        this.__data_uint8[((((y * this.__width) + x) * this.__depth + d) * this.__time + t) * this.__batch + b] = v;
-    }
-
-    ///<summary>Sets the value of a 5-D Tensor without checking that the indices are out of the Tensor.</summary>
-    ///<param name = "x">Index by Width.</param>
-    ///<param name = "y">Index by Height.</param>
-    ///<param name = "d">Index by Channel.</param>
-    ///<param name = "t">Index by Time.</param>
-    ///<param name = "b">Index by Batch.</param>
-    ///<param name = "v">The new value of the Tensor element.</param>
-    internal void __unsafe_set_int8(sbyte v, int x = 0, int y = 0, int d = 0, int t = 0, int b = 0)
-    {
-        this.__data_int8[((((y * this.__width) + x) * this.__depth + d) * this.__time + t) * this.__batch + b] = v;
-    }
-
-    ///<summary>Sets the value of a 5-D Tensor without checking that the indices are out of the Tensor.</summary>
-    ///<param name = "x">Index by Width.</param>
-    ///<param name = "y">Index by Height.</param>
-    ///<param name = "d">Index by Channel.</param>
-    ///<param name = "t">Index by Time.</param>
-    ///<param name = "b">Index by Batch.</param>
-    ///<param name = "v">The new value of the Tensor element.</param>
-    internal void __unsafe_set_int16(short v, int x = 0, int y = 0, int d = 0, int t = 0, int b = 0)
-    {
-        this.__data_int16[((((y * this.__width) + x) * this.__depth + d) * this.__time + t) * this.__batch + b] = v;
-    }
-
-    ///<summary>Sets the value of a 5-D Tensor without checking that the indices are out of the Tensor.</summary>
-    ///<param name = "x">Index by Width.</param>
-    ///<param name = "y">Index by Height.</param>
-    ///<param name = "d">Index by Channel.</param>
-    ///<param name = "t">Index by Time.</param>
-    ///<param name = "b">Index by Batch.</param>
-    ///<param name = "v">The new value of the Tensor element.</param>
-    internal void __unsafe_set_int32(int v, int x = 0, int y = 0, int d = 0, int t = 0, int b = 0)
-    {
-        this.__data_int32[((((y * this.__width) + x) * this.__depth + d) * this.__time + t) * this.__batch + b] = v;
-    }
-
-    ///<summary>Sets the value of a 5-D Tensor without checking that the indices are out of the Tensor.</summary>
-    ///<param name = "x">Index by Width.</param>
-    ///<param name = "y">Index by Height.</param>
-    ///<param name = "d">Index by Channel.</param>
-    ///<param name = "t">Index by Time.</param>
-    ///<param name = "b">Index by Batch.</param>
-    ///<param name = "v">The new value of the Tensor element.</param>
-    internal void __unsafe_set_int64(long v, int x = 0, int y = 0, int d = 0, int t = 0, int b = 0)
-    {
-        this.__data_int64[((((y * this.__width) + x) * this.__depth + d) * this.__time + t) * this.__batch + b] = v;
-    }
-
-    ///<summary>Sets the value of a 5-D Tensor without checking that the indices are out of the Tensor.</summary>
-    ///<param name = "x">Index by Width.</param>
-    ///<param name = "y">Index by Height.</param>
-    ///<param name = "d">Index by Channel.</param>
-    ///<param name = "t">Index by Time.</param>
-    ///<param name = "b">Index by Batch.</param>
-    ///<param name = "v">The new value of the Tensor element.</param>
-    internal void __unsafe_set_bool(bool v, int x = 0, int y = 0, int d = 0, int t = 0, int b = 0)
-    {
-        this.__data_bool[((((y * this.__width) + x) * this.__depth + d) * this.__time + t) * this.__batch + b] = v;
-    }
-
-    //-> __unsafe_get_dw*[x, y, d, t, b]
-
-    ///<summary>Gets the gradient of a 5-D Tensor without checking that the indices are out of the Tensor.</summary>
-    ///<param name = "x">Index by Width.</param>
-    ///<param name = "y">Index by Height.</param>
-    ///<param name = "d">Index by Channel.</param>
-    ///<param name = "t">Index by Time.</param>
-    ///<param name = "b">Index by Batch.</param>
-    internal Half __unsafe_get_dw_float16(int x = 0, int y = 0, int d = 0, int t = 0, int b = 0)
-    {
-        return this.__grad_float16[((((y * this.__width) + x) * this.__depth + d) * this.__time + t) * this.__batch + b];
-    }
-
-    ///<summary>Gets the gradient of a 5-D Tensor without checking that the indices are out of the Tensor.</summary>
-    ///<param name = "x">Index by Width.</param>
-    ///<param name = "y">Index by Height.</param>
-    ///<param name = "d">Index by Channel.</param>
-    ///<param name = "t">Index by Time.</param>
-    ///<param name = "b">Index by Batch.</param>
-    internal float __unsafe_get_dw_float32(int x = 0, int y = 0, int d = 0, int t = 0, int b = 0)
-    {
-        return this.__grad_float32[((((y * this.__width) + x) * this.__depth + d) * this.__time + t) * this.__batch + b];
-    }
-
-    ///<summary>Gets the gradient of a 5-D Tensor without checking that the indices are out of the Tensor.</summary>
-    ///<param name = "x">Index by Width.</param>
-    ///<param name = "y">Index by Height.</param>
-    ///<param name = "d">Index by Channel.</param>
-    ///<param name = "t">Index by Time.</param>
-    ///<param name = "b">Index by Batch.</param>
-    internal double __unsafe_get_dw_float64(int x = 0, int y = 0, int d = 0, int t = 0, int b = 0)
-    {
-        return this.__grad_float64[((((y * this.__width) + x) * this.__depth + d) * this.__time + t) * this.__batch + b];
-    }
-
-    //-> __unsafe_set_dw*[x, y, d, t, b]
-
-    ///<summary>Sets the gradient of a 5-D Tensor without checking that the indices are out of the Tensor.</summary>
-    ///<param name = "x">Index by Width.</param>
-    ///<param name = "y">Index by Height.</param>
-    ///<param name = "d">Index by Channel.</param>
-    ///<param name = "t">Index by Time.</param>
-    ///<param name = "b">Index by Batch.</param>
-    ///<param name = "v">The new value of the Tensor element.</param>
-    internal void __unsafe_set_dw_float16(Half v, int x = 0, int y = 0, int d = 0, int t = 0, int b = 0)
-    {
-        this.__grad_float16[((((y * this.__width) + x) * this.__depth + d) * this.__time + t) * this.__batch + b] = v;
-    }
-
-    ///<summary>Sets the gradient of a 5-D Tensor without checking that the indices are out of the Tensor.</summary>
-    ///<param name = "x">Index by Width.</param>
-    ///<param name = "y">Index by Height.</param>
-    ///<param name = "d">Index by Channel.</param>
-    ///<param name = "t">Index by Time.</param>
-    ///<param name = "b">Index by Batch.</param>
-    ///<param name = "v">The new value of the Tensor element.</param>
-    internal void __unsafe_set_dw_float32(float v, int x = 0, int y = 0, int d = 0, int t = 0, int b = 0)
-    {
-        this.__grad_float32[((((y * this.__width) + x) * this.__depth + d) * this.__time + t) * this.__batch + b] = v;
-    }
-
-    ///<summary>Sets the gradient of a 5-D Tensor without checking that the indices are out of the Tensor.</summary>
-    ///<param name = "x">Index by Width.</param>
-    ///<param name = "y">Index by Height.</param>
-    ///<param name = "d">Index by Channel.</param>
-    ///<param name = "t">Index by Time.</param>
-    ///<param name = "b">Index by Batch.</param>
-    ///<param name = "v">The new value of the Tensor element.</param>
-    internal void __unsafe_set_dw_float64(double v, int x = 0, int y = 0, int d = 0, int t = 0, int b = 0)
-    {
-        this.__grad_float64[((((y * this.__width) + x) * this.__depth + d) * this.__time + t) * this.__batch + b] = v;
-    }
-
-    ///<summary>Gets the value of a 5-D Tensor without checking that the indices are out of the Tensor.</summary>
-    ///<param name = "data">Data array.</param>
-    ///<param name = "x">Index by Width.</param>
-    ///<param name = "y">Index by Height.</param>
-    ///<param name = "d">Index by Channel.</param>
-    ///<param name = "t">Index by Time.</param>
-    ///<param name = "b">Index by Batch.</param>
-    internal T __unsafe_get_value<T>(T[] data, int x = 0, int y = 0, int d = 0, int t = 0, int b = 0)
-    {
-        return data[((((y * this.__width) + x) * this.__depth + d) * this.__time + t) * this.__batch + b];
-    }
-
-    //-> __unsafe_add_dw*[x, y, d, t, b]
-
-    ///<summary>Adds the gradient of a 5-D Tensor without checking that the indices are out of the Tensor.</summary>
-    ///<param name = "x">Index by Width.</param>
-    ///<param name = "y">Index by Height.</param>
-    ///<param name = "d">Index by Channel.</param>
-    ///<param name = "t">Index by Time.</param>
-    ///<param name = "b">Index by Batch.</param>
-    ///<param name = "v">The new value of the Tensor element.</param>
-    internal void __unsafe_add_dw_float16(Half v, int x = 0, int y = 0, int d = 0, int t = 0, int b = 0)
-    {
-        this.__grad_float16[((((y * this.__width) + x) * this.__depth + d) * this.__time + t) * this.__batch + b] += v;
-    }
-
-    ///<summary>Adds the gradient of a 5-D Tensor without checking that the indices are out of the Tensor.</summary>
-    ///<param name = "x">Index by Width.</param>
-    ///<param name = "y">Index by Height.</param>
-    ///<param name = "d">Index by Channel.</param>
-    ///<param name = "t">Index by Time.</param>
-    ///<param name = "b">Index by Batch.</param>
-    ///<param name = "v">The new value of the Tensor element.</param>
-    internal void __unsafe_add_dw_float32(float v, int x = 0, int y = 0, int d = 0, int t = 0, int b = 0)
-    {
-        this.__grad_float32[((((y * this.__width) + x) * this.__depth + d) * this.__time + t) * this.__batch + b] += v;
-    }
-
-    ///<summary>Adds the gradient of a 5-D Tensor without checking that the indices are out of the Tensor.</summary>
-    ///<param name = "x">Index by Width.</param>
-    ///<param name = "y">Index by Height.</param>
-    ///<param name = "d">Index by Channel.</param>
-    ///<param name = "t">Index by Time.</param>
-    ///<param name = "b">Index by Batch.</param>
-    ///<param name = "v">The new value of the Tensor element.</param>
-    internal void __unsafe_add_dw_float64(double v, int x = 0, int y = 0, int d = 0, int t = 0, int b = 0)
-    {
-        this.__grad_float64[((((y * this.__width) + x) * this.__depth + d) * this.__time + t) * this.__batch + b] += v;
-    }
-
-    //------------------------------
-    //-> Initialization.
-    //------------------------------
-
-    ///<summary>Initializes the data storage.</summary>
-    private void __InitializeData()
-    {
-        switch(this.dtype)
+        ///<summary>Gets the value of a 5-D Tensor without checking that the indices are out of the Tensor.</summary>
+        ///<param name = "x">Index by Width.</param>
+        ///<param name = "y">Index by Height.</param>
+        ///<param name = "d">Index by Channel.</param>
+        ///<param name = "t">Index by Time.</param>
+        ///<param name = "b">Index by Batch.</param>
+        internal Half __unsafe_get_float16(int x = 0, int y = 0, int d = 0, int t = 0, int b = 0)
         {
-            case(torch.dtype.float16):
-            case(torch.dtype.half):
+            return this.__data_float16[((((y * this.__width) + x) * this.__depth + d) * this.__time + t) * this.__batch + b];
+        }
+
+        ///<summary>Gets the value of a 5-D Tensor without checking that the indices are out of the Tensor.</summary>
+        ///<param name = "x">Index by Width.</param>
+        ///<param name = "y">Index by Height.</param>
+        ///<param name = "d">Index by Channel.</param>
+        ///<param name = "t">Index by Time.</param>
+        ///<param name = "b">Index by Batch.</param>
+        internal float __unsafe_get_float32(int x = 0, int y = 0, int d = 0, int t = 0, int b = 0)
+        {
+            return this.__data_float32[((((y * this.__width) + x) * this.__depth + d) * this.__time + t) * this.__batch + b];
+        }
+
+        ///<summary>Gets the value of a 5-D Tensor without checking that the indices are out of the Tensor.</summary>
+        ///<param name = "x">Index by Width.</param>
+        ///<param name = "y">Index by Height.</param>
+        ///<param name = "d">Index by Channel.</param>
+        ///<param name = "t">Index by Time.</param>
+        ///<param name = "b">Index by Batch.</param>
+        internal double __unsafe_get_float64(int x = 0, int y = 0, int d = 0, int t = 0, int b = 0)
+        {
+            return this.__data_float64[((((y * this.__width) + x) * this.__depth + d) * this.__time + t) * this.__batch + b];
+        }
+
+        ///<summary>Gets the value of a 5-D Tensor without checking that the indices are out of the Tensor.</summary>
+        ///<param name = "x">Index by Width.</param>
+        ///<param name = "y">Index by Height.</param>
+        ///<param name = "d">Index by Channel.</param>
+        ///<param name = "t">Index by Time.</param>
+        ///<param name = "b">Index by Batch.</param>
+        internal byte __unsafe_get_uint8(int x = 0, int y = 0, int d = 0, int t = 0, int b = 0)
+        {
+            return this.__data_uint8[((((y * this.__width) + x) * this.__depth + d) * this.__time + t) * this.__batch + b];
+        }
+
+        ///<summary>Gets the value of a 5-D Tensor without checking that the indices are out of the Tensor.</summary>
+        ///<param name = "x">Index by Width.</param>
+        ///<param name = "y">Index by Height.</param>
+        ///<param name = "d">Index by Channel.</param>
+        ///<param name = "t">Index by Time.</param>
+        ///<param name = "b">Index by Batch.</param>
+        internal sbyte __unsafe_get_int8(int x = 0, int y = 0, int d = 0, int t = 0, int b = 0)
+        {
+            return this.__data_int8[((((y * this.__width) + x) * this.__depth + d) * this.__time + t) * this.__batch + b];
+        }
+
+        ///<summary>Gets the value of a 5-D Tensor without checking that the indices are out of the Tensor.</summary>
+        ///<param name = "x">Index by Width.</param>
+        ///<param name = "y">Index by Height.</param>
+        ///<param name = "d">Index by Channel.</param>
+        ///<param name = "t">Index by Time.</param>
+        ///<param name = "b">Index by Batch.</param>
+        internal short __unsafe_get_int16(int x = 0, int y = 0, int d = 0, int t = 0, int b = 0)
+        {
+            return this.__data_int16[((((y * this.__width) + x) * this.__depth + d) * this.__time + t) * this.__batch + b];
+        }
+
+        ///<summary>Gets the value of a 5-D Tensor without checking that the indices are out of the Tensor.</summary>
+        ///<param name = "x">Index by Width.</param>
+        ///<param name = "y">Index by Height.</param>
+        ///<param name = "d">Index by Channel.</param>
+        ///<param name = "t">Index by Time.</param>
+        ///<param name = "b">Index by Batch.</param>
+        internal int __unsafe_get_int32(int x = 0, int y = 0, int d = 0, int t = 0, int b = 0)
+        {
+            return this.__data_int32[((((y * this.__width) + x) * this.__depth + d) * this.__time + t) * this.__batch + b];
+        }
+
+        ///<summary>Gets the value of a 5-D Tensor without checking that the indices are out of the Tensor.</summary>
+        ///<param name = "x">Index by Width.</param>
+        ///<param name = "y">Index by Height.</param>
+        ///<param name = "d">Index by Channel.</param>
+        ///<param name = "t">Index by Time.</param>
+        ///<param name = "b">Index by Batch.</param>
+        internal long __unsafe_get_int64(int x = 0, int y = 0, int d = 0, int t = 0, int b = 0)
+        {
+            return this.__data_int64[((((y * this.__width) + x) * this.__depth + d) * this.__time + t) * this.__batch + b];
+        }
+
+        ///<summary>Gets the value of a 5-D Tensor without checking that the indices are out of the Tensor.</summary>
+        ///<param name = "x">Index by Width.</param>
+        ///<param name = "y">Index by Height.</param>
+        ///<param name = "d">Index by Channel.</param>
+        ///<param name = "t">Index by Time.</param>
+        ///<param name = "b">Index by Batch.</param>
+        internal bool __unsafe_get_bool(int x = 0, int y = 0, int d = 0, int t = 0, int b = 0)
+        {
+            return this.__data_bool[((((y * this.__width) + x) * this.__depth + d) * this.__time + t) * this.__batch + b];
+        }
+
+        //-> __unsafe_set*[x, y, d, t, b]
+
+        ///<summary>Sets the value of a 5-D Tensor without checking that the indices are out of the Tensor.</summary>
+        ///<param name = "x">Index by Width.</param>
+        ///<param name = "y">Index by Height.</param>
+        ///<param name = "d">Index by Channel.</param>
+        ///<param name = "t">Index by Time.</param>
+        ///<param name = "b">Index by Batch.</param>
+        ///<param name = "v">The new value of the Tensor element.</param>
+        internal void __unsafe_set_float16(Half v, int x = 0, int y = 0, int d = 0, int t = 0, int b = 0)
+        {
+            this.__data_float16[((((y * this.__width) + x) * this.__depth + d) * this.__time + t) * this.__batch + b] = v;
+        }
+
+        ///<summary>Sets the value of a 5-D Tensor without checking that the indices are out of the Tensor.</summary>
+        ///<param name = "x">Index by Width.</param>
+        ///<param name = "y">Index by Height.</param>
+        ///<param name = "d">Index by Channel.</param>
+        ///<param name = "t">Index by Time.</param>
+        ///<param name = "b">Index by Batch.</param>
+        ///<param name = "v">The new value of the Tensor element.</param>
+        internal void __unsafe_set_float32(float v, int x = 0, int y = 0, int d = 0, int t = 0, int b = 0)
+        {
+            this.__data_float32[((((y * this.__width) + x) * this.__depth + d) * this.__time + t) * this.__batch + b] = v;
+        }
+
+        ///<summary>Sets the value of a 5-D Tensor without checking that the indices are out of the Tensor.</summary>
+        ///<param name = "x">Index by Width.</param>
+        ///<param name = "y">Index by Height.</param>
+        ///<param name = "d">Index by Channel.</param>
+        ///<param name = "t">Index by Time.</param>
+        ///<param name = "b">Index by Batch.</param>
+        ///<param name = "v">The new value of the Tensor element.</param>
+        internal void __unsafe_set_float64(double v, int x = 0, int y = 0, int d = 0, int t = 0, int b = 0)
+        {
+            this.__data_float64[((((y * this.__width) + x) * this.__depth + d) * this.__time + t) * this.__batch + b] = v;
+        }
+
+        ///<summary>Sets the value of a 5-D Tensor without checking that the indices are out of the Tensor.</summary>
+        ///<param name = "x">Index by Width.</param>
+        ///<param name = "y">Index by Height.</param>
+        ///<param name = "d">Index by Channel.</param>
+        ///<param name = "t">Index by Time.</param>
+        ///<param name = "b">Index by Batch.</param>
+        ///<param name = "v">The new value of the Tensor element.</param>
+        internal void __unsafe_set_uint8(byte v, int x = 0, int y = 0, int d = 0, int t = 0, int b = 0)
+        {
+            this.__data_uint8[((((y * this.__width) + x) * this.__depth + d) * this.__time + t) * this.__batch + b] = v;
+        }
+
+        ///<summary>Sets the value of a 5-D Tensor without checking that the indices are out of the Tensor.</summary>
+        ///<param name = "x">Index by Width.</param>
+        ///<param name = "y">Index by Height.</param>
+        ///<param name = "d">Index by Channel.</param>
+        ///<param name = "t">Index by Time.</param>
+        ///<param name = "b">Index by Batch.</param>
+        ///<param name = "v">The new value of the Tensor element.</param>
+        internal void __unsafe_set_int8(sbyte v, int x = 0, int y = 0, int d = 0, int t = 0, int b = 0)
+        {
+            this.__data_int8[((((y * this.__width) + x) * this.__depth + d) * this.__time + t) * this.__batch + b] = v;
+        }
+
+        ///<summary>Sets the value of a 5-D Tensor without checking that the indices are out of the Tensor.</summary>
+        ///<param name = "x">Index by Width.</param>
+        ///<param name = "y">Index by Height.</param>
+        ///<param name = "d">Index by Channel.</param>
+        ///<param name = "t">Index by Time.</param>
+        ///<param name = "b">Index by Batch.</param>
+        ///<param name = "v">The new value of the Tensor element.</param>
+        internal void __unsafe_set_int16(short v, int x = 0, int y = 0, int d = 0, int t = 0, int b = 0)
+        {
+            this.__data_int16[((((y * this.__width) + x) * this.__depth + d) * this.__time + t) * this.__batch + b] = v;
+        }
+
+        ///<summary>Sets the value of a 5-D Tensor without checking that the indices are out of the Tensor.</summary>
+        ///<param name = "x">Index by Width.</param>
+        ///<param name = "y">Index by Height.</param>
+        ///<param name = "d">Index by Channel.</param>
+        ///<param name = "t">Index by Time.</param>
+        ///<param name = "b">Index by Batch.</param>
+        ///<param name = "v">The new value of the Tensor element.</param>
+        internal void __unsafe_set_int32(int v, int x = 0, int y = 0, int d = 0, int t = 0, int b = 0)
+        {
+            this.__data_int32[((((y * this.__width) + x) * this.__depth + d) * this.__time + t) * this.__batch + b] = v;
+        }
+
+        ///<summary>Sets the value of a 5-D Tensor without checking that the indices are out of the Tensor.</summary>
+        ///<param name = "x">Index by Width.</param>
+        ///<param name = "y">Index by Height.</param>
+        ///<param name = "d">Index by Channel.</param>
+        ///<param name = "t">Index by Time.</param>
+        ///<param name = "b">Index by Batch.</param>
+        ///<param name = "v">The new value of the Tensor element.</param>
+        internal void __unsafe_set_int64(long v, int x = 0, int y = 0, int d = 0, int t = 0, int b = 0)
+        {
+            this.__data_int64[((((y * this.__width) + x) * this.__depth + d) * this.__time + t) * this.__batch + b] = v;
+        }
+
+        ///<summary>Sets the value of a 5-D Tensor without checking that the indices are out of the Tensor.</summary>
+        ///<param name = "x">Index by Width.</param>
+        ///<param name = "y">Index by Height.</param>
+        ///<param name = "d">Index by Channel.</param>
+        ///<param name = "t">Index by Time.</param>
+        ///<param name = "b">Index by Batch.</param>
+        ///<param name = "v">The new value of the Tensor element.</param>
+        internal void __unsafe_set_bool(bool v, int x = 0, int y = 0, int d = 0, int t = 0, int b = 0)
+        {
+            this.__data_bool[((((y * this.__width) + x) * this.__depth + d) * this.__time + t) * this.__batch + b] = v;
+        }
+
+        //-> __unsafe_get_dw*[x, y, d, t, b]
+
+        ///<summary>Gets the gradient of a 5-D Tensor without checking that the indices are out of the Tensor.</summary>
+        ///<param name = "x">Index by Width.</param>
+        ///<param name = "y">Index by Height.</param>
+        ///<param name = "d">Index by Channel.</param>
+        ///<param name = "t">Index by Time.</param>
+        ///<param name = "b">Index by Batch.</param>
+        internal Half __unsafe_get_dw_float16(int x = 0, int y = 0, int d = 0, int t = 0, int b = 0)
+        {
+            return this.__grad_float16[((((y * this.__width) + x) * this.__depth + d) * this.__time + t) * this.__batch + b];
+        }
+
+        ///<summary>Gets the gradient of a 5-D Tensor without checking that the indices are out of the Tensor.</summary>
+        ///<param name = "x">Index by Width.</param>
+        ///<param name = "y">Index by Height.</param>
+        ///<param name = "d">Index by Channel.</param>
+        ///<param name = "t">Index by Time.</param>
+        ///<param name = "b">Index by Batch.</param>
+        internal float __unsafe_get_dw_float32(int x = 0, int y = 0, int d = 0, int t = 0, int b = 0)
+        {
+            return this.__grad_float32[((((y * this.__width) + x) * this.__depth + d) * this.__time + t) * this.__batch + b];
+        }
+
+        ///<summary>Gets the gradient of a 5-D Tensor without checking that the indices are out of the Tensor.</summary>
+        ///<param name = "x">Index by Width.</param>
+        ///<param name = "y">Index by Height.</param>
+        ///<param name = "d">Index by Channel.</param>
+        ///<param name = "t">Index by Time.</param>
+        ///<param name = "b">Index by Batch.</param>
+        internal double __unsafe_get_dw_float64(int x = 0, int y = 0, int d = 0, int t = 0, int b = 0)
+        {
+            return this.__grad_float64[((((y * this.__width) + x) * this.__depth + d) * this.__time + t) * this.__batch + b];
+        }
+
+        //-> __unsafe_set_dw*[x, y, d, t, b]
+
+        ///<summary>Sets the gradient of a 5-D Tensor without checking that the indices are out of the Tensor.</summary>
+        ///<param name = "x">Index by Width.</param>
+        ///<param name = "y">Index by Height.</param>
+        ///<param name = "d">Index by Channel.</param>
+        ///<param name = "t">Index by Time.</param>
+        ///<param name = "b">Index by Batch.</param>
+        ///<param name = "v">The new value of the Tensor element.</param>
+        internal void __unsafe_set_dw_float16(Half v, int x = 0, int y = 0, int d = 0, int t = 0, int b = 0)
+        {
+            this.__grad_float16[((((y * this.__width) + x) * this.__depth + d) * this.__time + t) * this.__batch + b] = v;
+        }
+
+        ///<summary>Sets the gradient of a 5-D Tensor without checking that the indices are out of the Tensor.</summary>
+        ///<param name = "x">Index by Width.</param>
+        ///<param name = "y">Index by Height.</param>
+        ///<param name = "d">Index by Channel.</param>
+        ///<param name = "t">Index by Time.</param>
+        ///<param name = "b">Index by Batch.</param>
+        ///<param name = "v">The new value of the Tensor element.</param>
+        internal void __unsafe_set_dw_float32(float v, int x = 0, int y = 0, int d = 0, int t = 0, int b = 0)
+        {
+            this.__grad_float32[((((y * this.__width) + x) * this.__depth + d) * this.__time + t) * this.__batch + b] = v;
+        }
+
+        ///<summary>Sets the gradient of a 5-D Tensor without checking that the indices are out of the Tensor.</summary>
+        ///<param name = "x">Index by Width.</param>
+        ///<param name = "y">Index by Height.</param>
+        ///<param name = "d">Index by Channel.</param>
+        ///<param name = "t">Index by Time.</param>
+        ///<param name = "b">Index by Batch.</param>
+        ///<param name = "v">The new value of the Tensor element.</param>
+        internal void __unsafe_set_dw_float64(double v, int x = 0, int y = 0, int d = 0, int t = 0, int b = 0)
+        {
+            this.__grad_float64[((((y * this.__width) + x) * this.__depth + d) * this.__time + t) * this.__batch + b] = v;
+        }
+
+        ///<summary>Gets the value of a 5-D Tensor without checking that the indices are out of the Tensor.</summary>
+        ///<param name = "data">Data array.</param>
+        ///<param name = "x">Index by Width.</param>
+        ///<param name = "y">Index by Height.</param>
+        ///<param name = "d">Index by Channel.</param>
+        ///<param name = "t">Index by Time.</param>
+        ///<param name = "b">Index by Batch.</param>
+        internal T __unsafe_get_value<T>(T[] data, int x = 0, int y = 0, int d = 0, int t = 0, int b = 0)
+        {
+            return data[((((y * this.__width) + x) * this.__depth + d) * this.__time + t) * this.__batch + b];
+        }
+
+        //-> __unsafe_add_dw*[x, y, d, t, b]
+
+        ///<summary>Adds the gradient of a 5-D Tensor without checking that the indices are out of the Tensor.</summary>
+        ///<param name = "x">Index by Width.</param>
+        ///<param name = "y">Index by Height.</param>
+        ///<param name = "d">Index by Channel.</param>
+        ///<param name = "t">Index by Time.</param>
+        ///<param name = "b">Index by Batch.</param>
+        ///<param name = "v">The new value of the Tensor element.</param>
+        internal void __unsafe_add_dw_float16(Half v, int x = 0, int y = 0, int d = 0, int t = 0, int b = 0)
+        {
+            this.__grad_float16[((((y * this.__width) + x) * this.__depth + d) * this.__time + t) * this.__batch + b] += v;
+        }
+
+        ///<summary>Adds the gradient of a 5-D Tensor without checking that the indices are out of the Tensor.</summary>
+        ///<param name = "x">Index by Width.</param>
+        ///<param name = "y">Index by Height.</param>
+        ///<param name = "d">Index by Channel.</param>
+        ///<param name = "t">Index by Time.</param>
+        ///<param name = "b">Index by Batch.</param>
+        ///<param name = "v">The new value of the Tensor element.</param>
+        internal void __unsafe_add_dw_float32(float v, int x = 0, int y = 0, int d = 0, int t = 0, int b = 0)
+        {
+            this.__grad_float32[((((y * this.__width) + x) * this.__depth + d) * this.__time + t) * this.__batch + b] += v;
+        }
+
+        ///<summary>Adds the gradient of a 5-D Tensor without checking that the indices are out of the Tensor.</summary>
+        ///<param name = "x">Index by Width.</param>
+        ///<param name = "y">Index by Height.</param>
+        ///<param name = "d">Index by Channel.</param>
+        ///<param name = "t">Index by Time.</param>
+        ///<param name = "b">Index by Batch.</param>
+        ///<param name = "v">The new value of the Tensor element.</param>
+        internal void __unsafe_add_dw_float64(double v, int x = 0, int y = 0, int d = 0, int t = 0, int b = 0)
+        {
+            this.__grad_float64[((((y * this.__width) + x) * this.__depth + d) * this.__time + t) * this.__batch + b] += v;
+        }
+
+        //------------------------------
+        //-> Initialization.
+        //------------------------------
+
+        ///<summary>Initializes the data storage.</summary>
+        private void __InitializeData()
+        {
+            switch(this.dtype)
             {
-                this.__data_float16 = new Half[this.__width * this.__height * this.__depth * this.__time * this.__batch];
-                break;
-            }
-            case(torch.dtype.float32):
-            case(torch.dtype.@float):
-            {
-                this.__data_float32 = new float[this.__width * this.__height * this.__depth * this.__time * this.__batch];
-                break;
-            }
-            case(torch.dtype.float64):
-            case(torch.dtype.@double):
-            {
-                this.__data_float64 = new double[this.__width * this.__height * this.__depth * this.__time * this.__batch];
-                break;
-            }
-            case(torch.dtype.uint8):
-            {
-                this.__data_uint8 = new byte[this.__width * this.__height * this.__depth * this.__time * this.__batch];
-                break;
-            }
-            case(torch.dtype.int8):
-            {
-                this.__data_int8 = new sbyte[this.__width * this.__height * this.__depth * this.__time * this.__batch];
-                break;
-            }
-            case(torch.dtype.int16):
-            case(torch.dtype.@short):
-            {
-                this.__data_int16 = new short[this.__width * this.__height * this.__depth * this.__time * this.__batch];
-                break;
-            }
-            case(torch.dtype.int32):
-            case(torch.dtype.@int):
-            {
-                this.__data_int32 = new int[this.__width * this.__height * this.__depth * this.__time * this.__batch];
-                break;
-            }
-            case(torch.dtype.int64):
-            case(torch.dtype.@long):
-            {
-                this.__data_int64 = new long[this.__width * this.__height * this.__depth * this.__time * this.__batch];
-                break;
-            }
-            case(torch.dtype.@bool):
-            {
-                this.__data_bool = new bool[this.__width * this.__height * this.__depth * this.__time * this.__batch];
-                break;
+                case(torch.dtype.float16):
+                case(torch.dtype.half):
+                {
+                    this.__data_float16 = new Half[this.__width * this.__height * this.__depth * this.__time * this.__batch];
+                    break;
+                }
+                case(torch.dtype.float32):
+                case(torch.dtype.@float):
+                {
+                    this.__data_float32 = new float[this.__width * this.__height * this.__depth * this.__time * this.__batch];
+                    break;
+                }
+                case(torch.dtype.float64):
+                case(torch.dtype.@double):
+                {
+                    this.__data_float64 = new double[this.__width * this.__height * this.__depth * this.__time * this.__batch];
+                    break;
+                }
+                case(torch.dtype.uint8):
+                {
+                    this.__data_uint8 = new byte[this.__width * this.__height * this.__depth * this.__time * this.__batch];
+                    break;
+                }
+                case(torch.dtype.int8):
+                {
+                    this.__data_int8 = new sbyte[this.__width * this.__height * this.__depth * this.__time * this.__batch];
+                    break;
+                }
+                case(torch.dtype.int16):
+                case(torch.dtype.@short):
+                {
+                    this.__data_int16 = new short[this.__width * this.__height * this.__depth * this.__time * this.__batch];
+                    break;
+                }
+                case(torch.dtype.int32):
+                case(torch.dtype.@int):
+                {
+                    this.__data_int32 = new int[this.__width * this.__height * this.__depth * this.__time * this.__batch];
+                    break;
+                }
+                case(torch.dtype.int64):
+                case(torch.dtype.@long):
+                {
+                    this.__data_int64 = new long[this.__width * this.__height * this.__depth * this.__time * this.__batch];
+                    break;
+                }
+                case(torch.dtype.@bool):
+                {
+                    this.__data_bool = new bool[this.__width * this.__height * this.__depth * this.__time * this.__batch];
+                    break;
+                }
             }
         }
-    }
 
-    ///<summary>Initializes the grad storage.</summary>
-    private void __InitializeGrad()
-    {
-        switch(this.dtype)
+        ///<summary>Initializes the grad storage.</summary>
+        private void __InitializeGrad()
         {
-            case(torch.dtype.float16):
-            case(torch.dtype.half):
+            switch(this.dtype)
             {
-                this.__grad_float16 = new Half[this.__width * this.__height * this.__depth * this.__time * this.__batch];
-                break;
-            }
-            case(torch.dtype.float32):
-            case(torch.dtype.@float):
-            {
-                this.__grad_float32 = new float[this.__width * this.__height * this.__depth * this.__time * this.__batch];
-                break;
-            }
-            case(torch.dtype.float64):
-            case(torch.dtype.@double):
-            {
-                this.__grad_float64 = new double[this.__width * this.__height * this.__depth * this.__time * this.__batch];
-                break;
+                case(torch.dtype.float16):
+                case(torch.dtype.half):
+                {
+                    this.__grad_float16 = new Half[this.__width * this.__height * this.__depth * this.__time * this.__batch];
+                    break;
+                }
+                case(torch.dtype.float32):
+                case(torch.dtype.@float):
+                {
+                    this.__grad_float32 = new float[this.__width * this.__height * this.__depth * this.__time * this.__batch];
+                    break;
+                }
+                case(torch.dtype.float64):
+                case(torch.dtype.@double):
+                {
+                    this.__grad_float64 = new double[this.__width * this.__height * this.__depth * this.__time * this.__batch];
+                    break;
+                }
             }
         }
-    }
 
-    ///<summary>Throws an exception if the specified tensor size is invalid.</summary>
-    ///<param name = "width">The width of the tensor (5-dim).</param>
-    ///<param name = "height">The height of the tensor (5-dim).</param>
-    ///<param name = "depth">The depth of the tensor (5-dim).</param>
-    ///<param name = "time">The number of times in the tensor (video) (5-dim).</param>
-    ///<param name = "batch">The batch size of the tensor (5-dim).</param>
-    private void __RaiseIfDimensionIsInvalid(int width = 1, int height = 1, int depth = 1, int time = 1, int batch = 1)
-    {
-        if(width <= 0)
+        ///<summary>Throws an exception if the specified tensor size is invalid.</summary>
+        ///<param name = "width">The width of the tensor (5-dim).</param>
+        ///<param name = "height">The height of the tensor (5-dim).</param>
+        ///<param name = "depth">The depth of the tensor (5-dim).</param>
+        ///<param name = "time">The number of times in the tensor (video) (5-dim).</param>
+        ///<param name = "batch">The batch size of the tensor (5-dim).</param>
+        private void __RaiseIfDimensionIsInvalid(int width = 1, int height = 1, int depth = 1, int time = 1, int batch = 1)
         {
-            throw new torch.TorchException("The width of the tensor must be positive and greater than 0.");
+            if(width <= 0)
+            {
+                throw new torch.TorchException("The width of the tensor must be positive and greater than 0.");
+            }
+            if(height <= 0)
+            {
+                throw new torch.TorchException("The height of the tensor must be positive and greater than 0.");
+            }
+            if(depth <= 0)
+            {
+                throw new torch.TorchException("The depth of the tensor must be positive and greater than 0.");
+            }
+            if(time <= 0)
+            {
+                throw new torch.TorchException("The number of times of the tensor must be positive and greater than 0.");
+            }
+            if(batch <= 0)
+            {
+                throw new torch.TorchException("The batch size of the tensor must be positive and greater than 0.");
+            }
         }
-        if(height <= 0)
-        {
-            throw new torch.TorchException("The height of the tensor must be positive and greater than 0.");
-        }
-        if(depth <= 0)
-        {
-            throw new torch.TorchException("The depth of the tensor must be positive and greater than 0.");
-        }
-        if(time <= 0)
-        {
-            throw new torch.TorchException("The number of times of the tensor must be positive and greater than 0.");
-        }
-        if(batch <= 0)
-        {
-            throw new torch.TorchException("The batch size of the tensor must be positive and greater than 0.");
-        }
-    }
 
-    private static void __convert<I, D>(ref I input, ref D output)
-    {
-        if(input is Half)
+        private static void __convert<I, D>(ref I input, ref D output)
         {
-            if(output is Half)
+            if(input is Half)
             {
-                output = (D)(object)(Half)(object)input;
+                if(output is Half)
+                {
+                    output = (D)(object)(Half)(object)input;
+                }
+                if(output is float)
+                {
+                    output = (D)(object)(float)(Half)(object)input;
+                }
+                if(output is double)
+                {
+                    output = (D)(object)(double)(Half)(object)input;
+                }
+                if(output is byte)
+                {
+                    output = (D)(object)(byte)(Half)(object)input;
+                }
+                if(output is sbyte)
+                {
+                    output = (D)(object)(sbyte)(Half)(object)input;
+                }
+                if(output is short)
+                {
+                    output = (D)(object)(short)(Half)(object)input;
+                }
+                if(output is int)
+                {
+                    output = (D)(object)(int)(Half)(object)input;
+                }
+                if(output is long)
+                {
+                    output = (D)(object)(long)(Half)(object)input;
+                }
             }
-            if(output is float)
+            if(input is float)
             {
-                output = (D)(object)(float)(Half)(object)input;
+                if(output is Half)
+                {
+                    output = (D)(object)(Half)(float)(object)input;
+                }
+                if(output is float)
+                {
+                    output = (D)(object)(float)(object)input;
+                }
+                if(output is double)
+                {
+                    output = (D)(object)(double)(float)(object)input;
+                }
+                if(output is byte)
+                {
+                    output = (D)(object)(byte)(float)(object)input;
+                }
+                if(output is sbyte)
+                {
+                    output = (D)(object)(sbyte)(float)(object)input;
+                }
+                if(output is short)
+                {
+                    output = (D)(object)(short)(float)(object)input;
+                }
+                if(output is int)
+                {
+                    output = (D)(object)(int)(float)(object)input;
+                }
+                if(output is long)
+                {
+                    output = (D)(object)(long)(float)(object)input;
+                }
             }
-            if(output is double)
+            if(input is double)
             {
-                output = (D)(object)(double)(Half)(object)input;
+                if(output is Half)
+                {
+                    output = (D)(object)(Half)(double)(object)input;
+                }
+                if(output is float)
+                {
+                    output = (D)(object)(float)(double)(object)input;
+                }
+                if(output is double)
+                {
+                    output = (D)(object)(double)(object)input;
+                }
+                if(output is byte)
+                {
+                    output = (D)(object)(byte)(double)(object)input;
+                }
+                if(output is sbyte)
+                {
+                    output = (D)(object)(sbyte)(double)(object)input;
+                }
+                if(output is short)
+                {
+                    output = (D)(object)(short)(double)(object)input;
+                }
+                if(output is int)
+                {
+                    output = (D)(object)(int)(double)(object)input;
+                }
+                if(output is long)
+                {
+                    output = (D)(object)(long)(double)(object)input;
+                }
             }
-            if(output is byte)
+            if(input is byte)
             {
-                output = (D)(object)(byte)(Half)(object)input;
+                if(output is Half)
+                {
+                    output = (D)(object)(Half)(byte)(object)input;
+                }
+                if(output is float)
+                {
+                    output = (D)(object)(float)(byte)(object)input;
+                }
+                if(output is double)
+                {
+                    output = (D)(object)(double)(byte)(object)input;
+                }
+                if(output is byte)
+                {
+                    output = (D)(object)(byte)(object)input;
+                }
+                if(output is sbyte)
+                {
+                    output = (D)(object)(sbyte)(byte)(object)input;
+                }
+                if(output is short)
+                {
+                    output = (D)(object)(short)(byte)(object)input;
+                }
+                if(output is int)
+                {
+                    output = (D)(object)(int)(byte)(object)input;
+                }
+                if(output is long)
+                {
+                    output = (D)(object)(long)(byte)(object)input;
+                }
             }
-            if(output is sbyte)
+            if(input is sbyte)
             {
-                output = (D)(object)(sbyte)(Half)(object)input;
+                if(output is Half)
+                {
+                    output = (D)(object)(Half)(sbyte)(object)input;
+                }
+                if(output is float)
+                {
+                    output = (D)(object)(float)(sbyte)(object)input;
+                }
+                if(output is double)
+                {
+                    output = (D)(object)(double)(sbyte)(object)input;
+                }
+                if(output is byte)
+                {
+                    output = (D)(object)(byte)(sbyte)(object)input;
+                }
+                if(output is sbyte)
+                {
+                    output = (D)(object)(sbyte)(object)input;
+                }
+                if(output is short)
+                {
+                    output = (D)(object)(short)(sbyte)(object)input;
+                }
+                if(output is int)
+                {
+                    output = (D)(object)(int)(sbyte)(object)input;
+                }
+                if(output is long)
+                {
+                    output = (D)(object)(long)(sbyte)(object)input;
+                }
             }
-            if(output is short)
+            if(input is short)
             {
-                output = (D)(object)(short)(Half)(object)input;
+                if(output is Half)
+                {
+                    output = (D)(object)(Half)(short)(object)input;
+                }
+                if(output is float)
+                {
+                    output = (D)(object)(float)(short)(object)input;
+                }
+                if(output is double)
+                {
+                    output = (D)(object)(double)(short)(object)input;
+                }
+                if(output is byte)
+                {
+                    output = (D)(object)(byte)(short)(object)input;
+                }
+                if(output is sbyte)
+                {
+                    output = (D)(object)(sbyte)(short)(object)input;
+                }
+                if(output is short)
+                {
+                    output = (D)(object)(short)(object)input;
+                }
+                if(output is int)
+                {
+                    output = (D)(object)(int)(short)(object)input;
+                }
+                if(output is long)
+                {
+                    output = (D)(object)(long)(short)(object)input;
+                }
             }
-            if(output is int)
+            if(input is int)
             {
-                output = (D)(object)(int)(Half)(object)input;
+                if(output is Half)
+                {
+                    output = (D)(object)(Half)(int)(object)input;
+                }
+                if(output is float)
+                {
+                    output = (D)(object)(float)(int)(object)input;
+                }
+                if(output is double)
+                {
+                    output = (D)(object)(double)(int)(object)input;
+                }
+                if(output is byte)
+                {
+                    output = (D)(object)(byte)(int)(object)input;
+                }
+                if(output is sbyte)
+                {
+                    output = (D)(object)(sbyte)(int)(object)input;
+                }
+                if(output is short)
+                {
+                    output = (D)(object)(short)(int)(object)input;
+                }
+                if(output is int)
+                {
+                    output = (D)(object)(int)(object)input;
+                }
+                if(output is long)
+                {
+                    output = (D)(object)(long)(int)(object)input;
+                }
             }
-            if(output is long)
+            if(input is long)
             {
-                output = (D)(object)(long)(Half)(object)input;
+                if(output is Half)
+                {
+                    output = (D)(object)(Half)(long)(object)input;
+                }
+                if(output is float)
+                {
+                    output = (D)(object)(float)(long)(object)input;
+                }
+                if(output is double)
+                {
+                    output = (D)(object)(double)(long)(object)input;
+                }
+                if(output is byte)
+                {
+                    output = (D)(object)(byte)(long)(object)input;
+                }
+                if(output is sbyte)
+                {
+                    output = (D)(object)(sbyte)(long)(object)input;
+                }
+                if(output is short)
+                {
+                    output = (D)(object)(short)(long)(object)input;
+                }
+                if(output is int)
+                {
+                    output = (D)(object)(int)(long)(object)input;
+                }
+                if(output is long)
+                {
+                    output = (D)(object)(long)(object)input;
+                }
+            }
+            if((input is bool) && (output is bool))
+            {
+                output = (D)(object)input;
             }
         }
-        if(input is float)
-        {
-            if(output is Half)
-            {
-                output = (D)(object)(Half)(float)(object)input;
-            }
-            if(output is float)
-            {
-                output = (D)(object)(float)(object)input;
-            }
-            if(output is double)
-            {
-                output = (D)(object)(double)(float)(object)input;
-            }
-            if(output is byte)
-            {
-                output = (D)(object)(byte)(float)(object)input;
-            }
-            if(output is sbyte)
-            {
-                output = (D)(object)(sbyte)(float)(object)input;
-            }
-            if(output is short)
-            {
-                output = (D)(object)(short)(float)(object)input;
-            }
-            if(output is int)
-            {
-                output = (D)(object)(int)(float)(object)input;
-            }
-            if(output is long)
-            {
-                output = (D)(object)(long)(float)(object)input;
-            }
-        }
-        if(input is double)
-        {
-            if(output is Half)
-            {
-                output = (D)(object)(Half)(double)(object)input;
-            }
-            if(output is float)
-            {
-                output = (D)(object)(float)(double)(object)input;
-            }
-            if(output is double)
-            {
-                output = (D)(object)(double)(object)input;
-            }
-            if(output is byte)
-            {
-                output = (D)(object)(byte)(double)(object)input;
-            }
-            if(output is sbyte)
-            {
-                output = (D)(object)(sbyte)(double)(object)input;
-            }
-            if(output is short)
-            {
-                output = (D)(object)(short)(double)(object)input;
-            }
-            if(output is int)
-            {
-                output = (D)(object)(int)(double)(object)input;
-            }
-            if(output is long)
-            {
-                output = (D)(object)(long)(double)(object)input;
-            }
-        }
-        if(input is byte)
-        {
-            if(output is Half)
-            {
-                output = (D)(object)(Half)(byte)(object)input;
-            }
-            if(output is float)
-            {
-                output = (D)(object)(float)(byte)(object)input;
-            }
-            if(output is double)
-            {
-                output = (D)(object)(double)(byte)(object)input;
-            }
-            if(output is byte)
-            {
-                output = (D)(object)(byte)(object)input;
-            }
-            if(output is sbyte)
-            {
-                output = (D)(object)(sbyte)(byte)(object)input;
-            }
-            if(output is short)
-            {
-                output = (D)(object)(short)(byte)(object)input;
-            }
-            if(output is int)
-            {
-                output = (D)(object)(int)(byte)(object)input;
-            }
-            if(output is long)
-            {
-                output = (D)(object)(long)(byte)(object)input;
-            }
-        }
-        if(input is sbyte)
-        {
-            if(output is Half)
-            {
-                output = (D)(object)(Half)(sbyte)(object)input;
-            }
-            if(output is float)
-            {
-                output = (D)(object)(float)(sbyte)(object)input;
-            }
-            if(output is double)
-            {
-                output = (D)(object)(double)(sbyte)(object)input;
-            }
-            if(output is byte)
-            {
-                output = (D)(object)(byte)(sbyte)(object)input;
-            }
-            if(output is sbyte)
-            {
-                output = (D)(object)(sbyte)(object)input;
-            }
-            if(output is short)
-            {
-                output = (D)(object)(short)(sbyte)(object)input;
-            }
-            if(output is int)
-            {
-                output = (D)(object)(int)(sbyte)(object)input;
-            }
-            if(output is long)
-            {
-                output = (D)(object)(long)(sbyte)(object)input;
-            }
-        }
-        if(input is short)
-        {
-            if(output is Half)
-            {
-                output = (D)(object)(Half)(short)(object)input;
-            }
-            if(output is float)
-            {
-                output = (D)(object)(float)(short)(object)input;
-            }
-            if(output is double)
-            {
-                output = (D)(object)(double)(short)(object)input;
-            }
-            if(output is byte)
-            {
-                output = (D)(object)(byte)(short)(object)input;
-            }
-            if(output is sbyte)
-            {
-                output = (D)(object)(sbyte)(short)(object)input;
-            }
-            if(output is short)
-            {
-                output = (D)(object)(short)(object)input;
-            }
-            if(output is int)
-            {
-                output = (D)(object)(int)(short)(object)input;
-            }
-            if(output is long)
-            {
-                output = (D)(object)(long)(short)(object)input;
-            }
-        }
-        if(input is int)
-        {
-            if(output is Half)
-            {
-                output = (D)(object)(Half)(int)(object)input;
-            }
-            if(output is float)
-            {
-                output = (D)(object)(float)(int)(object)input;
-            }
-            if(output is double)
-            {
-                output = (D)(object)(double)(int)(object)input;
-            }
-            if(output is byte)
-            {
-                output = (D)(object)(byte)(int)(object)input;
-            }
-            if(output is sbyte)
-            {
-                output = (D)(object)(sbyte)(int)(object)input;
-            }
-            if(output is short)
-            {
-                output = (D)(object)(short)(int)(object)input;
-            }
-            if(output is int)
-            {
-                output = (D)(object)(int)(object)input;
-            }
-            if(output is long)
-            {
-                output = (D)(object)(long)(int)(object)input;
-            }
-        }
-        if(input is long)
-        {
-            if(output is Half)
-            {
-                output = (D)(object)(Half)(long)(object)input;
-            }
-            if(output is float)
-            {
-                output = (D)(object)(float)(long)(object)input;
-            }
-            if(output is double)
-            {
-                output = (D)(object)(double)(long)(object)input;
-            }
-            if(output is byte)
-            {
-                output = (D)(object)(byte)(long)(object)input;
-            }
-            if(output is sbyte)
-            {
-                output = (D)(object)(sbyte)(long)(object)input;
-            }
-            if(output is short)
-            {
-                output = (D)(object)(short)(long)(object)input;
-            }
-            if(output is int)
-            {
-                output = (D)(object)(int)(long)(object)input;
-            }
-            if(output is long)
-            {
-                output = (D)(object)(long)(object)input;
-            }
-        }
-        if((input is bool) && (output is bool))
-        {
-            output = (D)(object)input;
-        }
-    }
 
-    private static void __match<I, D>(I[] input, D[] output)
-    {
-        for(int i = 0; i < input.Length; i++)
+        private static void __match<I, D>(I[] input, D[] output)
         {
-            __convert(ref input[i], ref output[i]);
-        }
-    }
-
-    private static void __match<I, D>(I[,] input, D[] output)
-    {
-        var width = input.GetLength(0);
-        var height = input.GetLength(1);
-        for(int y = 0; y < height; y++)
-        {
-            for(int x = 0; x < width; x++)
+            for(int i = 0; i < input.Length; i++)
             {
-                __convert(ref input[x, y], ref output[((y * width) + x)]);
+                __convert(ref input[i], ref output[i]);
             }
         }
-    }
 
-    private static void __match<I, D>(I[,,] input, D[] output)
-    {
-        var width = input.GetLength(0);
-        var height = input.GetLength(1);
-        var depth = input.GetLength(2);
-        for(int d = 0; d < depth; d++)
+        private static void __match<I, D>(I[,] input, D[] output)
         {
+            var width = input.GetLength(0);
+            var height = input.GetLength(1);
             for(int y = 0; y < height; y++)
             {
                 for(int x = 0; x < width; x++)
                 {
-                    __convert(ref input[x, y, d], ref output[((y * width) + x) * depth + d]);
+                    __convert(ref input[x, y], ref output[((y * width) + x)]);
                 }
             }
         }
-    }
 
-    private static void __match<I, D>(I[,,,] input, D[] output)
-    {
-        var width = input.GetLength(0);
-        var height = input.GetLength(1);
-        var depth = input.GetLength(2);
-        var time = input.GetLength(3);
-        for(int t = 0; t < time; t++)
+        private static void __match<I, D>(I[,,] input, D[] output)
         {
+            var width = input.GetLength(0);
+            var height = input.GetLength(1);
+            var depth = input.GetLength(2);
             for(int d = 0; d < depth; d++)
             {
                 for(int y = 0; y < height; y++)
                 {
                     for(int x = 0; x < width; x++)
                     {
-                        __convert(ref input[x, y, d, t], ref output[(((y * width) + x) * depth + d) * time + t]);
+                        __convert(ref input[x, y, d], ref output[((y * width) + x) * depth + d]);
                     }
                 }
             }
         }
-    }
 
-    private static void __match<I, D>(I[,,,,] input, D[] output)
-    {
-        var width = input.GetLength(0);
-        var height = input.GetLength(1);
-        var depth = input.GetLength(2);
-        var time = input.GetLength(3);
-        var batch = input.GetLength(4);
-        for(int b = 0; b < batch; b++)
+        private static void __match<I, D>(I[,,,] input, D[] output)
         {
+            var width = input.GetLength(0);
+            var height = input.GetLength(1);
+            var depth = input.GetLength(2);
+            var time = input.GetLength(3);
             for(int t = 0; t < time; t++)
             {
                 for(int d = 0; d < depth; d++)
@@ -1008,80 +987,73 @@ public sealed partial class Tensor
                     {
                         for(int x = 0; x < width; x++)
                         {
-                            __convert(ref input[x, y, d, t, b], ref output[((((y * width) + x) * depth + d) * time + t) * batch + b]);
+                            __convert(ref input[x, y, d, t], ref output[(((y * width) + x) * depth + d) * time + t]);
                         }
                     }
                 }
             }
         }
-    }
 
-    ///<summary>Converts the data of this tensor to a string representation.</summary>
-    ///<param name = "data">The data of the tensor.</param>
-    private string __print_tensor<T>(T[] data)
-    {
-        var result = "Torch.Tensor(";
-        switch(this.__ndim)
+        private static void __match<I, D>(I[,,,,] input, D[] output)
         {
-            case 0:
+            var width = input.GetLength(0);
+            var height = input.GetLength(1);
+            var depth = input.GetLength(2);
+            var time = input.GetLength(3);
+            var batch = input.GetLength(4);
+            for(int b = 0; b < batch; b++)
             {
-                result += this.__unsafe_get_value(data, 0).ToString() + ", dtype=" + this.dtype.ToString() + ")";
-                return result;
-            }
-            case 1:
-            {
-                result += "[";
-                for(int i = 0; i < this.__width; i++)
+                for(int t = 0; t < time; t++)
                 {
-                    result += this.__unsafe_get_value(data, i).ToString() + (((i + 1) == this.__width) ? "" : ", ");
-                }
-                result += "], dtype=" + this.dtype.ToString() + ")";
-                return result;
-            }
-            case 2:
-            {
-                result += "[";
-                for(int y = 0; y < this.__height; y++)
-                {
-                    if(y > 0)
+                    for(int d = 0; d < depth; d++)
                     {
-                        result += "              ";
+                        for(int y = 0; y < height; y++)
+                        {
+                            for(int x = 0; x < width; x++)
+                            {
+                                __convert(ref input[x, y, d, t, b], ref output[((((y * width) + x) * depth + d) * time + t) * batch + b]);
+                            }
+                        }
                     }
+                }
+            }
+        }
+
+        ///<summary>Converts the data of this tensor to a string representation.</summary>
+        ///<param name = "data">The data of the tensor.</param>
+        private string __print_tensor<T>(T[] data)
+        {
+            var result = "Torch.Tensor(";
+            switch(this.__ndim)
+            {
+                case 0:
+                {
+                    result += this.__unsafe_get_value(data, 0).ToString() + ", dtype=" + this.dtype.ToString() + ")";
+                    return result;
+                }
+                case 1:
+                {
                     result += "[";
-                    for(int x = 0; x < this.__width; x++)
+                    for(int i = 0; i < this.__width; i++)
                     {
-                        result += this.__unsafe_get_value(data, x, y).ToString() + (((x + 1) == this.__width) ? "" : ", ");
+                        result += this.__unsafe_get_value(data, i).ToString() + (((i + 1) == this.__width) ? "" : ", ");
                     }
-                    result += "]";
-                    if(!(y + 1 == this.__height))
-                    {
-                        result += ",";
-                        result = result + (char)13 + (char)10;
-                    }
+                    result += "], dtype=" + this.dtype.ToString() + ")";
+                    return result;
                 }
-                result += "], dtype=" + this.dtype.ToString() + ")";
-                return result;
-            }
-            case 3:
-            {
-                result += "[";
-                for(int d = 0; d < this.__depth; d++)
+                case 2:
                 {
-                    if(d > 0)
-                    {
-                        result += "              ";
-                    } 
                     result += "[";
                     for(int y = 0; y < this.__height; y++)
                     {
                         if(y > 0)
                         {
-                            result += "               ";
+                            result += "              ";
                         }
                         result += "[";
                         for(int x = 0; x < this.__width; x++)
                         {
-                            result += this.__unsafe_get_value(data, x, y, d).ToString() + (((x + 1) == this.__width) ? "" : ", ");
+                            result += this.__unsafe_get_value(data, x, y).ToString() + (((x + 1) == this.__width) ? "" : ", ");
                         }
                         result += "]";
                         if(!(y + 1 == this.__height))
@@ -1090,44 +1062,29 @@ public sealed partial class Tensor
                             result = result + (char)13 + (char)10;
                         }
                     }
-                    result += "]";
-                    if(!(d + 1 == this.__depth))
-                    {
-                        result += ",";
-                        result = result + (char)13 + (char)10;
-                        result = result + (char)13 + (char)10;
-                    }
+                    result += "], dtype=" + this.dtype.ToString() + ")";
+                    return result;
                 }
-                result += "], dtype=" + this.dtype.ToString() + ")";
-                return result;
-            }
-            case 4:
-            {
-                result += "[";
-                for(int n = 0; n < this.__time; n++)
+                case 3:
                 {
-                    if(n > 0)
-                    {
-                        result += "              ";
-                    } 
                     result += "[";
                     for(int d = 0; d < this.__depth; d++)
                     {
                         if(d > 0)
                         {
-                            result += "               ";
+                            result += "              ";
                         } 
                         result += "[";
                         for(int y = 0; y < this.__height; y++)
                         {
                             if(y > 0)
                             {
-                                result += "                ";
+                                result += "               ";
                             }
                             result += "[";
                             for(int x = 0; x < this.__width; x++)
                             {
-                                result += this.__unsafe_get_value(data, x, y, d, n).ToString() + (((x + 1) == this.__width) ? "" : ", ");
+                                result += this.__unsafe_get_value(data, x, y, d).ToString() + (((x + 1) == this.__width) ? "" : ", ");
                             }
                             result += "]";
                             if(!(y + 1 == this.__height))
@@ -1144,50 +1101,98 @@ public sealed partial class Tensor
                             result = result + (char)13 + (char)10;
                         }
                     }
-                    result += "]";
-                    if(!(n + 1 == this.__time))
-                    {
-                        result += ",";
-                        result = result + (char)13 + (char)10;
-                        result = result + (char)13 + (char)10;
-                        result = result + (char)13 + (char)10;
-                    }
+                    result += "], dtype=" + this.dtype.ToString() + ")";
+                    return result;
                 }
-                result += "], dtype=" + this.dtype.ToString() + ")";
-                return result;
-            }
-            default:
-            {
-                return "torch.Tensor";
+                case 4:
+                {
+                    result += "[";
+                    for(int n = 0; n < this.__time; n++)
+                    {
+                        if(n > 0)
+                        {
+                            result += "              ";
+                        } 
+                        result += "[";
+                        for(int d = 0; d < this.__depth; d++)
+                        {
+                            if(d > 0)
+                            {
+                                result += "               ";
+                            } 
+                            result += "[";
+                            for(int y = 0; y < this.__height; y++)
+                            {
+                                if(y > 0)
+                                {
+                                    result += "                ";
+                                }
+                                result += "[";
+                                for(int x = 0; x < this.__width; x++)
+                                {
+                                    result += this.__unsafe_get_value(data, x, y, d, n).ToString() + (((x + 1) == this.__width) ? "" : ", ");
+                                }
+                                result += "]";
+                                if(!(y + 1 == this.__height))
+                                {
+                                    result += ",";
+                                    result = result + (char)13 + (char)10;
+                                }
+                            }
+                            result += "]";
+                            if(!(d + 1 == this.__depth))
+                            {
+                                result += ",";
+                                result = result + (char)13 + (char)10;
+                                result = result + (char)13 + (char)10;
+                            }
+                        }
+                        result += "]";
+                        if(!(n + 1 == this.__time))
+                        {
+                            result += ",";
+                            result = result + (char)13 + (char)10;
+                            result = result + (char)13 + (char)10;
+                            result = result + (char)13 + (char)10;
+                        }
+                    }
+                    result += "], dtype=" + this.dtype.ToString() + ")";
+                    return result;
+                }
+                default:
+                {
+                    return "torch.Tensor";
+                }
             }
         }
-    }
 
-    private Tensor __link()
-    {
-        var y = (Tensor)0f;
-        y.dtype = this.dtype;
-        y.requires_grad = this.requires_grad;
-        y.__ndim = this.__ndim;
-        y.__width = this.__width;
-        y.__height = this.__height;
-        y.__depth = this.__depth;
-        y.__time = this.__time;
-        y.__batch = this.__batch;
-        y.__data_float16 = this.__data_float16;
-        y.__data_float32 = this.__data_float32;
-        y.__data_float64 = this.__data_float64;
-        y.__data_uint8 = this.__data_uint8;
-        y.__data_int8 = this.__data_int8;
-        y.__data_int16 = this.__data_int16;
-        y.__data_int32 = this.__data_int32;
-        y.__data_int64 = this.__data_int64;
-        y.__data_bool = this.__data_bool;
-        y.__grad_float16 = this.__grad_float16;
-        y.__grad_float32 = this.__grad_float32;
-        y.__grad_float64 = this.__grad_float64;
-        y.__backward_fn = this.__backward_fn;
-        return y;
+        private Tensor __link()
+        {
+            var y = (Tensor)0f;
+            y.dtype = this.dtype;
+            y.requires_grad = this.requires_grad;
+            y.__ndim = this.__ndim;
+            y.__width = this.__width;
+            y.__height = this.__height;
+            y.__depth = this.__depth;
+            y.__time = this.__time;
+            y.__batch = this.__batch;
+            y.__data_float16 = this.__data_float16;
+            y.__data_float32 = this.__data_float32;
+            y.__data_float64 = this.__data_float64;
+            y.__data_uint8 = this.__data_uint8;
+            y.__data_int8 = this.__data_int8;
+            y.__data_int16 = this.__data_int16;
+            y.__data_int32 = this.__data_int32;
+            y.__data_int64 = this.__data_int64;
+            y.__data_bool = this.__data_bool;
+            y.__grad_float16 = this.__grad_float16;
+            y.__grad_float32 = this.__grad_float32;
+            y.__grad_float64 = this.__grad_float64;
+            y.__backward_fn = this.__backward_fn;
+            return y;
+        }
+
     }
 
 }

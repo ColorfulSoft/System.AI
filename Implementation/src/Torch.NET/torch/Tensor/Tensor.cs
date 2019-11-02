@@ -184,145 +184,150 @@
 
 using System;
 
-///<summary>Represents a multidimensional matrix of elements of a fixed type.</summary>
-public sealed partial class Tensor
+public static partial class torch
 {
 
-    //------------------------------
-    //-> Data.
-    //------------------------------
-
-    ///<summary>Data type of this tensor.</summary>
-    public torch.dtype dtype
+    ///<summary>Represents a multidimensional matrix of elements of a fixed type.</summary>
+    public sealed partial class Tensor
     {
 
-        get;
+        //------------------------------
+        //-> Data.
+        //------------------------------
 
-        internal set;
-
-    }
-
-    ///<summary>If autograd should record operations on the returned tensor. Default: false.</summary>
-    public bool requires_grad
-    {
-
-        get;
-
-        internal set;
-
-    }
-
-    ///<summary>Data inside the tensor. Float16(Half) data type.</summary>
-    internal Half[] __data_float16;
-
-    ///<summary>Data inside the tensor. Float32(float, single) data type.</summary>
-    internal float[] __data_float32;
-
-    ///<summary>Data inside the tensor. Float64(double, real) data type.</summary>
-    internal double[] __data_float64;
-
-    ///<summary>Data inside the tensor. UInt8(byte) data type.</summary>
-    internal byte[] __data_uint8;
-
-    ///<summary>Data inside the tensor. Int8(sbyte) data type.</summary>
-    internal sbyte[] __data_int8;
-
-    ///<summary>Data inside the tensor. Int16(short) data type.</summary>
-    internal short[] __data_int16;
-
-    ///<summary>Data inside the tensor. Int32(int) data type.</summary>
-    internal int[] __data_int32;
-
-    ///<summary>Data inside the tensor. Int64(long) data type.</summary>
-    internal long[] __data_int64;
-
-    ///<summary>Data inside the tensor. Bool(Boolean) data type.</summary>
-    internal bool[] __data_bool;
-
-    //------------------------------
-    //-> Gradients.
-    //------------------------------
-
-    ///<summary>Gradients of the tensor. Float16(Half) data type.</summary>
-    internal Half[] __grad_float16;
-
-    ///<summary>Gradients of the tensor. Float32(Single) data type.</summary>
-    internal float[] __grad_float32;
-
-    ///<summary>Gradients of the tensor. Float64(Double) data type.</summary>
-    internal double[] __grad_float64;
-
-    //------------------------------
-    //-> Backward
-    //------------------------------
-
-    internal delegate void __backward();
-
-    internal __backward __backward_fn;
-
-    //------------------------------
-    //-> Dimensions information.
-    //------------------------------
-
-    ///<summary>Number of tensor measurements.</summary>
-    internal byte __ndim;
-
-    ///<summary>The width of the tensor.</summary>
-    internal int __width;
-
-    ///<summary>The height of the tensor.</summary>
-    internal int __height;
-
-    ///<summary>The depth of the tensor.</summary>
-    internal int __depth;
-
-    ///<summary>Dimension of time(for video processing).</summary>
-    internal int __time;
-
-    ///<summary>Batch's dimension. Higher dimension.</summary>
-    internal int __batch;
-
-    public torch.Size size
-    {
-
-        get
+        ///<summary>Data type of this tensor.</summary>
+        public torch.dtype dtype
         {
-            if(this.__ndim == 0)
+
+            get;
+
+            internal set;
+
+        }
+
+        ///<summary>If autograd should record operations on the returned tensor. Default: false.</summary>
+        public bool requires_grad
+        {
+
+            get;
+
+            internal set;
+
+        }
+
+        ///<summary>Data inside the tensor. Float16(Half) data type.</summary>
+        internal Half[] __data_float16;
+
+        ///<summary>Data inside the tensor. Float32(float, single) data type.</summary>
+        internal float[] __data_float32;
+
+        ///<summary>Data inside the tensor. Float64(double, real) data type.</summary>
+        internal double[] __data_float64;
+
+        ///<summary>Data inside the tensor. UInt8(byte) data type.</summary>
+        internal byte[] __data_uint8;
+
+        ///<summary>Data inside the tensor. Int8(sbyte) data type.</summary>
+        internal sbyte[] __data_int8;
+
+        ///<summary>Data inside the tensor. Int16(short) data type.</summary>
+        internal short[] __data_int16;
+
+        ///<summary>Data inside the tensor. Int32(int) data type.</summary>
+        internal int[] __data_int32;
+
+        ///<summary>Data inside the tensor. Int64(long) data type.</summary>
+        internal long[] __data_int64;
+
+        ///<summary>Data inside the tensor. Bool(Boolean) data type.</summary>
+        internal bool[] __data_bool;
+
+        //------------------------------
+        //-> Gradients.
+        //------------------------------
+
+        ///<summary>Gradients of the tensor. Float16(Half) data type.</summary>
+        internal Half[] __grad_float16;
+
+        ///<summary>Gradients of the tensor. Float32(Single) data type.</summary>
+        internal float[] __grad_float32;
+
+        ///<summary>Gradients of the tensor. Float64(Double) data type.</summary>
+        internal double[] __grad_float64;
+
+        //------------------------------
+        //-> Backward
+        //------------------------------
+
+        internal delegate void __backward();
+
+        internal __backward __backward_fn;
+
+        //------------------------------
+        //-> Dimensions information.
+        //------------------------------
+
+        ///<summary>Number of tensor measurements.</summary>
+        internal byte __ndim;
+
+        ///<summary>The width of the tensor.</summary>
+        internal int __width;
+
+        ///<summary>The height of the tensor.</summary>
+        internal int __height;
+
+        ///<summary>The depth of the tensor.</summary>
+        internal int __depth;
+
+        ///<summary>Dimension of time(for video processing).</summary>
+        internal int __time;
+
+        ///<summary>Batch's dimension. Higher dimension.</summary>
+        internal int __batch;
+
+        public torch.Size size
+        {
+
+            get
             {
-                return new torch.Size();
-            }
-            switch(this.__ndim)
-            {
-                case 0:
+                if(this.__ndim == 0)
                 {
                     return new torch.Size();
                 }
-                case 1:
+                switch(this.__ndim)
                 {
-                    return new torch.Size(this.__width);
+                    case 0:
+                    {
+                        return new torch.Size();
+                    }
+                    case 1:
+                    {
+                        return new torch.Size(this.__width);
+                    }
+                    case 2:
+                    {
+                        return new torch.Size(this.__width, this.__height);
+                    }
+                    case 3:
+                    {
+                        return new torch.Size(this.__width, this.__height, this.__depth);
+                    }
+                    case 4:
+                    {
+                        return new torch.Size(this.__width, this.__height, this.__depth, this.__time);
+                    }
+                    case 5:
+                    {
+                        return new torch.Size(this.__width, this.__height, this.__depth, this.__time, this.__batch);
+                    }
+                    default:
+                    {
+                        throw new torch.TorchException("TorchException: Internal data error.");
+                    }
                 }
-                case 2:
-                {
-                    return new torch.Size(this.__width, this.__height);
-                }
-                case 3:
-                {
-                    return new torch.Size(this.__width, this.__height, this.__depth);
-                }
-                case 4:
-                {
-                    return new torch.Size(this.__width, this.__height, this.__depth, this.__time);
-                }
-                case 5:
-                {
-                    return new torch.Size(this.__width, this.__height, this.__depth, this.__time, this.__batch);
-                }
-                default:
-                {
-                    throw new torch.TorchException("TorchException: Internal data error.");
-                }
+
             }
-                
+
         }
 
     }

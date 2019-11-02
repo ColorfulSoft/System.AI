@@ -184,195 +184,198 @@
 
 using System;
 
-public sealed partial class Tensor
+public static partial class torch
+{
+
+    public sealed partial class Tensor
     {
 
-    //**************************************************
-    //-> Half array to torch.Tensor
-    //**************************************************
+        //**************************************************
+        //-> Half array to torch.Tensor
+        //**************************************************
 
-    ///<summary>Initialize Tensor from a given standard .NET array.</summary>
-    ///<param name="data">System.Half 1-dim array.</param>
-    ///<param name = "dtype">Tensor data type.</param>
-    ///<param name="requires_grad">If false, torch.autograd will not record operations with this Tensor.</param>
-    public Tensor(Half[] data, torch.dtype dtype = torch.dtype.float16, bool requires_grad = false)
-    {
-        if(data == null)
+        ///<summary>Initialize Tensor from a given standard .NET array.</summary>
+        ///<param name="data">System.Half 1-dim array.</param>
+        ///<param name = "dtype">Tensor data type.</param>
+        ///<param name="requires_grad">If false, torch.autograd will not record operations with this Tensor.</param>
+        public Tensor(Half[] data, torch.dtype dtype = torch.dtype.float16, bool requires_grad = false)
         {
-            throw new NullReferenceException("The parameter had an invalid null value.");
+            if(data == null)
+            {
+                throw new NullReferenceException("The parameter had an invalid null value.");
+            }
+            this.__ndim = 1;
+            this.__width = data.Length;
+            this.__height = 1;
+            this.__depth = 1;
+            this.__time = 1;
+            this.__batch = 1;
+            torch.__Warnings.warn("Hardware support for type float16 is not available in the .NET Framework, so a software implementation is used. You should use float32 or float64 to speed up your application.");
+            //-> Initialize the data storage...
+            if(dtype == torch.dtype.@default)
+            {
+                dtype = torch.default_dtype;
+            }
+            this.dtype = dtype;
+            this.requires_grad = requires_grad;
+            if((requires_grad) && (dtype != torch.dtype.float16) && (dtype != torch.dtype.half) && (dtype != torch.dtype.float32) && (dtype != torch.dtype.@float) && (dtype != torch.dtype.float64) && (dtype != torch.dtype.@double))
+            {
+                throw new torch.TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
+            }
+            if(requires_grad)
+            {
+                this.__InitializeGrad();
+            }
+            this.__InitializeData();
+            switch(this.dtype)
+            {
+                case torch.dtype.half:
+                case torch.dtype.float16:
+                {
+                    __match(data, this.__data_float16);
+                    break;
+                }
+                case torch.dtype.@float:
+                case torch.dtype.float32:
+                {
+                    __match(data, this.__data_float32);
+                    break;
+                }
+                case torch.dtype.@double:
+                case torch.dtype.float64:
+                {
+                    __match(data, this.__data_float64);
+                    break;
+                }
+                case torch.dtype.int8:
+                {
+                    __match(data, this.__data_int8);
+                    break;
+                }
+                case torch.dtype.uint8:
+                {
+                    __match(data, this.__data_uint8);
+                    break;
+                }
+                case torch.dtype.int16:
+                case torch.dtype.@short:
+                {
+                    __match(data, this.__data_int16);
+                    break;
+                }
+                case torch.dtype.int32:
+                case torch.dtype.@int:
+                {
+                    __match(data, this.__data_int32);
+                    break;
+                }
+                case torch.dtype.int64:
+                case torch.dtype.@long:
+                {
+                    __match(data, this.__data_int64);
+                    break;
+                }
+                case torch.dtype.@bool:
+                {
+                    throw new torch.TorchException("TorchException: It is impossible to convert Half to bool.");
+                }
+            }
         }
-        this.__ndim = 1;
-        this.__width = data.Length;
-        this.__height = 1;
-        this.__depth = 1;
-        this.__time = 1;
-        this.__batch = 1;
-        torch.__Warnings.warn("Hardware support for type float16 is not available in the .NET Framework, so a software implementation is used. You should use float32 or float64 to speed up your application.");
-        //-> Initialize the data storage...
-        if(dtype == torch.dtype.@default)
-        {
-            dtype = torch.default_dtype;
-        }
-        this.dtype = dtype;
-        this.requires_grad = requires_grad;
-        if((requires_grad) && (dtype != torch.dtype.float16) && (dtype != torch.dtype.half) && (dtype != torch.dtype.float32) && (dtype != torch.dtype.@float) && (dtype != torch.dtype.float64) && (dtype != torch.dtype.@double))
-        {
-            throw new torch.TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
-        }
-        if(requires_grad)
-        {
-            this.__InitializeGrad();
-        }
-        this.__InitializeData();
-        switch(this.dtype)
-        {
-            case torch.dtype.half:
-            case torch.dtype.float16:
-            {
-                __match(data, this.__data_float16);
-                break;
-            }
-            case torch.dtype.@float:
-            case torch.dtype.float32:
-            {
-                __match(data, this.__data_float32);
-                break;
-            }
-            case torch.dtype.@double:
-            case torch.dtype.float64:
-            {
-                __match(data, this.__data_float64);
-                break;
-            }
-            case torch.dtype.int8:
-            {
-                __match(data, this.__data_int8);
-                break;
-            }
-            case torch.dtype.uint8:
-            {
-                __match(data, this.__data_uint8);
-                break;
-            }
-            case torch.dtype.int16:
-            case torch.dtype.@short:
-            {
-                __match(data, this.__data_int16);
-                break;
-            }
-            case torch.dtype.int32:
-            case torch.dtype.@int:
-            {
-                __match(data, this.__data_int32);
-                break;
-            }
-            case torch.dtype.int64:
-            case torch.dtype.@long:
-            {
-                __match(data, this.__data_int64);
-                break;
-            }
-            case torch.dtype.@bool:
-            {
-                throw new torch.TorchException("TorchException: It is impossible to convert Half to bool.");
-            }
-        }
-    }
 
-    ///<summary>Initialize Tensor from a given standard .NET array.</summary>
-    ///<param name="data">System.Half 2-dim array.</param>
-    ///<param name = "dtype">Tensor data type.</param>
-    ///<param name="requires_grad">If false, torch.autograd will not record operations with this Tensor.</param>
-    public Tensor(Half[,] data, torch.dtype dtype = torch.dtype.float16, bool requires_grad = false)
-    {
-        if(data == null)
+        ///<summary>Initialize Tensor from a given standard .NET array.</summary>
+        ///<param name="data">System.Half 2-dim array.</param>
+        ///<param name = "dtype">Tensor data type.</param>
+        ///<param name="requires_grad">If false, torch.autograd will not record operations with this Tensor.</param>
+        public Tensor(Half[,] data, torch.dtype dtype = torch.dtype.float16, bool requires_grad = false)
         {
-            throw new NullReferenceException("The parameter had an invalid null value.");
+            if(data == null)
+            {
+                throw new NullReferenceException("The parameter had an invalid null value.");
+            }
+            this.__ndim = 2;
+            this.__width = data.GetLength(0);
+            this.__height = data.GetLength(1);
+            this.__depth = 1;
+            this.__time = 1;
+            this.__batch = 1;
+            torch.__Warnings.warn("Hardware support for type float16 is not available in the .NET Framework, so a software implementation is used. You should use float32 or float64 to speed up your application.");
+            //-> Initialize the data storage...
+            if(dtype == torch.dtype.@default)
+            {
+                dtype = torch.default_dtype;
+            }
+            this.dtype = dtype;
+            this.requires_grad = requires_grad;
+            if((requires_grad) && (dtype != torch.dtype.float16) && (dtype != torch.dtype.half) && (dtype != torch.dtype.float32) && (dtype != torch.dtype.@float) && (dtype != torch.dtype.float64) && (dtype != torch.dtype.@double))
+            {
+                throw new torch.TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
+            }
+            if(requires_grad)
+            {
+                this.__InitializeGrad();
+            }
+            this.__InitializeData();
+            switch(this.dtype)
+            {
+                case torch.dtype.half:
+                case torch.dtype.float16:
+                {
+                    __match(data, this.__data_float16);
+                    break;
+                }
+                case torch.dtype.@float:
+                case torch.dtype.float32:
+                {
+                    __match(data, this.__data_float32);
+                    break;
+                }
+                case torch.dtype.@double:
+                case torch.dtype.float64:
+                {
+                    __match(data, this.__data_float64);
+                    break;
+                }
+                case torch.dtype.int8:
+                {
+                    __match(data, this.__data_int8);
+                    break;
+                }
+                case torch.dtype.uint8:
+                {
+                    __match(data, this.__data_uint8);
+                    break;
+                }
+                case torch.dtype.int16:
+                case torch.dtype.@short:
+                {
+                    __match(data, this.__data_int16);
+                    break;
+                }
+                case torch.dtype.int32:
+                case torch.dtype.@int:
+                {
+                    __match(data, this.__data_int32);
+                    break;
+                }
+                case torch.dtype.int64:
+                case torch.dtype.@long:
+                {
+                    __match(data, this.__data_int64);
+                    break;
+                }
+                case torch.dtype.@bool:
+                {
+                    throw new torch.TorchException("TorchException: It is impossible to convert Half to bool.");
+                }
+            }
         }
-        this.__ndim = 2;
-        this.__width = data.GetLength(0);
-        this.__height = data.GetLength(1);
-        this.__depth = 1;
-        this.__time = 1;
-        this.__batch = 1;
-        torch.__Warnings.warn("Hardware support for type float16 is not available in the .NET Framework, so a software implementation is used. You should use float32 or float64 to speed up your application.");
-        //-> Initialize the data storage...
-        if(dtype == torch.dtype.@default)
-        {
-            dtype = torch.default_dtype;
-        }
-        this.dtype = dtype;
-        this.requires_grad = requires_grad;
-        if((requires_grad) && (dtype != torch.dtype.float16) && (dtype != torch.dtype.half) && (dtype != torch.dtype.float32) && (dtype != torch.dtype.@float) && (dtype != torch.dtype.float64) && (dtype != torch.dtype.@double))
-        {
-            throw new torch.TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
-        }
-        if(requires_grad)
-        {
-            this.__InitializeGrad();
-        }
-        this.__InitializeData();
-        switch(this.dtype)
-        {
-            case torch.dtype.half:
-            case torch.dtype.float16:
-            {
-                __match(data, this.__data_float16);
-                break;
-            }
-            case torch.dtype.@float:
-            case torch.dtype.float32:
-            {
-                __match(data, this.__data_float32);
-                break;
-            }
-            case torch.dtype.@double:
-            case torch.dtype.float64:
-            {
-                __match(data, this.__data_float64);
-                break;
-            }
-            case torch.dtype.int8:
-            {
-                __match(data, this.__data_int8);
-                break;
-            }
-            case torch.dtype.uint8:
-            {
-                __match(data, this.__data_uint8);
-                break;
-            }
-            case torch.dtype.int16:
-            case torch.dtype.@short:
-            {
-                __match(data, this.__data_int16);
-                break;
-            }
-            case torch.dtype.int32:
-            case torch.dtype.@int:
-            {
-                __match(data, this.__data_int32);
-                break;
-            }
-            case torch.dtype.int64:
-            case torch.dtype.@long:
-            {
-                __match(data, this.__data_int64);
-                break;
-            }
-            case torch.dtype.@bool:
-            {
-                throw new torch.TorchException("TorchException: It is impossible to convert Half to bool.");
-            }
-        }
-    }
 
-    ///<summary>Initialize Tensor from a given standard .NET array.</summary>
-    ///<param name="data">System.Half 3-dim array.</param>
-    ///<param name = "dtype">Tensor data type.</param>
-    ///<param name="requires_grad">If false, torch.autograd will not record operations with this Tensor.</param>
-    public Tensor(Half[,,] data, torch.dtype dtype = torch.dtype.float16, bool requires_grad = false)
-        { //TODO
+        ///<summary>Initialize Tensor from a given standard .NET array.</summary>
+        ///<param name="data">System.Half 3-dim array.</param>
+        ///<param name = "dtype">Tensor data type.</param>
+        ///<param name="requires_grad">If false, torch.autograd will not record operations with this Tensor.</param>
+        public Tensor(Half[,,] data, torch.dtype dtype = torch.dtype.float16, bool requires_grad = false)
+        {
             if(data == null)
             {
                 throw new NullReferenceException("The parameter had an invalid null value.");
@@ -4373,5 +4376,7 @@ public sealed partial class Tensor
             r.__data_int64[0] = data;
             return r;
         }
+
+    }
 
 }
