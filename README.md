@@ -1,4 +1,7 @@
+![Logo](https://github.com/ColorfulSoft/Torch.NET/blob/master/Torch.NET_logo.png)
+
 # Torch.NET
+
 PyTorch-like framework for AI on Microsoft .NET Framework
 
 **Please note that Torch.NET does not copy the syntax and capabilities of PyTorch to the fullest.**
