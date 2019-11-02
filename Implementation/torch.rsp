@@ -212,6 +212,7 @@
 "src\Torch.NET\torch\nn\functional\functional.max_pool2d.cs"
 "src\Torch.NET\torch\nn\functional\functional.relu.cs"
 "src\Torch.NET\torch\nn\functional\functional.tanh.cs"
+"src\Torch.NET\torch\nn\Conv2d.cs"
 "src\Torch.NET\torch\nn\Module.cs"
 "src\Torch.NET\torch\nn\Parameter.cs"
 "src\Torch.NET\torch\nn\ReLU.cs"
