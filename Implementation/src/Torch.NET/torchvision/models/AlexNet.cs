@@ -180,18 +180,18 @@
 //*    END OF TERMS AND CONDITIONS
 //***************************************************************************************************
 
-//-> Latest commit: Brykin Gleb, 24.09.2019.
+//-> Latest commit: Brykin Gleb, 02.11.2019.
 
 using System;
-using torch.nn;
+using nn = torch.nn;
 
-namespace torchvision
+public static partial class torchvision
 {
 
-    namespace models
+    public static partial class models
     {
 
-        public sealed class AlexNet : Module
+        public sealed class AlexNet : nn.Module
         {
         }
 
