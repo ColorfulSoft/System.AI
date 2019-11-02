@@ -208,12 +208,10 @@
 
 # Файлы исходного кода Torch.NET
 
-"src\Torch.NET\torch\nn\Functional\Functional.abs.cs"
-"src\Torch.NET\torch\nn\Functional\Functional.conv2d.cs"
-"src\Torch.NET\torch\nn\Functional\Functional.max_pool2d.cs"
-"src\Torch.NET\torch\nn\Functional\Functional.relu.cs"
-"src\Torch.NET\torch\nn\Functional\Functional.tanh.cs"
-"src\Torch.NET\torch\nn\Abs.cs"
+"src\Torch.NET\torch\nn\functional\functional.conv2d.cs"
+"src\Torch.NET\torch\nn\functional\functional.max_pool2d.cs"
+"src\Torch.NET\torch\nn\functional\functional.relu.cs"
+"src\Torch.NET\torch\nn\functional\functional.tanh.cs"
 "src\Torch.NET\torch\nn\Module.cs"
 "src\Torch.NET\torch\nn\Parameter.cs"
 "src\Torch.NET\torch\nn\ReLU.cs"
@@ -226,6 +224,11 @@
 "src\Torch.NET\torch\Tensor\Tensor.cs"
 "src\Torch.NET\torch\Tensor\Tensor.method.cs"
 "src\Torch.NET\torch\Tensor\Tensor.Tensor.cs"
+"src\Torch.NET\torch\torch.'creation_ops'\torch.ones_like.cs"
+"src\Torch.NET\torch\torch.'creation_ops'\torch.tensor.cs"
+"src\Torch.NET\torch\torch.'creation_ops'\torch.zeros.cs"
+"src\Torch.NET\torch\torch.'creation_ops'\torch.zeros_like.cs"
+"src\Torch.NET\torch\torch.abs.cs"
 "src\Torch.NET\torch\torch.cs"
 "src\Torch.NET\torch\TorchException.cs"
 "src\Torch.NET\torchvision\models\AlexNet.cs"
