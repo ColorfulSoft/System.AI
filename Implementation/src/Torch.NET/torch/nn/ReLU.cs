@@ -200,7 +200,7 @@ public static partial class torch
 
             public Tensor forward(Tensor input)
             {
-                return Functional.relu(input);
+                return functional.relu(input);
             }
 
         }
