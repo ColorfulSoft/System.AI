@@ -180,202 +180,199 @@
 //*    END OF TERMS AND CONDITIONS
 //***************************************************************************************************
 
-//-> Latest commit: Brykin Gleb, 13.10.2019.
+//-> Latest commit: Brykin Gleb, 02.11.2019.
 
 using System;
 
-namespace torch
-{
-
-    public sealed partial class Tensor
+public sealed partial class Tensor
     {
 
-        //**************************************************
-        //-> Half array to torch.Tensor
-        //**************************************************
+    //**************************************************
+    //-> Half array to torch.Tensor
+    //**************************************************
 
-        ///<summary>Initialize Tensor from a given standard .NET array.</summary>
-        ///<param name="data">System.Half 1-dim array.</param>
-        ///<param name = "dtype">Tensor data type.</param>
-        ///<param name="requires_grad">If false, torch.autograd will not record operations with this Tensor.</param>
-        public Tensor(Half[] data, DType dtype = DType.float16, bool requires_grad = false)
+    ///<summary>Initialize Tensor from a given standard .NET array.</summary>
+    ///<param name="data">System.Half 1-dim array.</param>
+    ///<param name = "dtype">Tensor data type.</param>
+    ///<param name="requires_grad">If false, torch.autograd will not record operations with this Tensor.</param>
+    public Tensor(Half[] data, torch.dtype dtype = torch.dtype.float16, bool requires_grad = false)
+    {
+        if(data == null)
         {
-            if(data == null)
+            throw new NullReferenceException("The parameter had an invalid null value.");
+        }
+        this.__ndim = 1;
+        this.__width = data.Length;
+        this.__height = 1;
+        this.__depth = 1;
+        this.__time = 1;
+        this.__batch = 1;
+        torch.__Warnings.warn("Hardware support for type float16 is not available in the .NET Framework, so a software implementation is used. You should use float32 or float64 to speed up your application.");
+        //-> Initialize the data storage...
+        if(dtype == torch.dtype.@default)
+        {
+            dtype = torch.default_dtype;
+        }
+        this.dtype = dtype;
+        this.requires_grad = requires_grad;
+        if((requires_grad) && (dtype != torch.dtype.float16) && (dtype != torch.dtype.half) && (dtype != torch.dtype.float32) && (dtype != torch.dtype.@float) && (dtype != torch.dtype.float64) && (dtype != torch.dtype.@double))
+        {
+            throw new torch.TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
+        }
+        if(requires_grad)
+        {
+            this.__InitializeGrad();
+        }
+        this.__InitializeData();
+        switch(this.dtype)
+        {
+            case torch.dtype.half:
+            case torch.dtype.float16:
             {
-                throw new NullReferenceException("The parameter had an invalid null value.");
+                __match(data, this.__data_float16);
+                break;
             }
-            this.__ndim = 1;
-            this.__width = data.Length;
-            this.__height = 1;
-            this.__depth = 1;
-            this.__time = 1;
-            this.__batch = 1;
-            __Warnings.warn("Hardware support for type float16 is not available in the .NET Framework, so a software implementation is used. You should use float32 or float64 to speed up your application.");
-            //-> Initialize the data storage...
-            if(dtype == DType.@default)
+            case torch.dtype.@float:
+            case torch.dtype.float32:
             {
-                dtype = Torch.default_dtype;
+                __match(data, this.__data_float32);
+                break;
             }
-            this.dtype = dtype;
-            this.requires_grad = requires_grad;
-            if((requires_grad) && (dtype != DType.float16) && (dtype != DType.half) && (dtype != DType.float32) && (dtype != DType.@float) && (dtype != DType.float64) && (dtype != DType.@double))
+            case torch.dtype.@double:
+            case torch.dtype.float64:
             {
-                throw new TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
+                __match(data, this.__data_float64);
+                break;
             }
-            if(requires_grad)
+            case torch.dtype.int8:
             {
-                this.__InitializeGrad();
+                __match(data, this.__data_int8);
+                break;
             }
-            this.__InitializeData();
-            switch(this.dtype)
+            case torch.dtype.uint8:
             {
-                case DType.half:
-                case DType.float16:
-                {
-                    __match(data, this.__data_float16);
-                    break;
-                }
-                case DType.@float:
-                case DType.float32:
-                {
-                    __match(data, this.__data_float32);
-                    break;
-                }
-                case DType.@double:
-                case DType.float64:
-                {
-                    __match(data, this.__data_float64);
-                    break;
-                }
-                case DType.int8:
-                {
-                    __match(data, this.__data_int8);
-                    break;
-                }
-                case DType.uint8:
-                {
-                    __match(data, this.__data_uint8);
-                    break;
-                }
-                case DType.int16:
-                case DType.@short:
-                {
-                    __match(data, this.__data_int16);
-                    break;
-                }
-                case DType.int32:
-                case DType.@int:
-                {
-                    __match(data, this.__data_int32);
-                    break;
-                }
-                case DType.int64:
-                case DType.@long:
-                {
-                    __match(data, this.__data_int64);
-                    break;
-                }
-                case DType.@bool:
-                {
-                    throw new TorchException("TorchException: It is impossible to convert Half to bool.");
-                }
+                __match(data, this.__data_uint8);
+                break;
+            }
+            case torch.dtype.int16:
+            case torch.dtype.@short:
+            {
+                __match(data, this.__data_int16);
+                break;
+            }
+            case torch.dtype.int32:
+            case torch.dtype.@int:
+            {
+                __match(data, this.__data_int32);
+                break;
+            }
+            case torch.dtype.int64:
+            case torch.dtype.@long:
+            {
+                __match(data, this.__data_int64);
+                break;
+            }
+            case torch.dtype.@bool:
+            {
+                throw new torch.TorchException("TorchException: It is impossible to convert Half to bool.");
             }
         }
+    }
 
-        ///<summary>Initialize Tensor from a given standard .NET array.</summary>
-        ///<param name="data">System.Half 2-dim array.</param>
-        ///<param name = "dtype">Tensor data type.</param>
-        ///<param name="requires_grad">If false, torch.autograd will not record operations with this Tensor.</param>
-        public Tensor(Half[,] data, DType dtype = DType.float16, bool requires_grad = false)
+    ///<summary>Initialize Tensor from a given standard .NET array.</summary>
+    ///<param name="data">System.Half 2-dim array.</param>
+    ///<param name = "dtype">Tensor data type.</param>
+    ///<param name="requires_grad">If false, torch.autograd will not record operations with this Tensor.</param>
+    public Tensor(Half[,] data, torch.dtype dtype = torch.dtype.float16, bool requires_grad = false)
+    {
+        if(data == null)
         {
-            if(data == null)
+            throw new NullReferenceException("The parameter had an invalid null value.");
+        }
+        this.__ndim = 2;
+        this.__width = data.GetLength(0);
+        this.__height = data.GetLength(1);
+        this.__depth = 1;
+        this.__time = 1;
+        this.__batch = 1;
+        torch.__Warnings.warn("Hardware support for type float16 is not available in the .NET Framework, so a software implementation is used. You should use float32 or float64 to speed up your application.");
+        //-> Initialize the data storage...
+        if(dtype == torch.dtype.@default)
+        {
+            dtype = torch.default_dtype;
+        }
+        this.dtype = dtype;
+        this.requires_grad = requires_grad;
+        if((requires_grad) && (dtype != torch.dtype.float16) && (dtype != torch.dtype.half) && (dtype != torch.dtype.float32) && (dtype != torch.dtype.@float) && (dtype != torch.dtype.float64) && (dtype != torch.dtype.@double))
+        {
+            throw new torch.TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
+        }
+        if(requires_grad)
+        {
+            this.__InitializeGrad();
+        }
+        this.__InitializeData();
+        switch(this.dtype)
+        {
+            case torch.dtype.half:
+            case torch.dtype.float16:
             {
-                throw new NullReferenceException("The parameter had an invalid null value.");
+                __match(data, this.__data_float16);
+                break;
             }
-            this.__ndim = 2;
-            this.__width = data.GetLength(0);
-            this.__height = data.GetLength(1);
-            this.__depth = 1;
-            this.__time = 1;
-            this.__batch = 1;
-            __Warnings.warn("Hardware support for type float16 is not available in the .NET Framework, so a software implementation is used. You should use float32 or float64 to speed up your application.");
-            //-> Initialize the data storage...
-            if(dtype == DType.@default)
+            case torch.dtype.@float:
+            case torch.dtype.float32:
             {
-                dtype = Torch.default_dtype;
+                __match(data, this.__data_float32);
+                break;
             }
-            this.dtype = dtype;
-            this.requires_grad = requires_grad;
-            if((requires_grad) && (dtype != DType.float16) && (dtype != DType.half) && (dtype != DType.float32) && (dtype != DType.@float) && (dtype != DType.float64) && (dtype != DType.@double))
+            case torch.dtype.@double:
+            case torch.dtype.float64:
             {
-                throw new TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
+                __match(data, this.__data_float64);
+                break;
             }
-            if(requires_grad)
+            case torch.dtype.int8:
             {
-                this.__InitializeGrad();
+                __match(data, this.__data_int8);
+                break;
             }
-            this.__InitializeData();
-            switch(this.dtype)
+            case torch.dtype.uint8:
             {
-                case DType.half:
-                case DType.float16:
-                {
-                    __match(data, this.__data_float16);
-                    break;
-                }
-                case DType.@float:
-                case DType.float32:
-                {
-                    __match(data, this.__data_float32);
-                    break;
-                }
-                case DType.@double:
-                case DType.float64:
-                {
-                    __match(data, this.__data_float64);
-                    break;
-                }
-                case DType.int8:
-                {
-                    __match(data, this.__data_int8);
-                    break;
-                }
-                case DType.uint8:
-                {
-                    __match(data, this.__data_uint8);
-                    break;
-                }
-                case DType.int16:
-                case DType.@short:
-                {
-                    __match(data, this.__data_int16);
-                    break;
-                }
-                case DType.int32:
-                case DType.@int:
-                {
-                    __match(data, this.__data_int32);
-                    break;
-                }
-                case DType.int64:
-                case DType.@long:
-                {
-                    __match(data, this.__data_int64);
-                    break;
-                }
-                case DType.@bool:
-                {
-                    throw new TorchException("TorchException: It is impossible to convert Half to bool.");
-                }
+                __match(data, this.__data_uint8);
+                break;
+            }
+            case torch.dtype.int16:
+            case torch.dtype.@short:
+            {
+                __match(data, this.__data_int16);
+                break;
+            }
+            case torch.dtype.int32:
+            case torch.dtype.@int:
+            {
+                __match(data, this.__data_int32);
+                break;
+            }
+            case torch.dtype.int64:
+            case torch.dtype.@long:
+            {
+                __match(data, this.__data_int64);
+                break;
+            }
+            case torch.dtype.@bool:
+            {
+                throw new torch.TorchException("TorchException: It is impossible to convert Half to bool.");
             }
         }
+    }
 
-        ///<summary>Initialize Tensor from a given standard .NET array.</summary>
-        ///<param name="data">System.Half 3-dim array.</param>
-        ///<param name = "dtype">Tensor data type.</param>
-        ///<param name="requires_grad">If false, torch.autograd will not record operations with this Tensor.</param>
-        public Tensor(Half[,,] data, DType dtype = DType.float16, bool requires_grad = false)
-        {
+    ///<summary>Initialize Tensor from a given standard .NET array.</summary>
+    ///<param name="data">System.Half 3-dim array.</param>
+    ///<param name = "dtype">Tensor data type.</param>
+    ///<param name="requires_grad">If false, torch.autograd will not record operations with this Tensor.</param>
+    public Tensor(Half[,,] data, torch.dtype dtype = torch.dtype.float16, bool requires_grad = false)
+        { //TODO
             if(data == null)
             {
                 throw new NullReferenceException("The parameter had an invalid null value.");
@@ -386,17 +383,17 @@ namespace torch
             this.__depth = data.GetLength(2);
             this.__time = 1;
             this.__batch = 1;
-            __Warnings.warn("Hardware support for type float16 is not available in the .NET Framework, so a software implementation is used. You should use float32 or float64 to speed up your application.");
+            torch.__Warnings.warn("Hardware support for type float16 is not available in the .NET Framework, so a software implementation is used. You should use float32 or float64 to speed up your application.");
             //-> Initialize the data storage...
-            if(dtype == DType.@default)
+            if(dtype == torch.dtype.@default)
             {
-                dtype = Torch.default_dtype;
+                dtype = torch.default_dtype;
             }
             this.dtype = dtype;
             this.requires_grad = requires_grad;
-            if((requires_grad) && (dtype != DType.float16) && (dtype != DType.half) && (dtype != DType.float32) && (dtype != DType.@float) && (dtype != DType.float64) && (dtype != DType.@double))
+            if((requires_grad) && (dtype != torch.dtype.float16) && (dtype != torch.dtype.half) && (dtype != torch.dtype.float32) && (dtype != torch.dtype.@float) && (dtype != torch.dtype.float64) && (dtype != torch.dtype.@double))
             {
-                throw new TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
+                throw new torch.TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
             }
             if(requires_grad)
             {
@@ -405,55 +402,55 @@ namespace torch
             this.__InitializeData();
             switch(this.dtype)
             {
-                case DType.half:
-                case DType.float16:
+                case torch.dtype.half:
+                case torch.dtype.float16:
                 {
                     __match(data, this.__data_float16);
                     break;
                 }
-                case DType.@float:
-                case DType.float32:
+                case torch.dtype.@float:
+                case torch.dtype.float32:
                 {
                     __match(data, this.__data_float32);
                     break;
                 }
-                case DType.@double:
-                case DType.float64:
+                case torch.dtype.@double:
+                case torch.dtype.float64:
                 {
                     __match(data, this.__data_float64);
                     break;
                 }
-                case DType.int8:
+                case torch.dtype.int8:
                 {
                     __match(data, this.__data_int8);
                     break;
                 }
-                case DType.uint8:
+                case torch.dtype.uint8:
                 {
                     __match(data, this.__data_uint8);
                     break;
                 }
-                case DType.int16:
-                case DType.@short:
+                case torch.dtype.int16:
+                case torch.dtype.@short:
                 {
                     __match(data, this.__data_int16);
                     break;
                 }
-                case DType.int32:
-                case DType.@int:
+                case torch.dtype.int32:
+                case torch.dtype.@int:
                 {
                     __match(data, this.__data_int32);
                     break;
                 }
-                case DType.int64:
-                case DType.@long:
+                case torch.dtype.int64:
+                case torch.dtype.@long:
                 {
                     __match(data, this.__data_int64);
                     break;
                 }
-                case DType.@bool:
+                case torch.dtype.@bool:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert Half to bool.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert Half to bool.");
                 }
             }
         }
@@ -462,7 +459,7 @@ namespace torch
         ///<param name="data">System.Half 4-dim array.</param>
         ///<param name = "dtype">Tensor data type.</param>
         ///<param name="requires_grad">If false, torch.autograd will not record operations with this Tensor.</param>
-        public Tensor(Half[,,,] data, DType dtype = DType.float16, bool requires_grad = false)
+        public Tensor(Half[,,,] data, torch.dtype dtype = torch.dtype.float16, bool requires_grad = false)
         {
             if(data == null)
             {
@@ -474,17 +471,17 @@ namespace torch
             this.__depth = data.GetLength(2);
             this.__time = data.GetLength(3);
             this.__batch = 1;
-            __Warnings.warn("Hardware support for type float16 is not available in the .NET Framework, so a software implementation is used. You should use float32 or float64 to speed up your application.");
+            torch.__Warnings.warn("Hardware support for type float16 is not available in the .NET Framework, so a software implementation is used. You should use float32 or float64 to speed up your application.");
             //-> Initialize the data storage...
-            if(dtype == DType.@default)
+            if(dtype == torch.dtype.@default)
             {
-                dtype = Torch.default_dtype;
+                dtype = torch.default_dtype;
             }
             this.dtype = dtype;
             this.requires_grad = requires_grad;
-            if((requires_grad) && (dtype != DType.float16) && (dtype != DType.half) && (dtype != DType.float32) && (dtype != DType.@float) && (dtype != DType.float64) && (dtype != DType.@double))
+            if((requires_grad) && (dtype != torch.dtype.float16) && (dtype != torch.dtype.half) && (dtype != torch.dtype.float32) && (dtype != torch.dtype.@float) && (dtype != torch.dtype.float64) && (dtype != torch.dtype.@double))
             {
-                throw new TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
+                throw new torch.TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
             }
             if(requires_grad)
             {
@@ -493,55 +490,55 @@ namespace torch
             this.__InitializeData();
             switch(this.dtype)
             {
-                case DType.half:
-                case DType.float16:
+                case torch.dtype.half:
+                case torch.dtype.float16:
                 {
                     __match(data, this.__data_float16);
                     break;
                 }
-                case DType.@float:
-                case DType.float32:
+                case torch.dtype.@float:
+                case torch.dtype.float32:
                 {
                     __match(data, this.__data_float32);
                     break;
                 }
-                case DType.@double:
-                case DType.float64:
+                case torch.dtype.@double:
+                case torch.dtype.float64:
                 {
                     __match(data, this.__data_float64);
                     break;
                 }
-                case DType.int8:
+                case torch.dtype.int8:
                 {
                     __match(data, this.__data_int8);
                     break;
                 }
-                case DType.uint8:
+                case torch.dtype.uint8:
                 {
                     __match(data, this.__data_uint8);
                     break;
                 }
-                case DType.int16:
-                case DType.@short:
+                case torch.dtype.int16:
+                case torch.dtype.@short:
                 {
                     __match(data, this.__data_int16);
                     break;
                 }
-                case DType.int32:
-                case DType.@int:
+                case torch.dtype.int32:
+                case torch.dtype.@int:
                 {
                     __match(data, this.__data_int32);
                     break;
                 }
-                case DType.int64:
-                case DType.@long:
+                case torch.dtype.int64:
+                case torch.dtype.@long:
                 {
                     __match(data, this.__data_int64);
                     break;
                 }
-                case DType.@bool:
+                case torch.dtype.@bool:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert Half to bool.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert Half to bool.");
                 }
             }
         }
@@ -550,7 +547,7 @@ namespace torch
         ///<param name="data">System.Half 5-dim array.</param>
         ///<param name = "dtype">Tensor data type.</param>
         ///<param name="requires_grad">If false, torch.autograd will not record operations with this Tensor.</param>
-        public Tensor(Half[,,,,] data, DType dtype = DType.float16, bool requires_grad = false)
+        public Tensor(Half[,,,,] data, torch.dtype dtype = torch.dtype.float16, bool requires_grad = false)
         {
             if(data == null)
             {
@@ -562,17 +559,17 @@ namespace torch
             this.__depth = data.GetLength(2);
             this.__time = data.GetLength(3);
             this.__batch = data.GetLength(4);
-            __Warnings.warn("Hardware support for type float16 is not available in the .NET Framework, so a software implementation is used. You should use float32 or float64 to speed up your application.");
+            torch.__Warnings.warn("Hardware support for type float16 is not available in the .NET Framework, so a software implementation is used. You should use float32 or float64 to speed up your application.");
             //-> Initialize the data storage...
-            if(dtype == DType.@default)
+            if(dtype == torch.dtype.@default)
             {
-                dtype = Torch.default_dtype;
+                dtype = torch.default_dtype;
             }
             this.dtype = dtype;
             this.requires_grad = requires_grad;
-            if((requires_grad) && (dtype != DType.float16) && (dtype != DType.half) && (dtype != DType.float32) && (dtype != DType.@float) && (dtype != DType.float64) && (dtype != DType.@double))
+            if((requires_grad) && (dtype != torch.dtype.float16) && (dtype != torch.dtype.half) && (dtype != torch.dtype.float32) && (dtype != torch.dtype.@float) && (dtype != torch.dtype.float64) && (dtype != torch.dtype.@double))
             {
-                throw new TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
+                throw new torch.TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
             }
             if(requires_grad)
             {
@@ -581,55 +578,55 @@ namespace torch
             this.__InitializeData();
             switch(this.dtype)
             {
-                case DType.half:
-                case DType.float16:
+                case torch.dtype.half:
+                case torch.dtype.float16:
                 {
                     __match(data, this.__data_float16);
                     break;
                 }
-                case DType.@float:
-                case DType.float32:
+                case torch.dtype.@float:
+                case torch.dtype.float32:
                 {
                     __match(data, this.__data_float32);
                     break;
                 }
-                case DType.@double:
-                case DType.float64:
+                case torch.dtype.@double:
+                case torch.dtype.float64:
                 {
                     __match(data, this.__data_float64);
                     break;
                 }
-                case DType.int8:
+                case torch.dtype.int8:
                 {
                     __match(data, this.__data_int8);
                     break;
                 }
-                case DType.uint8:
+                case torch.dtype.uint8:
                 {
                     __match(data, this.__data_uint8);
                     break;
                 }
-                case DType.int16:
-                case DType.@short:
+                case torch.dtype.int16:
+                case torch.dtype.@short:
                 {
                     __match(data, this.__data_int16);
                     break;
                 }
-                case DType.int32:
-                case DType.@int:
+                case torch.dtype.int32:
+                case torch.dtype.@int:
                 {
                     __match(data, this.__data_int32);
                     break;
                 }
-                case DType.int64:
-                case DType.@long:
+                case torch.dtype.int64:
+                case torch.dtype.@long:
                 {
                     __match(data, this.__data_int64);
                     break;
                 }
-                case DType.@bool:
+                case torch.dtype.@bool:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert Half to bool.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert Half to bool.");
                 }
             }
         }
@@ -642,7 +639,7 @@ namespace torch
         ///<param name="data">float 1-dim array.</param>
         ///<param name = "dtype">Tensor data type.</param>
         ///<param name="requires_grad">If false, torch.autograd will not record operations with this Tensor.</param>
-        public Tensor(float[] data, DType dtype = DType.float32, bool requires_grad = false)
+        public Tensor(float[] data, torch.dtype dtype = torch.dtype.float32, bool requires_grad = false)
         {
             if(data == null)
             {
@@ -655,15 +652,15 @@ namespace torch
             this.__time = 1;
             this.__batch = 1;
             //-> Initialize the data storage...
-            if(dtype == DType.@default)
+            if(dtype == torch.dtype.@default)
             {
-                dtype = Torch.default_dtype;
+                dtype = torch.default_dtype;
             }
             this.dtype = dtype;
             this.requires_grad = requires_grad;
-            if((requires_grad) && (dtype != DType.float16) && (dtype != DType.half) && (dtype != DType.float32) && (dtype != DType.@float) && (dtype != DType.float64) && (dtype != DType.@double))
+            if((requires_grad) && (dtype != torch.dtype.float16) && (dtype != torch.dtype.half) && (dtype != torch.dtype.float32) && (dtype != torch.dtype.@float) && (dtype != torch.dtype.float64) && (dtype != torch.dtype.@double))
             {
-                throw new TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
+                throw new torch.TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
             }
             if(requires_grad)
             {
@@ -672,55 +669,55 @@ namespace torch
             this.__InitializeData();
             switch(this.dtype)
             {
-                case DType.half:
-                case DType.float16:
+                case torch.dtype.half:
+                case torch.dtype.float16:
                 {
                     __match(data, this.__data_float16);
                     break;
                 }
-                case DType.@float:
-                case DType.float32:
+                case torch.dtype.@float:
+                case torch.dtype.float32:
                 {
                     __match(data, this.__data_float32);
                     break;
                 }
-                case DType.@double:
-                case DType.float64:
+                case torch.dtype.@double:
+                case torch.dtype.float64:
                 {
                     __match(data, this.__data_float64);
                     break;
                 }
-                case DType.int8:
+                case torch.dtype.int8:
                 {
                     __match(data, this.__data_int8);
                     break;
                 }
-                case DType.uint8:
+                case torch.dtype.uint8:
                 {
                     __match(data, this.__data_uint8);
                     break;
                 }
-                case DType.int16:
-                case DType.@short:
+                case torch.dtype.int16:
+                case torch.dtype.@short:
                 {
                     __match(data, this.__data_int16);
                     break;
                 }
-                case DType.int32:
-                case DType.@int:
+                case torch.dtype.int32:
+                case torch.dtype.@int:
                 {
                     __match(data, this.__data_int32);
                     break;
                 }
-                case DType.int64:
-                case DType.@long:
+                case torch.dtype.int64:
+                case torch.dtype.@long:
                 {
                     __match(data, this.__data_int64);
                     break;
                 }
-                case DType.@bool:
+                case torch.dtype.@bool:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert float to bool.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert float to bool.");
                 }
             }
         }
@@ -729,7 +726,7 @@ namespace torch
         ///<param name="data">float 2-dim array.</param>
         ///<param name = "dtype">Tensor data type.</param>
         ///<param name="requires_grad">If false, torch.autograd will not record operations with this Tensor.</param>
-        public Tensor(float[,] data, DType dtype = DType.float32, bool requires_grad = false)
+        public Tensor(float[,] data, torch.dtype dtype = torch.dtype.float32, bool requires_grad = false)
         {
             if(data == null)
             {
@@ -742,15 +739,15 @@ namespace torch
             this.__time = 1;
             this.__batch = 1;
             //-> Initialize the data storage...
-            if(dtype == DType.@default)
+            if(dtype == torch.dtype.@default)
             {
-                dtype = Torch.default_dtype;
+                dtype = torch.default_dtype;
             }
             this.dtype = dtype;
             this.requires_grad = requires_grad;
-            if((requires_grad) && (dtype != DType.float16) && (dtype != DType.half) && (dtype != DType.float32) && (dtype != DType.@float) && (dtype != DType.float64) && (dtype != DType.@double))
+            if((requires_grad) && (dtype != torch.dtype.float16) && (dtype != torch.dtype.half) && (dtype != torch.dtype.float32) && (dtype != torch.dtype.@float) && (dtype != torch.dtype.float64) && (dtype != torch.dtype.@double))
             {
-                throw new TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
+                throw new torch.TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
             }
             if(requires_grad)
             {
@@ -759,55 +756,55 @@ namespace torch
             this.__InitializeData();
             switch(this.dtype)
             {
-                case DType.half:
-                case DType.float16:
+                case torch.dtype.half:
+                case torch.dtype.float16:
                 {
                     __match(data, this.__data_float16);
                     break;
                 }
-                case DType.@float:
-                case DType.float32:
+                case torch.dtype.@float:
+                case torch.dtype.float32:
                 {
                     __match(data, this.__data_float32);
                     break;
                 }
-                case DType.@double:
-                case DType.float64:
+                case torch.dtype.@double:
+                case torch.dtype.float64:
                 {
                     __match(data, this.__data_float64);
                     break;
                 }
-                case DType.int8:
+                case torch.dtype.int8:
                 {
                     __match(data, this.__data_int8);
                     break;
                 }
-                case DType.uint8:
+                case torch.dtype.uint8:
                 {
                     __match(data, this.__data_uint8);
                     break;
                 }
-                case DType.int16:
-                case DType.@short:
+                case torch.dtype.int16:
+                case torch.dtype.@short:
                 {
                     __match(data, this.__data_int16);
                     break;
                 }
-                case DType.int32:
-                case DType.@int:
+                case torch.dtype.int32:
+                case torch.dtype.@int:
                 {
                     __match(data, this.__data_int32);
                     break;
                 }
-                case DType.int64:
-                case DType.@long:
+                case torch.dtype.int64:
+                case torch.dtype.@long:
                 {
                     __match(data, this.__data_int64);
                     break;
                 }
-                case DType.@bool:
+                case torch.dtype.@bool:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert float to bool.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert float to bool.");
                 }
             }
         }
@@ -816,7 +813,7 @@ namespace torch
         ///<param name="data">float 3-dim array.</param>
         ///<param name = "dtype">Tensor data type.</param>
         ///<param name="requires_grad">If false, torch.autograd will not record operations with this Tensor.</param>
-        public Tensor(float[,,] data, DType dtype = DType.float32, bool requires_grad = false)
+        public Tensor(float[,,] data, torch.dtype dtype = torch.dtype.float32, bool requires_grad = false)
         {
             if(data == null)
             {
@@ -829,15 +826,15 @@ namespace torch
             this.__time = 1;
             this.__batch = 1;
             //-> Initialize the data storage...
-            if(dtype == DType.@default)
+            if(dtype == torch.dtype.@default)
             {
-                dtype = Torch.default_dtype;
+                dtype = torch.default_dtype;
             }
             this.dtype = dtype;
             this.requires_grad = requires_grad;
-            if((requires_grad) && (dtype != DType.float16) && (dtype != DType.half) && (dtype != DType.float32) && (dtype != DType.@float) && (dtype != DType.float64) && (dtype != DType.@double))
+            if((requires_grad) && (dtype != torch.dtype.float16) && (dtype != torch.dtype.half) && (dtype != torch.dtype.float32) && (dtype != torch.dtype.@float) && (dtype != torch.dtype.float64) && (dtype != torch.dtype.@double))
             {
-                throw new TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
+                throw new torch.TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
             }
             if(requires_grad)
             {
@@ -846,55 +843,55 @@ namespace torch
             this.__InitializeData();
             switch(this.dtype)
             {
-                case DType.half:
-                case DType.float16:
+                case torch.dtype.half:
+                case torch.dtype.float16:
                 {
                     __match(data, this.__data_float16);
                     break;
                 }
-                case DType.@float:
-                case DType.float32:
+                case torch.dtype.@float:
+                case torch.dtype.float32:
                 {
                     __match(data, this.__data_float32);
                     break;
                 }
-                case DType.@double:
-                case DType.float64:
+                case torch.dtype.@double:
+                case torch.dtype.float64:
                 {
                     __match(data, this.__data_float64);
                     break;
                 }
-                case DType.int8:
+                case torch.dtype.int8:
                 {
                     __match(data, this.__data_int8);
                     break;
                 }
-                case DType.uint8:
+                case torch.dtype.uint8:
                 {
                     __match(data, this.__data_uint8);
                     break;
                 }
-                case DType.int16:
-                case DType.@short:
+                case torch.dtype.int16:
+                case torch.dtype.@short:
                 {
                     __match(data, this.__data_int16);
                     break;
                 }
-                case DType.int32:
-                case DType.@int:
+                case torch.dtype.int32:
+                case torch.dtype.@int:
                 {
                     __match(data, this.__data_int32);
                     break;
                 }
-                case DType.int64:
-                case DType.@long:
+                case torch.dtype.int64:
+                case torch.dtype.@long:
                 {
                     __match(data, this.__data_int64);
                     break;
                 }
-                case DType.@bool:
+                case torch.dtype.@bool:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert float to bool.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert float to bool.");
                 }
             }
         }
@@ -903,7 +900,7 @@ namespace torch
         ///<param name="data">float 4-dim array.</param>
         ///<param name = "dtype">Tensor data type.</param>
         ///<param name="requires_grad">If false, torch.autograd will not record operations with this Tensor.</param>
-        public Tensor(float[,,,] data, DType dtype = DType.float32, bool requires_grad = false)
+        public Tensor(float[,,,] data, torch.dtype dtype = torch.dtype.float32, bool requires_grad = false)
         {
             if(data == null)
             {
@@ -916,15 +913,15 @@ namespace torch
             this.__time = data.GetLength(3);
             this.__batch = 1;
             //-> Initialize the data storage...
-            if(dtype == DType.@default)
+            if(dtype == torch.dtype.@default)
             {
-                dtype = Torch.default_dtype;
+                dtype = torch.default_dtype;
             }
             this.dtype = dtype;
             this.requires_grad = requires_grad;
-            if((requires_grad) && (dtype != DType.float16) && (dtype != DType.half) && (dtype != DType.float32) && (dtype != DType.@float) && (dtype != DType.float64) && (dtype != DType.@double))
+            if((requires_grad) && (dtype != torch.dtype.float16) && (dtype != torch.dtype.half) && (dtype != torch.dtype.float32) && (dtype != torch.dtype.@float) && (dtype != torch.dtype.float64) && (dtype != torch.dtype.@double))
             {
-                throw new TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
+                throw new torch.TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
             }
             if(requires_grad)
             {
@@ -933,55 +930,55 @@ namespace torch
             this.__InitializeData();
             switch(this.dtype)
             {
-                case DType.half:
-                case DType.float16:
+                case torch.dtype.half:
+                case torch.dtype.float16:
                 {
                     __match(data, this.__data_float16);
                     break;
                 }
-                case DType.@float:
-                case DType.float32:
+                case torch.dtype.@float:
+                case torch.dtype.float32:
                 {
                     __match(data, this.__data_float32);
                     break;
                 }
-                case DType.@double:
-                case DType.float64:
+                case torch.dtype.@double:
+                case torch.dtype.float64:
                 {
                     __match(data, this.__data_float64);
                     break;
                 }
-                case DType.int8:
+                case torch.dtype.int8:
                 {
                     __match(data, this.__data_int8);
                     break;
                 }
-                case DType.uint8:
+                case torch.dtype.uint8:
                 {
                     __match(data, this.__data_uint8);
                     break;
                 }
-                case DType.int16:
-                case DType.@short:
+                case torch.dtype.int16:
+                case torch.dtype.@short:
                 {
                     __match(data, this.__data_int16);
                     break;
                 }
-                case DType.int32:
-                case DType.@int:
+                case torch.dtype.int32:
+                case torch.dtype.@int:
                 {
                     __match(data, this.__data_int32);
                     break;
                 }
-                case DType.int64:
-                case DType.@long:
+                case torch.dtype.int64:
+                case torch.dtype.@long:
                 {
                     __match(data, this.__data_int64);
                     break;
                 }
-                case DType.@bool:
+                case torch.dtype.@bool:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert float to bool.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert float to bool.");
                 }
             }
         }
@@ -990,7 +987,7 @@ namespace torch
         ///<param name="data">float 5-dim array.</param>
         ///<param name = "dtype">Tensor data type.</param>
         ///<param name="requires_grad">If false, torch.autograd will not record operations with this Tensor.</param>
-        public Tensor(float[,,,,] data, DType dtype = DType.float32, bool requires_grad = false)
+        public Tensor(float[,,,,] data, torch.dtype dtype = torch.dtype.float32, bool requires_grad = false)
         {
             if(data == null)
             {
@@ -1003,15 +1000,15 @@ namespace torch
             this.__time = data.GetLength(3);
             this.__batch = data.GetLength(4);
             //-> Initialize the data storage...
-            if(dtype == DType.@default)
+            if(dtype == torch.dtype.@default)
             {
-                dtype = Torch.default_dtype;
+                dtype = torch.default_dtype;
             }
             this.dtype = dtype;
             this.requires_grad = requires_grad;
-            if((requires_grad) && (dtype != DType.float16) && (dtype != DType.half) && (dtype != DType.float32) && (dtype != DType.@float) && (dtype != DType.float64) && (dtype != DType.@double))
+            if((requires_grad) && (dtype != torch.dtype.float16) && (dtype != torch.dtype.half) && (dtype != torch.dtype.float32) && (dtype != torch.dtype.@float) && (dtype != torch.dtype.float64) && (dtype != torch.dtype.@double))
             {
-                throw new TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
+                throw new torch.TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
             }
             if(requires_grad)
             {
@@ -1020,55 +1017,55 @@ namespace torch
             this.__InitializeData();
             switch(this.dtype)
             {
-                case DType.half:
-                case DType.float16:
+                case torch.dtype.half:
+                case torch.dtype.float16:
                 {
                     __match(data, this.__data_float16);
                     break;
                 }
-                case DType.@float:
-                case DType.float32:
+                case torch.dtype.@float:
+                case torch.dtype.float32:
                 {
                     __match(data, this.__data_float32);
                     break;
                 }
-                case DType.@double:
-                case DType.float64:
+                case torch.dtype.@double:
+                case torch.dtype.float64:
                 {
                     __match(data, this.__data_float64);
                     break;
                 }
-                case DType.int8:
+                case torch.dtype.int8:
                 {
                     __match(data, this.__data_int8);
                     break;
                 }
-                case DType.uint8:
+                case torch.dtype.uint8:
                 {
                     __match(data, this.__data_uint8);
                     break;
                 }
-                case DType.int16:
-                case DType.@short:
+                case torch.dtype.int16:
+                case torch.dtype.@short:
                 {
                     __match(data, this.__data_int16);
                     break;
                 }
-                case DType.int32:
-                case DType.@int:
+                case torch.dtype.int32:
+                case torch.dtype.@int:
                 {
                     __match(data, this.__data_int32);
                     break;
                 }
-                case DType.int64:
-                case DType.@long:
+                case torch.dtype.int64:
+                case torch.dtype.@long:
                 {
                     __match(data, this.__data_int64);
                     break;
                 }
-                case DType.@bool:
+                case torch.dtype.@bool:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert float to bool.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert float to bool.");
                 }
             }
         }
@@ -1081,7 +1078,7 @@ namespace torch
         ///<param name="data">double 1-dim array.</param>
         ///<param name = "dtype">Tensor data type.</param>
         ///<param name="requires_grad">If false, torch.autograd will not record operations with this Tensor.</param>
-        public Tensor(double[] data, DType dtype = DType.float64, bool requires_grad = false)
+        public Tensor(double[] data, torch.dtype dtype = torch.dtype.float64, bool requires_grad = false)
         {
             if(data == null)
             {
@@ -1094,15 +1091,15 @@ namespace torch
             this.__time = 1;
             this.__batch = 1;
             //-> Initialize the data storage...
-            if(dtype == DType.@default)
+            if(dtype == torch.dtype.@default)
             {
-                dtype = Torch.default_dtype;
+                dtype = torch.default_dtype;
             }
             this.dtype = dtype;
             this.requires_grad = requires_grad;
-            if((requires_grad) && (dtype != DType.float16) && (dtype != DType.half) && (dtype != DType.float32) && (dtype != DType.@float) && (dtype != DType.float64) && (dtype != DType.@double))
+            if((requires_grad) && (dtype != torch.dtype.float16) && (dtype != torch.dtype.half) && (dtype != torch.dtype.float32) && (dtype != torch.dtype.@float) && (dtype != torch.dtype.float64) && (dtype != torch.dtype.@double))
             {
-                throw new TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
+                throw new torch.TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
             }
             if(requires_grad)
             {
@@ -1111,55 +1108,55 @@ namespace torch
             this.__InitializeData();
             switch(this.dtype)
             {
-                case DType.half:
-                case DType.float16:
+                case torch.dtype.half:
+                case torch.dtype.float16:
                 {
                     __match(data, this.__data_float16);
                     break;
                 }
-                case DType.@float:
-                case DType.float32:
+                case torch.dtype.@float:
+                case torch.dtype.float32:
                 {
                     __match(data, this.__data_float32);
                     break;
                 }
-                case DType.@double:
-                case DType.float64:
+                case torch.dtype.@double:
+                case torch.dtype.float64:
                 {
                     __match(data, this.__data_float64);
                     break;
                 }
-                case DType.int8:
+                case torch.dtype.int8:
                 {
                     __match(data, this.__data_int8);
                     break;
                 }
-                case DType.uint8:
+                case torch.dtype.uint8:
                 {
                     __match(data, this.__data_uint8);
                     break;
                 }
-                case DType.int16:
-                case DType.@short:
+                case torch.dtype.int16:
+                case torch.dtype.@short:
                 {
                     __match(data, this.__data_int16);
                     break;
                 }
-                case DType.int32:
-                case DType.@int:
+                case torch.dtype.int32:
+                case torch.dtype.@int:
                 {
                     __match(data, this.__data_int32);
                     break;
                 }
-                case DType.int64:
-                case DType.@long:
+                case torch.dtype.int64:
+                case torch.dtype.@long:
                 {
                     __match(data, this.__data_int64);
                     break;
                 }
-                case DType.@bool:
+                case torch.dtype.@bool:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert double to bool.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert double to bool.");
                 }
             }
         }
@@ -1168,7 +1165,7 @@ namespace torch
         ///<param name="data">double 2-dim array.</param>
         ///<param name = "dtype">Tensor data type.</param>
         ///<param name="requires_grad">If false, torch.autograd will not record operations with this Tensor.</param>
-        public Tensor(double[,] data, DType dtype = DType.float64, bool requires_grad = false)
+        public Tensor(double[,] data, torch.dtype dtype = torch.dtype.float64, bool requires_grad = false)
         {
             if(data == null)
             {
@@ -1181,15 +1178,15 @@ namespace torch
             this.__time = 1;
             this.__batch = 1;
             //-> Initialize the data storage...
-            if(dtype == DType.@default)
+            if(dtype == torch.dtype.@default)
             {
-                dtype = Torch.default_dtype;
+                dtype = torch.default_dtype;
             }
             this.dtype = dtype;
             this.requires_grad = requires_grad;
-            if((requires_grad) && (dtype != DType.float16) && (dtype != DType.half) && (dtype != DType.float32) && (dtype != DType.@float) && (dtype != DType.float64) && (dtype != DType.@double))
+            if((requires_grad) && (dtype != torch.dtype.float16) && (dtype != torch.dtype.half) && (dtype != torch.dtype.float32) && (dtype != torch.dtype.@float) && (dtype != torch.dtype.float64) && (dtype != torch.dtype.@double))
             {
-                throw new TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
+                throw new torch.TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
             }
             if(requires_grad)
             {
@@ -1198,55 +1195,55 @@ namespace torch
             this.__InitializeData();
             switch(this.dtype)
             {
-                case DType.half:
-                case DType.float16:
+                case torch.dtype.half:
+                case torch.dtype.float16:
                 {
                     __match(data, this.__data_float16);
                     break;
                 }
-                case DType.@float:
-                case DType.float32:
+                case torch.dtype.@float:
+                case torch.dtype.float32:
                 {
                     __match(data, this.__data_float32);
                     break;
                 }
-                case DType.@double:
-                case DType.float64:
+                case torch.dtype.@double:
+                case torch.dtype.float64:
                 {
                     __match(data, this.__data_float64);
                     break;
                 }
-                case DType.int8:
+                case torch.dtype.int8:
                 {
                     __match(data, this.__data_int8);
                     break;
                 }
-                case DType.uint8:
+                case torch.dtype.uint8:
                 {
                     __match(data, this.__data_uint8);
                     break;
                 }
-                case DType.int16:
-                case DType.@short:
+                case torch.dtype.int16:
+                case torch.dtype.@short:
                 {
                     __match(data, this.__data_int16);
                     break;
                 }
-                case DType.int32:
-                case DType.@int:
+                case torch.dtype.int32:
+                case torch.dtype.@int:
                 {
                     __match(data, this.__data_int32);
                     break;
                 }
-                case DType.int64:
-                case DType.@long:
+                case torch.dtype.int64:
+                case torch.dtype.@long:
                 {
                     __match(data, this.__data_int64);
                     break;
                 }
-                case DType.@bool:
+                case torch.dtype.@bool:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert double to bool.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert double to bool.");
                 }
             }
         }
@@ -1255,7 +1252,7 @@ namespace torch
         ///<param name="data">double 3-dim array.</param>
         ///<param name = "dtype">Tensor data type.</param>
         ///<param name="requires_grad">If false, torch.autograd will not record operations with this Tensor.</param>
-        public Tensor(double[,,] data, DType dtype = DType.float64, bool requires_grad = false)
+        public Tensor(double[,,] data, torch.dtype dtype = torch.dtype.float64, bool requires_grad = false)
         {
             if(data == null)
             {
@@ -1268,15 +1265,15 @@ namespace torch
             this.__time = 1;
             this.__batch = 1;
             //-> Initialize the data storage...
-            if(dtype == DType.@default)
+            if(dtype == torch.dtype.@default)
             {
-                dtype = Torch.default_dtype;
+                dtype = torch.default_dtype;
             }
             this.dtype = dtype;
             this.requires_grad = requires_grad;
-            if((requires_grad) && (dtype != DType.float16) && (dtype != DType.half) && (dtype != DType.float32) && (dtype != DType.@float) && (dtype != DType.float64) && (dtype != DType.@double))
+            if((requires_grad) && (dtype != torch.dtype.float16) && (dtype != torch.dtype.half) && (dtype != torch.dtype.float32) && (dtype != torch.dtype.@float) && (dtype != torch.dtype.float64) && (dtype != torch.dtype.@double))
             {
-                throw new TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
+                throw new torch.TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
             }
             if(requires_grad)
             {
@@ -1285,55 +1282,55 @@ namespace torch
             this.__InitializeData();
             switch(this.dtype)
             {
-                case DType.half:
-                case DType.float16:
+                case torch.dtype.half:
+                case torch.dtype.float16:
                 {
                     __match(data, this.__data_float16);
                     break;
                 }
-                case DType.@float:
-                case DType.float32:
+                case torch.dtype.@float:
+                case torch.dtype.float32:
                 {
                     __match(data, this.__data_float32);
                     break;
                 }
-                case DType.@double:
-                case DType.float64:
+                case torch.dtype.@double:
+                case torch.dtype.float64:
                 {
                     __match(data, this.__data_float64);
                     break;
                 }
-                case DType.int8:
+                case torch.dtype.int8:
                 {
                     __match(data, this.__data_int8);
                     break;
                 }
-                case DType.uint8:
+                case torch.dtype.uint8:
                 {
                     __match(data, this.__data_uint8);
                     break;
                 }
-                case DType.int16:
-                case DType.@short:
+                case torch.dtype.int16:
+                case torch.dtype.@short:
                 {
                     __match(data, this.__data_int16);
                     break;
                 }
-                case DType.int32:
-                case DType.@int:
+                case torch.dtype.int32:
+                case torch.dtype.@int:
                 {
                     __match(data, this.__data_int32);
                     break;
                 }
-                case DType.int64:
-                case DType.@long:
+                case torch.dtype.int64:
+                case torch.dtype.@long:
                 {
                     __match(data, this.__data_int64);
                     break;
                 }
-                case DType.@bool:
+                case torch.dtype.@bool:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert double to bool.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert double to bool.");
                 }
             }
         }
@@ -1342,7 +1339,7 @@ namespace torch
         ///<param name="data">double 4-dim array.</param>
         ///<param name = "dtype">Tensor data type.</param>
         ///<param name="requires_grad">If false, torch.autograd will not record operations with this Tensor.</param>
-        public Tensor(double[,,,] data, DType dtype = DType.float64, bool requires_grad = false)
+        public Tensor(double[,,,] data, torch.dtype dtype = torch.dtype.float64, bool requires_grad = false)
         {
             if(data == null)
             {
@@ -1355,15 +1352,15 @@ namespace torch
             this.__time = data.GetLength(3);
             this.__batch = 1;
             //-> Initialize the data storage...
-            if(dtype == DType.@default)
+            if(dtype == torch.dtype.@default)
             {
-                dtype = Torch.default_dtype;
+                dtype = torch.default_dtype;
             }
             this.dtype = dtype;
             this.requires_grad = requires_grad;
-            if((requires_grad) && (dtype != DType.float16) && (dtype != DType.half) && (dtype != DType.float32) && (dtype != DType.@float) && (dtype != DType.float64) && (dtype != DType.@double))
+            if((requires_grad) && (dtype != torch.dtype.float16) && (dtype != torch.dtype.half) && (dtype != torch.dtype.float32) && (dtype != torch.dtype.@float) && (dtype != torch.dtype.float64) && (dtype != torch.dtype.@double))
             {
-                throw new TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
+                throw new torch.TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
             }
             if(requires_grad)
             {
@@ -1372,55 +1369,55 @@ namespace torch
             this.__InitializeData();
             switch(this.dtype)
             {
-                case DType.half:
-                case DType.float16:
+                case torch.dtype.half:
+                case torch.dtype.float16:
                 {
                     __match(data, this.__data_float16);
                     break;
                 }
-                case DType.@float:
-                case DType.float32:
+                case torch.dtype.@float:
+                case torch.dtype.float32:
                 {
                     __match(data, this.__data_float32);
                     break;
                 }
-                case DType.@double:
-                case DType.float64:
+                case torch.dtype.@double:
+                case torch.dtype.float64:
                 {
                     __match(data, this.__data_float64);
                     break;
                 }
-                case DType.int8:
+                case torch.dtype.int8:
                 {
                     __match(data, this.__data_int8);
                     break;
                 }
-                case DType.uint8:
+                case torch.dtype.uint8:
                 {
                     __match(data, this.__data_uint8);
                     break;
                 }
-                case DType.int16:
-                case DType.@short:
+                case torch.dtype.int16:
+                case torch.dtype.@short:
                 {
                     __match(data, this.__data_int16);
                     break;
                 }
-                case DType.int32:
-                case DType.@int:
+                case torch.dtype.int32:
+                case torch.dtype.@int:
                 {
                     __match(data, this.__data_int32);
                     break;
                 }
-                case DType.int64:
-                case DType.@long:
+                case torch.dtype.int64:
+                case torch.dtype.@long:
                 {
                     __match(data, this.__data_int64);
                     break;
                 }
-                case DType.@bool:
+                case torch.dtype.@bool:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert double to bool.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert double to bool.");
                 }
             }
         }
@@ -1429,7 +1426,7 @@ namespace torch
         ///<param name="data">double 5-dim array.</param>
         ///<param name = "dtype">Tensor data type.</param>
         ///<param name="requires_grad">If false, torch.autograd will not record operations with this Tensor.</param>
-        public Tensor(double[,,,,] data, DType dtype = DType.float64, bool requires_grad = false)
+        public Tensor(double[,,,,] data, torch.dtype dtype = torch.dtype.float64, bool requires_grad = false)
         {
             if(data == null)
             {
@@ -1442,15 +1439,15 @@ namespace torch
             this.__time = data.GetLength(3);
             this.__batch = data.GetLength(4);
             //-> Initialize the data storage...
-            if(dtype == DType.@default)
+            if(dtype == torch.dtype.@default)
             {
-                dtype = Torch.default_dtype;
+                dtype = torch.default_dtype;
             }
             this.dtype = dtype;
             this.requires_grad = requires_grad;
-            if((requires_grad) && (dtype != DType.float16) && (dtype != DType.half) && (dtype != DType.float32) && (dtype != DType.@float) && (dtype != DType.float64) && (dtype != DType.@double))
+            if((requires_grad) && (dtype != torch.dtype.float16) && (dtype != torch.dtype.half) && (dtype != torch.dtype.float32) && (dtype != torch.dtype.@float) && (dtype != torch.dtype.float64) && (dtype != torch.dtype.@double))
             {
-                throw new TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
+                throw new torch.TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
             }
             if(requires_grad)
             {
@@ -1459,55 +1456,55 @@ namespace torch
             this.__InitializeData();
             switch(this.dtype)
             {
-                case DType.half:
-                case DType.float16:
+                case torch.dtype.half:
+                case torch.dtype.float16:
                 {
                     __match(data, this.__data_float16);
                     break;
                 }
-                case DType.@float:
-                case DType.float32:
+                case torch.dtype.@float:
+                case torch.dtype.float32:
                 {
                     __match(data, this.__data_float32);
                     break;
                 }
-                case DType.@double:
-                case DType.float64:
+                case torch.dtype.@double:
+                case torch.dtype.float64:
                 {
                     __match(data, this.__data_float64);
                     break;
                 }
-                case DType.int8:
+                case torch.dtype.int8:
                 {
                     __match(data, this.__data_int8);
                     break;
                 }
-                case DType.uint8:
+                case torch.dtype.uint8:
                 {
                     __match(data, this.__data_uint8);
                     break;
                 }
-                case DType.int16:
-                case DType.@short:
+                case torch.dtype.int16:
+                case torch.dtype.@short:
                 {
                     __match(data, this.__data_int16);
                     break;
                 }
-                case DType.int32:
-                case DType.@int:
+                case torch.dtype.int32:
+                case torch.dtype.@int:
                 {
                     __match(data, this.__data_int32);
                     break;
                 }
-                case DType.int64:
-                case DType.@long:
+                case torch.dtype.int64:
+                case torch.dtype.@long:
                 {
                     __match(data, this.__data_int64);
                     break;
                 }
-                case DType.@bool:
+                case torch.dtype.@bool:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert double to bool.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert double to bool.");
                 }
             }
         }
@@ -1520,7 +1517,7 @@ namespace torch
         ///<param name="data">byte 1-dim array.</param>
         ///<param name = "dtype">Tensor data type.</param>
         ///<param name="requires_grad">If false, torch.autograd will not record operations with this Tensor.</param>
-        public Tensor(byte[] data, DType dtype = DType.uint8, bool requires_grad = false)
+        public Tensor(byte[] data, torch.dtype dtype = torch.dtype.uint8, bool requires_grad = false)
         {
             if(data == null)
             {
@@ -1533,15 +1530,15 @@ namespace torch
             this.__time = 1;
             this.__batch = 1;
             //-> Initialize the data storage...
-            if(dtype == DType.@default)
+            if(dtype == torch.dtype.@default)
             {
-                dtype = Torch.default_dtype;
+                dtype = torch.default_dtype;
             }
             this.dtype = dtype;
             this.requires_grad = requires_grad;
-            if((requires_grad) && (dtype != DType.float16) && (dtype != DType.half) && (dtype != DType.float32) && (dtype != DType.@float) && (dtype != DType.float64) && (dtype != DType.@double))
+            if((requires_grad) && (dtype != torch.dtype.float16) && (dtype != torch.dtype.half) && (dtype != torch.dtype.float32) && (dtype != torch.dtype.@float) && (dtype != torch.dtype.float64) && (dtype != torch.dtype.@double))
             {
-                throw new TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
+                throw new torch.TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
             }
             if(requires_grad)
             {
@@ -1550,55 +1547,55 @@ namespace torch
             this.__InitializeData();
             switch(this.dtype)
             {
-                case DType.half:
-                case DType.float16:
+                case torch.dtype.half:
+                case torch.dtype.float16:
                 {
                     __match(data, this.__data_float16);
                     break;
                 }
-                case DType.@float:
-                case DType.float32:
+                case torch.dtype.@float:
+                case torch.dtype.float32:
                 {
                     __match(data, this.__data_float32);
                     break;
                 }
-                case DType.@double:
-                case DType.float64:
+                case torch.dtype.@double:
+                case torch.dtype.float64:
                 {
                     __match(data, this.__data_float64);
                     break;
                 }
-                case DType.int8:
+                case torch.dtype.int8:
                 {
                     __match(data, this.__data_int8);
                     break;
                 }
-                case DType.uint8:
+                case torch.dtype.uint8:
                 {
                     __match(data, this.__data_uint8);
                     break;
                 }
-                case DType.int16:
-                case DType.@short:
+                case torch.dtype.int16:
+                case torch.dtype.@short:
                 {
                     __match(data, this.__data_int16);
                     break;
                 }
-                case DType.int32:
-                case DType.@int:
+                case torch.dtype.int32:
+                case torch.dtype.@int:
                 {
                     __match(data, this.__data_int32);
                     break;
                 }
-                case DType.int64:
-                case DType.@long:
+                case torch.dtype.int64:
+                case torch.dtype.@long:
                 {
                     __match(data, this.__data_int64);
                     break;
                 }
-                case DType.@bool:
+                case torch.dtype.@bool:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert uint8 to bool.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert uint8 to bool.");
                 }
             }
         }
@@ -1607,7 +1604,7 @@ namespace torch
         ///<param name="data">byte 2-dim array.</param>
         ///<param name = "dtype">Tensor data type.</param>
         ///<param name="requires_grad">If false, torch.autograd will not record operations with this Tensor.</param>
-        public Tensor(byte[,] data, DType dtype = DType.uint8, bool requires_grad = false)
+        public Tensor(byte[,] data, torch.dtype dtype = torch.dtype.uint8, bool requires_grad = false)
         {
             if(data == null)
             {
@@ -1620,15 +1617,15 @@ namespace torch
             this.__time = 1;
             this.__batch = 1;
             //-> Initialize the data storage...
-            if(dtype == DType.@default)
+            if(dtype == torch.dtype.@default)
             {
-                dtype = Torch.default_dtype;
+                dtype = torch.default_dtype;
             }
             this.dtype = dtype;
             this.requires_grad = requires_grad;
-            if((requires_grad) && (dtype != DType.float16) && (dtype != DType.half) && (dtype != DType.float32) && (dtype != DType.@float) && (dtype != DType.float64) && (dtype != DType.@double))
+            if((requires_grad) && (dtype != torch.dtype.float16) && (dtype != torch.dtype.half) && (dtype != torch.dtype.float32) && (dtype != torch.dtype.@float) && (dtype != torch.dtype.float64) && (dtype != torch.dtype.@double))
             {
-                throw new TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
+                throw new torch.TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
             }
             if(requires_grad)
             {
@@ -1637,55 +1634,55 @@ namespace torch
             this.__InitializeData();
             switch(this.dtype)
             {
-                case DType.half:
-                case DType.float16:
+                case torch.dtype.half:
+                case torch.dtype.float16:
                 {
                     __match(data, this.__data_float16);
                     break;
                 }
-                case DType.@float:
-                case DType.float32:
+                case torch.dtype.@float:
+                case torch.dtype.float32:
                 {
                     __match(data, this.__data_float32);
                     break;
                 }
-                case DType.@double:
-                case DType.float64:
+                case torch.dtype.@double:
+                case torch.dtype.float64:
                 {
                     __match(data, this.__data_float64);
                     break;
                 }
-                case DType.int8:
+                case torch.dtype.int8:
                 {
                     __match(data, this.__data_int8);
                     break;
                 }
-                case DType.uint8:
+                case torch.dtype.uint8:
                 {
                     __match(data, this.__data_uint8);
                     break;
                 }
-                case DType.int16:
-                case DType.@short:
+                case torch.dtype.int16:
+                case torch.dtype.@short:
                 {
                     __match(data, this.__data_int16);
                     break;
                 }
-                case DType.int32:
-                case DType.@int:
+                case torch.dtype.int32:
+                case torch.dtype.@int:
                 {
                     __match(data, this.__data_int32);
                     break;
                 }
-                case DType.int64:
-                case DType.@long:
+                case torch.dtype.int64:
+                case torch.dtype.@long:
                 {
                     __match(data, this.__data_int64);
                     break;
                 }
-                case DType.@bool:
+                case torch.dtype.@bool:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert uint8 to bool.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert uint8 to bool.");
                 }
             }
         }
@@ -1694,7 +1691,7 @@ namespace torch
         ///<param name="data">byte 3-dim array.</param>
         ///<param name = "dtype">Tensor data type.</param>
         ///<param name="requires_grad">If false, torch.autograd will not record operations with this Tensor.</param>
-        public Tensor(byte[,,] data, DType dtype = DType.uint8, bool requires_grad = false)
+        public Tensor(byte[,,] data, torch.dtype dtype = torch.dtype.uint8, bool requires_grad = false)
         {
             if(data == null)
             {
@@ -1707,15 +1704,15 @@ namespace torch
             this.__time = 1;
             this.__batch = 1;
             //-> Initialize the data storage...
-            if(dtype == DType.@default)
+            if(dtype == torch.dtype.@default)
             {
-                dtype = Torch.default_dtype;
+                dtype = torch.default_dtype;
             }
             this.dtype = dtype;
             this.requires_grad = requires_grad;
-            if((requires_grad) && (dtype != DType.float16) && (dtype != DType.half) && (dtype != DType.float32) && (dtype != DType.@float) && (dtype != DType.float64) && (dtype != DType.@double))
+            if((requires_grad) && (dtype != torch.dtype.float16) && (dtype != torch.dtype.half) && (dtype != torch.dtype.float32) && (dtype != torch.dtype.@float) && (dtype != torch.dtype.float64) && (dtype != torch.dtype.@double))
             {
-                throw new TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
+                throw new torch.TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
             }
             if(requires_grad)
             {
@@ -1724,55 +1721,55 @@ namespace torch
             this.__InitializeData();
             switch(this.dtype)
             {
-                case DType.half:
-                case DType.float16:
+                case torch.dtype.half:
+                case torch.dtype.float16:
                 {
                     __match(data, this.__data_float16);
                     break;
                 }
-                case DType.@float:
-                case DType.float32:
+                case torch.dtype.@float:
+                case torch.dtype.float32:
                 {
                     __match(data, this.__data_float32);
                     break;
                 }
-                case DType.@double:
-                case DType.float64:
+                case torch.dtype.@double:
+                case torch.dtype.float64:
                 {
                     __match(data, this.__data_float64);
                     break;
                 }
-                case DType.int8:
+                case torch.dtype.int8:
                 {
                     __match(data, this.__data_int8);
                     break;
                 }
-                case DType.uint8:
+                case torch.dtype.uint8:
                 {
                     __match(data, this.__data_uint8);
                     break;
                 }
-                case DType.int16:
-                case DType.@short:
+                case torch.dtype.int16:
+                case torch.dtype.@short:
                 {
                     __match(data, this.__data_int16);
                     break;
                 }
-                case DType.int32:
-                case DType.@int:
+                case torch.dtype.int32:
+                case torch.dtype.@int:
                 {
                     __match(data, this.__data_int32);
                     break;
                 }
-                case DType.int64:
-                case DType.@long:
+                case torch.dtype.int64:
+                case torch.dtype.@long:
                 {
                     __match(data, this.__data_int64);
                     break;
                 }
-                case DType.@bool:
+                case torch.dtype.@bool:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert uint8 to bool.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert uint8 to bool.");
                 }
             }
         }
@@ -1781,7 +1778,7 @@ namespace torch
         ///<param name="data">byte 4-dim array.</param>
         ///<param name = "dtype">Tensor data type.</param>
         ///<param name="requires_grad">If false, torch.autograd will not record operations with this Tensor.</param>
-        public Tensor(byte[,,,] data, DType dtype = DType.uint8, bool requires_grad = false)
+        public Tensor(byte[,,,] data, torch.dtype dtype = torch.dtype.uint8, bool requires_grad = false)
         {
             if(data == null)
             {
@@ -1794,15 +1791,15 @@ namespace torch
             this.__time = data.GetLength(3);
             this.__batch = 1;
             //-> Initialize the data storage...
-            if(dtype == DType.@default)
+            if(dtype == torch.dtype.@default)
             {
-                dtype = Torch.default_dtype;
+                dtype = torch.default_dtype;
             }
             this.dtype = dtype;
             this.requires_grad = requires_grad;
-            if((requires_grad) && (dtype != DType.float16) && (dtype != DType.half) && (dtype != DType.float32) && (dtype != DType.@float) && (dtype != DType.float64) && (dtype != DType.@double))
+            if((requires_grad) && (dtype != torch.dtype.float16) && (dtype != torch.dtype.half) && (dtype != torch.dtype.float32) && (dtype != torch.dtype.@float) && (dtype != torch.dtype.float64) && (dtype != torch.dtype.@double))
             {
-                throw new TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
+                throw new torch.TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
             }
             if(requires_grad)
             {
@@ -1811,55 +1808,55 @@ namespace torch
             this.__InitializeData();
             switch(this.dtype)
             {
-                case DType.half:
-                case DType.float16:
+                case torch.dtype.half:
+                case torch.dtype.float16:
                 {
                     __match(data, this.__data_float16);
                     break;
                 }
-                case DType.@float:
-                case DType.float32:
+                case torch.dtype.@float:
+                case torch.dtype.float32:
                 {
                     __match(data, this.__data_float32);
                     break;
                 }
-                case DType.@double:
-                case DType.float64:
+                case torch.dtype.@double:
+                case torch.dtype.float64:
                 {
                     __match(data, this.__data_float64);
                     break;
                 }
-                case DType.int8:
+                case torch.dtype.int8:
                 {
                     __match(data, this.__data_int8);
                     break;
                 }
-                case DType.uint8:
+                case torch.dtype.uint8:
                 {
                     __match(data, this.__data_uint8);
                     break;
                 }
-                case DType.int16:
-                case DType.@short:
+                case torch.dtype.int16:
+                case torch.dtype.@short:
                 {
                     __match(data, this.__data_int16);
                     break;
                 }
-                case DType.int32:
-                case DType.@int:
+                case torch.dtype.int32:
+                case torch.dtype.@int:
                 {
                     __match(data, this.__data_int32);
                     break;
                 }
-                case DType.int64:
-                case DType.@long:
+                case torch.dtype.int64:
+                case torch.dtype.@long:
                 {
                     __match(data, this.__data_int64);
                     break;
                 }
-                case DType.@bool:
+                case torch.dtype.@bool:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert uint8 to bool.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert uint8 to bool.");
                 }
             }
         }
@@ -1868,7 +1865,7 @@ namespace torch
         ///<param name="data">byte 5-dim array.</param>
         ///<param name = "dtype">Tensor data type.</param>
         ///<param name="requires_grad">If false, torch.autograd will not record operations with this Tensor.</param>
-        public Tensor(byte[,,,,] data, DType dtype = DType.uint8, bool requires_grad = false)
+        public Tensor(byte[,,,,] data, torch.dtype dtype = torch.dtype.uint8, bool requires_grad = false)
         {
             if(data == null)
             {
@@ -1881,15 +1878,15 @@ namespace torch
             this.__time = data.GetLength(3);
             this.__batch = data.GetLength(4);
             //-> Initialize the data storage...
-            if(dtype == DType.@default)
+            if(dtype == torch.dtype.@default)
             {
-                dtype = Torch.default_dtype;
+                dtype = torch.default_dtype;
             }
             this.dtype = dtype;
             this.requires_grad = requires_grad;
-            if((requires_grad) && (dtype != DType.float16) && (dtype != DType.half) && (dtype != DType.float32) && (dtype != DType.@float) && (dtype != DType.float64) && (dtype != DType.@double))
+            if((requires_grad) && (dtype != torch.dtype.float16) && (dtype != torch.dtype.half) && (dtype != torch.dtype.float32) && (dtype != torch.dtype.@float) && (dtype != torch.dtype.float64) && (dtype != torch.dtype.@double))
             {
-                throw new TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
+                throw new torch.TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
             }
             if(requires_grad)
             {
@@ -1898,55 +1895,55 @@ namespace torch
             this.__InitializeData();
             switch(this.dtype)
             {
-                case DType.half:
-                case DType.float16:
+                case torch.dtype.half:
+                case torch.dtype.float16:
                 {
                     __match(data, this.__data_float16);
                     break;
                 }
-                case DType.@float:
-                case DType.float32:
+                case torch.dtype.@float:
+                case torch.dtype.float32:
                 {
                     __match(data, this.__data_float32);
                     break;
                 }
-                case DType.@double:
-                case DType.float64:
+                case torch.dtype.@double:
+                case torch.dtype.float64:
                 {
                     __match(data, this.__data_float64);
                     break;
                 }
-                case DType.int8:
+                case torch.dtype.int8:
                 {
                     __match(data, this.__data_int8);
                     break;
                 }
-                case DType.uint8:
+                case torch.dtype.uint8:
                 {
                     __match(data, this.__data_uint8);
                     break;
                 }
-                case DType.int16:
-                case DType.@short:
+                case torch.dtype.int16:
+                case torch.dtype.@short:
                 {
                     __match(data, this.__data_int16);
                     break;
                 }
-                case DType.int32:
-                case DType.@int:
+                case torch.dtype.int32:
+                case torch.dtype.@int:
                 {
                     __match(data, this.__data_int32);
                     break;
                 }
-                case DType.int64:
-                case DType.@long:
+                case torch.dtype.int64:
+                case torch.dtype.@long:
                 {
                     __match(data, this.__data_int64);
                     break;
                 }
-                case DType.@bool:
+                case torch.dtype.@bool:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert uint8 to bool.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert uint8 to bool.");
                 }
             }
         }
@@ -1959,7 +1956,7 @@ namespace torch
         ///<param name="data">sbyte 1-dim array.</param>
         ///<param name = "dtype">Tensor data type.</param>
         ///<param name="requires_grad">If false, torch.autograd will not record operations with this Tensor.</param>
-        public Tensor(sbyte[] data, DType dtype = DType.int8, bool requires_grad = false)
+        public Tensor(sbyte[] data, torch.dtype dtype = torch.dtype.int8, bool requires_grad = false)
         {
             if(data == null)
             {
@@ -1972,15 +1969,15 @@ namespace torch
             this.__time = 1;
             this.__batch = 1;
             //-> Initialize the data storage...
-            if(dtype == DType.@default)
+            if(dtype == torch.dtype.@default)
             {
-                dtype = Torch.default_dtype;
+                dtype = torch.default_dtype;
             }
             this.dtype = dtype;
             this.requires_grad = requires_grad;
-            if((requires_grad) && (dtype != DType.float16) && (dtype != DType.half) && (dtype != DType.float32) && (dtype != DType.@float) && (dtype != DType.float64) && (dtype != DType.@double))
+            if((requires_grad) && (dtype != torch.dtype.float16) && (dtype != torch.dtype.half) && (dtype != torch.dtype.float32) && (dtype != torch.dtype.@float) && (dtype != torch.dtype.float64) && (dtype != torch.dtype.@double))
             {
-                throw new TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
+                throw new torch.TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
             }
             if(requires_grad)
             {
@@ -1989,55 +1986,55 @@ namespace torch
             this.__InitializeData();
             switch(this.dtype)
             {
-                case DType.half:
-                case DType.float16:
+                case torch.dtype.half:
+                case torch.dtype.float16:
                 {
                     __match(data, this.__data_float16);
                     break;
                 }
-                case DType.@float:
-                case DType.float32:
+                case torch.dtype.@float:
+                case torch.dtype.float32:
                 {
                     __match(data, this.__data_float32);
                     break;
                 }
-                case DType.@double:
-                case DType.float64:
+                case torch.dtype.@double:
+                case torch.dtype.float64:
                 {
                     __match(data, this.__data_float64);
                     break;
                 }
-                case DType.int8:
+                case torch.dtype.int8:
                 {
                     __match(data, this.__data_int8);
                     break;
                 }
-                case DType.uint8:
+                case torch.dtype.uint8:
                 {
                     __match(data, this.__data_uint8);
                     break;
                 }
-                case DType.int16:
-                case DType.@short:
+                case torch.dtype.int16:
+                case torch.dtype.@short:
                 {
                     __match(data, this.__data_int16);
                     break;
                 }
-                case DType.int32:
-                case DType.@int:
+                case torch.dtype.int32:
+                case torch.dtype.@int:
                 {
                     __match(data, this.__data_int32);
                     break;
                 }
-                case DType.int64:
-                case DType.@long:
+                case torch.dtype.int64:
+                case torch.dtype.@long:
                 {
                     __match(data, this.__data_int64);
                     break;
                 }
-                case DType.@bool:
+                case torch.dtype.@bool:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert int8 to bool.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert int8 to bool.");
                 }
             }
         }
@@ -2046,7 +2043,7 @@ namespace torch
         ///<param name="data">sbyte 2-dim array.</param>
         ///<param name = "dtype">Tensor data type.</param>
         ///<param name="requires_grad">If false, torch.autograd will not record operations with this Tensor.</param>
-        public Tensor(sbyte[,] data, DType dtype = DType.int8, bool requires_grad = false)
+        public Tensor(sbyte[,] data, torch.dtype dtype = torch.dtype.int8, bool requires_grad = false)
         {
             if(data == null)
             {
@@ -2059,15 +2056,15 @@ namespace torch
             this.__time = 1;
             this.__batch = 1;
             //-> Initialize the data storage...
-            if(dtype == DType.@default)
+            if(dtype == torch.dtype.@default)
             {
-                dtype = Torch.default_dtype;
+                dtype = torch.default_dtype;
             }
             this.dtype = dtype;
             this.requires_grad = requires_grad;
-            if((requires_grad) && (dtype != DType.float16) && (dtype != DType.half) && (dtype != DType.float32) && (dtype != DType.@float) && (dtype != DType.float64) && (dtype != DType.@double))
+            if((requires_grad) && (dtype != torch.dtype.float16) && (dtype != torch.dtype.half) && (dtype != torch.dtype.float32) && (dtype != torch.dtype.@float) && (dtype != torch.dtype.float64) && (dtype != torch.dtype.@double))
             {
-                throw new TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
+                throw new torch.TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
             }
             if(requires_grad)
             {
@@ -2076,55 +2073,55 @@ namespace torch
             this.__InitializeData();
             switch(this.dtype)
             {
-                case DType.half:
-                case DType.float16:
+                case torch.dtype.half:
+                case torch.dtype.float16:
                 {
                     __match(data, this.__data_float16);
                     break;
                 }
-                case DType.@float:
-                case DType.float32:
+                case torch.dtype.@float:
+                case torch.dtype.float32:
                 {
                     __match(data, this.__data_float32);
                     break;
                 }
-                case DType.@double:
-                case DType.float64:
+                case torch.dtype.@double:
+                case torch.dtype.float64:
                 {
                     __match(data, this.__data_float64);
                     break;
                 }
-                case DType.int8:
+                case torch.dtype.int8:
                 {
                     __match(data, this.__data_int8);
                     break;
                 }
-                case DType.uint8:
+                case torch.dtype.uint8:
                 {
                     __match(data, this.__data_uint8);
                     break;
                 }
-                case DType.int16:
-                case DType.@short:
+                case torch.dtype.int16:
+                case torch.dtype.@short:
                 {
                     __match(data, this.__data_int16);
                     break;
                 }
-                case DType.int32:
-                case DType.@int:
+                case torch.dtype.int32:
+                case torch.dtype.@int:
                 {
                     __match(data, this.__data_int32);
                     break;
                 }
-                case DType.int64:
-                case DType.@long:
+                case torch.dtype.int64:
+                case torch.dtype.@long:
                 {
                     __match(data, this.__data_int64);
                     break;
                 }
-                case DType.@bool:
+                case torch.dtype.@bool:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert int8 to bool.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert int8 to bool.");
                 }
             }
         }
@@ -2133,7 +2130,7 @@ namespace torch
         ///<param name="data">sbyte 3-dim array.</param>
         ///<param name = "dtype">Tensor data type.</param>
         ///<param name="requires_grad">If false, torch.autograd will not record operations with this Tensor.</param>
-        public Tensor(sbyte[,,] data, DType dtype = DType.int8, bool requires_grad = false)
+        public Tensor(sbyte[,,] data, torch.dtype dtype = torch.dtype.int8, bool requires_grad = false)
         {
             if(data == null)
             {
@@ -2146,15 +2143,15 @@ namespace torch
             this.__time = 1;
             this.__batch = 1;
             //-> Initialize the data storage...
-            if(dtype == DType.@default)
+            if(dtype == torch.dtype.@default)
             {
-                dtype = Torch.default_dtype;
+                dtype = torch.default_dtype;
             }
             this.dtype = dtype;
             this.requires_grad = requires_grad;
-            if((requires_grad) && (dtype != DType.float16) && (dtype != DType.half) && (dtype != DType.float32) && (dtype != DType.@float) && (dtype != DType.float64) && (dtype != DType.@double))
+            if((requires_grad) && (dtype != torch.dtype.float16) && (dtype != torch.dtype.half) && (dtype != torch.dtype.float32) && (dtype != torch.dtype.@float) && (dtype != torch.dtype.float64) && (dtype != torch.dtype.@double))
             {
-                throw new TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
+                throw new torch.TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
             }
             if(requires_grad)
             {
@@ -2163,55 +2160,55 @@ namespace torch
             this.__InitializeData();
             switch(this.dtype)
             {
-                case DType.half:
-                case DType.float16:
+                case torch.dtype.half:
+                case torch.dtype.float16:
                 {
                     __match(data, this.__data_float16);
                     break;
                 }
-                case DType.@float:
-                case DType.float32:
+                case torch.dtype.@float:
+                case torch.dtype.float32:
                 {
                     __match(data, this.__data_float32);
                     break;
                 }
-                case DType.@double:
-                case DType.float64:
+                case torch.dtype.@double:
+                case torch.dtype.float64:
                 {
                     __match(data, this.__data_float64);
                     break;
                 }
-                case DType.int8:
+                case torch.dtype.int8:
                 {
                     __match(data, this.__data_int8);
                     break;
                 }
-                case DType.uint8:
+                case torch.dtype.uint8:
                 {
                     __match(data, this.__data_uint8);
                     break;
                 }
-                case DType.int16:
-                case DType.@short:
+                case torch.dtype.int16:
+                case torch.dtype.@short:
                 {
                     __match(data, this.__data_int16);
                     break;
                 }
-                case DType.int32:
-                case DType.@int:
+                case torch.dtype.int32:
+                case torch.dtype.@int:
                 {
                     __match(data, this.__data_int32);
                     break;
                 }
-                case DType.int64:
-                case DType.@long:
+                case torch.dtype.int64:
+                case torch.dtype.@long:
                 {
                     __match(data, this.__data_int64);
                     break;
                 }
-                case DType.@bool:
+                case torch.dtype.@bool:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert int8 to bool.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert int8 to bool.");
                 }
             }
         }
@@ -2220,7 +2217,7 @@ namespace torch
         ///<param name="data">sbyte 4-dim array.</param>
         ///<param name = "dtype">Tensor data type.</param>
         ///<param name="requires_grad">If false, torch.autograd will not record operations with this Tensor.</param>
-        public Tensor(sbyte[,,,] data, DType dtype = DType.int8, bool requires_grad = false)
+        public Tensor(sbyte[,,,] data, torch.dtype dtype = torch.dtype.int8, bool requires_grad = false)
         {
             if(data == null)
             {
@@ -2233,15 +2230,15 @@ namespace torch
             this.__time = data.GetLength(3);
             this.__batch = 1;
             //-> Initialize the data storage...
-            if(dtype == DType.@default)
+            if(dtype == torch.dtype.@default)
             {
-                dtype = Torch.default_dtype;
+                dtype = torch.default_dtype;
             }
             this.dtype = dtype;
             this.requires_grad = requires_grad;
-            if((requires_grad) && (dtype != DType.float16) && (dtype != DType.half) && (dtype != DType.float32) && (dtype != DType.@float) && (dtype != DType.float64) && (dtype != DType.@double))
+            if((requires_grad) && (dtype != torch.dtype.float16) && (dtype != torch.dtype.half) && (dtype != torch.dtype.float32) && (dtype != torch.dtype.@float) && (dtype != torch.dtype.float64) && (dtype != torch.dtype.@double))
             {
-                throw new TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
+                throw new torch.TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
             }
             if(requires_grad)
             {
@@ -2250,55 +2247,55 @@ namespace torch
             this.__InitializeData();
             switch(this.dtype)
             {
-                case DType.half:
-                case DType.float16:
+                case torch.dtype.half:
+                case torch.dtype.float16:
                 {
                     __match(data, this.__data_float16);
                     break;
                 }
-                case DType.@float:
-                case DType.float32:
+                case torch.dtype.@float:
+                case torch.dtype.float32:
                 {
                     __match(data, this.__data_float32);
                     break;
                 }
-                case DType.@double:
-                case DType.float64:
+                case torch.dtype.@double:
+                case torch.dtype.float64:
                 {
                     __match(data, this.__data_float64);
                     break;
                 }
-                case DType.int8:
+                case torch.dtype.int8:
                 {
                     __match(data, this.__data_int8);
                     break;
                 }
-                case DType.uint8:
+                case torch.dtype.uint8:
                 {
                     __match(data, this.__data_uint8);
                     break;
                 }
-                case DType.int16:
-                case DType.@short:
+                case torch.dtype.int16:
+                case torch.dtype.@short:
                 {
                     __match(data, this.__data_int16);
                     break;
                 }
-                case DType.int32:
-                case DType.@int:
+                case torch.dtype.int32:
+                case torch.dtype.@int:
                 {
                     __match(data, this.__data_int32);
                     break;
                 }
-                case DType.int64:
-                case DType.@long:
+                case torch.dtype.int64:
+                case torch.dtype.@long:
                 {
                     __match(data, this.__data_int64);
                     break;
                 }
-                case DType.@bool:
+                case torch.dtype.@bool:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert int8 to bool.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert int8 to bool.");
                 }
             }
         }
@@ -2307,7 +2304,7 @@ namespace torch
         ///<param name="data">sbyte 5-dim array.</param>
         ///<param name = "dtype">Tensor data type.</param>
         ///<param name="requires_grad">If false, torch.autograd will not record operations with this Tensor.</param>
-        public Tensor(sbyte[,,,,] data, DType dtype = DType.int8, bool requires_grad = false)
+        public Tensor(sbyte[,,,,] data, torch.dtype dtype = torch.dtype.int8, bool requires_grad = false)
         {
             if(data == null)
             {
@@ -2320,15 +2317,15 @@ namespace torch
             this.__time = data.GetLength(3);
             this.__batch = data.GetLength(4);
             //-> Initialize the data storage...
-            if(dtype == DType.@default)
+            if(dtype == torch.dtype.@default)
             {
-                dtype = Torch.default_dtype;
+                dtype = torch.default_dtype;
             }
             this.dtype = dtype;
             this.requires_grad = requires_grad;
-            if((requires_grad) && (dtype != DType.float16) && (dtype != DType.half) && (dtype != DType.float32) && (dtype != DType.@float) && (dtype != DType.float64) && (dtype != DType.@double))
+            if((requires_grad) && (dtype != torch.dtype.float16) && (dtype != torch.dtype.half) && (dtype != torch.dtype.float32) && (dtype != torch.dtype.@float) && (dtype != torch.dtype.float64) && (dtype != torch.dtype.@double))
             {
-                throw new TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
+                throw new torch.TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
             }
             if(requires_grad)
             {
@@ -2337,55 +2334,55 @@ namespace torch
             this.__InitializeData();
             switch(this.dtype)
             {
-                case DType.half:
-                case DType.float16:
+                case torch.dtype.half:
+                case torch.dtype.float16:
                 {
                     __match(data, this.__data_float16);
                     break;
                 }
-                case DType.@float:
-                case DType.float32:
+                case torch.dtype.@float:
+                case torch.dtype.float32:
                 {
                     __match(data, this.__data_float32);
                     break;
                 }
-                case DType.@double:
-                case DType.float64:
+                case torch.dtype.@double:
+                case torch.dtype.float64:
                 {
                     __match(data, this.__data_float64);
                     break;
                 }
-                case DType.int8:
+                case torch.dtype.int8:
                 {
                     __match(data, this.__data_int8);
                     break;
                 }
-                case DType.uint8:
+                case torch.dtype.uint8:
                 {
                     __match(data, this.__data_uint8);
                     break;
                 }
-                case DType.int16:
-                case DType.@short:
+                case torch.dtype.int16:
+                case torch.dtype.@short:
                 {
                     __match(data, this.__data_int16);
                     break;
                 }
-                case DType.int32:
-                case DType.@int:
+                case torch.dtype.int32:
+                case torch.dtype.@int:
                 {
                     __match(data, this.__data_int32);
                     break;
                 }
-                case DType.int64:
-                case DType.@long:
+                case torch.dtype.int64:
+                case torch.dtype.@long:
                 {
                     __match(data, this.__data_int64);
                     break;
                 }
-                case DType.@bool:
+                case torch.dtype.@bool:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert int8 to bool.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert int8 to bool.");
                 }
             }
         }
@@ -2398,7 +2395,7 @@ namespace torch
         ///<param name="data">short 1-dim array.</param>
         ///<param name = "dtype">Tensor data type.</param>
         ///<param name="requires_grad">If false, torch.autograd will not record operations with this Tensor.</param>
-        public Tensor(short[] data, DType dtype = DType.int16, bool requires_grad = false)
+        public Tensor(short[] data, torch.dtype dtype = torch.dtype.int16, bool requires_grad = false)
         {
             if(data == null)
             {
@@ -2411,15 +2408,15 @@ namespace torch
             this.__time = 1;
             this.__batch = 1;
             //-> Initialize the data storage...
-            if(dtype == DType.@default)
+            if(dtype == torch.dtype.@default)
             {
-                dtype = Torch.default_dtype;
+                dtype = torch.default_dtype;
             }
             this.dtype = dtype;
             this.requires_grad = requires_grad;
-            if((requires_grad) && (dtype != DType.float16) && (dtype != DType.half) && (dtype != DType.float32) && (dtype != DType.@float) && (dtype != DType.float64) && (dtype != DType.@double))
+            if((requires_grad) && (dtype != torch.dtype.float16) && (dtype != torch.dtype.half) && (dtype != torch.dtype.float32) && (dtype != torch.dtype.@float) && (dtype != torch.dtype.float64) && (dtype != torch.dtype.@double))
             {
-                throw new TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
+                throw new torch.TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
             }
             if(requires_grad)
             {
@@ -2428,55 +2425,55 @@ namespace torch
             this.__InitializeData();
             switch(this.dtype)
             {
-                case DType.half:
-                case DType.float16:
+                case torch.dtype.half:
+                case torch.dtype.float16:
                 {
                     __match(data, this.__data_float16);
                     break;
                 }
-                case DType.@float:
-                case DType.float32:
+                case torch.dtype.@float:
+                case torch.dtype.float32:
                 {
                     __match(data, this.__data_float32);
                     break;
                 }
-                case DType.@double:
-                case DType.float64:
+                case torch.dtype.@double:
+                case torch.dtype.float64:
                 {
                     __match(data, this.__data_float64);
                     break;
                 }
-                case DType.int8:
+                case torch.dtype.int8:
                 {
                     __match(data, this.__data_int8);
                     break;
                 }
-                case DType.uint8:
+                case torch.dtype.uint8:
                 {
                     __match(data, this.__data_uint8);
                     break;
                 }
-                case DType.int16:
-                case DType.@short:
+                case torch.dtype.int16:
+                case torch.dtype.@short:
                 {
                     __match(data, this.__data_int16);
                     break;
                 }
-                case DType.int32:
-                case DType.@int:
+                case torch.dtype.int32:
+                case torch.dtype.@int:
                 {
                     __match(data, this.__data_int32);
                     break;
                 }
-                case DType.int64:
-                case DType.@long:
+                case torch.dtype.int64:
+                case torch.dtype.@long:
                 {
                     __match(data, this.__data_int64);
                     break;
                 }
-                case DType.@bool:
+                case torch.dtype.@bool:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert int16 to bool.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert int16 to bool.");
                 }
             }
         }
@@ -2485,7 +2482,7 @@ namespace torch
         ///<param name="data">short 2-dim array.</param>
         ///<param name = "dtype">Tensor data type.</param>
         ///<param name="requires_grad">If false, torch.autograd will not record operations with this Tensor.</param>
-        public Tensor(short[,] data, DType dtype = DType.int16, bool requires_grad = false)
+        public Tensor(short[,] data, torch.dtype dtype = torch.dtype.int16, bool requires_grad = false)
         {
             if(data == null)
             {
@@ -2498,15 +2495,15 @@ namespace torch
             this.__time = 1;
             this.__batch = 1;
             //-> Initialize the data storage...
-            if(dtype == DType.@default)
+            if(dtype == torch.dtype.@default)
             {
-                dtype = Torch.default_dtype;
+                dtype = torch.default_dtype;
             }
             this.dtype = dtype;
             this.requires_grad = requires_grad;
-            if((requires_grad) && (dtype != DType.float16) && (dtype != DType.half) && (dtype != DType.float32) && (dtype != DType.@float) && (dtype != DType.float64) && (dtype != DType.@double))
+            if((requires_grad) && (dtype != torch.dtype.float16) && (dtype != torch.dtype.half) && (dtype != torch.dtype.float32) && (dtype != torch.dtype.@float) && (dtype != torch.dtype.float64) && (dtype != torch.dtype.@double))
             {
-                throw new TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
+                throw new torch.TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
             }
             if(requires_grad)
             {
@@ -2515,55 +2512,55 @@ namespace torch
             this.__InitializeData();
             switch(this.dtype)
             {
-                case DType.half:
-                case DType.float16:
+                case torch.dtype.half:
+                case torch.dtype.float16:
                 {
                     __match(data, this.__data_float16);
                     break;
                 }
-                case DType.@float:
-                case DType.float32:
+                case torch.dtype.@float:
+                case torch.dtype.float32:
                 {
                     __match(data, this.__data_float32);
                     break;
                 }
-                case DType.@double:
-                case DType.float64:
+                case torch.dtype.@double:
+                case torch.dtype.float64:
                 {
                     __match(data, this.__data_float64);
                     break;
                 }
-                case DType.int8:
+                case torch.dtype.int8:
                 {
                     __match(data, this.__data_int8);
                     break;
                 }
-                case DType.uint8:
+                case torch.dtype.uint8:
                 {
                     __match(data, this.__data_uint8);
                     break;
                 }
-                case DType.int16:
-                case DType.@short:
+                case torch.dtype.int16:
+                case torch.dtype.@short:
                 {
                     __match(data, this.__data_int16);
                     break;
                 }
-                case DType.int32:
-                case DType.@int:
+                case torch.dtype.int32:
+                case torch.dtype.@int:
                 {
                     __match(data, this.__data_int32);
                     break;
                 }
-                case DType.int64:
-                case DType.@long:
+                case torch.dtype.int64:
+                case torch.dtype.@long:
                 {
                     __match(data, this.__data_int64);
                     break;
                 }
-                case DType.@bool:
+                case torch.dtype.@bool:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert int16 to bool.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert int16 to bool.");
                 }
             }
         }
@@ -2572,7 +2569,7 @@ namespace torch
         ///<param name="data">short 3-dim array.</param>
         ///<param name = "dtype">Tensor data type.</param>
         ///<param name="requires_grad">If false, torch.autograd will not record operations with this Tensor.</param>
-        public Tensor(short[,,] data, DType dtype = DType.int16, bool requires_grad = false)
+        public Tensor(short[,,] data, torch.dtype dtype = torch.dtype.int16, bool requires_grad = false)
         {
             if(data == null)
             {
@@ -2585,15 +2582,15 @@ namespace torch
             this.__time = 1;
             this.__batch = 1;
             //-> Initialize the data storage...
-            if(dtype == DType.@default)
+            if(dtype == torch.dtype.@default)
             {
-                dtype = Torch.default_dtype;
+                dtype = torch.default_dtype;
             }
             this.dtype = dtype;
             this.requires_grad = requires_grad;
-            if((requires_grad) && (dtype != DType.float16) && (dtype != DType.half) && (dtype != DType.float32) && (dtype != DType.@float) && (dtype != DType.float64) && (dtype != DType.@double))
+            if((requires_grad) && (dtype != torch.dtype.float16) && (dtype != torch.dtype.half) && (dtype != torch.dtype.float32) && (dtype != torch.dtype.@float) && (dtype != torch.dtype.float64) && (dtype != torch.dtype.@double))
             {
-                throw new TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
+                throw new torch.TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
             }
             if(requires_grad)
             {
@@ -2602,55 +2599,55 @@ namespace torch
             this.__InitializeData();
             switch(this.dtype)
             {
-                case DType.half:
-                case DType.float16:
+                case torch.dtype.half:
+                case torch.dtype.float16:
                 {
                     __match(data, this.__data_float16);
                     break;
                 }
-                case DType.@float:
-                case DType.float32:
+                case torch.dtype.@float:
+                case torch.dtype.float32:
                 {
                     __match(data, this.__data_float32);
                     break;
                 }
-                case DType.@double:
-                case DType.float64:
+                case torch.dtype.@double:
+                case torch.dtype.float64:
                 {
                     __match(data, this.__data_float64);
                     break;
                 }
-                case DType.int8:
+                case torch.dtype.int8:
                 {
                     __match(data, this.__data_int8);
                     break;
                 }
-                case DType.uint8:
+                case torch.dtype.uint8:
                 {
                     __match(data, this.__data_uint8);
                     break;
                 }
-                case DType.int16:
-                case DType.@short:
+                case torch.dtype.int16:
+                case torch.dtype.@short:
                 {
                     __match(data, this.__data_int16);
                     break;
                 }
-                case DType.int32:
-                case DType.@int:
+                case torch.dtype.int32:
+                case torch.dtype.@int:
                 {
                     __match(data, this.__data_int32);
                     break;
                 }
-                case DType.int64:
-                case DType.@long:
+                case torch.dtype.int64:
+                case torch.dtype.@long:
                 {
                     __match(data, this.__data_int64);
                     break;
                 }
-                case DType.@bool:
+                case torch.dtype.@bool:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert int16 to bool.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert int16 to bool.");
                 }
             }
         }
@@ -2659,7 +2656,7 @@ namespace torch
         ///<param name="data">short 4-dim array.</param>
         ///<param name = "dtype">Tensor data type.</param>
         ///<param name="requires_grad">If false, torch.autograd will not record operations with this Tensor.</param>
-        public Tensor(short[,,,] data, DType dtype = DType.int16, bool requires_grad = false)
+        public Tensor(short[,,,] data, torch.dtype dtype = torch.dtype.int16, bool requires_grad = false)
         {
             if(data == null)
             {
@@ -2672,15 +2669,15 @@ namespace torch
             this.__time = data.GetLength(3);
             this.__batch = 1;
             //-> Initialize the data storage...
-            if(dtype == DType.@default)
+            if(dtype == torch.dtype.@default)
             {
-                dtype = Torch.default_dtype;
+                dtype = torch.default_dtype;
             }
             this.dtype = dtype;
             this.requires_grad = requires_grad;
-            if((requires_grad) && (dtype != DType.float16) && (dtype != DType.half) && (dtype != DType.float32) && (dtype != DType.@float) && (dtype != DType.float64) && (dtype != DType.@double))
+            if((requires_grad) && (dtype != torch.dtype.float16) && (dtype != torch.dtype.half) && (dtype != torch.dtype.float32) && (dtype != torch.dtype.@float) && (dtype != torch.dtype.float64) && (dtype != torch.dtype.@double))
             {
-                throw new TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
+                throw new torch.TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
             }
             if(requires_grad)
             {
@@ -2689,55 +2686,55 @@ namespace torch
             this.__InitializeData();
             switch(this.dtype)
             {
-                case DType.half:
-                case DType.float16:
+                case torch.dtype.half:
+                case torch.dtype.float16:
                 {
                     __match(data, this.__data_float16);
                     break;
                 }
-                case DType.@float:
-                case DType.float32:
+                case torch.dtype.@float:
+                case torch.dtype.float32:
                 {
                     __match(data, this.__data_float32);
                     break;
                 }
-                case DType.@double:
-                case DType.float64:
+                case torch.dtype.@double:
+                case torch.dtype.float64:
                 {
                     __match(data, this.__data_float64);
                     break;
                 }
-                case DType.int8:
+                case torch.dtype.int8:
                 {
                     __match(data, this.__data_int8);
                     break;
                 }
-                case DType.uint8:
+                case torch.dtype.uint8:
                 {
                     __match(data, this.__data_uint8);
                     break;
                 }
-                case DType.int16:
-                case DType.@short:
+                case torch.dtype.int16:
+                case torch.dtype.@short:
                 {
                     __match(data, this.__data_int16);
                     break;
                 }
-                case DType.int32:
-                case DType.@int:
+                case torch.dtype.int32:
+                case torch.dtype.@int:
                 {
                     __match(data, this.__data_int32);
                     break;
                 }
-                case DType.int64:
-                case DType.@long:
+                case torch.dtype.int64:
+                case torch.dtype.@long:
                 {
                     __match(data, this.__data_int64);
                     break;
                 }
-                case DType.@bool:
+                case torch.dtype.@bool:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert int16 to bool.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert int16 to bool.");
                 }
             }
         }
@@ -2746,7 +2743,7 @@ namespace torch
         ///<param name="data">short 5-dim array.</param>
         ///<param name = "dtype">Tensor data type.</param>
         ///<param name="requires_grad">If false, torch.autograd will not record operations with this Tensor.</param>
-        public Tensor(short[,,,,] data, DType dtype = DType.int16, bool requires_grad = false)
+        public Tensor(short[,,,,] data, torch.dtype dtype = torch.dtype.int16, bool requires_grad = false)
         {
             if(data == null)
             {
@@ -2759,15 +2756,15 @@ namespace torch
             this.__time = data.GetLength(3);
             this.__batch = data.GetLength(4);
             //-> Initialize the data storage...
-            if(dtype == DType.@default)
+            if(dtype == torch.dtype.@default)
             {
-                dtype = Torch.default_dtype;
+                dtype = torch.default_dtype;
             }
             this.dtype = dtype;
             this.requires_grad = requires_grad;
-            if((requires_grad) && (dtype != DType.float16) && (dtype != DType.half) && (dtype != DType.float32) && (dtype != DType.@float) && (dtype != DType.float64) && (dtype != DType.@double))
+            if((requires_grad) && (dtype != torch.dtype.float16) && (dtype != torch.dtype.half) && (dtype != torch.dtype.float32) && (dtype != torch.dtype.@float) && (dtype != torch.dtype.float64) && (dtype != torch.dtype.@double))
             {
-                throw new TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
+                throw new torch.TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
             }
             if(requires_grad)
             {
@@ -2776,55 +2773,55 @@ namespace torch
             this.__InitializeData();
             switch(this.dtype)
             {
-                case DType.half:
-                case DType.float16:
+                case torch.dtype.half:
+                case torch.dtype.float16:
                 {
                     __match(data, this.__data_float16);
                     break;
                 }
-                case DType.@float:
-                case DType.float32:
+                case torch.dtype.@float:
+                case torch.dtype.float32:
                 {
                     __match(data, this.__data_float32);
                     break;
                 }
-                case DType.@double:
-                case DType.float64:
+                case torch.dtype.@double:
+                case torch.dtype.float64:
                 {
                     __match(data, this.__data_float64);
                     break;
                 }
-                case DType.int8:
+                case torch.dtype.int8:
                 {
                     __match(data, this.__data_int8);
                     break;
                 }
-                case DType.uint8:
+                case torch.dtype.uint8:
                 {
                     __match(data, this.__data_uint8);
                     break;
                 }
-                case DType.int16:
-                case DType.@short:
+                case torch.dtype.int16:
+                case torch.dtype.@short:
                 {
                     __match(data, this.__data_int16);
                     break;
                 }
-                case DType.int32:
-                case DType.@int:
+                case torch.dtype.int32:
+                case torch.dtype.@int:
                 {
                     __match(data, this.__data_int32);
                     break;
                 }
-                case DType.int64:
-                case DType.@long:
+                case torch.dtype.int64:
+                case torch.dtype.@long:
                 {
                     __match(data, this.__data_int64);
                     break;
                 }
-                case DType.@bool:
+                case torch.dtype.@bool:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert int16 to bool.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert int16 to bool.");
                 }
             }
         }
@@ -2837,7 +2834,7 @@ namespace torch
         ///<param name="data">int 1-dim array.</param>
         ///<param name = "dtype">Tensor data type.</param>
         ///<param name="requires_grad">If false, torch.autograd will not record operations with this Tensor.</param>
-        public Tensor(int[] data, DType dtype = DType.int32, bool requires_grad = false)
+        public Tensor(int[] data, torch.dtype dtype = torch.dtype.int32, bool requires_grad = false)
         {
             if(data == null)
             {
@@ -2850,15 +2847,15 @@ namespace torch
             this.__time = 1;
             this.__batch = 1;
             //-> Initialize the data storage...
-            if(dtype == DType.@default)
+            if(dtype == torch.dtype.@default)
             {
-                dtype = Torch.default_dtype;
+                dtype = torch.default_dtype;
             }
             this.dtype = dtype;
             this.requires_grad = requires_grad;
-            if((requires_grad) && (dtype != DType.float16) && (dtype != DType.half) && (dtype != DType.float32) && (dtype != DType.@float) && (dtype != DType.float64) && (dtype != DType.@double))
+            if((requires_grad) && (dtype != torch.dtype.float16) && (dtype != torch.dtype.half) && (dtype != torch.dtype.float32) && (dtype != torch.dtype.@float) && (dtype != torch.dtype.float64) && (dtype != torch.dtype.@double))
             {
-                throw new TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
+                throw new torch.TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
             }
             if(requires_grad)
             {
@@ -2867,55 +2864,55 @@ namespace torch
             this.__InitializeData();
             switch(this.dtype)
             {
-                case DType.half:
-                case DType.float16:
+                case torch.dtype.half:
+                case torch.dtype.float16:
                 {
                     __match(data, this.__data_float16);
                     break;
                 }
-                case DType.@float:
-                case DType.float32:
+                case torch.dtype.@float:
+                case torch.dtype.float32:
                 {
                     __match(data, this.__data_float32);
                     break;
                 }
-                case DType.@double:
-                case DType.float64:
+                case torch.dtype.@double:
+                case torch.dtype.float64:
                 {
                     __match(data, this.__data_float64);
                     break;
                 }
-                case DType.int8:
+                case torch.dtype.int8:
                 {
                     __match(data, this.__data_int8);
                     break;
                 }
-                case DType.uint8:
+                case torch.dtype.uint8:
                 {
                     __match(data, this.__data_uint8);
                     break;
                 }
-                case DType.int16:
-                case DType.@short:
+                case torch.dtype.int16:
+                case torch.dtype.@short:
                 {
                     __match(data, this.__data_int16);
                     break;
                 }
-                case DType.int32:
-                case DType.@int:
+                case torch.dtype.int32:
+                case torch.dtype.@int:
                 {
                     __match(data, this.__data_int32);
                     break;
                 }
-                case DType.int64:
-                case DType.@long:
+                case torch.dtype.int64:
+                case torch.dtype.@long:
                 {
                     __match(data, this.__data_int64);
                     break;
                 }
-                case DType.@bool:
+                case torch.dtype.@bool:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert int32 to bool.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert int32 to bool.");
                 }
             }
         }
@@ -2924,7 +2921,7 @@ namespace torch
         ///<param name="data">int 2-dim array.</param>
         ///<param name = "dtype">Tensor data type.</param>
         ///<param name="requires_grad">If false, torch.autograd will not record operations with this Tensor.</param>
-        public Tensor(int[,] data, DType dtype = DType.int32, bool requires_grad = false)
+        public Tensor(int[,] data, torch.dtype dtype = torch.dtype.int32, bool requires_grad = false)
         {
             if(data == null)
             {
@@ -2937,15 +2934,15 @@ namespace torch
             this.__time = 1;
             this.__batch = 1;
             //-> Initialize the data storage...
-            if(dtype == DType.@default)
+            if(dtype == torch.dtype.@default)
             {
-                dtype = Torch.default_dtype;
+                dtype = torch.default_dtype;
             }
             this.dtype = dtype;
             this.requires_grad = requires_grad;
-            if((requires_grad) && (dtype != DType.float16) && (dtype != DType.half) && (dtype != DType.float32) && (dtype != DType.@float) && (dtype != DType.float64) && (dtype != DType.@double))
+            if((requires_grad) && (dtype != torch.dtype.float16) && (dtype != torch.dtype.half) && (dtype != torch.dtype.float32) && (dtype != torch.dtype.@float) && (dtype != torch.dtype.float64) && (dtype != torch.dtype.@double))
             {
-                throw new TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
+                throw new torch.TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
             }
             if(requires_grad)
             {
@@ -2954,55 +2951,55 @@ namespace torch
             this.__InitializeData();
             switch(this.dtype)
             {
-                case DType.half:
-                case DType.float16:
+                case torch.dtype.half:
+                case torch.dtype.float16:
                 {
                     __match(data, this.__data_float16);
                     break;
                 }
-                case DType.@float:
-                case DType.float32:
+                case torch.dtype.@float:
+                case torch.dtype.float32:
                 {
                     __match(data, this.__data_float32);
                     break;
                 }
-                case DType.@double:
-                case DType.float64:
+                case torch.dtype.@double:
+                case torch.dtype.float64:
                 {
                     __match(data, this.__data_float64);
                     break;
                 }
-                case DType.int8:
+                case torch.dtype.int8:
                 {
                     __match(data, this.__data_int8);
                     break;
                 }
-                case DType.uint8:
+                case torch.dtype.uint8:
                 {
                     __match(data, this.__data_uint8);
                     break;
                 }
-                case DType.int16:
-                case DType.@short:
+                case torch.dtype.int16:
+                case torch.dtype.@short:
                 {
                     __match(data, this.__data_int16);
                     break;
                 }
-                case DType.int32:
-                case DType.@int:
+                case torch.dtype.int32:
+                case torch.dtype.@int:
                 {
                     __match(data, this.__data_int32);
                     break;
                 }
-                case DType.int64:
-                case DType.@long:
+                case torch.dtype.int64:
+                case torch.dtype.@long:
                 {
                     __match(data, this.__data_int64);
                     break;
                 }
-                case DType.@bool:
+                case torch.dtype.@bool:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert int32 to bool.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert int32 to bool.");
                 }
             }
         }
@@ -3011,7 +3008,7 @@ namespace torch
         ///<param name="data">int 3-dim array.</param>
         ///<param name = "dtype">Tensor data type.</param>
         ///<param name="requires_grad">If false, torch.autograd will not record operations with this Tensor.</param>
-        public Tensor(int[,,] data, DType dtype = DType.int32, bool requires_grad = false)
+        public Tensor(int[,,] data, torch.dtype dtype = torch.dtype.int32, bool requires_grad = false)
         {
             if(data == null)
             {
@@ -3024,15 +3021,15 @@ namespace torch
             this.__time = 1;
             this.__batch = 1;
             //-> Initialize the data storage...
-            if(dtype == DType.@default)
+            if(dtype == torch.dtype.@default)
             {
-                dtype = Torch.default_dtype;
+                dtype = torch.default_dtype;
             }
             this.dtype = dtype;
             this.requires_grad = requires_grad;
-            if((requires_grad) && (dtype != DType.float16) && (dtype != DType.half) && (dtype != DType.float32) && (dtype != DType.@float) && (dtype != DType.float64) && (dtype != DType.@double))
+            if((requires_grad) && (dtype != torch.dtype.float16) && (dtype != torch.dtype.half) && (dtype != torch.dtype.float32) && (dtype != torch.dtype.@float) && (dtype != torch.dtype.float64) && (dtype != torch.dtype.@double))
             {
-                throw new TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
+                throw new torch.TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
             }
             if(requires_grad)
             {
@@ -3041,55 +3038,55 @@ namespace torch
             this.__InitializeData();
             switch(this.dtype)
             {
-                case DType.half:
-                case DType.float16:
+                case torch.dtype.half:
+                case torch.dtype.float16:
                 {
                     __match(data, this.__data_float16);
                     break;
                 }
-                case DType.@float:
-                case DType.float32:
+                case torch.dtype.@float:
+                case torch.dtype.float32:
                 {
                     __match(data, this.__data_float32);
                     break;
                 }
-                case DType.@double:
-                case DType.float64:
+                case torch.dtype.@double:
+                case torch.dtype.float64:
                 {
                     __match(data, this.__data_float64);
                     break;
                 }
-                case DType.int8:
+                case torch.dtype.int8:
                 {
                     __match(data, this.__data_int8);
                     break;
                 }
-                case DType.uint8:
+                case torch.dtype.uint8:
                 {
                     __match(data, this.__data_uint8);
                     break;
                 }
-                case DType.int16:
-                case DType.@short:
+                case torch.dtype.int16:
+                case torch.dtype.@short:
                 {
                     __match(data, this.__data_int16);
                     break;
                 }
-                case DType.int32:
-                case DType.@int:
+                case torch.dtype.int32:
+                case torch.dtype.@int:
                 {
                     __match(data, this.__data_int32);
                     break;
                 }
-                case DType.int64:
-                case DType.@long:
+                case torch.dtype.int64:
+                case torch.dtype.@long:
                 {
                     __match(data, this.__data_int64);
                     break;
                 }
-                case DType.@bool:
+                case torch.dtype.@bool:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert int32 to bool.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert int32 to bool.");
                 }
             }
         }
@@ -3098,7 +3095,7 @@ namespace torch
         ///<param name="data">int 4-dim array.</param>
         ///<param name = "dtype">Tensor data type.</param>
         ///<param name="requires_grad">If false, torch.autograd will not record operations with this Tensor.</param>
-        public Tensor(int[,,,] data, DType dtype = DType.int32, bool requires_grad = false)
+        public Tensor(int[,,,] data, torch.dtype dtype = torch.dtype.int32, bool requires_grad = false)
         {
             if(data == null)
             {
@@ -3111,15 +3108,15 @@ namespace torch
             this.__time = data.GetLength(3);
             this.__batch = 1;
             //-> Initialize the data storage...
-            if(dtype == DType.@default)
+            if(dtype == torch.dtype.@default)
             {
-                dtype = Torch.default_dtype;
+                dtype = torch.default_dtype;
             }
             this.dtype = dtype;
             this.requires_grad = requires_grad;
-            if((requires_grad) && (dtype != DType.float16) && (dtype != DType.half) && (dtype != DType.float32) && (dtype != DType.@float) && (dtype != DType.float64) && (dtype != DType.@double))
+            if((requires_grad) && (dtype != torch.dtype.float16) && (dtype != torch.dtype.half) && (dtype != torch.dtype.float32) && (dtype != torch.dtype.@float) && (dtype != torch.dtype.float64) && (dtype != torch.dtype.@double))
             {
-                throw new TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
+                throw new torch.TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
             }
             if(requires_grad)
             {
@@ -3128,55 +3125,55 @@ namespace torch
             this.__InitializeData();
             switch(this.dtype)
             {
-                case DType.half:
-                case DType.float16:
+                case torch.dtype.half:
+                case torch.dtype.float16:
                 {
                     __match(data, this.__data_float16);
                     break;
                 }
-                case DType.@float:
-                case DType.float32:
+                case torch.dtype.@float:
+                case torch.dtype.float32:
                 {
                     __match(data, this.__data_float32);
                     break;
                 }
-                case DType.@double:
-                case DType.float64:
+                case torch.dtype.@double:
+                case torch.dtype.float64:
                 {
                     __match(data, this.__data_float64);
                     break;
                 }
-                case DType.int8:
+                case torch.dtype.int8:
                 {
                     __match(data, this.__data_int8);
                     break;
                 }
-                case DType.uint8:
+                case torch.dtype.uint8:
                 {
                     __match(data, this.__data_uint8);
                     break;
                 }
-                case DType.int16:
-                case DType.@short:
+                case torch.dtype.int16:
+                case torch.dtype.@short:
                 {
                     __match(data, this.__data_int16);
                     break;
                 }
-                case DType.int32:
-                case DType.@int:
+                case torch.dtype.int32:
+                case torch.dtype.@int:
                 {
                     __match(data, this.__data_int32);
                     break;
                 }
-                case DType.int64:
-                case DType.@long:
+                case torch.dtype.int64:
+                case torch.dtype.@long:
                 {
                     __match(data, this.__data_int64);
                     break;
                 }
-                case DType.@bool:
+                case torch.dtype.@bool:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert int32 to bool.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert int32 to bool.");
                 }
             }
         }
@@ -3185,7 +3182,7 @@ namespace torch
         ///<param name="data">int 5-dim array.</param>
         ///<param name = "dtype">Tensor data type.</param>
         ///<param name="requires_grad">If false, torch.autograd will not record operations with this Tensor.</param>
-        public Tensor(int[,,,,] data, DType dtype = DType.int32, bool requires_grad = false)
+        public Tensor(int[,,,,] data, torch.dtype dtype = torch.dtype.int32, bool requires_grad = false)
         {
             if(data == null)
             {
@@ -3198,15 +3195,15 @@ namespace torch
             this.__time = data.GetLength(3);
             this.__batch = data.GetLength(4);
             //-> Initialize the data storage...
-            if(dtype == DType.@default)
+            if(dtype == torch.dtype.@default)
             {
-                dtype = Torch.default_dtype;
+                dtype = torch.default_dtype;
             }
             this.dtype = dtype;
             this.requires_grad = requires_grad;
-            if((requires_grad) && (dtype != DType.float16) && (dtype != DType.half) && (dtype != DType.float32) && (dtype != DType.@float) && (dtype != DType.float64) && (dtype != DType.@double))
+            if((requires_grad) && (dtype != torch.dtype.float16) && (dtype != torch.dtype.half) && (dtype != torch.dtype.float32) && (dtype != torch.dtype.@float) && (dtype != torch.dtype.float64) && (dtype != torch.dtype.@double))
             {
-                throw new TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
+                throw new torch.TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
             }
             if(requires_grad)
             {
@@ -3215,55 +3212,55 @@ namespace torch
             this.__InitializeData();
             switch(this.dtype)
             {
-                case DType.half:
-                case DType.float16:
+                case torch.dtype.half:
+                case torch.dtype.float16:
                 {
                     __match(data, this.__data_float16);
                     break;
                 }
-                case DType.@float:
-                case DType.float32:
+                case torch.dtype.@float:
+                case torch.dtype.float32:
                 {
                     __match(data, this.__data_float32);
                     break;
                 }
-                case DType.@double:
-                case DType.float64:
+                case torch.dtype.@double:
+                case torch.dtype.float64:
                 {
                     __match(data, this.__data_float64);
                     break;
                 }
-                case DType.int8:
+                case torch.dtype.int8:
                 {
                     __match(data, this.__data_int8);
                     break;
                 }
-                case DType.uint8:
+                case torch.dtype.uint8:
                 {
                     __match(data, this.__data_uint8);
                     break;
                 }
-                case DType.int16:
-                case DType.@short:
+                case torch.dtype.int16:
+                case torch.dtype.@short:
                 {
                     __match(data, this.__data_int16);
                     break;
                 }
-                case DType.int32:
-                case DType.@int:
+                case torch.dtype.int32:
+                case torch.dtype.@int:
                 {
                     __match(data, this.__data_int32);
                     break;
                 }
-                case DType.int64:
-                case DType.@long:
+                case torch.dtype.int64:
+                case torch.dtype.@long:
                 {
                     __match(data, this.__data_int64);
                     break;
                 }
-                case DType.@bool:
+                case torch.dtype.@bool:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert int32 to bool.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert int32 to bool.");
                 }
             }
         }
@@ -3276,7 +3273,7 @@ namespace torch
         ///<param name="data">long 1-dim array.</param>
         ///<param name = "dtype">Tensor data type.</param>
         ///<param name="requires_grad">If false, torch.autograd will not record operations with this Tensor.</param>
-        public Tensor(long[] data, DType dtype = DType.int64, bool requires_grad = false)
+        public Tensor(long[] data, torch.dtype dtype = torch.dtype.int64, bool requires_grad = false)
         {
             if(data == null)
             {
@@ -3289,15 +3286,15 @@ namespace torch
             this.__time = 1;
             this.__batch = 1;
             //-> Initialize the data storage...
-            if(dtype == DType.@default)
+            if(dtype == torch.dtype.@default)
             {
-                dtype = Torch.default_dtype;
+                dtype = torch.default_dtype;
             }
             this.dtype = dtype;
             this.requires_grad = requires_grad;
-            if((requires_grad) && (dtype != DType.float16) && (dtype != DType.half) && (dtype != DType.float32) && (dtype != DType.@float) && (dtype != DType.float64) && (dtype != DType.@double))
+            if((requires_grad) && (dtype != torch.dtype.float16) && (dtype != torch.dtype.half) && (dtype != torch.dtype.float32) && (dtype != torch.dtype.@float) && (dtype != torch.dtype.float64) && (dtype != torch.dtype.@double))
             {
-                throw new TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
+                throw new torch.TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
             }
             if(requires_grad)
             {
@@ -3306,55 +3303,55 @@ namespace torch
             this.__InitializeData();
             switch(this.dtype)
             {
-                case DType.half:
-                case DType.float16:
+                case torch.dtype.half:
+                case torch.dtype.float16:
                 {
                     __match(data, this.__data_float16);
                     break;
                 }
-                case DType.@float:
-                case DType.float32:
+                case torch.dtype.@float:
+                case torch.dtype.float32:
                 {
                     __match(data, this.__data_float32);
                     break;
                 }
-                case DType.@double:
-                case DType.float64:
+                case torch.dtype.@double:
+                case torch.dtype.float64:
                 {
                     __match(data, this.__data_float64);
                     break;
                 }
-                case DType.int8:
+                case torch.dtype.int8:
                 {
                     __match(data, this.__data_int8);
                     break;
                 }
-                case DType.uint8:
+                case torch.dtype.uint8:
                 {
                     __match(data, this.__data_uint8);
                     break;
                 }
-                case DType.int16:
-                case DType.@short:
+                case torch.dtype.int16:
+                case torch.dtype.@short:
                 {
                     __match(data, this.__data_int16);
                     break;
                 }
-                case DType.int32:
-                case DType.@int:
+                case torch.dtype.int32:
+                case torch.dtype.@int:
                 {
                     __match(data, this.__data_int32);
                     break;
                 }
-                case DType.int64:
-                case DType.@long:
+                case torch.dtype.int64:
+                case torch.dtype.@long:
                 {
                     __match(data, this.__data_int64);
                     break;
                 }
-                case DType.@bool:
+                case torch.dtype.@bool:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert int64 to bool.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert int64 to bool.");
                 }
             }
         }
@@ -3363,7 +3360,7 @@ namespace torch
         ///<param name="data">long 2-dim array.</param>
         ///<param name = "dtype">Tensor data type.</param>
         ///<param name="requires_grad">If false, torch.autograd will not record operations with this Tensor.</param>
-        public Tensor(long[,] data, DType dtype = DType.int64, bool requires_grad = false)
+        public Tensor(long[,] data, torch.dtype dtype = torch.dtype.int64, bool requires_grad = false)
         {
             if(data == null)
             {
@@ -3376,15 +3373,15 @@ namespace torch
             this.__time = 1;
             this.__batch = 1;
             //-> Initialize the data storage...
-            if(dtype == DType.@default)
+            if(dtype == torch.dtype.@default)
             {
-                dtype = Torch.default_dtype;
+                dtype = torch.default_dtype;
             }
             this.dtype = dtype;
             this.requires_grad = requires_grad;
-            if((requires_grad) && (dtype != DType.float16) && (dtype != DType.half) && (dtype != DType.float32) && (dtype != DType.@float) && (dtype != DType.float64) && (dtype != DType.@double))
+            if((requires_grad) && (dtype != torch.dtype.float16) && (dtype != torch.dtype.half) && (dtype != torch.dtype.float32) && (dtype != torch.dtype.@float) && (dtype != torch.dtype.float64) && (dtype != torch.dtype.@double))
             {
-                throw new TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
+                throw new torch.TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
             }
             if(requires_grad)
             {
@@ -3393,55 +3390,55 @@ namespace torch
             this.__InitializeData();
             switch(this.dtype)
             {
-                case DType.half:
-                case DType.float16:
+                case torch.dtype.half:
+                case torch.dtype.float16:
                 {
                     __match(data, this.__data_float16);
                     break;
                 }
-                case DType.@float:
-                case DType.float32:
+                case torch.dtype.@float:
+                case torch.dtype.float32:
                 {
                     __match(data, this.__data_float32);
                     break;
                 }
-                case DType.@double:
-                case DType.float64:
+                case torch.dtype.@double:
+                case torch.dtype.float64:
                 {
                     __match(data, this.__data_float64);
                     break;
                 }
-                case DType.int8:
+                case torch.dtype.int8:
                 {
                     __match(data, this.__data_int8);
                     break;
                 }
-                case DType.uint8:
+                case torch.dtype.uint8:
                 {
                     __match(data, this.__data_uint8);
                     break;
                 }
-                case DType.int16:
-                case DType.@short:
+                case torch.dtype.int16:
+                case torch.dtype.@short:
                 {
                     __match(data, this.__data_int16);
                     break;
                 }
-                case DType.int32:
-                case DType.@int:
+                case torch.dtype.int32:
+                case torch.dtype.@int:
                 {
                     __match(data, this.__data_int32);
                     break;
                 }
-                case DType.int64:
-                case DType.@long:
+                case torch.dtype.int64:
+                case torch.dtype.@long:
                 {
                     __match(data, this.__data_int64);
                     break;
                 }
-                case DType.@bool:
+                case torch.dtype.@bool:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert int64 to bool.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert int64 to bool.");
                 }
             }
         }
@@ -3450,7 +3447,7 @@ namespace torch
         ///<param name="data">long 3-dim array.</param>
         ///<param name = "dtype">Tensor data type.</param>
         ///<param name="requires_grad">If false, torch.autograd will not record operations with this Tensor.</param>
-        public Tensor(long[,,] data, DType dtype = DType.int64, bool requires_grad = false)
+        public Tensor(long[,,] data, torch.dtype dtype = torch.dtype.int64, bool requires_grad = false)
         {
             if(data == null)
             {
@@ -3463,15 +3460,15 @@ namespace torch
             this.__time = 1;
             this.__batch = 1;
             //-> Initialize the data storage...
-            if(dtype == DType.@default)
+            if(dtype == torch.dtype.@default)
             {
-                dtype = Torch.default_dtype;
+                dtype = torch.default_dtype;
             }
             this.dtype = dtype;
             this.requires_grad = requires_grad;
-            if((requires_grad) && (dtype != DType.float16) && (dtype != DType.half) && (dtype != DType.float32) && (dtype != DType.@float) && (dtype != DType.float64) && (dtype != DType.@double))
+            if((requires_grad) && (dtype != torch.dtype.float16) && (dtype != torch.dtype.half) && (dtype != torch.dtype.float32) && (dtype != torch.dtype.@float) && (dtype != torch.dtype.float64) && (dtype != torch.dtype.@double))
             {
-                throw new TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
+                throw new torch.TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
             }
             if(requires_grad)
             {
@@ -3480,55 +3477,55 @@ namespace torch
             this.__InitializeData();
             switch(this.dtype)
             {
-                case DType.half:
-                case DType.float16:
+                case torch.dtype.half:
+                case torch.dtype.float16:
                 {
                     __match(data, this.__data_float16);
                     break;
                 }
-                case DType.@float:
-                case DType.float32:
+                case torch.dtype.@float:
+                case torch.dtype.float32:
                 {
                     __match(data, this.__data_float32);
                     break;
                 }
-                case DType.@double:
-                case DType.float64:
+                case torch.dtype.@double:
+                case torch.dtype.float64:
                 {
                     __match(data, this.__data_float64);
                     break;
                 }
-                case DType.int8:
+                case torch.dtype.int8:
                 {
                     __match(data, this.__data_int8);
                     break;
                 }
-                case DType.uint8:
+                case torch.dtype.uint8:
                 {
                     __match(data, this.__data_uint8);
                     break;
                 }
-                case DType.int16:
-                case DType.@short:
+                case torch.dtype.int16:
+                case torch.dtype.@short:
                 {
                     __match(data, this.__data_int16);
                     break;
                 }
-                case DType.int32:
-                case DType.@int:
+                case torch.dtype.int32:
+                case torch.dtype.@int:
                 {
                     __match(data, this.__data_int32);
                     break;
                 }
-                case DType.int64:
-                case DType.@long:
+                case torch.dtype.int64:
+                case torch.dtype.@long:
                 {
                     __match(data, this.__data_int64);
                     break;
                 }
-                case DType.@bool:
+                case torch.dtype.@bool:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert int64 to bool.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert int64 to bool.");
                 }
             }
         }
@@ -3537,7 +3534,7 @@ namespace torch
         ///<param name="data">long 4-dim array.</param>
         ///<param name = "dtype">Tensor data type.</param>
         ///<param name="requires_grad">If false, torch.autograd will not record operations with this Tensor.</param>
-        public Tensor(long[,,,] data, DType dtype = DType.int64, bool requires_grad = false)
+        public Tensor(long[,,,] data, torch.dtype dtype = torch.dtype.int64, bool requires_grad = false)
         {
             if(data == null)
             {
@@ -3550,15 +3547,15 @@ namespace torch
             this.__time = data.GetLength(3);
             this.__batch = 1;
             //-> Initialize the data storage...
-            if(dtype == DType.@default)
+            if(dtype == torch.dtype.@default)
             {
-                dtype = Torch.default_dtype;
+                dtype = torch.default_dtype;
             }
             this.dtype = dtype;
             this.requires_grad = requires_grad;
-            if((requires_grad) && (dtype != DType.float16) && (dtype != DType.half) && (dtype != DType.float32) && (dtype != DType.@float) && (dtype != DType.float64) && (dtype != DType.@double))
+            if((requires_grad) && (dtype != torch.dtype.float16) && (dtype != torch.dtype.half) && (dtype != torch.dtype.float32) && (dtype != torch.dtype.@float) && (dtype != torch.dtype.float64) && (dtype != torch.dtype.@double))
             {
-                throw new TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
+                throw new torch.TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
             }
             if(requires_grad)
             {
@@ -3567,55 +3564,55 @@ namespace torch
             this.__InitializeData();
             switch(this.dtype)
             {
-                case DType.half:
-                case DType.float16:
+                case torch.dtype.half:
+                case torch.dtype.float16:
                 {
                     __match(data, this.__data_float16);
                     break;
                 }
-                case DType.@float:
-                case DType.float32:
+                case torch.dtype.@float:
+                case torch.dtype.float32:
                 {
                     __match(data, this.__data_float32);
                     break;
                 }
-                case DType.@double:
-                case DType.float64:
+                case torch.dtype.@double:
+                case torch.dtype.float64:
                 {
                     __match(data, this.__data_float64);
                     break;
                 }
-                case DType.int8:
+                case torch.dtype.int8:
                 {
                     __match(data, this.__data_int8);
                     break;
                 }
-                case DType.uint8:
+                case torch.dtype.uint8:
                 {
                     __match(data, this.__data_uint8);
                     break;
                 }
-                case DType.int16:
-                case DType.@short:
+                case torch.dtype.int16:
+                case torch.dtype.@short:
                 {
                     __match(data, this.__data_int16);
                     break;
                 }
-                case DType.int32:
-                case DType.@int:
+                case torch.dtype.int32:
+                case torch.dtype.@int:
                 {
                     __match(data, this.__data_int32);
                     break;
                 }
-                case DType.int64:
-                case DType.@long:
+                case torch.dtype.int64:
+                case torch.dtype.@long:
                 {
                     __match(data, this.__data_int64);
                     break;
                 }
-                case DType.@bool:
+                case torch.dtype.@bool:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert int64 to bool.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert int64 to bool.");
                 }
             }
         }
@@ -3624,7 +3621,7 @@ namespace torch
         ///<param name="data">long 5-dim array.</param>
         ///<param name = "dtype">Tensor data type.</param>
         ///<param name="requires_grad">If false, torch.autograd will not record operations with this Tensor.</param>
-        public Tensor(long[,,,,] data, DType dtype = DType.int64, bool requires_grad = false)
+        public Tensor(long[,,,,] data, torch.dtype dtype = torch.dtype.int64, bool requires_grad = false)
         {
             if(data == null)
             {
@@ -3637,15 +3634,15 @@ namespace torch
             this.__time = data.GetLength(3);
             this.__batch = data.GetLength(4);
             //-> Initialize the data storage...
-            if(dtype == DType.@default)
+            if(dtype == torch.dtype.@default)
             {
-                dtype = Torch.default_dtype;
+                dtype = torch.default_dtype;
             }
             this.dtype = dtype;
             this.requires_grad = requires_grad;
-            if((requires_grad) && (dtype != DType.float16) && (dtype != DType.half) && (dtype != DType.float32) && (dtype != DType.@float) && (dtype != DType.float64) && (dtype != DType.@double))
+            if((requires_grad) && (dtype != torch.dtype.float16) && (dtype != torch.dtype.half) && (dtype != torch.dtype.float32) && (dtype != torch.dtype.@float) && (dtype != torch.dtype.float64) && (dtype != torch.dtype.@double))
             {
-                throw new TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
+                throw new torch.TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
             }
             if(requires_grad)
             {
@@ -3654,55 +3651,55 @@ namespace torch
             this.__InitializeData();
             switch(this.dtype)
             {
-                case DType.half:
-                case DType.float16:
+                case torch.dtype.half:
+                case torch.dtype.float16:
                 {
                     __match(data, this.__data_float16);
                     break;
                 }
-                case DType.@float:
-                case DType.float32:
+                case torch.dtype.@float:
+                case torch.dtype.float32:
                 {
                     __match(data, this.__data_float32);
                     break;
                 }
-                case DType.@double:
-                case DType.float64:
+                case torch.dtype.@double:
+                case torch.dtype.float64:
                 {
                     __match(data, this.__data_float64);
                     break;
                 }
-                case DType.int8:
+                case torch.dtype.int8:
                 {
                     __match(data, this.__data_int8);
                     break;
                 }
-                case DType.uint8:
+                case torch.dtype.uint8:
                 {
                     __match(data, this.__data_uint8);
                     break;
                 }
-                case DType.int16:
-                case DType.@short:
+                case torch.dtype.int16:
+                case torch.dtype.@short:
                 {
                     __match(data, this.__data_int16);
                     break;
                 }
-                case DType.int32:
-                case DType.@int:
+                case torch.dtype.int32:
+                case torch.dtype.@int:
                 {
                     __match(data, this.__data_int32);
                     break;
                 }
-                case DType.int64:
-                case DType.@long:
+                case torch.dtype.int64:
+                case torch.dtype.@long:
                 {
                     __match(data, this.__data_int64);
                     break;
                 }
-                case DType.@bool:
+                case torch.dtype.@bool:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert int64 to bool.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert int64 to bool.");
                 }
             }
         }
@@ -3715,7 +3712,7 @@ namespace torch
         ///<param name="data">bool 1-dim array.</param>
         ///<param name = "dtype">Tensor data type.</param>
         ///<param name="requires_grad">If false, torch.autograd will not record operations with this Tensor.</param>
-        public Tensor(bool[] data, DType dtype = DType.@bool, bool requires_grad = false)
+        public Tensor(bool[] data, torch.dtype dtype = torch.dtype.@bool, bool requires_grad = false)
         {
             if(data == null)
             {
@@ -3728,15 +3725,15 @@ namespace torch
             this.__time = 1;
             this.__batch = 1;
             //-> Initialize the data storage...
-            if(dtype == DType.@default)
+            if(dtype == torch.dtype.@default)
             {
-                dtype = Torch.default_dtype;
+                dtype = torch.default_dtype;
             }
             this.dtype = dtype;
             this.requires_grad = requires_grad;
-            if((requires_grad) && (dtype != DType.float16) && (dtype != DType.half) && (dtype != DType.float32) && (dtype != DType.@float) && (dtype != DType.float64) && (dtype != DType.@double))
+            if((requires_grad) && (dtype != torch.dtype.float16) && (dtype != torch.dtype.half) && (dtype != torch.dtype.float32) && (dtype != torch.dtype.@float) && (dtype != torch.dtype.float64) && (dtype != torch.dtype.@double))
             {
-                throw new TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
+                throw new torch.TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
             }
             if(requires_grad)
             {
@@ -3745,45 +3742,45 @@ namespace torch
             this.__InitializeData();
             switch(this.dtype)
             {
-                case DType.half:
-                case DType.float16:
+                case torch.dtype.half:
+                case torch.dtype.float16:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert bool to float16.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert bool to float16.");
                 }
-                case DType.@float:
-                case DType.float32:
+                case torch.dtype.@float:
+                case torch.dtype.float32:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert bool to float32.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert bool to float32.");
                 }
-                case DType.@double:
-                case DType.float64:
+                case torch.dtype.@double:
+                case torch.dtype.float64:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert bool to float64.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert bool to float64.");
                 }
-                case DType.int8:
+                case torch.dtype.int8:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert bool to int8.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert bool to int8.");
                 }
-                case DType.uint8:
+                case torch.dtype.uint8:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert bool to uint8.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert bool to uint8.");
                 }
-                case DType.int16:
-                case DType.@short:
+                case torch.dtype.int16:
+                case torch.dtype.@short:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert bool to int16.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert bool to int16.");
                 }
-                case DType.int32:
-                case DType.@int:
+                case torch.dtype.int32:
+                case torch.dtype.@int:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert bool to int32.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert bool to int32.");
                 }
-                case DType.int64:
-                case DType.@long:
+                case torch.dtype.int64:
+                case torch.dtype.@long:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert bool to int64.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert bool to int64.");
                 }
-                case DType.@bool:
+                case torch.dtype.@bool:
                 {
                     __match(data, this.__data_bool);
                     break;
@@ -3795,7 +3792,7 @@ namespace torch
         ///<param name="data">bool 2-dim array.</param>
         ///<param name = "dtype">Tensor data type.</param>
         ///<param name="requires_grad">If false, torch.autograd will not record operations with this Tensor.</param>
-        public Tensor(bool[,] data, DType dtype = DType.@bool, bool requires_grad = false)
+        public Tensor(bool[,] data, torch.dtype dtype = torch.dtype.@bool, bool requires_grad = false)
         {
             if(data == null)
             {
@@ -3808,15 +3805,15 @@ namespace torch
             this.__time = 1;
             this.__batch = 1;
             //-> Initialize the data storage...
-            if(dtype == DType.@default)
+            if(dtype == torch.dtype.@default)
             {
-                dtype = Torch.default_dtype;
+                dtype = torch.default_dtype;
             }
             this.dtype = dtype;
             this.requires_grad = requires_grad;
-            if((requires_grad) && (dtype != DType.float16) && (dtype != DType.half) && (dtype != DType.float32) && (dtype != DType.@float) && (dtype != DType.float64) && (dtype != DType.@double))
+            if((requires_grad) && (dtype != torch.dtype.float16) && (dtype != torch.dtype.half) && (dtype != torch.dtype.float32) && (dtype != torch.dtype.@float) && (dtype != torch.dtype.float64) && (dtype != torch.dtype.@double))
             {
-                throw new TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
+                throw new torch.TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
             }
             if(requires_grad)
             {
@@ -3825,45 +3822,45 @@ namespace torch
             this.__InitializeData();
             switch(this.dtype)
             {
-                case DType.half:
-                case DType.float16:
+                case torch.dtype.half:
+                case torch.dtype.float16:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert bool to float16.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert bool to float16.");
                 }
-                case DType.@float:
-                case DType.float32:
+                case torch.dtype.@float:
+                case torch.dtype.float32:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert bool to float32.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert bool to float32.");
                 }
-                case DType.@double:
-                case DType.float64:
+                case torch.dtype.@double:
+                case torch.dtype.float64:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert bool to float64.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert bool to float64.");
                 }
-                case DType.int8:
+                case torch.dtype.int8:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert bool to int8.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert bool to int8.");
                 }
-                case DType.uint8:
+                case torch.dtype.uint8:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert bool to uint8.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert bool to uint8.");
                 }
-                case DType.int16:
-                case DType.@short:
+                case torch.dtype.int16:
+                case torch.dtype.@short:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert bool to int16.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert bool to int16.");
                 }
-                case DType.int32:
-                case DType.@int:
+                case torch.dtype.int32:
+                case torch.dtype.@int:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert bool to int32.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert bool to int32.");
                 }
-                case DType.int64:
-                case DType.@long:
+                case torch.dtype.int64:
+                case torch.dtype.@long:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert bool to int64.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert bool to int64.");
                 }
-                case DType.@bool:
+                case torch.dtype.@bool:
                 {
                     __match(data, this.__data_bool);
                     break;
@@ -3875,7 +3872,7 @@ namespace torch
         ///<param name="data">bool 3-dim array.</param>
         ///<param name = "dtype">Tensor data type.</param>
         ///<param name="requires_grad">If false, torch.autograd will not record operations with this Tensor.</param>
-        public Tensor(bool[,,] data, DType dtype = DType.@bool, bool requires_grad = false)
+        public Tensor(bool[,,] data, torch.dtype dtype = torch.dtype.@bool, bool requires_grad = false)
         {
             if(data == null)
             {
@@ -3888,15 +3885,15 @@ namespace torch
             this.__time = 1;
             this.__batch = 1;
             //-> Initialize the data storage...
-            if(dtype == DType.@default)
+            if(dtype == torch.dtype.@default)
             {
-                dtype = Torch.default_dtype;
+                dtype = torch.default_dtype;
             }
             this.dtype = dtype;
             this.requires_grad = requires_grad;
-            if((requires_grad) && (dtype != DType.float16) && (dtype != DType.half) && (dtype != DType.float32) && (dtype != DType.@float) && (dtype != DType.float64) && (dtype != DType.@double))
+            if((requires_grad) && (dtype != torch.dtype.float16) && (dtype != torch.dtype.half) && (dtype != torch.dtype.float32) && (dtype != torch.dtype.@float) && (dtype != torch.dtype.float64) && (dtype != torch.dtype.@double))
             {
-                throw new TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
+                throw new torch.TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
             }
             if(requires_grad)
             {
@@ -3905,45 +3902,45 @@ namespace torch
             this.__InitializeData();
             switch(this.dtype)
             {
-                case DType.half:
-                case DType.float16:
+                case torch.dtype.half:
+                case torch.dtype.float16:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert bool to float16.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert bool to float16.");
                 }
-                case DType.@float:
-                case DType.float32:
+                case torch.dtype.@float:
+                case torch.dtype.float32:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert bool to float32.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert bool to float32.");
                 }
-                case DType.@double:
-                case DType.float64:
+                case torch.dtype.@double:
+                case torch.dtype.float64:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert bool to float64.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert bool to float64.");
                 }
-                case DType.int8:
+                case torch.dtype.int8:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert bool to int8.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert bool to int8.");
                 }
-                case DType.uint8:
+                case torch.dtype.uint8:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert bool to uint8.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert bool to uint8.");
                 }
-                case DType.int16:
-                case DType.@short:
+                case torch.dtype.int16:
+                case torch.dtype.@short:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert bool to int16.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert bool to int16.");
                 }
-                case DType.int32:
-                case DType.@int:
+                case torch.dtype.int32:
+                case torch.dtype.@int:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert bool to int32.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert bool to int32.");
                 }
-                case DType.int64:
-                case DType.@long:
+                case torch.dtype.int64:
+                case torch.dtype.@long:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert bool to int64.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert bool to int64.");
                 }
-                case DType.@bool:
+                case torch.dtype.@bool:
                 {
                     __match(data, this.__data_bool);
                     break;
@@ -3955,7 +3952,7 @@ namespace torch
         ///<param name="data">bool 4-dim array.</param>
         ///<param name = "dtype">Tensor data type.</param>
         ///<param name="requires_grad">If false, torch.autograd will not record operations with this Tensor.</param>
-        public Tensor(bool[,,,] data, DType dtype = DType.@bool, bool requires_grad = false)
+        public Tensor(bool[,,,] data, torch.dtype dtype = torch.dtype.@bool, bool requires_grad = false)
         {
             if(data == null)
             {
@@ -3968,15 +3965,15 @@ namespace torch
             this.__time = data.GetLength(3);
             this.__batch = 1;
             //-> Initialize the data storage...
-            if(dtype == DType.@default)
+            if(dtype == torch.dtype.@default)
             {
-                dtype = Torch.default_dtype;
+                dtype = torch.default_dtype;
             }
             this.dtype = dtype;
             this.requires_grad = requires_grad;
-            if((requires_grad) && (dtype != DType.float16) && (dtype != DType.half) && (dtype != DType.float32) && (dtype != DType.@float) && (dtype != DType.float64) && (dtype != DType.@double))
+            if((requires_grad) && (dtype != torch.dtype.float16) && (dtype != torch.dtype.half) && (dtype != torch.dtype.float32) && (dtype != torch.dtype.@float) && (dtype != torch.dtype.float64) && (dtype != torch.dtype.@double))
             {
-                throw new TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
+                throw new torch.TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
             }
             if(requires_grad)
             {
@@ -3985,45 +3982,45 @@ namespace torch
             this.__InitializeData();
             switch(this.dtype)
             {
-                case DType.half:
-                case DType.float16:
+                case torch.dtype.half:
+                case torch.dtype.float16:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert bool to float16.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert bool to float16.");
                 }
-                case DType.@float:
-                case DType.float32:
+                case torch.dtype.@float:
+                case torch.dtype.float32:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert bool to float32.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert bool to float32.");
                 }
-                case DType.@double:
-                case DType.float64:
+                case torch.dtype.@double:
+                case torch.dtype.float64:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert bool to float64.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert bool to float64.");
                 }
-                case DType.int8:
+                case torch.dtype.int8:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert bool to int8.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert bool to int8.");
                 }
-                case DType.uint8:
+                case torch.dtype.uint8:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert bool to uint8.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert bool to uint8.");
                 }
-                case DType.int16:
-                case DType.@short:
+                case torch.dtype.int16:
+                case torch.dtype.@short:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert bool to int16.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert bool to int16.");
                 }
-                case DType.int32:
-                case DType.@int:
+                case torch.dtype.int32:
+                case torch.dtype.@int:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert bool to int32.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert bool to int32.");
                 }
-                case DType.int64:
-                case DType.@long:
+                case torch.dtype.int64:
+                case torch.dtype.@long:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert bool to int64.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert bool to int64.");
                 }
-                case DType.@bool:
+                case torch.dtype.@bool:
                 {
                     __match(data, this.__data_bool);
                     break;
@@ -4035,7 +4032,7 @@ namespace torch
         ///<param name="data">bool 5-dim array.</param>
         ///<param name = "dtype">Tensor data type.</param>
         ///<param name="requires_grad">If false, torch.autograd will not record operations with this Tensor.</param>
-        public Tensor(bool[,,,,] data, DType dtype = DType.@bool, bool requires_grad = false)
+        public Tensor(bool[,,,,] data, torch.dtype dtype = torch.dtype.@bool, bool requires_grad = false)
         {
             if(data == null)
             {
@@ -4048,15 +4045,15 @@ namespace torch
             this.__time = data.GetLength(3);
             this.__batch = data.GetLength(4);
             //-> Initialize the data storage...
-            if(dtype == DType.@default)
+            if(dtype == torch.dtype.@default)
             {
-                dtype = Torch.default_dtype;
+                dtype = torch.default_dtype;
             }
             this.dtype = dtype;
             this.requires_grad = requires_grad;
-            if((requires_grad) && (dtype != DType.float16) && (dtype != DType.half) && (dtype != DType.float32) && (dtype != DType.@float) && (dtype != DType.float64) && (dtype != DType.@double))
+            if((requires_grad) && (dtype != torch.dtype.float16) && (dtype != torch.dtype.half) && (dtype != torch.dtype.float32) && (dtype != torch.dtype.@float) && (dtype != torch.dtype.float64) && (dtype != torch.dtype.@double))
             {
-                throw new TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
+                throw new torch.TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
             }
             if(requires_grad)
             {
@@ -4065,45 +4062,45 @@ namespace torch
             this.__InitializeData();
             switch(this.dtype)
             {
-                case DType.half:
-                case DType.float16:
+                case torch.dtype.half:
+                case torch.dtype.float16:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert bool to float16.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert bool to float16.");
                 }
-                case DType.@float:
-                case DType.float32:
+                case torch.dtype.@float:
+                case torch.dtype.float32:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert bool to float32.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert bool to float32.");
                 }
-                case DType.@double:
-                case DType.float64:
+                case torch.dtype.@double:
+                case torch.dtype.float64:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert bool to float64.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert bool to float64.");
                 }
-                case DType.int8:
+                case torch.dtype.int8:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert bool to int8.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert bool to int8.");
                 }
-                case DType.uint8:
+                case torch.dtype.uint8:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert bool to uint8.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert bool to uint8.");
                 }
-                case DType.int16:
-                case DType.@short:
+                case torch.dtype.int16:
+                case torch.dtype.@short:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert bool to int16.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert bool to int16.");
                 }
-                case DType.int32:
-                case DType.@int:
+                case torch.dtype.int32:
+                case torch.dtype.@int:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert bool to int32.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert bool to int32.");
                 }
-                case DType.int64:
-                case DType.@long:
+                case torch.dtype.int64:
+                case torch.dtype.@long:
                 {
-                    throw new TorchException("TorchException: It is impossible to convert bool to int64.");
+                    throw new torch.TorchException("TorchException: It is impossible to convert bool to int64.");
                 }
-                case DType.@bool:
+                case torch.dtype.@bool:
                 {
                     __match(data, this.__data_bool);
                     break;
@@ -4118,7 +4115,7 @@ namespace torch
         ///<summary>Initializes a 0-dimensional tensor of the default data type and assigns all its elements a value of 0.</summary>
         ///<param name = "dtype">Tensor data type.</param>
         ///<param name = "requires_grad">If autograd should record operations on the returned tensor. Default: false.</param>
-        public Tensor(DType dtype = DType.@default, bool requires_grad = false)
+        public Tensor(torch.dtype dtype = torch.dtype.@default, bool requires_grad = false)
         {
             //-> Initialize the dimensions...
             this.__ndim = 0;
@@ -4128,15 +4125,15 @@ namespace torch
             this.__time = 1;
             this.__batch = 1;
             //-> Initialize the data storage...
-            if(dtype == DType.@default)
+            if(dtype == torch.dtype.@default)
             {
-                dtype = Torch.default_dtype;
+                dtype = torch.default_dtype;
             }
             this.dtype = dtype;
             this.requires_grad = requires_grad;
-            if((requires_grad) && (dtype != DType.float16) && (dtype != DType.half) && (dtype != DType.float32) && (dtype != DType.@float) && (dtype != DType.float64) && (dtype != DType.@double))
+            if((requires_grad) && (dtype != torch.dtype.float16) && (dtype != torch.dtype.half) && (dtype != torch.dtype.float32) && (dtype != torch.dtype.@float) && (dtype != torch.dtype.float64) && (dtype != torch.dtype.@double))
             {
-                throw new TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
+                throw new torch.TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
             }
             if(requires_grad)
             {
@@ -4153,7 +4150,7 @@ namespace torch
         ///<param name = "batch">The batch dimension. Highest dimension or 1.</param>
         ///<param name = "dtype">Tensor data type.</param>
         ///<param name = "requires_grad">If autograd should record operations on the returned tensor. Default: false.</param>
-        public Tensor(int width = 1, int height = 1, int depth = 1, int time = 1, int batch = 1, bool requires_grad = false, DType dtype = DType.@default)
+        public Tensor(int width = 1, int height = 1, int depth = 1, int time = 1, int batch = 1, bool requires_grad = false, torch.dtype dtype = torch.dtype.@default)
         {
             //-> Initialize the dimensions...
             this.__RaiseIfDimensionIsInvalid(width, height, depth, time, batch);
@@ -4184,15 +4181,15 @@ namespace torch
             this.__time = time;
             this.__batch = batch;
             //-> Initialize the data storage...
-            if(dtype == DType.@default)
+            if(dtype == torch.dtype.@default)
             {
-                dtype = Torch.default_dtype;
+                dtype = torch.default_dtype;
             }
             this.dtype = dtype;
             this.requires_grad = requires_grad;
-            if((requires_grad) && (dtype != DType.float16) && (dtype != DType.half) && (dtype != DType.float32) && (dtype != DType.@float) && (dtype != DType.float64) && (dtype != DType.@double))
+            if((requires_grad) && (dtype != torch.dtype.float16) && (dtype != torch.dtype.half) && (dtype != torch.dtype.float32) && (dtype != torch.dtype.@float) && (dtype != torch.dtype.float64) && (dtype != torch.dtype.@double))
             {
-                throw new TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
+                throw new torch.TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
             }
             if(requires_grad)
             {
@@ -4209,7 +4206,7 @@ namespace torch
         ///<param name = "batch">The batch dimension. Highest dimension or 1.</param>
         ///<param name = "dtype">Tensor data type.</param>
         ///<param name = "requires_grad">If autograd should record operations on the returned tensor. Default: false.</param>
-        public Tensor(Size size, DType dtype = DType.@default, bool requires_grad = false)
+        public Tensor(torch.Size size, torch.dtype dtype = torch.dtype.@default, bool requires_grad = false)
         {
             this.__ndim = size.__ndim;
             if(this.__ndim == 0)
@@ -4229,15 +4226,15 @@ namespace torch
                 this.__batch = size.__b;
             }
             //-> Initialize the data storage...
-            if(dtype == DType.@default)
+            if(dtype == torch.dtype.@default)
             {
-                dtype = Torch.default_dtype;
+                dtype = torch.default_dtype;
             }
             this.dtype = dtype;
             this.requires_grad = requires_grad;
-            if((requires_grad) && (dtype != DType.float16) && (dtype != DType.half) && (dtype != DType.float32) && (dtype != DType.@float) && (dtype != DType.float64) && (dtype != DType.@double))
+            if((requires_grad) && (dtype != torch.dtype.float16) && (dtype != torch.dtype.half) && (dtype != torch.dtype.float32) && (dtype != torch.dtype.@float) && (dtype != torch.dtype.float64) && (dtype != torch.dtype.@double))
             {
-                throw new TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
+                throw new torch.TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
             }
             this.__InitializeData();
             if(requires_grad)
@@ -4252,7 +4249,7 @@ namespace torch
             {
                 if((grad_float32 != null) || (grad_float64 != null))
                 {
-                    throw new TorchException("Internal TorchException: tensor must have single - typed gradient.");
+                    throw new torch.TorchException("Internal torch.TorchException: tensor must have single - typed gradient.");
                 }
                 this.__ndim = ndim;
                 this.__width = width;
@@ -4260,7 +4257,7 @@ namespace torch
                 this.__depth = depth;
                 this.__time = time;
                 this.__batch = batch;
-                this.dtype = DType.float16;
+                this.dtype = torch.dtype.float16;
                 this.__data_float16 = grad_float16;
             }
             else
@@ -4269,7 +4266,7 @@ namespace torch
                 {
                     if((grad_float16 != null) || (grad_float64 != null))
                     {
-                        throw new TorchException("Internal TorchException: tensor must have single - typed gradient.");
+                        throw new torch.TorchException("Internal torch.TorchException: tensor must have single - typed gradient.");
                     }
                     this.__ndim = ndim;
                     this.__width = width;
@@ -4277,7 +4274,7 @@ namespace torch
                     this.__depth = depth;
                     this.__time = time;
                     this.__batch = batch;
-                    this.dtype = DType.float32;
+                    this.dtype = torch.dtype.float32;
                     this.__data_float32 = grad_float32;
                 }
                 else
@@ -4286,7 +4283,7 @@ namespace torch
                     {
                         if((grad_float16 != null) || (grad_float32 != null))
                         {
-                            throw new TorchException("Internal TorchException: tensor must have single - typed gradient.");
+                            throw new torch.TorchException("Internal torch.TorchException: tensor must have single - typed gradient.");
                         }
                         this.__ndim = ndim;
                         this.__width = width;
@@ -4294,12 +4291,12 @@ namespace torch
                         this.__depth = depth;
                         this.__time = time;
                         this.__batch = batch;
-                        this.dtype = DType.float64;
+                        this.dtype = torch.dtype.float64;
                         this.__data_float64 = grad_float64;
                     }
                     else
                     {
-                        throw new TorchException("Internal TorchException: tensor must have single - typed gradient.");
+                        throw new torch.TorchException("Internal torch.TorchException: tensor must have single - typed gradient.");
                     }
                 }
             }
@@ -4309,7 +4306,7 @@ namespace torch
         ///<param name="data">System.Half.</param>
         public static implicit operator Tensor(Half data)
         {
-            var r = new Tensor(DType.half, true);
+            var r = new Tensor(torch.dtype.half, true);
             r.__data_float16[0] = data;
             return r;
         }
@@ -4318,7 +4315,7 @@ namespace torch
         ///<param name="data">System.Single (C# float).</param>
         public static implicit operator Tensor(float data)
         {
-            var r = new Tensor(DType.@float, true);
+            var r = new Tensor(torch.dtype.@float, true);
             r.__data_float32[0] = data;
             return r;
         }
@@ -4327,7 +4324,7 @@ namespace torch
         ///<param name="data">System.Double (C# double).</param>
         public static implicit operator Tensor(double data)
         {
-            var r = new Tensor(DType.@double, true);
+            var r = new Tensor(torch.dtype.@double, true);
             r.__data_float64[0] = data;
             return r;
         }
@@ -4336,7 +4333,7 @@ namespace torch
         ///<param name="data">System.SByte (C# sbyte).</param>
         public static implicit operator Tensor(sbyte data)
         {
-            var r = new Tensor(DType.int8);
+            var r = new Tensor(torch.dtype.int8);
             r.__data_int8[0] = data;
             return r;
         }
@@ -4345,7 +4342,7 @@ namespace torch
         ///<param name="data">System.Byte (C# byte).</param>
         public static implicit operator Tensor(byte data)
         {
-            var r = new Tensor(DType.uint8);
+            var r = new Tensor(torch.dtype.uint8);
             r.__data_uint8[0] = data;
             return r;
         }
@@ -4354,7 +4351,7 @@ namespace torch
         ///<param name="data">System.Int16 (C# short).</param>
         public static implicit operator Tensor(short data)
         {
-            var r = new Tensor(DType.@short);
+            var r = new Tensor(torch.dtype.@short);
             r.__data_int16[0] = data;
             return r;
         }
@@ -4363,7 +4360,7 @@ namespace torch
         ///<param name="data">System.Int32 (C# int).</param>
         public static implicit operator Tensor(int data)
         {
-            var r = new Tensor(DType.@int);
+            var r = new Tensor(torch.dtype.@int);
             r.__data_int32[0] = data;
             return r;
         }
@@ -4372,11 +4369,9 @@ namespace torch
         ///<param name="data">System.Int64 (C# long).</param>
         public static implicit operator Tensor(long data)
         {
-            var r = new Tensor(DType.@long);
+            var r = new Tensor(torch.dtype.@long);
             r.__data_int64[0] = data;
             return r;
         }
-
-    }
 
 }
