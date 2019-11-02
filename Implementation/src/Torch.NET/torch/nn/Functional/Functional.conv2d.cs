@@ -180,15 +180,15 @@
 //*    END OF TERMS AND CONDITIONS
 //***************************************************************************************************
 
-//-> Latest commit: Brykin Gleb, 30.09.2019.
+//-> Latest commit: Brykin Gleb, 02.11.2019.
 
 using System;
 using System.Threading.Tasks;
 
-namespace torch
+public static partial class torch
 {
 
-    namespace nn
+    public static partial class nn
     {
 
         public static partial class Functional
@@ -207,8 +207,8 @@ namespace torch
                 var Result = new Tensor(outW, outH, outD, outB, dtype: input.dtype, requires_grad: input.requires_grad);
                 switch(Result.dtype)
                 {
-                    case DType.float16:
-                    case DType.half:
+                    case torch.dtype.float16:
+                    case torch.dtype.half:
                     {
                         for(int batch = 0; batch < outB; batch++)
                         {

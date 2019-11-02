@@ -180,15 +180,15 @@
 //*    END OF TERMS AND CONDITIONS
 //***************************************************************************************************
 
-//-> Latest commit: Brykin Gleb, 13.10.2019.
+//-> Latest commit: Brykin Gleb, 02.11.2019.
 
 using System;
 using System.Threading.Tasks;
 
-namespace torch
+public static partial class torch
 {
 
-    namespace nn
+    public static partial class nn
     {
 
         public static partial class Functional
@@ -199,8 +199,8 @@ namespace torch
                 var Result = x.zeros_like();
                 switch(Result.dtype)
                 {
-                    case DType.float16:
-                    case DType.half:
+                    case torch.dtype.float16:
+                    case torch.dtype.half:
                     {
                         var src = x.__data_float16;
                         var dest = Result.__data_float16;
@@ -221,8 +221,8 @@ namespace torch
                         }
                         break;
                     }
-                    case DType.float32:
-                    case DType.@float:
+                    case torch.dtype.float32:
+                    case torch.dtype.@float:
                     {
                         var src = x.__data_float32;
                         var dest = Result.__data_float32;
@@ -243,8 +243,8 @@ namespace torch
                         }
                         break;
                     }
-                    case DType.float64:
-                    case DType.@double:
+                    case torch.dtype.float64:
+                    case torch.dtype.@double:
                     {
                         var src = x.__data_float64;
                         var dest = Result.__data_float64;
@@ -265,7 +265,7 @@ namespace torch
                         }
                         break;
                     }
-                    case DType.int8:
+                    case torch.dtype.int8:
                     {
                         var src = x.__data_int8;
                         var dest = Result.__data_int8;
@@ -286,7 +286,7 @@ namespace torch
                         }
                         break;
                     }
-                    case DType.uint8:
+                    case torch.dtype.uint8:
                     {
                         var src = x.__data_uint8;
                         var dest = Result.__data_uint8;
@@ -305,8 +305,8 @@ namespace torch
                         }
                         break;
                     }
-                    case DType.int16:
-                    case DType.@short:
+                    case torch.dtype.int16:
+                    case torch.dtype.@short:
                     {
                         var src = x.__data_int16;
                         var dest = Result.__data_int16;
@@ -327,8 +327,8 @@ namespace torch
                         }
                         break;
                     }
-                    case DType.int32:
-                    case DType.@int:
+                    case torch.dtype.int32:
+                    case torch.dtype.@int:
                     {
                         var src = x.__data_int32;
                         var dest = Result.__data_int32;
@@ -349,8 +349,8 @@ namespace torch
                         }
                         break;
                     }
-                    case DType.int64:
-                    case DType.@long:
+                    case torch.dtype.int64:
+                    case torch.dtype.@long:
                     {
                         var src = x.__data_int64;
                         var dest = Result.__data_int64;
@@ -371,9 +371,9 @@ namespace torch
                         }
                         break;
                     }
-                    case DType.@bool:
+                    case torch.dtype.@bool:
                     {
-                        throw new TorchException("TorchException: nn.Functional.abs is not implemented for bool tensors.");
+                        throw new torch.TorchException("TorchException: nn.Functional.abs is not implemented for bool tensors.");
                     }
                 }
                 if(x.requires_grad)
@@ -382,8 +382,8 @@ namespace torch
                     {
                         switch(x.dtype)
                         {
-                            case DType.float16:
-                            case DType.half:
+                            case torch.dtype.float16:
+                            case torch.dtype.half:
                             {
                                 var srcW = x.__data_float16;
                                 var srcDW = x.__grad_float16;
@@ -407,8 +407,8 @@ namespace torch
                                 }
                                 break;
                             }
-                            case DType.float32:
-                            case DType.@float:
+                            case torch.dtype.float32:
+                            case torch.dtype.@float:
                             {
                                 var srcW = x.__data_float32;
                                 var srcDW = x.__grad_float32;
@@ -432,8 +432,8 @@ namespace torch
                                 }
                                 break;
                             }
-                            case DType.float64:
-                            case DType.@double:
+                            case torch.dtype.float64:
+                            case torch.dtype.@double:
                             {
                                 var srcW = x.__data_float64;
                                 var srcDW = x.__grad_float64;

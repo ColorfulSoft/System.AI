@@ -180,15 +180,15 @@
 //*    END OF TERMS AND CONDITIONS
 //***************************************************************************************************
 
-//-> Latest commit: Brykin Gleb, 13.10.2019.
+//-> Latest commit: Brykin Gleb, 02.11.2019.
 
 using System;
 using System.Threading.Tasks;
 
-namespace torch
+public static partial class torch
 {
 
-    namespace nn
+    public static partial class nn
     {
 
         public static partial class Functional
@@ -199,8 +199,8 @@ namespace torch
                 var Result = x.zeros_like();
                 switch(Result.dtype)
                 {
-                    case DType.float16:
-                    case DType.half:
+                    case torch.dtype.float16:
+                    case torch.dtype.half:
                     {
                         var src = x.__data_float16;
                         var dest = Result.__data_float16;
@@ -221,8 +221,8 @@ namespace torch
                         }
                         break;
                     }
-                    case DType.float32:
-                    case DType.@float:
+                    case torch.dtype.float32:
+                    case torch.dtype.@float:
                     {
                         var src = x.__data_float32;
                         var dest = Result.__data_float32;
@@ -243,8 +243,8 @@ namespace torch
                         }
                         break;
                     }
-                    case DType.float64:
-                    case DType.@double:
+                    case torch.dtype.float64:
+                    case torch.dtype.@double:
                     {
                         var src = x.__data_float64;
                         var dest = Result.__data_float64;
@@ -265,32 +265,32 @@ namespace torch
                         }
                         break;
                     }
-                    case DType.int8:
+                    case torch.dtype.int8:
                     {
-                        throw new TorchException("TorchException: nn.Functional.tanh is not implemented for int8 tensors.");
+                        throw new torch.TorchException("TorchException: nn.Functional.tanh is not implemented for int8 tensors.");
                     }
-                    case DType.uint8:
+                    case torch.dtype.uint8:
                     {
-                        throw new TorchException("TorchException: nn.Functional.tanh is not implemented for uint8 tensors.");
+                        throw new torch.TorchException("TorchException: nn.Functional.tanh is not implemented for uint8 tensors.");
                     }
-                    case DType.int16:
-                    case DType.@short:
+                    case torch.dtype.int16:
+                    case torch.dtype.@short:
                     {
-                        throw new TorchException("TorchException: nn.Functional.tanh is not implemented for short(int16) tensors.");
+                        throw new torch.TorchException("TorchException: nn.Functional.tanh is not implemented for short(int16) tensors.");
                     }
-                    case DType.int32:
-                    case DType.@int:
+                    case torch.dtype.int32:
+                    case torch.dtype.@int:
                     {
-                        throw new TorchException("TorchException: nn.Functional.tanh is not implemented for int(int32) tensors.");
+                        throw new torch.TorchException("TorchException: nn.Functional.tanh is not implemented for int(int32) tensors.");
                     }
-                    case DType.int64:
-                    case DType.@long:
+                    case torch.dtype.int64:
+                    case torch.dtype.@long:
                     {
-                        throw new TorchException("TorchException: nn.Functional.tanh is not implemented for long(int64) tensors.");
+                        throw new torch.TorchException("TorchException: nn.Functional.tanh is not implemented for long(int64) tensors.");
                     }
-                    case DType.@bool:
+                    case torch.dtype.@bool:
                     {
-                        throw new TorchException("TorchException: nn.Functional.tanh is not implemented for bool tensors.");
+                        throw new torch.TorchException("TorchException: nn.Functional.tanh is not implemented for bool tensors.");
                     }
                 }
                 if(x.requires_grad)
@@ -299,8 +299,8 @@ namespace torch
                     {
                         switch(x.dtype)
                         {
-                            case DType.float16:
-                            case DType.half:
+                            case torch.dtype.float16:
+                            case torch.dtype.half:
                             {
                                 var destW = Result.__data_float16;
                                 var srcDW = x.__grad_float16;
@@ -324,8 +324,8 @@ namespace torch
                                 }
                                 break;
                             }
-                            case DType.float32:
-                            case DType.@float:
+                            case torch.dtype.float32:
+                            case torch.dtype.@float:
                             {
                                 var destW = Result.__data_float32;
                                 var srcDW = x.__grad_float32;
@@ -349,8 +349,8 @@ namespace torch
                                 }
                                 break;
                             }
-                            case DType.float64:
-                            case DType.@double:
+                            case torch.dtype.float64:
+                            case torch.dtype.@double:
                             {
                                 var destW = Result.__data_float64;
                                 var srcDW = x.__grad_float64;

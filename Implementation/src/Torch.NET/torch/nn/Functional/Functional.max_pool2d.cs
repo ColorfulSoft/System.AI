@@ -180,15 +180,15 @@
 //*    END OF TERMS AND CONDITIONS
 //***************************************************************************************************
 
-//-> Latest commit: Brykin Gleb, 13.10.2019.
+//-> Latest commit: Brykin Gleb, 02.11.2019.
 
 using System;
 using System.Threading.Tasks;
 
-namespace torch
+public static partial class torch
 {
 
-    namespace nn
+    public static partial class nn
     {
 
         public static partial class Functional
@@ -209,8 +209,8 @@ namespace torch
                 var IndicesY = new int[outW * outH * outD * outB];
                 switch(Result.dtype)
                 {
-                    case DType.float16:
-                    case DType.half:
+                    case torch.dtype.float16:
+                    case torch.dtype.half:
                     {
                         for(int batch = 0; batch < outB; batch++)
                         {
@@ -253,8 +253,8 @@ namespace torch
                         }
                         break;
                     }
-                    case DType.float32:
-                    case DType.@float:
+                    case torch.dtype.float32:
+                    case torch.dtype.@float:
                     {
                         for(int batch = 0; batch < outB; batch++)
                         {
@@ -297,8 +297,8 @@ namespace torch
                         }
                         break;
                     }
-                    case DType.float64:
-                    case DType.@double:
+                    case torch.dtype.float64:
+                    case torch.dtype.@double:
                     {
                         for(int batch = 0; batch < outB; batch++)
                         {
@@ -341,7 +341,7 @@ namespace torch
                         }
                         break;
                     }
-                    case DType.int8:
+                    case torch.dtype.int8:
                     {
                         for(int batch = 0; batch < outB; batch++)
                         {
@@ -381,7 +381,7 @@ namespace torch
                         }
                         break;
                     }
-                    case DType.uint8:
+                    case torch.dtype.uint8:
                     {
                         for(int batch = 0; batch < outB; batch++)
                         {
@@ -421,8 +421,8 @@ namespace torch
                         }
                         break;
                     }
-                    case DType.int16:
-                    case DType.@short:
+                    case torch.dtype.int16:
+                    case torch.dtype.@short:
                     {
                         for(int batch = 0; batch < outB; batch++)
                         {
@@ -462,8 +462,8 @@ namespace torch
                         }
                         break;
                     }
-                    case DType.int32:
-                    case DType.@int:
+                    case torch.dtype.int32:
+                    case torch.dtype.@int:
                     {
                         for(int batch = 0; batch < outB; batch++)
                         {
@@ -503,8 +503,8 @@ namespace torch
                         }
                         break;
                     }
-                    case DType.int64:
-                    case DType.@long:
+                    case torch.dtype.int64:
+                    case torch.dtype.@long:
                     {
                         for(int batch = 0; batch < outB; batch++)
                         {
@@ -544,9 +544,9 @@ namespace torch
                         }
                         break;
                     }
-                    case DType.@bool:
+                    case torch.dtype.@bool:
                     {
-                        throw new TorchException("TorchException: nn.Functional.max_pool2d is not implemented for bool tensors.");
+                        throw new torch.TorchException("TorchException: nn.Functional.max_pool2d is not implemented for bool tensors.");
                     }
                 }
                 if(input.requires_grad)
@@ -555,8 +555,8 @@ namespace torch
                     {
                         switch(input.dtype)
                         {
-                            case DType.float16:
-                            case DType.half:
+                            case torch.dtype.float16:
+                            case torch.dtype.half:
                             {
                                 for(int batch = 0; batch < outB; batch++)
                                 {
@@ -577,8 +577,8 @@ namespace torch
                                 }
                                 break;
                             }
-                            case DType.float32:
-                            case DType.@float:
+                            case torch.dtype.float32:
+                            case torch.dtype.@float:
                             {
                                 for(int batch = 0; batch < outB; batch++)
                                 {
@@ -599,8 +599,8 @@ namespace torch
                                 }
                                 break;
                             }
-                            case DType.float64:
-                            case DType.@double:
+                            case torch.dtype.float64:
+                            case torch.dtype.@double:
                             {
                                 for(int batch = 0; batch < outB; batch++)
                                 {
