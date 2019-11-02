@@ -17,7 +17,7 @@ using Size = torch.Size;
 ### Creation from a given data
 #### From standard .NET number
 
-The simplest way to create the torch.Tensor is explicit conversion from the standard .NET number.
+The simplest way to create the torch.Tensor is simple conversion from the standard .NET number.
 
 ```C#
 Half h = 1;
