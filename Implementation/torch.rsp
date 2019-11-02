@@ -180,7 +180,7 @@
 #*    END OF TERMS AND CONDITIONS
 #***************************************************************************************************
 
-#-> Latest commit: Brykin Gleb, 19.10.2019.
+#-> Latest commit: Brykin Gleb, 02.11.2019.
 
 # Ответный файл для компиляции torch.dll
 
@@ -220,7 +220,6 @@
 "src\Torch.NET\torch\nn\Tanh.cs"
 "src\Torch.NET\torch\__Warnings.cs"
 "src\Torch.NET\torch\AssemblyInfo.cs"
-"src\Torch.NET\torch\Backend.cs"
 "src\Torch.NET\torch\DType.cs"
 "src\Torch.NET\torch\Size.cs"
 "src\Torch.NET\torch\Tensor\Tensor.__method.cs"
