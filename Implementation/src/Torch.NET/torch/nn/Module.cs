@@ -180,16 +180,16 @@
 //*    END OF TERMS AND CONDITIONS
 //***************************************************************************************************
 
-//-> Latest commit: Brykin Gleb, 24.09.2019.
+//-> Latest commit: Brykin Gleb, 02.11.2019.
 
 using System;
 using System.Reflection;
 using System.Collections.Generic;
 
-namespace torch
+public static partial class torch
 {
 
-    namespace nn
+    public static partial class nn
     {
 
         ///<summary>Base class for all neural network modules. Your models should also subclass this class.</summary>

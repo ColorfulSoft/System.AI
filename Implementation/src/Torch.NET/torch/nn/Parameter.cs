@@ -180,14 +180,14 @@
 //*    END OF TERMS AND CONDITIONS
 //***************************************************************************************************
 
-//-> Latest commit: Brykin Gleb, 24.09.2019.
+//-> Latest commit: Brykin Gleb, 02.11.2019.
 
 using System;
 
-namespace torch
+public static partial class torch
 {
 
-    namespace nn
+    public static partial class nn
     {
 
         ///<summary>A kind of Tensor that is to be considered a module parameter.</summary>
