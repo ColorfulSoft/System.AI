@@ -21,10 +21,8 @@ All features supported by Torch.NET at this moment are described in the Tutorial
 * All done! Now You can take torch.dll, torch.xml and torch.pdb from the implementation\Release folder and add them to your project!
 
 ## Check out torch.dll
-On C#:
 ```C#
 using System;
-using torch;
 
 namespace FirtProgram
 {
@@ -34,7 +32,7 @@ namespace FirtProgram
 
         public static void Main()
         {
-            Console.WriteLine(Torch.library_info);
+            Console.WriteLine(torch.library_info);
             Console.ReadLine();
         }
 
@@ -42,7 +40,7 @@ namespace FirtProgram
 
 }
 ```
-This code will write "Torch.NET ver. 0.1 -> build 24.09.2019" or another version you are using.
+This code will write "Torch.NET ver. 0.1 -> build 02.11.2019" or another version you are using.
 
 ## Tutorials
 * Tensor creation: https://github.com/ColorfulSoft/Torch.NET/blob/master/Tutorials/Tensor%20creation.md
