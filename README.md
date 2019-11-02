@@ -42,18 +42,6 @@ namespace FirtProgram
 
 }
 ```
-
-On PascalABC.NET:
-```Pascal
-{$Reference 'torch.dll'}
-uses System;
-uses torch;
-
-begin
-  Console.WriteLine(torch.Torch.library_info);
-  Console.ReadLine()
-end.
-```
 This code will write "Torch.NET ver. 0.1 -> build 24.09.2019" or another version you are using.
 
 ## Tutorials
