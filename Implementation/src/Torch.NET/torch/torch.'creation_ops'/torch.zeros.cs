@@ -191,6 +191,15 @@ public static partial class torch
     ///<param name = "size">A sequence of integers defining the shape of the output tensor. Can be a variable number of arguments or a collection like a list or tuple.</param>
     ///<param name = "dtype">the desired data type of returned tensor. Default: if None, uses a global default(see torch.set_default_tensor_type()).</param>
     ///<param name = "requires_grad">If autograd should record operations on the returned tensor. Default: False.</param>
+    public static Tensor zeros(dtype dtype = dtype.@default, bool requires_grad = false)
+    {
+        return new Tensor(dtype, requires_grad);
+    }
+
+    ///<summary>Returns a tensor filled with the scalar value 0, with the shape defined by the variable argument size.</summary>
+    ///<param name = "size">A sequence of integers defining the shape of the output tensor. Can be a variable number of arguments or a collection like a list or tuple.</param>
+    ///<param name = "dtype">the desired data type of returned tensor. Default: if None, uses a global default(see torch.set_default_tensor_type()).</param>
+    ///<param name = "requires_grad">If autograd should record operations on the returned tensor. Default: False.</param>
     public static Tensor zeros(byte w, dtype dtype = dtype.@default, bool requires_grad = false)
     {
         return new Tensor(new Size(w), dtype, requires_grad);
@@ -482,6 +491,15 @@ public static partial class torch
     public static Tensor zeros(Tuple<long, long, long, long, long> size, dtype dtype = dtype.@default, bool requires_grad = false)
     {
         return new Tensor(new Size((int)size.Item1, (int)size.Item2, (int)size.Item3, (int)size.Item4, (int)size.Item5), dtype, requires_grad);
+    }
+
+    ///<summary>Returns a tensor filled with the scalar value 0, with the shape defined by the variable argument size.</summary>
+    ///<param name = "size">A sequence of integers defining the shape of the output tensor. Can be a variable number of arguments or a collection like a list or tuple.</param>
+    ///<param name = "dtype">the desired data type of returned tensor. Default: if None, uses a global default(see torch.set_default_tensor_type()).</param>
+    ///<param name = "requires_grad">If autograd should record operations on the returned tensor. Default: False.</param>
+    public static Tensor zeros(Size size, dtype dtype = dtype.@default, bool requires_grad = false)
+    {
+        return new Tensor(size, dtype, requires_grad);
     }
 
 }
