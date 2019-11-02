@@ -1028,7 +1028,7 @@ public static partial class torch
             {
                 case 0:
                 {
-                    result += this.__unsafe_get_value(data, 0).ToString() + ", dtype=" + this.dtype.ToString() + ")";
+                    result += this.__unsafe_get_value(data, 0).ToString() + ", dtype=" + this.dtype.ToString() + ((this.requires_grad == true) ? ", requires_grad=true" : "") + ")";
                     return result;
                 }
                 case 1:
@@ -1038,7 +1038,7 @@ public static partial class torch
                     {
                         result += this.__unsafe_get_value(data, i).ToString() + (((i + 1) == this.__width) ? "" : ", ");
                     }
-                    result += "], dtype=" + this.dtype.ToString() + ")";
+                    result += "], dtype=" + this.dtype.ToString() + ((this.requires_grad == true) ? ", requires_grad=true" : "") + ")";
                     return result;
                 }
                 case 2:
@@ -1062,7 +1062,7 @@ public static partial class torch
                             result = result + (char)13 + (char)10;
                         }
                     }
-                    result += "], dtype=" + this.dtype.ToString() + ")";
+                    result += "], dtype=" + this.dtype.ToString() + ((this.requires_grad == true) ? ", requires_grad=true" : "") + ")";
                     return result;
                 }
                 case 3:
@@ -1101,7 +1101,7 @@ public static partial class torch
                             result = result + (char)13 + (char)10;
                         }
                     }
-                    result += "], dtype=" + this.dtype.ToString() + ")";
+                    result += "], dtype=" + this.dtype.ToString() + ((this.requires_grad == true) ? ", requires_grad=true" : "") + ")";
                     return result;
                 }
                 case 4:
@@ -1156,7 +1156,7 @@ public static partial class torch
                             result = result + (char)13 + (char)10;
                         }
                     }
-                    result += "], dtype=" + this.dtype.ToString() + ")";
+                    result += "], dtype=" + this.dtype.ToString() + ((this.requires_grad == true) ? ", requires_grad=true" : "") + ")";
                     return result;
                 }
                 default:
