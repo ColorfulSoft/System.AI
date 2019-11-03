@@ -225,6 +225,7 @@
 "src\Torch.NET\torch\Tensor\Tensor.cs"
 "src\Torch.NET\torch\Tensor\Tensor.method.cs"
 "src\Torch.NET\torch\Tensor\Tensor.Tensor.cs"
+"src\Torch.NET\torch\Tensor\Tensor.this[].cs"
 "src\Torch.NET\torch\torch.'creation_ops'\torch.ones_like.cs"
 "src\Torch.NET\torch\torch.'creation_ops'\torch.tensor.cs"
 "src\Torch.NET\torch\torch.'creation_ops'\torch.zeros.cs"
