@@ -49,3 +49,6 @@ This code will write "Torch.NET ver. 0.1 -> build 02.11.2019" or another version
 * Tensor creation: https://github.com/ColorfulSoft/Torch.NET/blob/master/Tutorials/Tensor%20creation.md
 
 More tutorials can be found here: https://github.com/ColorfulSoft/Torch.NET/blob/master/Tutorials
+
+## Third-party codes in Torch.NET.
+* System.Half: source from https://sourceforge.net/projects/csharp-half/ by ladislavlang
