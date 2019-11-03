@@ -406,6 +406,82 @@ public static partial class torch
                         break;
                     }
                 }
+                if(this.requires_grad)
+                {
+                    result.__backward_fn = () =>
+                    {
+                        switch(this.dtype)
+                        {
+                            case torch.dtype.float16:
+                            case torch.dtype.half:
+                            {
+                                for(int b = minB; b < maxB; b++)
+                                {
+                                    for(int t = minT; t < maxT; t++)
+                                    {
+                                        for(int d = minD; d < maxD; d++)
+                                        {
+                                            for(int h = minH; h < maxH; h++)
+                                            {
+                                                for(int w = minW; w < maxW; w++)
+                                                {
+                                                    this.__unsafe_add_grad(result.__unsafe_get_grad(result.__grad_float16, w - minW, h - minH, d - minD, t - minT, b - minB), this.__grad_float16, w, h, d, t, b);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                break;
+                            }
+                            case torch.dtype.float32:
+                            case torch.dtype.@float:
+                            {
+                                for(int b = minB; b < maxB; b++)
+                                {
+                                    for(int t = minT; t < maxT; t++)
+                                    {
+                                        for(int d = minD; d < maxD; d++)
+                                        {
+                                            for(int h = minH; h < maxH; h++)
+                                            {
+                                                for(int w = minW; w < maxW; w++)
+                                                {
+                                                    this.__unsafe_add_grad(result.__unsafe_get_grad(result.__grad_float32, w - minW, h - minH, d - minD, t - minT, b - minB), this.__grad_float32, w, h, d, t, b);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                break;
+                            }
+                            case torch.dtype.float64:
+                            case torch.dtype.@double:
+                            {
+                                for(int b = minB; b < maxB; b++)
+                                {
+                                    for(int t = minT; t < maxT; t++)
+                                    {
+                                        for(int d = minD; d < maxD; d++)
+                                        {
+                                            for(int h = minH; h < maxH; h++)
+                                            {
+                                                for(int w = minW; w < maxW; w++)
+                                                {
+                                                    this.__unsafe_add_grad(result.__unsafe_get_grad(result.__grad_float64, w - minW, h - minH, d - minD, t - minT, b - minB), this.__grad_float64, w, h, d, t, b);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                break;
+                            }
+                        }
+                        if(this.__backward_fn != null)
+                        {
+                            this.__backward_fn();
+                        }
+                    };
+                }
                 return result;
             }
 
