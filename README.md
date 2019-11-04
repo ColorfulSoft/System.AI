@@ -11,7 +11,7 @@ All features supported by Torch.NET at this moment are described in the Tutorial
 
 **GPU calculations are implemented in an extension (separate library). This version includes only CPU Backend implemented in C#. This version is officially cross-platform.**
 
-# Getting started
+# Getting started on Windows
 ## System requirements
 * Windows XP or later. Windows 7 is recommended. For now, not tested on different OS.
 * Microsoft .NET Framework 4.0 and later. For now, not tested on Mono and different versions of MS .NET Framework.
