@@ -208,6 +208,8 @@
 
 # Файлы исходного кода Torch.NET
 
+"src\Torch.NET\torch\nn\'activations'\ReLU.cs"
+"src\Torch.NET\torch\nn\'activations'\Tanh.cs"
 "src\Torch.NET\torch\nn\functional\functional.conv2d.cs"
 "src\Torch.NET\torch\nn\functional\functional.max_pool2d.cs"
 "src\Torch.NET\torch\nn\functional\functional.relu.cs"
@@ -215,8 +217,6 @@
 "src\Torch.NET\torch\nn\Conv2d.cs"
 "src\Torch.NET\torch\nn\Module.cs"
 "src\Torch.NET\torch\nn\Parameter.cs"
-"src\Torch.NET\torch\nn\ReLU.cs"
-"src\Torch.NET\torch\nn\Tanh.cs"
 "src\Torch.NET\torch\__Warnings.cs"
 "src\Torch.NET\torch\AssemblyInfo.cs"
 "src\Torch.NET\torch\dtype.cs"
