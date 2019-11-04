@@ -182,6 +182,8 @@
 
 //-> Latest commit: Brykin Gleb, 03.11.2019.
 
+using System;
+
 public static partial class torch
 {
 
@@ -487,7 +489,527 @@ public static partial class torch
 
             set
             {
-                
+                if(i.Length > this.__ndim)
+                {
+                    throw new TorchException("TorchException: The number of indices must be less than or equal to the number of dimensions of the current tensor.");
+                }
+                var _i = new int[5];
+                for(int j = 0; j < _i.Length; j++)
+                {
+                    _i[j] = -1;
+                }
+                for(int j = 0; j < i.Length; j++)
+                {
+                    _i[_i.Length - this.__ndim + j] = i[j];
+                }
+                int maxB = (_i[0] == -1) ? this.__batch : (_i[0] + 1);
+                int minB = (_i[0] == -1) ? 0 : _i[0];
+                int maxT = (_i[1] == -1) ? this.__time : (_i[1] + 1);
+                int minT = (_i[1] == -1) ? 0 : _i[1];
+                int maxD = (_i[2] == -1) ? this.__depth : (_i[2] + 1);
+                int minD = (_i[2] == -1) ? 0 : _i[2];
+                int maxH = (_i[3] == -1) ? this.__height : (_i[3] + 1);
+                int minH = (_i[3] == -1) ? 0 : _i[3];
+                int maxW = (_i[4] == -1) ? this.__width : (_i[4] + 1);
+                int minW = (_i[4] == -1) ? 0 : _i[4];
+                switch(this.dtype)
+                {
+                    case torch.dtype.float16:
+                    case torch.dtype.half:
+                    {
+                        switch(value.dtype)
+                        {
+                            case dtype.float16:
+                            case dtype.half:
+                            {
+                                for(int b = minB; b < maxB; b++)
+                                {
+                                    for(int t = minT; t < maxT; t++)
+                                    {
+                                        for(int d = minD; d < maxD; d++)
+                                        {
+                                            for(int h = minH; h < maxH; h++)
+                                            {
+                                                for(int w = minW; w < maxW; w++)
+                                                {
+                                                    this.__unsafe_set_value(value.__unsafe_get_value(value.__data_float16, (value.__width == this.__width) ? (w - minW) : 0, (value.__height == this.__height) ? (h - minH) : 0, (value.__depth == this.__depth) ? (d - minD) : 0, (value.__time == this.__time) ? (t - minT) : 0, (value.__batch == this.__batch) ? (b - minB) : 0), this.__data_float16, w, h, d, t, b);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                break;
+                            }
+                            case dtype.float32:
+                            case dtype.@float:
+                            {
+                                for(int b = minB; b < maxB; b++)
+                                {
+                                    for(int t = minT; t < maxT; t++)
+                                    {
+                                        for(int d = minD; d < maxD; d++)
+                                        {
+                                            for(int h = minH; h < maxH; h++)
+                                            {
+                                                for(int w = minW; w < maxW; w++)
+                                                {
+                                                    this.__unsafe_set_value((Half)value.__unsafe_get_value(value.__data_float32, (value.__width == this.__width) ? (w - minW) : 0, (value.__height == this.__height) ? (h - minH) : 0, (value.__depth == this.__depth) ? (d - minD) : 0, (value.__time == this.__time) ? (t - minT) : 0, (value.__batch == this.__batch) ? (b - minB) : 0), this.__data_float16, w, h, d, t, b);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                break;
+                            }
+                            case dtype.float64:
+                            case dtype.@double:
+                            {
+                                for(int b = minB; b < maxB; b++)
+                                {
+                                    for(int t = minT; t < maxT; t++)
+                                    {
+                                        for(int d = minD; d < maxD; d++)
+                                        {
+                                            for(int h = minH; h < maxH; h++)
+                                            {
+                                                for(int w = minW; w < maxW; w++)
+                                                {
+                                                    this.__unsafe_set_value((Half)value.__unsafe_get_value(value.__data_float64, (value.__width == this.__width) ? (w - minW) : 0, (value.__height == this.__height) ? (h - minH) : 0, (value.__depth == this.__depth) ? (d - minD) : 0, (value.__time == this.__time) ? (t - minT) : 0, (value.__batch == this.__batch) ? (b - minB) : 0), this.__data_float16, w, h, d, t, b);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                break;
+                            }
+                            case dtype.uint8:
+                            {
+                                for(int b = minB; b < maxB; b++)
+                                {
+                                    for(int t = minT; t < maxT; t++)
+                                    {
+                                        for(int d = minD; d < maxD; d++)
+                                        {
+                                            for(int h = minH; h < maxH; h++)
+                                            {
+                                                for(int w = minW; w < maxW; w++)
+                                                {
+                                                    this.__unsafe_set_value((Half)value.__unsafe_get_value(value.__data_uint8, (value.__width == this.__width) ? (w - minW) : 0, (value.__height == this.__height) ? (h - minH) : 0, (value.__depth == this.__depth) ? (d - minD) : 0, (value.__time == this.__time) ? (t - minT) : 0, (value.__batch == this.__batch) ? (b - minB) : 0), this.__data_float16, w, h, d, t, b);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                break;
+                            }
+                            case dtype.int8:
+                            {
+                                for(int b = minB; b < maxB; b++)
+                                {
+                                    for(int t = minT; t < maxT; t++)
+                                    {
+                                        for(int d = minD; d < maxD; d++)
+                                        {
+                                            for(int h = minH; h < maxH; h++)
+                                            {
+                                                for(int w = minW; w < maxW; w++)
+                                                {
+                                                    this.__unsafe_set_value((Half)value.__unsafe_get_value(value.__data_int8, (value.__width == this.__width) ? (w - minW) : 0, (value.__height == this.__height) ? (h - minH) : 0, (value.__depth == this.__depth) ? (d - minD) : 0, (value.__time == this.__time) ? (t - minT) : 0, (value.__batch == this.__batch) ? (b - minB) : 0), this.__data_float16, w, h, d, t, b);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                break;
+                            }
+                            case dtype.int16:
+                            case dtype.@short:
+                            {
+                                for(int b = minB; b < maxB; b++)
+                                {
+                                    for(int t = minT; t < maxT; t++)
+                                    {
+                                        for(int d = minD; d < maxD; d++)
+                                        {
+                                            for(int h = minH; h < maxH; h++)
+                                            {
+                                                for(int w = minW; w < maxW; w++)
+                                                {
+                                                    this.__unsafe_set_value((Half)value.__unsafe_get_value(value.__data_int16, (value.__width == this.__width) ? (w - minW) : 0, (value.__height == this.__height) ? (h - minH) : 0, (value.__depth == this.__depth) ? (d - minD) : 0, (value.__time == this.__time) ? (t - minT) : 0, (value.__batch == this.__batch) ? (b - minB) : 0), this.__data_float16, w, h, d, t, b);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                break;
+                            }
+                            case dtype.int32:
+                            case dtype.@int:
+                            {
+                                for(int b = minB; b < maxB; b++)
+                                {
+                                    for(int t = minT; t < maxT; t++)
+                                    {
+                                        for(int d = minD; d < maxD; d++)
+                                        {
+                                            for(int h = minH; h < maxH; h++)
+                                            {
+                                                for(int w = minW; w < maxW; w++)
+                                                {
+                                                    this.__unsafe_set_value((Half)value.__unsafe_get_value(value.__data_int32, (value.__width == this.__width) ? (w - minW) : 0, (value.__height == this.__height) ? (h - minH) : 0, (value.__depth == this.__depth) ? (d - minD) : 0, (value.__time == this.__time) ? (t - minT) : 0, (value.__batch == this.__batch) ? (b - minB) : 0), this.__data_float16, w, h, d, t, b);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                break;
+                            }
+                            case dtype.int64:
+                            case dtype.@long:
+                            {
+                                for(int b = minB; b < maxB; b++)
+                                {
+                                    for(int t = minT; t < maxT; t++)
+                                    {
+                                        for(int d = minD; d < maxD; d++)
+                                        {
+                                            for(int h = minH; h < maxH; h++)
+                                            {
+                                                for(int w = minW; w < maxW; w++)
+                                                {
+                                                    this.__unsafe_set_value((Half)value.__unsafe_get_value(value.__data_int64, (value.__width == this.__width) ? (w - minW) : 0, (value.__height == this.__height) ? (h - minH) : 0, (value.__depth == this.__depth) ? (d - minD) : 0, (value.__time == this.__time) ? (t - minT) : 0, (value.__batch == this.__batch) ? (b - minB) : 0), this.__data_float16, w, h, d, t, b);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                break;
+                            }
+                            case dtype.@bool:
+                            {
+                                throw new TorchException("TorchException: It is not possible to convert a bool tensor to a tensor of any other type.");
+                            }
+                        }
+                        break;
+                    }
+                }
+                if((this.requires_grad) && (value.requires_grad))
+                {
+                    var old_backward = this.__backward_fn;
+                    this.__backward_fn = () =>
+                    {
+                        switch(this.dtype)
+                        {
+                            case torch.dtype.float16:
+                            case torch.dtype.half:
+                            {
+                                switch(value.dtype)
+                                {
+                                    case dtype.float16:
+                                    case dtype.half:
+                                    {
+                                        for(int b = minB; b < maxB; b++)
+                                        {
+                                            for(int t = minT; t < maxT; t++)
+                                            {
+                                                for(int d = minD; d < maxD; d++)
+                                                {
+                                                    for(int h = minH; h < maxH; h++)
+                                                    {
+                                                        for(int w = minW; w < maxW; w++)
+                                                        {
+                                                            value.__unsafe_add_grad(this.__unsafe_get_grad(this.__grad_float16, w, h, d, t, b), value.__grad_float16, (value.__width == this.__width) ? (w - minW) : 0, (value.__height == this.__height) ? (h - minH) : 0, (value.__depth == this.__depth) ? (d - minD) : 0, (value.__time == this.__time) ? (t - minT) : 0, (value.__batch == this.__batch) ? (b - minB) : 0);
+                                                            this.__unsafe_set_grad((Half)0, this.__grad_float16, w, h, d, t, b);
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        break;
+                                    }
+                                    case dtype.float32:
+                                    case dtype.@float:
+                                    {
+                                        for(int b = minB; b < maxB; b++)
+                                        {
+                                            for(int t = minT; t < maxT; t++)
+                                            {
+                                                for(int d = minD; d < maxD; d++)
+                                                {
+                                                    for(int h = minH; h < maxH; h++)
+                                                    {
+                                                        for(int w = minW; w < maxW; w++)
+                                                        {
+                                                            value.__unsafe_add_grad((float)this.__unsafe_get_grad(this.__grad_float16, w, h, d, t, b), value.__grad_float32, (value.__width == this.__width) ? (w - minW) : 0, (value.__height == this.__height) ? (h - minH) : 0, (value.__depth == this.__depth) ? (d - minD) : 0, (value.__time == this.__time) ? (t - minT) : 0, (value.__batch == this.__batch) ? (b - minB) : 0);
+                                                            this.__unsafe_set_grad((Half)0, this.__grad_float16, w, h, d, t, b);
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        break;
+                                    }
+                                    case dtype.float64:
+                                    case dtype.@double:
+                                    {
+                                        for(int b = minB; b < maxB; b++)
+                                        {
+                                            for(int t = minT; t < maxT; t++)
+                                            {
+                                                for(int d = minD; d < maxD; d++)
+                                                {
+                                                    for(int h = minH; h < maxH; h++)
+                                                    {
+                                                        for(int w = minW; w < maxW; w++)
+                                                        {
+                                                            value.__unsafe_add_grad((double)this.__unsafe_get_grad(this.__grad_float16, w, h, d, t, b), value.__grad_float64, (value.__width == this.__width) ? (w - minW) : 0, (value.__height == this.__height) ? (h - minH) : 0, (value.__depth == this.__depth) ? (d - minD) : 0, (value.__time == this.__time) ? (t - minT) : 0, (value.__batch == this.__batch) ? (b - minB) : 0);
+                                                            this.__unsafe_set_grad((Half)0, this.__grad_float16, w, h, d, t, b);
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        break;
+                                    }
+                                }
+                                break;
+                            }
+                            case torch.dtype.float32:
+                            case torch.dtype.@float:
+                            {
+                                switch(value.dtype)
+                                {
+                                    case dtype.float16:
+                                    case dtype.half:
+                                    {
+                                        for(int b = minB; b < maxB; b++)
+                                        {
+                                            for(int t = minT; t < maxT; t++)
+                                            {
+                                                for(int d = minD; d < maxD; d++)
+                                                {
+                                                    for(int h = minH; h < maxH; h++)
+                                                    {
+                                                        for(int w = minW; w < maxW; w++)
+                                                        {
+                                                            value.__unsafe_add_grad((Half)this.__unsafe_get_grad(this.__grad_float32, w, h, d, t, b), value.__grad_float16, (value.__width == this.__width) ? (w - minW) : 0, (value.__height == this.__height) ? (h - minH) : 0, (value.__depth == this.__depth) ? (d - minD) : 0, (value.__time == this.__time) ? (t - minT) : 0, (value.__batch == this.__batch) ? (b - minB) : 0);
+                                                            this.__unsafe_set_grad(0f, this.__grad_float32, w, h, d, t, b);
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        break;
+                                    }
+                                    case dtype.float32:
+                                    case dtype.@float:
+                                    {
+                                        for(int b = minB; b < maxB; b++)
+                                        {
+                                            for(int t = minT; t < maxT; t++)
+                                            {
+                                                for(int d = minD; d < maxD; d++)
+                                                {
+                                                    for(int h = minH; h < maxH; h++)
+                                                    {
+                                                        for(int w = minW; w < maxW; w++)
+                                                        {
+                                                            value.__unsafe_add_grad(this.__unsafe_get_grad(this.__grad_float32, w, h, d, t, b), value.__grad_float32, (value.__width == this.__width) ? (w - minW) : 0, (value.__height == this.__height) ? (h - minH) : 0, (value.__depth == this.__depth) ? (d - minD) : 0, (value.__time == this.__time) ? (t - minT) : 0, (value.__batch == this.__batch) ? (b - minB) : 0);
+                                                            this.__unsafe_set_grad(0f, this.__grad_float32, w, h, d, t, b);
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        break;
+                                    }
+                                    case dtype.float64:
+                                    case dtype.@double:
+                                    {
+                                        for(int b = minB; b < maxB; b++)
+                                        {
+                                            for(int t = minT; t < maxT; t++)
+                                            {
+                                                for(int d = minD; d < maxD; d++)
+                                                {
+                                                    for(int h = minH; h < maxH; h++)
+                                                    {
+                                                        for(int w = minW; w < maxW; w++)
+                                                        {
+                                                            value.__unsafe_add_grad((double)this.__unsafe_get_grad(this.__grad_float32, w, h, d, t, b), value.__grad_float64, (value.__width == this.__width) ? (w - minW) : 0, (value.__height == this.__height) ? (h - minH) : 0, (value.__depth == this.__depth) ? (d - minD) : 0, (value.__time == this.__time) ? (t - minT) : 0, (value.__batch == this.__batch) ? (b - minB) : 0);
+                                                            this.__unsafe_set_grad(0f, this.__grad_float32, w, h, d, t, b);
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        break;
+                                    }
+                                }
+                                break;
+                            }
+                            case torch.dtype.float64:
+                            case torch.dtype.@double:
+                            {
+                                switch(value.dtype)
+                                {
+                                    case dtype.float16:
+                                    case dtype.half:
+                                    {
+                                        for(int b = minB; b < maxB; b++)
+                                        {
+                                            for(int t = minT; t < maxT; t++)
+                                            {
+                                                for(int d = minD; d < maxD; d++)
+                                                {
+                                                    for(int h = minH; h < maxH; h++)
+                                                    {
+                                                        for(int w = minW; w < maxW; w++)
+                                                        {
+                                                            value.__unsafe_add_grad((Half)this.__unsafe_get_grad(this.__grad_float64, w, h, d, t, b), value.__grad_float16, (value.__width == this.__width) ? (w - minW) : 0, (value.__height == this.__height) ? (h - minH) : 0, (value.__depth == this.__depth) ? (d - minD) : 0, (value.__time == this.__time) ? (t - minT) : 0, (value.__batch == this.__batch) ? (b - minB) : 0);
+                                                            this.__unsafe_set_grad(0.0, this.__grad_float64, w, h, d, t, b);
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        break;
+                                    }
+                                    case dtype.float32:
+                                    case dtype.@float:
+                                    {
+                                        for(int b = minB; b < maxB; b++)
+                                        {
+                                            for(int t = minT; t < maxT; t++)
+                                            {
+                                                for(int d = minD; d < maxD; d++)
+                                                {
+                                                    for(int h = minH; h < maxH; h++)
+                                                    {
+                                                        for(int w = minW; w < maxW; w++)
+                                                        {
+                                                            value.__unsafe_add_grad((float)this.__unsafe_get_grad(this.__grad_float64, w, h, d, t, b), value.__grad_float32, (value.__width == this.__width) ? (w - minW) : 0, (value.__height == this.__height) ? (h - minH) : 0, (value.__depth == this.__depth) ? (d - minD) : 0, (value.__time == this.__time) ? (t - minT) : 0, (value.__batch == this.__batch) ? (b - minB) : 0);
+                                                            this.__unsafe_set_grad(0.0, this.__grad_float64, w, h, d, t, b);
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        break;
+                                    }
+                                    case dtype.float64:
+                                    case dtype.@double:
+                                    {
+                                        for(int b = minB; b < maxB; b++)
+                                        {
+                                            for(int t = minT; t < maxT; t++)
+                                            {
+                                                for(int d = minD; d < maxD; d++)
+                                                {
+                                                    for(int h = minH; h < maxH; h++)
+                                                    {
+                                                        for(int w = minW; w < maxW; w++)
+                                                        {
+                                                            value.__unsafe_add_grad(this.__unsafe_get_grad(this.__grad_float64, w, h, d, t, b), value.__grad_float64, (value.__width == this.__width) ? (w - minW) : 0, (value.__height == this.__height) ? (h - minH) : 0, (value.__depth == this.__depth) ? (d - minD) : 0, (value.__time == this.__time) ? (t - minT) : 0, (value.__batch == this.__batch) ? (b - minB) : 0);
+                                                            this.__unsafe_set_grad(0.0, this.__grad_float64, w, h, d, t, b);
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        break;
+                                    }
+                                }
+                                break;
+                            }
+                        }
+                        if(old_backward != null)
+                        {
+                            old_backward();
+                        }
+                        if(value.__backward_fn != null)
+                        {
+                            value.__backward_fn();
+                        }
+                    };
+                }
+                if((this.requires_grad) && (!(value.requires_grad)))
+                {
+                    var old_backward = this.__backward_fn;
+                    this.__backward_fn = () =>
+                    {
+                        switch(this.dtype)
+                        {
+                            case torch.dtype.float16:
+                            case torch.dtype.half:
+                            {
+                                for(int b = minB; b < maxB; b++)
+                                {
+                                    for(int t = minT; t < maxT; t++)
+                                    {
+                                        for(int d = minD; d < maxD; d++)
+                                        {
+                                            for(int h = minH; h < maxH; h++)
+                                            {
+                                                for(int w = minW; w < maxW; w++)
+                                                {
+                                                    this.__unsafe_set_grad((Half)0, this.__grad_float16, w, h, d, t, b);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                break;
+                            }
+                            case torch.dtype.float32:
+                            case torch.dtype.@float:
+                            {
+                                for(int b = minB; b < maxB; b++)
+                                {
+                                    for(int t = minT; t < maxT; t++)
+                                    {
+                                        for(int d = minD; d < maxD; d++)
+                                        {
+                                            for(int h = minH; h < maxH; h++)
+                                            {
+                                                for(int w = minW; w < maxW; w++)
+                                                {
+                                                    this.__unsafe_set_grad(0f, this.__grad_float32, w, h, d, t, b);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                break;
+                            }
+                            case torch.dtype.float64:
+                            case torch.dtype.@double:
+                            {
+                                for(int b = minB; b < maxB; b++)
+                                {
+                                    for(int t = minT; t < maxT; t++)
+                                    {
+                                        for(int d = minD; d < maxD; d++)
+                                        {
+                                            for(int h = minH; h < maxH; h++)
+                                            {
+                                                for(int w = minW; w < maxW; w++)
+                                                {
+                                                    this.__unsafe_set_grad(0.0, this.__grad_float64, w, h, d, t, b);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                break;
+                            }
+                        }
+                        if(old_backward != null)
+                        {
+                            old_backward();
+                        }
+                    };
+                }
             }
 
         }
