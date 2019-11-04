@@ -229,7 +229,20 @@ public static partial class torch
             return grad[((((y * this.__width) + x) * this.__depth + d) * this.__time + t) * this.__batch + b];
         }
 
-        ///<summary>Add the gradient of a 5-D Tensor without checking that the indices are out of the Tensor.</summary>
+        ///<summary>Sets the grad of a 5-D Tensor without checking that the indices are out of the Tensor.</summary>
+        ///<param name = "grad">Gradient.</param>
+        ///<param name = "storage">Data array.</param>
+        ///<param name = "x">Index by Width.</param>
+        ///<param name = "y">Index by Height.</param>
+        ///<param name = "d">Index by Channel.</param>
+        ///<param name = "t">Index by Time.</param>
+        ///<param name = "b">Index by Batch.</param>
+        internal void __unsafe_set_grad<T>(T grad, T[] storage, int x = 0, int y = 0, int d = 0, int t = 0, int b = 0)
+        {
+            storage[((((y * this.__width) + x) * this.__depth + d) * this.__time + t) * this.__batch + b] = grad;
+        }
+
+        ///<summary>Adds the gradient of a 5-D Tensor without checking that the indices are out of the Tensor.</summary>
         ///<param name = "grad">Grad.</param>
         ///<param name = "storage">Grad array.</param>
         ///<param name = "x">Index by Width.</param>
@@ -242,7 +255,7 @@ public static partial class torch
             storage[((((y * this.__width) + x) * this.__depth + d) * this.__time + t) * this.__batch + b] += grad;
         }
 
-        ///<summary>Add the gradient of a 5-D Tensor without checking that the indices are out of the Tensor.</summary>
+        ///<summary>Adds the gradient of a 5-D Tensor without checking that the indices are out of the Tensor.</summary>
         ///<param name = "grad">Grad.</param>
         ///<param name = "storage">Grad array.</param>
         ///<param name = "x">Index by Width.</param>
@@ -255,7 +268,7 @@ public static partial class torch
             storage[((((y * this.__width) + x) * this.__depth + d) * this.__time + t) * this.__batch + b] += grad;
         }
 
-        ///<summary>Add the gradient of a 5-D Tensor without checking that the indices are out of the Tensor.</summary>
+        ///<summary>Adds the gradient of a 5-D Tensor without checking that the indices are out of the Tensor.</summary>
         ///<param name = "grad">Grad.</param>
         ///<param name = "storage">Grad array.</param>
         ///<param name = "x">Index by Width.</param>
