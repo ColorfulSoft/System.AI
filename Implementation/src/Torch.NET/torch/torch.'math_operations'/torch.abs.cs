@@ -367,7 +367,7 @@ public static partial class torch
             }
             case torch.dtype.@bool:
             {
-                throw new torch.TorchException("TorchException: nn.Functional.abs is not implemented for bool tensors.");
+                throw new torch.TorchException("TorchException: torch.abs is not implemented for bool tensors.");
             }
         }
         if(x.requires_grad)
