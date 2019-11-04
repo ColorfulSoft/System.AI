@@ -180,7 +180,7 @@
 //*    END OF TERMS AND CONDITIONS
 //***************************************************************************************************
 
-//-> Latest commit: Brykin Gleb, 02.11.2019.
+//-> Latest commit: Brykin Gleb, 04.11.2019.
 
 using System;
 
@@ -239,5 +239,50 @@ public static partial class torch
         @default
 
     }
+
+    ///<summary>16-bit floating point. Alias for torch.half.</summary>
+    public const dtype float16 = dtype.float16;
+
+    ///<summary>16-bit floating point. Alias for torch.float16.</summary>
+    public const dtype half = dtype.half;
+
+    ///<summary>32-bit floating point. Alias for torch.float.</summary>
+    public const dtype float32 = dtype.float32;
+
+    ///<summary>32-bit floating point. Alias for torch.float32.</summary>
+    public const dtype @float = dtype.@float;
+
+    ///<summary>64-bit floating point. Alias for torch.double.</summary>
+    public const dtype float64 = dtype.float64;
+
+    ///<summary>64-bit floating point. Alias for torch.float64.</summary>
+    public const dtype @double = dtype.@double;
+
+    ///<summary>8-bit integer (unsigned).</summary>
+    public const dtype uint8 = dtype.uint8;
+
+    ///<summary>8-bit integer (signed).</summary>
+    public const dtype int8 = dtype.int8;
+
+    ///<summary>16-bit integer (signed). Alias for torch.short.</summary>
+    public const dtype int16 = dtype.int16;
+
+    ///<summary>16-bit integer (signed). Alias for torch.int16.</summary>
+    public const dtype @short = dtype.@short;
+
+    ///<summary>32-bit integer (signed). Alias for torch.int.</summary>
+    public const dtype int32 = dtype.int32;
+
+    ///<summary>32-bit integer (signed). Alias for torch.int32.</summary>
+    public const dtype @int = dtype.@int;
+
+    ///<summary>64-bit integer (signed). Alias for torch.long.</summary>
+    public const dtype int64 = dtype.int64;
+
+    ///<summary>64-bit integer (signed). Alias for torch.int64.</summary>
+    public const dtype @long = dtype.@long;
+
+    ///<summary>Boolean.</summary>
+    public const dtype @bool = dtype.@bool;
 
 }
