@@ -1,5 +1,6 @@
 # Here are the latest news about Torch.NET
 
+* [04.11.2019] Functions torch.sin, torch.cos, torch.sinh, torch.cosh, torch.exp have been added.
 * [04.11.2019] Added type aliases directly to torch. For example, torch.dtype.float32 can now be used via torch.float32, as in PyTorch.
 * [04.11.2019] Added operations torch.acos, torch.asin, torch.atan.
 * [04.11.2019] Write access has been added to the index property of the tensor. Added backward functions to the index property.
