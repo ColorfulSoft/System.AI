@@ -292,6 +292,24 @@ public static partial class torch
                 return result;
             }
 
+            public void train()
+            {
+                foreach(Parameter x in this.parameters())
+                {
+                    x.data.requires_grad_(true);
+                    x.requires_grad = true;
+                }
+            }
+
+            public void eval()
+            {
+                foreach(Parameter x in this.parameters())
+                {
+                    x.data.requires_grad_(false);
+                    x.requires_grad = false;
+                }
+            }
+
         }
 
     }

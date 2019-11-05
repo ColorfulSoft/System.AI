@@ -218,6 +218,7 @@ public static partial class torch
             internal Parameter(Tensor data, string name, bool requires_grad = true)
             {
                 this.data = data;
+                this.data.requires_grad_(requires_grad);
                 this.__name = name;
                 this.requires_grad = requires_grad;
             }
@@ -228,6 +229,7 @@ public static partial class torch
             public Parameter(Tensor data, bool requires_grad = true)
             {
                 this.data = data;
+                this.data.requires_grad_(requires_grad);
                 this.requires_grad = requires_grad;
             }
 
