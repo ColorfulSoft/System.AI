@@ -945,6 +945,19 @@ public static partial class torch
             }
         }
 
+        internal void __link_data_from_tensor(Tensor t)
+        {
+            this.__data_float16 = t.__data_float16;
+            this.__data_float32 = t.__data_float32;
+            this.__data_float64 = t.__data_float64;
+            this.__data_int8 = t.__data_int8;
+            this.__data_uint8 = t.__data_uint8;
+            this.__data_int16 = t.__data_int16;
+            this.__data_int32 = t.__data_int32;
+            this.__data_int64 = t.__data_int64;
+            this.__data_bool = t.__data_bool;
+        }
+
         private Tensor __link()
         {
             var y = (Tensor)0f;
