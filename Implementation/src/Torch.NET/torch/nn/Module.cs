@@ -292,6 +292,16 @@ public static partial class torch
                 return result;
             }
 
+            ///<summary>Copies parameters and buffers from state_dict into this module and its descendants.</summary>
+            public void load_state_dict(Dictionary<string, Tensor> state_dict)
+            {
+                var @params = this.state_dict();
+                foreach(var p in @params)
+                {
+                    p.Value.__link_data_from_tensor(state_dict[p.Key]);
+                }
+            }
+
             public void train()
             {
                 foreach(Parameter x in this.parameters())
