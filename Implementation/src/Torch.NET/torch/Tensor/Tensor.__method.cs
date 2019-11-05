@@ -370,6 +370,32 @@ public static partial class torch
             }
         }
 
+        ///<summary>Deletes the grad storage.</summary>
+        private void __DeleteGrad()
+        {
+            switch(this.dtype)
+            {
+                case(torch.dtype.float16):
+                case(torch.dtype.half):
+                {
+                    this.__grad_float16 = null;
+                    break;
+                }
+                case(torch.dtype.float32):
+                case(torch.dtype.@float):
+                {
+                    this.__grad_float32 = null;
+                    break;
+                }
+                case(torch.dtype.float64):
+                case(torch.dtype.@double):
+                {
+                    this.__grad_float64 = null;
+                    break;
+                }
+            }
+        }
+
         ///<summary>Throws an exception if the specified tensor size is invalid.</summary>
         ///<param name = "width">The width of the tensor (5-dim).</param>
         ///<param name = "height">The height of the tensor (5-dim).</param>

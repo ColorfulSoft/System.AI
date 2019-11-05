@@ -546,6 +546,23 @@ public static partial class torch
             }
         }
 
+        public void requires_grad_(bool requires_grad = true)
+        {
+            if(this.requires_grad != requires_grad)
+            {
+                if(requires_grad)
+                {
+                    this.requires_grad = true;
+                    this.__InitializeGrad();
+                }
+                else
+                {
+                    this.requires_grad = false;
+                    this.__DeleteGrad();
+                }
+            }
+        }
+
         ///<summary>Converts the current instance to a string representation.</summary>
         public override string ToString()
         {
