@@ -180,7 +180,7 @@
 //*    END OF TERMS AND CONDITIONS
 //***************************************************************************************************
 
-//-> Latest commit: Brykin Gleb, 02.11.2019.
+//-> Latest commit: Brykin Gleb, 06.11.2019.
 
 using System;
 using System.Threading.Tasks;
@@ -191,13 +191,17 @@ public static partial class torch
     public static partial class nn
     {
 
+        ///<summary>Applies the element-wise function: Tanh(x) = tanh(x) = (e^x - e^(-x))/(e^x + e^(-x)).</summary>
         public sealed class Tanh : Module
         {
 
+            ///<summary>Initializes the module.</summary>
             public Tanh() : base()
             {
             }
 
+            ///<summary>Applies the element-wise function: Tanh(x) = tanh(x) = (e^x - e^(-x))/(e^x + e^(-x)).</summary>
+            ///<param name = "input">Input tensor.</param>
             public Tensor forward(Tensor input)
             {
                 return functional.tanh(input);
