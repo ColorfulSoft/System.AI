@@ -1,5 +1,6 @@
 # Here are the latest news about Torch.NET
 
+* [07.11.2019] Fixed minor bugs. Fixed a bug in the index property setter of the tensor.
 * [05.11.2019] Added a base class of the optimizer. Added tensor.requires_grad_(bool requires_grad = true) method. Added methods nn.Module.train and nn.Module.eval.
 * [04.11.2019] Functions torch.sin, torch.cos, torch.sinh, torch.cosh, torch.exp have been added.
 * [04.11.2019] Added type aliases directly to torch. For example, torch.dtype.float32 can now be used via torch.float32, as in PyTorch.
