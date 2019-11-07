@@ -180,7 +180,7 @@
 //*    END OF TERMS AND CONDITIONS
 //***************************************************************************************************
 
-//-> Latest commit: Brykin Gleb, 02.11.2019.
+//-> Latest commit: Brykin Gleb, 06.11.2019.
 
 using System;
 using System.Threading.Tasks;
@@ -191,90 +191,46 @@ public static partial class torch
     public static partial class nn
     {
 
+        ///<summary>Applies a 2D convolution over an input image composed of several input planes.</summary>
         public sealed class Conv2d : Module
         {
 
-            public int in_channels
-            {
+            ///<summary>Number of channels in the input image.</summary>
+            public int in_channels;
 
-                get;
+            ///<summary>Number of channels produced by the convolution.</summary>
+            public int out_channels;
 
-                private set;
+            ///<summary>Size of the convolving kernel.</summary>
+            public int[] kernel_size;
 
-            }
+            ///<summary>Stride of the convolution. Default: 1.</summary>
+            public int[] stride;
 
-            public int out_channels
-            {
+            ///<summary>Zero-padding added to both sides of the input. Default: 0.</summary>
+            public int[] padding;
 
-                get;
+            ///<summary>Spacing between kernel elements. Default: 1.</summary>
+            public int[] dilation;
 
-                private set;
+            ///<summary>Number of blocked connections from input channels to output channels. Default: 1.</summary>
+            public int groups;
 
-            }
+            ///<summary>The learnable weights of the module of shape (out_channels, groups, in_channels, kernel_size[0], kernel_size[1]).</summary>
+            public Parameter weight;
 
-            public int[] kernel_size
-            {
+            ///<summary>The learnable bias of the module of shape (out_channels)</summary>
+            public Parameter bias;
 
-                get;
-
-                private set;
-
-            }
-
-            public int[] stride
-            {
-
-                get;
-
-                private set;
-
-            }
-
-            public int[] padding
-            {
-
-                get;
-
-                private set;
-
-            }
-
-            public int[] dilation
-            {
-
-                get;
-
-                private set;
-
-            }
-
-            public int groups
-            {
-
-                get;
-
-                private set;
-
-            }
-
-            public Parameter weight
-            {
-
-                get;
-
-                private set;
-
-            }
-
-            public Parameter bias
-            {
-
-                get;
-
-                private set;
-
-            }
-
+            ///<summary>Initializes the module.</summary>
+            ///<param name = "in_channels">Number of channels in the input image.</param>
+            ///<param name = "out_channels">Number of channels produced by the convolution.</param>
+            ///<param name = "kernel_size">Size of the convolving kernel.</param>
+            ///<param name = "stride">Stride of the convolution. Default: 1.</param>
+            ///<param name = "padding">Zero-padding added to both sides of the input. Default: 0.</param>
+            ///<param name = "dilation">Spacing between kernel elements. Default: 1.</param>
+            ///<param name = "groups">Number of blocked connections from input channels to output channels. Default: 1.</param>
+            ///<param name = "bias">If True, adds a learnable bias to the output. Default: True.</param>
             public Conv2d(int in_channels, int out_channels, int[] kernel_size, int[] stride = null, int[] padding = null, int[] dilation = null, int groups = 1, bool bias = true) : base()
             {
                 if(stride != null)
@@ -336,6 +292,15 @@ public static partial class torch
                 this.groups = groups;
             }
 
+            ///<summary>Initializes the module.</summary>
+            ///<param name = "in_channels">Number of channels in the input image.</param>
+            ///<param name = "out_channels">Number of channels produced by the convolution.</param>
+            ///<param name = "kernel_size">Size of the convolving kernel.</param>
+            ///<param name = "stride">Stride of the convolution. Default: 1.</param>
+            ///<param name = "padding">Zero-padding added to both sides of the input. Default: 0.</param>
+            ///<param name = "dilation">Spacing between kernel elements. Default: 1.</param>
+            ///<param name = "groups">Number of blocked connections from input channels to output channels. Default: 1.</param>
+            ///<param name = "bias">If True, adds a learnable bias to the output. Default: True.</param>
             public Conv2d(int in_channels, int out_channels, int kernel_size, int stride = 1, int padding = 0, int dilation = 1, int groups = 1, bool bias = true) : base()
             {
                 this.weight = new Parameter(new Tensor(kernel_size, kernel_size, in_channels / groups, out_channels));
@@ -352,6 +317,8 @@ public static partial class torch
                 this.groups = groups;
             }
 
+            ///<summary>Applies a 2D convolution over an input signal composed of several input planes.</summary>
+            ///<param name = "input">Input tensor.</param>
             public Tensor forward(Tensor input)
             {
                 return functional.conv2d(input, this.weight.data, (this.bias == null) ? null : this.bias.data, this.stride, this.padding, this.dilation, this.groups);

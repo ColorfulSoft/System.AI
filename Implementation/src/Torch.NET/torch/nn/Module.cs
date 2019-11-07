@@ -180,7 +180,7 @@
 //*    END OF TERMS AND CONDITIONS
 //***************************************************************************************************
 
-//-> Latest commit: Brykin Gleb, 02.11.2019.
+//-> Latest commit: Brykin Gleb, 05.11.2019.
 
 using System;
 using System.Reflection;
@@ -299,24 +299,6 @@ public static partial class torch
                 foreach(var p in @params)
                 {
                     p.Value.__link_data_from_tensor(state_dict[p.Key]);
-                }
-            }
-
-            public void train()
-            {
-                foreach(Parameter x in this.parameters())
-                {
-                    x.data.requires_grad_(true);
-                    x.requires_grad = true;
-                }
-            }
-
-            public void eval()
-            {
-                foreach(Parameter x in this.parameters())
-                {
-                    x.data.requires_grad_(false);
-                    x.requires_grad = false;
                 }
             }
 
