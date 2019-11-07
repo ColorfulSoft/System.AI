@@ -180,7 +180,7 @@
 //*    END OF TERMS AND CONDITIONS
 //***************************************************************************************************
 
-//-> Latest commit: Brykin Gleb, 02.11.2019.
+//-> Latest commit: Brykin Gleb, 06.11.2019.
 
 using System;
 
@@ -200,7 +200,7 @@ public static partial class torch
             {
                 throw new torch.TorchException("TorchException: zeros_like() is not supported for Boolean tensors.");
             }
-            var result = new Tensor(this.size, (dtype == dtype.@default) ? this.dtype : dtype, requires_grad);
+            var result = new Tensor(this.size(), (dtype == dtype.@default) ? this.dtype : dtype, requires_grad);
             return result;
         }
 
@@ -210,7 +210,7 @@ public static partial class torch
         ///<param name = "requires_grad">If autograd should record operations on the returned tensor. Default: false.</param>
         public Tensor ones_like(dtype dtype = dtype.@default, bool requires_grad = false)
         {
-            var result = new Tensor(this.size, (dtype == dtype.@default) ? this.dtype : dtype, requires_grad);
+            var result = new Tensor(this.size(), (dtype == dtype.@default) ? this.dtype : dtype, requires_grad);
             switch(result.dtype)
             {
                 case torch.dtype.float16:
@@ -291,6 +291,7 @@ public static partial class torch
             return result;
         }
 
+        ///<summary>Returns a tensor with all the dimensions of input of size 1 removed.</summary>
         public Tensor squeeze()
         {
             switch(this.__ndim)
@@ -489,6 +490,7 @@ public static partial class torch
             }
         }
 
+        ///<summary>This attribute is None by default and becomes a Tensor the first time a call to backward() computes gradients for self. The attribute will then contain the gradients computed and future calls to backward() will accumulate (add) gradients into it.</summary>
         public Tensor grad
         {
 
@@ -506,7 +508,8 @@ public static partial class torch
 
         }
 
-        public void backward()
+        ///<summary>Computes the gradient of current tensor w.r.t. graph leaves. The graph is differentiated using the chain rule. If the tensor is non-scalar (i.e. its data has more than one element) and requires gradient, the function additionally requires specifying gradient. It should be a tensor of matching type and location, that contains the gradient of the differentiated function w.r.t. self. This function accumulates gradients in the leaves - you might need to zero them before calling it.</summary>
+        public void backward(Tensor gradient = null)
         {
             if(this.__ndim == 0)
             {
@@ -546,6 +549,8 @@ public static partial class torch
             }
         }
 
+        ///<summary>Change if autograd should record operations on this tensor: sets this tensor’s requires_grad attribute in-place. Returns this tensor.</summary>
+        ///<param name = "requires_grad">If autograd should record operations on this tensor. Default: true.</param>
         public void requires_grad_(bool requires_grad = true)
         {
             if(this.requires_grad != requires_grad)

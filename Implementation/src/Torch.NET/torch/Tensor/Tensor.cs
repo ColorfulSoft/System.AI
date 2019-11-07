@@ -180,7 +180,7 @@
 //*    END OF TERMS AND CONDITIONS
 //***************************************************************************************************
 
-//-> Latest commit: Brykin Gleb, 02.11.2019.
+//-> Latest commit: Brykin Gleb, 06.11.2019.
 
 using System;
 
@@ -259,8 +259,10 @@ public static partial class torch
         //-> Backward
         //------------------------------
 
+        ///<summary>The delegate type for the error back propagation method.</summary>
         internal delegate void __backward();
 
+        ///<summary>Error back propagation method for this tensor.</summary>
         internal __backward __backward_fn;
 
         //------------------------------
@@ -285,47 +287,43 @@ public static partial class torch
         ///<summary>Batch's dimension. Higher dimension.</summary>
         internal int __batch;
 
-        public torch.Size size
+        ///<summary>Returns the size of the current tensor.</summary>
+        public torch.Size size()
         {
-
-            get
+            if(this.__ndim == 0)
             {
-                if(this.__ndim == 0)
+                return new torch.Size();
+            }
+            switch(this.__ndim)
+            {
+                case 0:
                 {
                     return new torch.Size();
                 }
-                switch(this.__ndim)
+                case 1:
                 {
-                    case 0:
-                    {
-                        return new torch.Size();
-                    }
-                    case 1:
-                    {
-                        return new torch.Size(this.__width);
-                    }
-                    case 2:
-                    {
-                        return new torch.Size(this.__width, this.__height);
-                    }
-                    case 3:
-                    {
-                        return new torch.Size(this.__width, this.__height, this.__depth);
-                    }
-                    case 4:
-                    {
-                        return new torch.Size(this.__width, this.__height, this.__depth, this.__time);
-                    }
-                    case 5:
-                    {
-                        return new torch.Size(this.__width, this.__height, this.__depth, this.__time, this.__batch);
-                    }
-                    default:
-                    {
-                        throw new torch.TorchException("TorchException: Internal data error.");
-                    }
+                    return new torch.Size(this.__width);
                 }
-
+                case 2:
+                {
+                    return new torch.Size(this.__width, this.__height);
+                }
+                case 3:
+                {
+                    return new torch.Size(this.__width, this.__height, this.__depth);
+                }
+                case 4:
+                {
+                    return new torch.Size(this.__width, this.__height, this.__depth, this.__time);
+                }
+                case 5:
+                {
+                    return new torch.Size(this.__width, this.__height, this.__depth, this.__time, this.__batch);
+                }
+                default:
+                {
+                    throw new torch.TorchException("TorchException: Internal data error.");
+                }
             }
 
         }

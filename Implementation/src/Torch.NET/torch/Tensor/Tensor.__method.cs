@@ -180,7 +180,7 @@
 //*    END OF TERMS AND CONDITIONS
 //***************************************************************************************************
 
-//-> Latest commit: Brykin Gleb, 02.11.2019.
+//-> Latest commit: Brykin Gleb, 06.11.2019.
 
 using System;
 
@@ -426,6 +426,9 @@ public static partial class torch
             }
         }
 
+        ///<summary>Converts the input data to the output data type and writes the converted result to the corresponding parameter.</summary>
+        ///<param name = "input">Input data.</param>
+        ///<param name = "output">Output data.</param>
         private static void __convert<I, D>(ref I input, ref D output)
         {
             if(input is Half)
@@ -714,6 +717,9 @@ public static partial class torch
             }
         }
 
+        ///<summary>Converts the input data array to the output array data type and writes the converted result to the corresponding parameter.</summary>
+        ///<param name = "input">Input data.</param>
+        ///<param name = "output">Output data.</param>
         private static void __match<I, D>(I[] input, D[] output)
         {
             for(int i = 0; i < input.Length; i++)
@@ -722,6 +728,9 @@ public static partial class torch
             }
         }
 
+        ///<summary>Converts the input data array to the output array data type and writes the converted result to the corresponding parameter.</summary>
+        ///<param name = "input">Input data.</param>
+        ///<param name = "output">Output data.</param>
         private static void __match<I, D>(I[,] input, D[] output)
         {
             var width = input.GetLength(0);
@@ -735,6 +744,9 @@ public static partial class torch
             }
         }
 
+        ///<summary>Converts the input data array to the output array data type and writes the converted result to the corresponding parameter.</summary>
+        ///<param name = "input">Input data.</param>
+        ///<param name = "output">Output data.</param>
         private static void __match<I, D>(I[,,] input, D[] output)
         {
             var width = input.GetLength(0);
@@ -752,6 +764,9 @@ public static partial class torch
             }
         }
 
+        ///<summary>Converts the input data array to the output array data type and writes the converted result to the corresponding parameter.</summary>
+        ///<param name = "input">Input data.</param>
+        ///<param name = "output">Output data.</param>
         private static void __match<I, D>(I[,,,] input, D[] output)
         {
             var width = input.GetLength(0);
@@ -773,6 +788,9 @@ public static partial class torch
             }
         }
 
+        ///<summary>Converts the input data array to the output array data type and writes the converted result to the corresponding parameter.</summary>
+        ///<param name = "input">Input data.</param>
+        ///<param name = "output">Output data.</param>
         private static void __match<I, D>(I[,,,,] input, D[] output)
         {
             var width = input.GetLength(0);
@@ -945,6 +963,8 @@ public static partial class torch
             }
         }
 
+        ///<summary>Copies a reference to the internal data container of tensor t to the current tensor.</summary>
+        ///<param name = "t">Data tensor.</param>
         internal void __link_data_from_tensor(Tensor t)
         {
             this.__data_float16 = t.__data_float16;
@@ -958,6 +978,7 @@ public static partial class torch
             this.__data_bool = t.__data_bool;
         }
 
+        ///<summary>Returns a new tensor that references the data store and gradients of the current tensor.</summary>
         private Tensor __link()
         {
             var y = (Tensor)0f;

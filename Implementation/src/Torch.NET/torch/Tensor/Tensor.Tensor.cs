@@ -180,7 +180,7 @@
 //*    END OF TERMS AND CONDITIONS
 //***************************************************************************************************
 
-//-> Latest commit: Brykin Gleb, 02.11.2019.
+//-> Latest commit: Brykin Gleb, 06.11.2019.
 
 using System;
 
@@ -4246,6 +4246,16 @@ public static partial class torch
             }
         }
 
+        ///<summary>Initializes a tensor with references to specified gradient stores as a data store. Required for the Tensor.grad property.</summary>
+        ///<param name = "grad_float16">float16 gradient.</param>
+        ///<param name = "grad_float32">float32 gradient.</param>
+        ///<param name = "grad_float64">float64 gradient.</param>
+        ///<param name = "ndim">Number of dimensions of the tensor.</param>
+        ///<param name = "width">The width of the dectination tensor.</param>
+        ///<param name = "height">The height of the dectination tensor.</param>
+        ///<param name = "depth">The depth of the dectination tensor.</param>
+        ///<param name = "time">The time of the dectination tensor.</param>
+        ///<param name = "batch">The batch of the dectination tensor.</param>
         private Tensor(Half[] grad_float16 = null, float[] grad_float32 = null, double[] grad_float64 = null, byte ndim = 0, int width = 1, int height = 1, int depth = 1, int time = 1, int batch = 1)
         {
             if(grad_float16 != null)
@@ -4374,6 +4384,15 @@ public static partial class torch
         {
             var r = new Tensor(torch.dtype.@long);
             r.__data_int64[0] = data;
+            return r;
+        }
+
+        ///<summary>Converts the .NET standard bool to 0-dim Tensor.</summary>
+        ///<param name="data">System.Boolean (C# bool).</param>
+        public static implicit operator Tensor(bool data)
+        {
+            var r = new Tensor(torch.dtype.@bool);
+            r.__data_bool[0] = data;
             return r;
         }
 

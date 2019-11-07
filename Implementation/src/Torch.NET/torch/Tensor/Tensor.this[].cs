@@ -180,7 +180,7 @@
 //*    END OF TERMS AND CONDITIONS
 //***************************************************************************************************
 
-//-> Latest commit: Brykin Gleb, 03.11.2019.
+//-> Latest commit: Brykin Gleb, 06.11.2019.
 
 using System;
 
@@ -190,6 +190,8 @@ public static partial class torch
     public sealed partial class Tensor
     {
 
+        ///<summary>Index property of the tensor.</summary>
+        ///<param name = "i">The index(es) of the tensor.</param>
         public Tensor this[params int[] i]
         {
 
@@ -688,6 +690,1024 @@ public static partial class torch
                             case dtype.@bool:
                             {
                                 throw new TorchException("TorchException: It is not possible to convert a bool tensor to a tensor of any other type.");
+                            }
+                        }
+                        break;
+                    }
+                    case torch.dtype.float32:
+                    case torch.dtype.@float:
+                    {
+                        switch(value.dtype)
+                        {
+                            case dtype.float16:
+                            case dtype.half:
+                            {
+                                for(int b = minB; b < maxB; b++)
+                                {
+                                    for(int t = minT; t < maxT; t++)
+                                    {
+                                        for(int d = minD; d < maxD; d++)
+                                        {
+                                            for(int h = minH; h < maxH; h++)
+                                            {
+                                                for(int w = minW; w < maxW; w++)
+                                                {
+                                                    this.__unsafe_set_value((float)value.__unsafe_get_value(value.__data_float16, (value.__width == this.__width) ? (w - minW) : 0, (value.__height == this.__height) ? (h - minH) : 0, (value.__depth == this.__depth) ? (d - minD) : 0, (value.__time == this.__time) ? (t - minT) : 0, (value.__batch == this.__batch) ? (b - minB) : 0), this.__data_float32, w, h, d, t, b);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                break;
+                            }
+                            case dtype.float32:
+                            case dtype.@float:
+                            {
+                                for(int b = minB; b < maxB; b++)
+                                {
+                                    for(int t = minT; t < maxT; t++)
+                                    {
+                                        for(int d = minD; d < maxD; d++)
+                                        {
+                                            for(int h = minH; h < maxH; h++)
+                                            {
+                                                for(int w = minW; w < maxW; w++)
+                                                {
+                                                    this.__unsafe_set_value((float)value.__unsafe_get_value(value.__data_float32, (value.__width == this.__width) ? (w - minW) : 0, (value.__height == this.__height) ? (h - minH) : 0, (value.__depth == this.__depth) ? (d - minD) : 0, (value.__time == this.__time) ? (t - minT) : 0, (value.__batch == this.__batch) ? (b - minB) : 0), this.__data_float32, w, h, d, t, b);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                break;
+                            }
+                            case dtype.float64:
+                            case dtype.@double:
+                            {
+                                for(int b = minB; b < maxB; b++)
+                                {
+                                    for(int t = minT; t < maxT; t++)
+                                    {
+                                        for(int d = minD; d < maxD; d++)
+                                        {
+                                            for(int h = minH; h < maxH; h++)
+                                            {
+                                                for(int w = minW; w < maxW; w++)
+                                                {
+                                                    this.__unsafe_set_value((float)value.__unsafe_get_value(value.__data_float64, (value.__width == this.__width) ? (w - minW) : 0, (value.__height == this.__height) ? (h - minH) : 0, (value.__depth == this.__depth) ? (d - minD) : 0, (value.__time == this.__time) ? (t - minT) : 0, (value.__batch == this.__batch) ? (b - minB) : 0), this.__data_float32, w, h, d, t, b);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                break;
+                            }
+                            case dtype.uint8:
+                            {
+                                for(int b = minB; b < maxB; b++)
+                                {
+                                    for(int t = minT; t < maxT; t++)
+                                    {
+                                        for(int d = minD; d < maxD; d++)
+                                        {
+                                            for(int h = minH; h < maxH; h++)
+                                            {
+                                                for(int w = minW; w < maxW; w++)
+                                                {
+                                                    this.__unsafe_set_value((float)value.__unsafe_get_value(value.__data_uint8, (value.__width == this.__width) ? (w - minW) : 0, (value.__height == this.__height) ? (h - minH) : 0, (value.__depth == this.__depth) ? (d - minD) : 0, (value.__time == this.__time) ? (t - minT) : 0, (value.__batch == this.__batch) ? (b - minB) : 0), this.__data_float32, w, h, d, t, b);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                break;
+                            }
+                            case dtype.int8:
+                            {
+                                for(int b = minB; b < maxB; b++)
+                                {
+                                    for(int t = minT; t < maxT; t++)
+                                    {
+                                        for(int d = minD; d < maxD; d++)
+                                        {
+                                            for(int h = minH; h < maxH; h++)
+                                            {
+                                                for(int w = minW; w < maxW; w++)
+                                                {
+                                                    this.__unsafe_set_value((float)value.__unsafe_get_value(value.__data_int8, (value.__width == this.__width) ? (w - minW) : 0, (value.__height == this.__height) ? (h - minH) : 0, (value.__depth == this.__depth) ? (d - minD) : 0, (value.__time == this.__time) ? (t - minT) : 0, (value.__batch == this.__batch) ? (b - minB) : 0), this.__data_float32, w, h, d, t, b);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                break;
+                            }
+                            case dtype.int16:
+                            case dtype.@short:
+                            {
+                                for(int b = minB; b < maxB; b++)
+                                {
+                                    for(int t = minT; t < maxT; t++)
+                                    {
+                                        for(int d = minD; d < maxD; d++)
+                                        {
+                                            for(int h = minH; h < maxH; h++)
+                                            {
+                                                for(int w = minW; w < maxW; w++)
+                                                {
+                                                    this.__unsafe_set_value((float)value.__unsafe_get_value(value.__data_int16, (value.__width == this.__width) ? (w - minW) : 0, (value.__height == this.__height) ? (h - minH) : 0, (value.__depth == this.__depth) ? (d - minD) : 0, (value.__time == this.__time) ? (t - minT) : 0, (value.__batch == this.__batch) ? (b - minB) : 0), this.__data_float32, w, h, d, t, b);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                break;
+                            }
+                            case dtype.int32:
+                            case dtype.@int:
+                            {
+                                for(int b = minB; b < maxB; b++)
+                                {
+                                    for(int t = minT; t < maxT; t++)
+                                    {
+                                        for(int d = minD; d < maxD; d++)
+                                        {
+                                            for(int h = minH; h < maxH; h++)
+                                            {
+                                                for(int w = minW; w < maxW; w++)
+                                                {
+                                                    this.__unsafe_set_value((float)value.__unsafe_get_value(value.__data_int32, (value.__width == this.__width) ? (w - minW) : 0, (value.__height == this.__height) ? (h - minH) : 0, (value.__depth == this.__depth) ? (d - minD) : 0, (value.__time == this.__time) ? (t - minT) : 0, (value.__batch == this.__batch) ? (b - minB) : 0), this.__data_float32, w, h, d, t, b);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                break;
+                            }
+                            case dtype.int64:
+                            case dtype.@long:
+                            {
+                                for(int b = minB; b < maxB; b++)
+                                {
+                                    for(int t = minT; t < maxT; t++)
+                                    {
+                                        for(int d = minD; d < maxD; d++)
+                                        {
+                                            for(int h = minH; h < maxH; h++)
+                                            {
+                                                for(int w = minW; w < maxW; w++)
+                                                {
+                                                    this.__unsafe_set_value((float)value.__unsafe_get_value(value.__data_int64, (value.__width == this.__width) ? (w - minW) : 0, (value.__height == this.__height) ? (h - minH) : 0, (value.__depth == this.__depth) ? (d - minD) : 0, (value.__time == this.__time) ? (t - minT) : 0, (value.__batch == this.__batch) ? (b - minB) : 0), this.__data_float32, w, h, d, t, b);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                break;
+                            }
+                            case dtype.@bool:
+                            {
+                                throw new TorchException("TorchException: It is not possible to convert a bool tensor to a tensor of any other type.");
+                            }
+                        }
+                        break;
+                    }
+                    case torch.dtype.float64:
+                    case torch.dtype.@double:
+                    {
+                        switch(value.dtype)
+                        {
+                            case dtype.float16:
+                            case dtype.half:
+                            {
+                                for(int b = minB; b < maxB; b++)
+                                {
+                                    for(int t = minT; t < maxT; t++)
+                                    {
+                                        for(int d = minD; d < maxD; d++)
+                                        {
+                                            for(int h = minH; h < maxH; h++)
+                                            {
+                                                for(int w = minW; w < maxW; w++)
+                                                {
+                                                    this.__unsafe_set_value((double)value.__unsafe_get_value(value.__data_float16, (value.__width == this.__width) ? (w - minW) : 0, (value.__height == this.__height) ? (h - minH) : 0, (value.__depth == this.__depth) ? (d - minD) : 0, (value.__time == this.__time) ? (t - minT) : 0, (value.__batch == this.__batch) ? (b - minB) : 0), this.__data_float64, w, h, d, t, b);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                break;
+                            }
+                            case dtype.float32:
+                            case dtype.@float:
+                            {
+                                for(int b = minB; b < maxB; b++)
+                                {
+                                    for(int t = minT; t < maxT; t++)
+                                    {
+                                        for(int d = minD; d < maxD; d++)
+                                        {
+                                            for(int h = minH; h < maxH; h++)
+                                            {
+                                                for(int w = minW; w < maxW; w++)
+                                                {
+                                                    this.__unsafe_set_value((double)value.__unsafe_get_value(value.__data_float32, (value.__width == this.__width) ? (w - minW) : 0, (value.__height == this.__height) ? (h - minH) : 0, (value.__depth == this.__depth) ? (d - minD) : 0, (value.__time == this.__time) ? (t - minT) : 0, (value.__batch == this.__batch) ? (b - minB) : 0), this.__data_float64, w, h, d, t, b);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                break;
+                            }
+                            case dtype.float64:
+                            case dtype.@double:
+                            {
+                                for(int b = minB; b < maxB; b++)
+                                {
+                                    for(int t = minT; t < maxT; t++)
+                                    {
+                                        for(int d = minD; d < maxD; d++)
+                                        {
+                                            for(int h = minH; h < maxH; h++)
+                                            {
+                                                for(int w = minW; w < maxW; w++)
+                                                {
+                                                    this.__unsafe_set_value((double)value.__unsafe_get_value(value.__data_float64, (value.__width == this.__width) ? (w - minW) : 0, (value.__height == this.__height) ? (h - minH) : 0, (value.__depth == this.__depth) ? (d - minD) : 0, (value.__time == this.__time) ? (t - minT) : 0, (value.__batch == this.__batch) ? (b - minB) : 0), this.__data_float64, w, h, d, t, b);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                break;
+                            }
+                            case dtype.uint8:
+                            {
+                                for(int b = minB; b < maxB; b++)
+                                {
+                                    for(int t = minT; t < maxT; t++)
+                                    {
+                                        for(int d = minD; d < maxD; d++)
+                                        {
+                                            for(int h = minH; h < maxH; h++)
+                                            {
+                                                for(int w = minW; w < maxW; w++)
+                                                {
+                                                    this.__unsafe_set_value((double)value.__unsafe_get_value(value.__data_uint8, (value.__width == this.__width) ? (w - minW) : 0, (value.__height == this.__height) ? (h - minH) : 0, (value.__depth == this.__depth) ? (d - minD) : 0, (value.__time == this.__time) ? (t - minT) : 0, (value.__batch == this.__batch) ? (b - minB) : 0), this.__data_float64, w, h, d, t, b);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                break;
+                            }
+                            case dtype.int8:
+                            {
+                                for(int b = minB; b < maxB; b++)
+                                {
+                                    for(int t = minT; t < maxT; t++)
+                                    {
+                                        for(int d = minD; d < maxD; d++)
+                                        {
+                                            for(int h = minH; h < maxH; h++)
+                                            {
+                                                for(int w = minW; w < maxW; w++)
+                                                {
+                                                    this.__unsafe_set_value((double)value.__unsafe_get_value(value.__data_int8, (value.__width == this.__width) ? (w - minW) : 0, (value.__height == this.__height) ? (h - minH) : 0, (value.__depth == this.__depth) ? (d - minD) : 0, (value.__time == this.__time) ? (t - minT) : 0, (value.__batch == this.__batch) ? (b - minB) : 0), this.__data_float64, w, h, d, t, b);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                break;
+                            }
+                            case dtype.int16:
+                            case dtype.@short:
+                            {
+                                for(int b = minB; b < maxB; b++)
+                                {
+                                    for(int t = minT; t < maxT; t++)
+                                    {
+                                        for(int d = minD; d < maxD; d++)
+                                        {
+                                            for(int h = minH; h < maxH; h++)
+                                            {
+                                                for(int w = minW; w < maxW; w++)
+                                                {
+                                                    this.__unsafe_set_value((double)value.__unsafe_get_value(value.__data_int16, (value.__width == this.__width) ? (w - minW) : 0, (value.__height == this.__height) ? (h - minH) : 0, (value.__depth == this.__depth) ? (d - minD) : 0, (value.__time == this.__time) ? (t - minT) : 0, (value.__batch == this.__batch) ? (b - minB) : 0), this.__data_float64, w, h, d, t, b);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                break;
+                            }
+                            case dtype.int32:
+                            case dtype.@int:
+                            {
+                                for(int b = minB; b < maxB; b++)
+                                {
+                                    for(int t = minT; t < maxT; t++)
+                                    {
+                                        for(int d = minD; d < maxD; d++)
+                                        {
+                                            for(int h = minH; h < maxH; h++)
+                                            {
+                                                for(int w = minW; w < maxW; w++)
+                                                {
+                                                    this.__unsafe_set_value((double)value.__unsafe_get_value(value.__data_int32, (value.__width == this.__width) ? (w - minW) : 0, (value.__height == this.__height) ? (h - minH) : 0, (value.__depth == this.__depth) ? (d - minD) : 0, (value.__time == this.__time) ? (t - minT) : 0, (value.__batch == this.__batch) ? (b - minB) : 0), this.__data_float64, w, h, d, t, b);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                break;
+                            }
+                            case dtype.int64:
+                            case dtype.@long:
+                            {
+                                for(int b = minB; b < maxB; b++)
+                                {
+                                    for(int t = minT; t < maxT; t++)
+                                    {
+                                        for(int d = minD; d < maxD; d++)
+                                        {
+                                            for(int h = minH; h < maxH; h++)
+                                            {
+                                                for(int w = minW; w < maxW; w++)
+                                                {
+                                                    this.__unsafe_set_value((double)value.__unsafe_get_value(value.__data_int64, (value.__width == this.__width) ? (w - minW) : 0, (value.__height == this.__height) ? (h - minH) : 0, (value.__depth == this.__depth) ? (d - minD) : 0, (value.__time == this.__time) ? (t - minT) : 0, (value.__batch == this.__batch) ? (b - minB) : 0), this.__data_float64, w, h, d, t, b);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                break;
+                            }
+                            case dtype.@bool:
+                            {
+                                throw new TorchException("TorchException: It is not possible to convert a bool tensor to a tensor of any other type.");
+                            }
+                        }
+                        break;
+                    }
+                    case torch.dtype.uint8:
+                    {
+                        switch(value.dtype)
+                        {
+                            case dtype.float16:
+                            case dtype.half:
+                            case dtype.float32:
+                            case dtype.@float:
+                            case dtype.float64:
+                            case dtype.@double:
+                            {
+                                throw new TorchException("TorchException: It is not possible to convert a floating point tensor to a tensor of integer or bool type.");
+                            }
+                            case dtype.uint8:
+                            {
+                                for(int b = minB; b < maxB; b++)
+                                {
+                                    for(int t = minT; t < maxT; t++)
+                                    {
+                                        for(int d = minD; d < maxD; d++)
+                                        {
+                                            for(int h = minH; h < maxH; h++)
+                                            {
+                                                for(int w = minW; w < maxW; w++)
+                                                {
+                                                    this.__unsafe_set_value(value.__unsafe_get_value(value.__data_uint8, (value.__width == this.__width) ? (w - minW) : 0, (value.__height == this.__height) ? (h - minH) : 0, (value.__depth == this.__depth) ? (d - minD) : 0, (value.__time == this.__time) ? (t - minT) : 0, (value.__batch == this.__batch) ? (b - minB) : 0), this.__data_uint8, w, h, d, t, b);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                break;
+                            }
+                            case dtype.int8:
+                            {
+                                for(int b = minB; b < maxB; b++)
+                                {
+                                    for(int t = minT; t < maxT; t++)
+                                    {
+                                        for(int d = minD; d < maxD; d++)
+                                        {
+                                            for(int h = minH; h < maxH; h++)
+                                            {
+                                                for(int w = minW; w < maxW; w++)
+                                                {
+                                                    this.__unsafe_set_value((byte)value.__unsafe_get_value(value.__data_int8, (value.__width == this.__width) ? (w - minW) : 0, (value.__height == this.__height) ? (h - minH) : 0, (value.__depth == this.__depth) ? (d - minD) : 0, (value.__time == this.__time) ? (t - minT) : 0, (value.__batch == this.__batch) ? (b - minB) : 0), this.__data_uint8, w, h, d, t, b);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                break;
+                            }
+                            case dtype.int16:
+                            case dtype.@short:
+                            {
+                                for(int b = minB; b < maxB; b++)
+                                {
+                                    for(int t = minT; t < maxT; t++)
+                                    {
+                                        for(int d = minD; d < maxD; d++)
+                                        {
+                                            for(int h = minH; h < maxH; h++)
+                                            {
+                                                for(int w = minW; w < maxW; w++)
+                                                {
+                                                    this.__unsafe_set_value((byte)value.__unsafe_get_value(value.__data_int16, (value.__width == this.__width) ? (w - minW) : 0, (value.__height == this.__height) ? (h - minH) : 0, (value.__depth == this.__depth) ? (d - minD) : 0, (value.__time == this.__time) ? (t - minT) : 0, (value.__batch == this.__batch) ? (b - minB) : 0), this.__data_uint8, w, h, d, t, b);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                break;
+                            }
+                            case dtype.int32:
+                            case dtype.@int:
+                            {
+                                for(int b = minB; b < maxB; b++)
+                                {
+                                    for(int t = minT; t < maxT; t++)
+                                    {
+                                        for(int d = minD; d < maxD; d++)
+                                        {
+                                            for(int h = minH; h < maxH; h++)
+                                            {
+                                                for(int w = minW; w < maxW; w++)
+                                                {
+                                                    this.__unsafe_set_value((byte)value.__unsafe_get_value(value.__data_int32, (value.__width == this.__width) ? (w - minW) : 0, (value.__height == this.__height) ? (h - minH) : 0, (value.__depth == this.__depth) ? (d - minD) : 0, (value.__time == this.__time) ? (t - minT) : 0, (value.__batch == this.__batch) ? (b - minB) : 0), this.__data_uint8, w, h, d, t, b);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                break;
+                            }
+                            case dtype.int64:
+                            case dtype.@long:
+                            {
+                                for(int b = minB; b < maxB; b++)
+                                {
+                                    for(int t = minT; t < maxT; t++)
+                                    {
+                                        for(int d = minD; d < maxD; d++)
+                                        {
+                                            for(int h = minH; h < maxH; h++)
+                                            {
+                                                for(int w = minW; w < maxW; w++)
+                                                {
+                                                    this.__unsafe_set_value((byte)value.__unsafe_get_value(value.__data_int64, (value.__width == this.__width) ? (w - minW) : 0, (value.__height == this.__height) ? (h - minH) : 0, (value.__depth == this.__depth) ? (d - minD) : 0, (value.__time == this.__time) ? (t - minT) : 0, (value.__batch == this.__batch) ? (b - minB) : 0), this.__data_uint8, w, h, d, t, b);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                break;
+                            }
+                            case dtype.@bool:
+                            {
+                                throw new TorchException("TorchException: It is not possible to convert a bool tensor to a tensor of any other type.");
+                            }
+                        }
+                        break;
+                    }
+                    case torch.dtype.int8:
+                    {
+                        switch(value.dtype)
+                        {
+                            case dtype.float16:
+                            case dtype.half:
+                            case dtype.float32:
+                            case dtype.@float:
+                            case dtype.float64:
+                            case dtype.@double:
+                            {
+                                throw new TorchException("TorchException: It is not possible to convert a floating point tensor to a tensor of integer or bool type.");
+                            }
+                            case dtype.uint8:
+                            {
+                                for(int b = minB; b < maxB; b++)
+                                {
+                                    for(int t = minT; t < maxT; t++)
+                                    {
+                                        for(int d = minD; d < maxD; d++)
+                                        {
+                                            for(int h = minH; h < maxH; h++)
+                                            {
+                                                for(int w = minW; w < maxW; w++)
+                                                {
+                                                    this.__unsafe_set_value((sbyte)value.__unsafe_get_value(value.__data_uint8, (value.__width == this.__width) ? (w - minW) : 0, (value.__height == this.__height) ? (h - minH) : 0, (value.__depth == this.__depth) ? (d - minD) : 0, (value.__time == this.__time) ? (t - minT) : 0, (value.__batch == this.__batch) ? (b - minB) : 0), this.__data_int8, w, h, d, t, b);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                break;
+                            }
+                            case dtype.int8:
+                            {
+                                for(int b = minB; b < maxB; b++)
+                                {
+                                    for(int t = minT; t < maxT; t++)
+                                    {
+                                        for(int d = minD; d < maxD; d++)
+                                        {
+                                            for(int h = minH; h < maxH; h++)
+                                            {
+                                                for(int w = minW; w < maxW; w++)
+                                                {
+                                                    this.__unsafe_set_value(value.__unsafe_get_value(value.__data_int8, (value.__width == this.__width) ? (w - minW) : 0, (value.__height == this.__height) ? (h - minH) : 0, (value.__depth == this.__depth) ? (d - minD) : 0, (value.__time == this.__time) ? (t - minT) : 0, (value.__batch == this.__batch) ? (b - minB) : 0), this.__data_int8, w, h, d, t, b);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                break;
+                            }
+                            case dtype.int16:
+                            case dtype.@short:
+                            {
+                                for(int b = minB; b < maxB; b++)
+                                {
+                                    for(int t = minT; t < maxT; t++)
+                                    {
+                                        for(int d = minD; d < maxD; d++)
+                                        {
+                                            for(int h = minH; h < maxH; h++)
+                                            {
+                                                for(int w = minW; w < maxW; w++)
+                                                {
+                                                    this.__unsafe_set_value((sbyte)value.__unsafe_get_value(value.__data_int16, (value.__width == this.__width) ? (w - minW) : 0, (value.__height == this.__height) ? (h - minH) : 0, (value.__depth == this.__depth) ? (d - minD) : 0, (value.__time == this.__time) ? (t - minT) : 0, (value.__batch == this.__batch) ? (b - minB) : 0), this.__data_int8, w, h, d, t, b);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                break;
+                            }
+                            case dtype.int32:
+                            case dtype.@int:
+                            {
+                                for(int b = minB; b < maxB; b++)
+                                {
+                                    for(int t = minT; t < maxT; t++)
+                                    {
+                                        for(int d = minD; d < maxD; d++)
+                                        {
+                                            for(int h = minH; h < maxH; h++)
+                                            {
+                                                for(int w = minW; w < maxW; w++)
+                                                {
+                                                    this.__unsafe_set_value((sbyte)value.__unsafe_get_value(value.__data_int32, (value.__width == this.__width) ? (w - minW) : 0, (value.__height == this.__height) ? (h - minH) : 0, (value.__depth == this.__depth) ? (d - minD) : 0, (value.__time == this.__time) ? (t - minT) : 0, (value.__batch == this.__batch) ? (b - minB) : 0), this.__data_int8, w, h, d, t, b);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                break;
+                            }
+                            case dtype.int64:
+                            case dtype.@long:
+                            {
+                                for(int b = minB; b < maxB; b++)
+                                {
+                                    for(int t = minT; t < maxT; t++)
+                                    {
+                                        for(int d = minD; d < maxD; d++)
+                                        {
+                                            for(int h = minH; h < maxH; h++)
+                                            {
+                                                for(int w = minW; w < maxW; w++)
+                                                {
+                                                    this.__unsafe_set_value((sbyte)value.__unsafe_get_value(value.__data_int64, (value.__width == this.__width) ? (w - minW) : 0, (value.__height == this.__height) ? (h - minH) : 0, (value.__depth == this.__depth) ? (d - minD) : 0, (value.__time == this.__time) ? (t - minT) : 0, (value.__batch == this.__batch) ? (b - minB) : 0), this.__data_int8, w, h, d, t, b);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                break;
+                            }
+                            case dtype.@bool:
+                            {
+                                throw new TorchException("TorchException: It is not possible to convert a bool tensor to a tensor of any other type.");
+                            }
+                        }
+                        break;
+                    }
+                    case torch.dtype.int16:
+                    case torch.dtype.@short:
+                    {
+                        switch(value.dtype)
+                        {
+                            case dtype.float16:
+                            case dtype.half:
+                            case dtype.float32:
+                            case dtype.@float:
+                            case dtype.float64:
+                            case dtype.@double:
+                            {
+                                throw new TorchException("TorchException: It is not possible to convert a floating point tensor to a tensor of integer or bool type.");
+                            }
+                            case dtype.uint8:
+                            {
+                                for(int b = minB; b < maxB; b++)
+                                {
+                                    for(int t = minT; t < maxT; t++)
+                                    {
+                                        for(int d = minD; d < maxD; d++)
+                                        {
+                                            for(int h = minH; h < maxH; h++)
+                                            {
+                                                for(int w = minW; w < maxW; w++)
+                                                {
+                                                    this.__unsafe_set_value((short)value.__unsafe_get_value(value.__data_uint8, (value.__width == this.__width) ? (w - minW) : 0, (value.__height == this.__height) ? (h - minH) : 0, (value.__depth == this.__depth) ? (d - minD) : 0, (value.__time == this.__time) ? (t - minT) : 0, (value.__batch == this.__batch) ? (b - minB) : 0), this.__data_int16, w, h, d, t, b);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                break;
+                            }
+                            case dtype.int8:
+                            {
+                                for(int b = minB; b < maxB; b++)
+                                {
+                                    for(int t = minT; t < maxT; t++)
+                                    {
+                                        for(int d = minD; d < maxD; d++)
+                                        {
+                                            for(int h = minH; h < maxH; h++)
+                                            {
+                                                for(int w = minW; w < maxW; w++)
+                                                {
+                                                    this.__unsafe_set_value((short)value.__unsafe_get_value(value.__data_int8, (value.__width == this.__width) ? (w - minW) : 0, (value.__height == this.__height) ? (h - minH) : 0, (value.__depth == this.__depth) ? (d - minD) : 0, (value.__time == this.__time) ? (t - minT) : 0, (value.__batch == this.__batch) ? (b - minB) : 0), this.__data_int16, w, h, d, t, b);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                break;
+                            }
+                            case dtype.int16:
+                            case dtype.@short:
+                            {
+                                for(int b = minB; b < maxB; b++)
+                                {
+                                    for(int t = minT; t < maxT; t++)
+                                    {
+                                        for(int d = minD; d < maxD; d++)
+                                        {
+                                            for(int h = minH; h < maxH; h++)
+                                            {
+                                                for(int w = minW; w < maxW; w++)
+                                                {
+                                                    this.__unsafe_set_value(value.__unsafe_get_value(value.__data_int16, (value.__width == this.__width) ? (w - minW) : 0, (value.__height == this.__height) ? (h - minH) : 0, (value.__depth == this.__depth) ? (d - minD) : 0, (value.__time == this.__time) ? (t - minT) : 0, (value.__batch == this.__batch) ? (b - minB) : 0), this.__data_int16, w, h, d, t, b);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                break;
+                            }
+                            case dtype.int32:
+                            case dtype.@int:
+                            {
+                                for(int b = minB; b < maxB; b++)
+                                {
+                                    for(int t = minT; t < maxT; t++)
+                                    {
+                                        for(int d = minD; d < maxD; d++)
+                                        {
+                                            for(int h = minH; h < maxH; h++)
+                                            {
+                                                for(int w = minW; w < maxW; w++)
+                                                {
+                                                    this.__unsafe_set_value((short)value.__unsafe_get_value(value.__data_int32, (value.__width == this.__width) ? (w - minW) : 0, (value.__height == this.__height) ? (h - minH) : 0, (value.__depth == this.__depth) ? (d - minD) : 0, (value.__time == this.__time) ? (t - minT) : 0, (value.__batch == this.__batch) ? (b - minB) : 0), this.__data_int16, w, h, d, t, b);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                break;
+                            }
+                            case dtype.int64:
+                            case dtype.@long:
+                            {
+                                for(int b = minB; b < maxB; b++)
+                                {
+                                    for(int t = minT; t < maxT; t++)
+                                    {
+                                        for(int d = minD; d < maxD; d++)
+                                        {
+                                            for(int h = minH; h < maxH; h++)
+                                            {
+                                                for(int w = minW; w < maxW; w++)
+                                                {
+                                                    this.__unsafe_set_value((short)value.__unsafe_get_value(value.__data_int64, (value.__width == this.__width) ? (w - minW) : 0, (value.__height == this.__height) ? (h - minH) : 0, (value.__depth == this.__depth) ? (d - minD) : 0, (value.__time == this.__time) ? (t - minT) : 0, (value.__batch == this.__batch) ? (b - minB) : 0), this.__data_int16, w, h, d, t, b);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                break;
+                            }
+                            case dtype.@bool:
+                            {
+                                throw new TorchException("TorchException: It is not possible to convert a bool tensor to a tensor of any other type.");
+                            }
+                        }
+                        break;
+                    }
+                    case torch.dtype.int32:
+                    case torch.dtype.@int:
+                    {
+                        switch(value.dtype)
+                        {
+                            case dtype.float16:
+                            case dtype.half:
+                            case dtype.float32:
+                            case dtype.@float:
+                            case dtype.float64:
+                            case dtype.@double:
+                            {
+                                throw new TorchException("TorchException: It is not possible to convert a floating point tensor to a tensor of integer or bool type.");
+                            }
+                            case dtype.uint8:
+                            {
+                                for(int b = minB; b < maxB; b++)
+                                {
+                                    for(int t = minT; t < maxT; t++)
+                                    {
+                                        for(int d = minD; d < maxD; d++)
+                                        {
+                                            for(int h = minH; h < maxH; h++)
+                                            {
+                                                for(int w = minW; w < maxW; w++)
+                                                {
+                                                    this.__unsafe_set_value((int)value.__unsafe_get_value(value.__data_uint8, (value.__width == this.__width) ? (w - minW) : 0, (value.__height == this.__height) ? (h - minH) : 0, (value.__depth == this.__depth) ? (d - minD) : 0, (value.__time == this.__time) ? (t - minT) : 0, (value.__batch == this.__batch) ? (b - minB) : 0), this.__data_int32, w, h, d, t, b);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                break;
+                            }
+                            case dtype.int8:
+                            {
+                                for(int b = minB; b < maxB; b++)
+                                {
+                                    for(int t = minT; t < maxT; t++)
+                                    {
+                                        for(int d = minD; d < maxD; d++)
+                                        {
+                                            for(int h = minH; h < maxH; h++)
+                                            {
+                                                for(int w = minW; w < maxW; w++)
+                                                {
+                                                    this.__unsafe_set_value((int)value.__unsafe_get_value(value.__data_int8, (value.__width == this.__width) ? (w - minW) : 0, (value.__height == this.__height) ? (h - minH) : 0, (value.__depth == this.__depth) ? (d - minD) : 0, (value.__time == this.__time) ? (t - minT) : 0, (value.__batch == this.__batch) ? (b - minB) : 0), this.__data_int32, w, h, d, t, b);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                break;
+                            }
+                            case dtype.int16:
+                            case dtype.@short:
+                            {
+                                for(int b = minB; b < maxB; b++)
+                                {
+                                    for(int t = minT; t < maxT; t++)
+                                    {
+                                        for(int d = minD; d < maxD; d++)
+                                        {
+                                            for(int h = minH; h < maxH; h++)
+                                            {
+                                                for(int w = minW; w < maxW; w++)
+                                                {
+                                                    this.__unsafe_set_value((int)value.__unsafe_get_value(value.__data_int16, (value.__width == this.__width) ? (w - minW) : 0, (value.__height == this.__height) ? (h - minH) : 0, (value.__depth == this.__depth) ? (d - minD) : 0, (value.__time == this.__time) ? (t - minT) : 0, (value.__batch == this.__batch) ? (b - minB) : 0), this.__data_int32, w, h, d, t, b);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                break;
+                            }
+                            case dtype.int32:
+                            case dtype.@int:
+                            {
+                                for(int b = minB; b < maxB; b++)
+                                {
+                                    for(int t = minT; t < maxT; t++)
+                                    {
+                                        for(int d = minD; d < maxD; d++)
+                                        {
+                                            for(int h = minH; h < maxH; h++)
+                                            {
+                                                for(int w = minW; w < maxW; w++)
+                                                {
+                                                    this.__unsafe_set_value(value.__unsafe_get_value(value.__data_int32, (value.__width == this.__width) ? (w - minW) : 0, (value.__height == this.__height) ? (h - minH) : 0, (value.__depth == this.__depth) ? (d - minD) : 0, (value.__time == this.__time) ? (t - minT) : 0, (value.__batch == this.__batch) ? (b - minB) : 0), this.__data_int32, w, h, d, t, b);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                break;
+                            }
+                            case dtype.int64:
+                            case dtype.@long:
+                            {
+                                for(int b = minB; b < maxB; b++)
+                                {
+                                    for(int t = minT; t < maxT; t++)
+                                    {
+                                        for(int d = minD; d < maxD; d++)
+                                        {
+                                            for(int h = minH; h < maxH; h++)
+                                            {
+                                                for(int w = minW; w < maxW; w++)
+                                                {
+                                                    this.__unsafe_set_value((int)value.__unsafe_get_value(value.__data_int64, (value.__width == this.__width) ? (w - minW) : 0, (value.__height == this.__height) ? (h - minH) : 0, (value.__depth == this.__depth) ? (d - minD) : 0, (value.__time == this.__time) ? (t - minT) : 0, (value.__batch == this.__batch) ? (b - minB) : 0), this.__data_int32, w, h, d, t, b);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                break;
+                            }
+                            case dtype.@bool:
+                            {
+                                throw new TorchException("TorchException: It is not possible to convert a bool tensor to a tensor of any other type.");
+                            }
+                        }
+                        break;
+                    }
+                    case torch.dtype.int64:
+                    case torch.dtype.@long:
+                    {
+                        switch(value.dtype)
+                        {
+                            case dtype.float16:
+                            case dtype.half:
+                            case dtype.float32:
+                            case dtype.@float:
+                            case dtype.float64:
+                            case dtype.@double:
+                            {
+                                throw new TorchException("TorchException: It is not possible to convert a floating point tensor to a tensor of integer or bool type.");
+                            }
+                            case dtype.uint8:
+                            {
+                                for(int b = minB; b < maxB; b++)
+                                {
+                                    for(int t = minT; t < maxT; t++)
+                                    {
+                                        for(int d = minD; d < maxD; d++)
+                                        {
+                                            for(int h = minH; h < maxH; h++)
+                                            {
+                                                for(int w = minW; w < maxW; w++)
+                                                {
+                                                    this.__unsafe_set_value((long)value.__unsafe_get_value(value.__data_uint8, (value.__width == this.__width) ? (w - minW) : 0, (value.__height == this.__height) ? (h - minH) : 0, (value.__depth == this.__depth) ? (d - minD) : 0, (value.__time == this.__time) ? (t - minT) : 0, (value.__batch == this.__batch) ? (b - minB) : 0), this.__data_int64, w, h, d, t, b);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                break;
+                            }
+                            case dtype.int8:
+                            {
+                                for(int b = minB; b < maxB; b++)
+                                {
+                                    for(int t = minT; t < maxT; t++)
+                                    {
+                                        for(int d = minD; d < maxD; d++)
+                                        {
+                                            for(int h = minH; h < maxH; h++)
+                                            {
+                                                for(int w = minW; w < maxW; w++)
+                                                {
+                                                    this.__unsafe_set_value((long)value.__unsafe_get_value(value.__data_int8, (value.__width == this.__width) ? (w - minW) : 0, (value.__height == this.__height) ? (h - minH) : 0, (value.__depth == this.__depth) ? (d - minD) : 0, (value.__time == this.__time) ? (t - minT) : 0, (value.__batch == this.__batch) ? (b - minB) : 0), this.__data_int64, w, h, d, t, b);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                break;
+                            }
+                            case dtype.int16:
+                            case dtype.@short:
+                            {
+                                for(int b = minB; b < maxB; b++)
+                                {
+                                    for(int t = minT; t < maxT; t++)
+                                    {
+                                        for(int d = minD; d < maxD; d++)
+                                        {
+                                            for(int h = minH; h < maxH; h++)
+                                            {
+                                                for(int w = minW; w < maxW; w++)
+                                                {
+                                                    this.__unsafe_set_value((long)value.__unsafe_get_value(value.__data_int16, (value.__width == this.__width) ? (w - minW) : 0, (value.__height == this.__height) ? (h - minH) : 0, (value.__depth == this.__depth) ? (d - minD) : 0, (value.__time == this.__time) ? (t - minT) : 0, (value.__batch == this.__batch) ? (b - minB) : 0), this.__data_int64, w, h, d, t, b);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                break;
+                            }
+                            case dtype.int32:
+                            case dtype.@int:
+                            {
+                                for(int b = minB; b < maxB; b++)
+                                {
+                                    for(int t = minT; t < maxT; t++)
+                                    {
+                                        for(int d = minD; d < maxD; d++)
+                                        {
+                                            for(int h = minH; h < maxH; h++)
+                                            {
+                                                for(int w = minW; w < maxW; w++)
+                                                {
+                                                    this.__unsafe_set_value((long)value.__unsafe_get_value(value.__data_int32, (value.__width == this.__width) ? (w - minW) : 0, (value.__height == this.__height) ? (h - minH) : 0, (value.__depth == this.__depth) ? (d - minD) : 0, (value.__time == this.__time) ? (t - minT) : 0, (value.__batch == this.__batch) ? (b - minB) : 0), this.__data_int64, w, h, d, t, b);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                break;
+                            }
+                            case dtype.int64:
+                            case dtype.@long:
+                            {
+                                for(int b = minB; b < maxB; b++)
+                                {
+                                    for(int t = minT; t < maxT; t++)
+                                    {
+                                        for(int d = minD; d < maxD; d++)
+                                        {
+                                            for(int h = minH; h < maxH; h++)
+                                            {
+                                                for(int w = minW; w < maxW; w++)
+                                                {
+                                                    this.__unsafe_set_value(value.__unsafe_get_value(value.__data_int64, (value.__width == this.__width) ? (w - minW) : 0, (value.__height == this.__height) ? (h - minH) : 0, (value.__depth == this.__depth) ? (d - minD) : 0, (value.__time == this.__time) ? (t - minT) : 0, (value.__batch == this.__batch) ? (b - minB) : 0), this.__data_int64, w, h, d, t, b);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                break;
+                            }
+                            case dtype.@bool:
+                            {
+                                throw new TorchException("TorchException: It is not possible to convert a bool tensor to a tensor of any other type.");
+                            }
+                        }
+                        break;
+                    }
+                    case torch.dtype.@bool:
+                    {
+                        switch(value.dtype)
+                        {
+                            case dtype.float16:
+                            case dtype.half:
+                            case dtype.float32:
+                            case dtype.@float:
+                            case dtype.float64:
+                            case dtype.@double:
+                            case dtype.uint8:
+                            case dtype.int8:
+                            case dtype.int16:
+                            case dtype.@short:
+                            case dtype.int32:
+                            case dtype.@int:
+                            case dtype.int64:
+                            case dtype.@long:
+                            {
+                                throw new TorchException("TorchException: It is not possible to convert a tensor of integer or float data type to bool tensor.");
+                            }
+                            case dtype.@bool:
+                            {
+                                for(int b = minB; b < maxB; b++)
+                                {
+                                    for(int t = minT; t < maxT; t++)
+                                    {
+                                        for(int d = minD; d < maxD; d++)
+                                        {
+                                            for(int h = minH; h < maxH; h++)
+                                            {
+                                                for(int w = minW; w < maxW; w++)
+                                                {
+                                                    this.__unsafe_set_value(value.__unsafe_get_value(value.__data_bool, (value.__width == this.__width) ? (w - minW) : 0, (value.__height == this.__height) ? (h - minH) : 0, (value.__depth == this.__depth) ? (d - minD) : 0, (value.__time == this.__time) ? (t - minT) : 0, (value.__batch == this.__batch) ? (b - minB) : 0), this.__data_bool, w, h, d, t, b);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                break;
                             }
                         }
                         break;
