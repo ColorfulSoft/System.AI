@@ -212,7 +212,7 @@ public static partial class torch
                     case torch.dtype.float16:
                     case torch.dtype.half:
                     {
-                        for(int batch = 0; batch < outB; batch++)
+                        Parallel.For(0, outB, (int batch) =>
                         {
                             for(int out_depth = 0; out_depth < outD; out_depth++)
                             {
@@ -250,13 +250,13 @@ public static partial class torch
                                     }
                                 }
                             }
-                        }
+                        });
                         break;
                     }
                     case torch.dtype.float32:
                     case torch.dtype.@float:
                     {
-                        for(int batch = 0; batch < outB; batch++)
+                        Parallel.For(0, outB, (int batch) =>
                         {
                             for(int out_depth = 0; out_depth < outD; out_depth++)
                             {
@@ -294,13 +294,13 @@ public static partial class torch
                                     }
                                 }
                             }
-                        }
+                        });
                         break;
                     }
                     case torch.dtype.float64:
                     case torch.dtype.@double:
                     {
-                        for(int batch = 0; batch < outB; batch++)
+                        Parallel.For(0, outB, (int batch) =>
                         {
                             for(int out_depth = 0; out_depth < outD; out_depth++)
                             {
@@ -338,12 +338,12 @@ public static partial class torch
                                     }
                                 }
                             }
-                        }
+                        });
                         break;
                     }
                     case torch.dtype.int8:
                     {
-                        for(int batch = 0; batch < outB; batch++)
+                        Parallel.For(0, outB, (int batch) =>
                         {
                             for(int out_depth = 0; out_depth < outD; out_depth++)
                             {
@@ -378,12 +378,12 @@ public static partial class torch
                                     }
                                 }
                             }
-                        }
+                        });
                         break;
                     }
                     case torch.dtype.uint8:
                     {
-                        for(int batch = 0; batch < outB; batch++)
+                        Parallel.For(0, outB, (int batch) =>
                         {
                             for(int out_depth = 0; out_depth < outD; out_depth++)
                             {
@@ -418,13 +418,13 @@ public static partial class torch
                                     }
                                 }
                             }
-                        }
+                        });
                         break;
                     }
                     case torch.dtype.int16:
                     case torch.dtype.@short:
                     {
-                        for(int batch = 0; batch < outB; batch++)
+                        Parallel.For(0, outB, (int batch) =>
                         {
                             for(int out_depth = 0; out_depth < outD; out_depth++)
                             {
@@ -459,13 +459,13 @@ public static partial class torch
                                     }
                                 }
                             }
-                        }
+                        });
                         break;
                     }
                     case torch.dtype.int32:
                     case torch.dtype.@int:
                     {
-                        for(int batch = 0; batch < outB; batch++)
+                        Parallel.For(0, outB, (int batch) =>
                         {
                             for(int out_depth = 0; out_depth < outD; out_depth++)
                             {
@@ -500,13 +500,13 @@ public static partial class torch
                                     }
                                 }
                             }
-                        }
+                        });
                         break;
                     }
                     case torch.dtype.int64:
                     case torch.dtype.@long:
                     {
-                        for(int batch = 0; batch < outB; batch++)
+                        Parallel.For(0, outB, (int batch) =>
                         {
                             for(int out_depth = 0; out_depth < outD; out_depth++)
                             {
@@ -541,7 +541,7 @@ public static partial class torch
                                     }
                                 }
                             }
-                        }
+                        });
                         break;
                     }
                     case torch.dtype.@bool:
@@ -558,7 +558,7 @@ public static partial class torch
                             case torch.dtype.float16:
                             case torch.dtype.half:
                             {
-                                for(int batch = 0; batch < outB; batch++)
+                                Parallel.For(0, outB, (int batch) =>
                                 {
                                     for(int out_depth = 0; out_depth < outD; out_depth++)
                                     {
@@ -574,13 +574,13 @@ public static partial class torch
                                             }
                                         }
                                     }
-                                }
+                                });
                                 break;
                             }
                             case torch.dtype.float32:
                             case torch.dtype.@float:
                             {
-                                for(int batch = 0; batch < outB; batch++)
+                                Parallel.For(0, outB, (int batch) =>
                                 {
                                     for(int out_depth = 0; out_depth < outD; out_depth++)
                                     {
@@ -596,13 +596,13 @@ public static partial class torch
                                             }
                                         }
                                     }
-                                }
+                                });
                                 break;
                             }
                             case torch.dtype.float64:
                             case torch.dtype.@double:
                             {
-                                for(int batch = 0; batch < outB; batch++)
+                                Parallel.For(0, outB, (int batch) =>
                                 {
                                     for(int out_depth = 0; out_depth < outD; out_depth++)
                                     {
@@ -618,7 +618,7 @@ public static partial class torch
                                             }
                                         }
                                     }
-                                }
+                                });
                                 break;
                             }
                         }

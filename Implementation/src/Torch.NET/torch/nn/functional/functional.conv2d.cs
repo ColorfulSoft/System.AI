@@ -180,7 +180,7 @@
 //*    END OF TERMS AND CONDITIONS
 //***************************************************************************************************
 
-//-> Latest commit: Brykin Gleb, 02.11.2019.
+//-> Latest commit: Brykin Gleb, 05.11.2019.
 
 using System;
 using System.Threading.Tasks;
@@ -194,11 +194,27 @@ public static partial class torch
         public static partial class functional
         {
 
+            ///<summary>Applies a 2D convolution over an input image composed of several input planes.</summary>
+            ///<param name = "input">Input tensor of shape (minibatch,in_channels,iH,iW).</param>
+            ///<param name = "weight">Filters of shape (out_channels, groups / in_channels, kH, kW).</param>
+            ///<param name = "bias">Optional bias tensor of shape (out_channels). Default: null.</param>
+            ///<param name = "stride">The stride of the convolving kernel. Can be a single number or a tuple (sH, sW). Default: 1.</param>
+            ///<param name = "padding">Implicit paddings on both sides of the input. Can be a single number or a tuple (padH, padW). Default: 0.</param>
+            ///<param name = "dilation">The spacing between kernel elements. Can be a single number or a tuple (dH, dW). Default: 1.</param>
+            ///<param name = "groups">Split input into groups, in_channels should be divisible by the number of groups. Default: 1.</param>
             public static Tensor conv2d(Tensor input, Tensor weight, Tensor bias = null, int stride = 1, int padding = 0, int dilation = 1, int groups = 1)
             {
                 return conv2d(input, weight, bias, new int[]{stride, stride}, new int[]{padding, padding}, new int[]{dilation, dilation}, groups);
             }
 
+            ///<summary>Applies a 2D convolution over an input image composed of several input planes.</summary>
+            ///<param name = "input">Input tensor of shape (minibatch,in_channels,iH,iW).</param>
+            ///<param name = "weight">Filters of shape (out_channels, groups / in_channels, kH, kW).</param>
+            ///<param name = "bias">Optional bias tensor of shape (out_channels). Default: null.</param>
+            ///<param name = "stride">The stride of the convolving kernel. Can be a single number or a tuple (sH, sW). Default: 1.</param>
+            ///<param name = "padding">Implicit paddings on both sides of the input. Can be a single number or a tuple (padH, padW). Default: 0.</param>
+            ///<param name = "dilation">The spacing between kernel elements. Can be a single number or a tuple (dH, dW). Default: 1.</param>
+            ///<param name = "groups">Split input into groups, in_channels should be divisible by the number of groups. Default: 1.</param>
             public static Tensor conv2d(Tensor input, Tensor weight, Tensor bias = null, int[] stride = null, int[] padding = null, int[] dilation = null, int groups = 1)
             {
                 var strideX = 1;

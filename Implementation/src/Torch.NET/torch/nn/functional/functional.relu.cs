@@ -180,7 +180,7 @@
 //*    END OF TERMS AND CONDITIONS
 //***************************************************************************************************
 
-//-> Latest commit: Brykin Gleb, 02.11.2019.
+//-> Latest commit: Brykin Gleb, 05.11.2019.
 
 using System;
 using System.Threading.Tasks;
@@ -194,6 +194,8 @@ public static partial class torch
         public static partial class functional
         {
 
+            ///<summary>Applies the rectified linear unit function element-wise: ReLU(x)=max(0,x).</summary>
+            ///<param name = "x">Input tensor.</param>
             public static Tensor relu(Tensor x)
             {
                 var Result = x.zeros_like(requires_grad: x.requires_grad);

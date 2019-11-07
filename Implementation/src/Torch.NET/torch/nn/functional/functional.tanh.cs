@@ -194,6 +194,8 @@ public static partial class torch
         public static partial class functional
         {
 
+            ///<summary>Applies the element-wise function: Tanh(x) = tanh(x) = (e^x - e^(-x))/(e^x + e^(-x)).</summary>
+            ///<param name = "x">Input tensor.</param>
             public static Tensor tanh(Tensor x)
             {
                 var Result = x.zeros_like(requires_grad: x.requires_grad);
