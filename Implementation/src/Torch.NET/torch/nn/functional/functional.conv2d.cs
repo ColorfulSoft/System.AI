@@ -289,18 +289,24 @@ public static partial class torch
                     case torch.dtype.float16:
                     case torch.dtype.half:
                     {
-                        Parallel.For(0, outB, (int batch) =>
+                        var _input = input.__data_float16;
+                        var _result = Result.__data_float16;
+                        var depth_stride = kernelN / groups;
+                        for(int group = 0; group < groups; ++group)
                         {
-                            for(int height = 0; height < outH; height++)
+                            Parallel.For(depth_stride * group, depth_stride * (group + 1), (int o_depth) =>
                             {
-                                var i_height = height * strideY - paddingY;
-                                for(int width = 0; width < outW; width++)
+                                var f = weight[o_depth];
+                                for(int batch = 0; batch < outB; ++batch)
                                 {
-                                    var i_width = width * strideX - paddingX;
-                                    for(int group = 0; group < groups; group++)
+                                    for(int height = 0; height < outH; height++)
                                     {
-                                        for(int o_depth = kernelN / groups * group; o_depth < kernelN / groups * (group + 1); o_depth++)
+                                        var i_height = height * strideY - paddingY;
+                                        for(int width = 0; width < outW; ++width)
                                         {
+                                            var result_base = ((height * outW) + width) * outD;
+                                            var i_width = width * strideX - paddingX;
+                                            Half sum = 0;
                                             for(int f_height = 0; f_height < kernelH; f_height++)
                                             {
                                                 var iy = i_height + f_height * dilationY;
@@ -315,20 +321,20 @@ public static partial class torch
                                                     {
                                                         continue;
                                                     }
-                                                    for(int f_depth = 0; f_depth < kernelD; f_depth++)
+                                                    var weight_base = ((f_height * kernelW) + f_width) * kernelD;
+                                                    var input_base = ((iy * inW) + ix) * inD; 
+                                                    for(int depth = kernelD * group; depth < kernelD * (group + 1); depth++)
                                                     {
-                                                        for(int depth = kernelD * group; depth < kernelD * (group + 1); depth++)
-                                                        {
-                                                            Result.__data_float16[(((height * outW) + width) * outD + o_depth) * outB + batch] += weight.__data_float16[(((f_height * kernelW) + f_width) * kernelD + f_depth) * kernelN + o_depth] * input.__data_float16[(((iy * inW) + ix) * inD + depth) * inB + batch];
-                                                        }
+                                                        sum += (Half)(f.__data_float16[weight_base + depth - kernelD * group] * _input[(input_base + depth) * inB + batch]);
                                                     }
                                                 }
                                             }
+                                            _result[(result_base + o_depth) * outB + batch] = sum;
                                         }
                                     }
                                 }
-                            }
-                        });
+                            });
+                        }
                         if(bias != null)
                         {
                             Parallel.For(0, outD, (int depth) =>
@@ -350,18 +356,24 @@ public static partial class torch
                     case torch.dtype.float32:
                     case torch.dtype.@float:
                     {
-                        Parallel.For(0, outB, (int batch) =>
+                        var _input = input.__data_float32;
+                        var _result = Result.__data_float32;
+                        var depth_stride = kernelN / groups;
+                        for(int group = 0; group < groups; ++group)
                         {
-                            for(int height = 0; height < outH; height++)
+                            Parallel.For(depth_stride * group, depth_stride * (group + 1), (int o_depth) =>
                             {
-                                var i_height = height * strideY - paddingY;
-                                for(int width = 0; width < outW; width++)
+                                var f = weight[o_depth];
+                                for(int batch = 0; batch < outB; ++batch)
                                 {
-                                    var i_width = width * strideX - paddingX;
-                                    for(int group = 0; group < groups; group++)
+                                    for(int height = 0; height < outH; height++)
                                     {
-                                        for(int o_depth = kernelN / groups * group; o_depth < kernelN / groups * (group + 1); o_depth++)
+                                        var i_height = height * strideY - paddingY;
+                                        for(int width = 0; width < outW; ++width)
                                         {
+                                            var result_base = ((height * outW) + width) * outD;
+                                            var i_width = width * strideX - paddingX;
+                                            float sum = 0f;
                                             for(int f_height = 0; f_height < kernelH; f_height++)
                                             {
                                                 var iy = i_height + f_height * dilationY;
@@ -376,20 +388,20 @@ public static partial class torch
                                                     {
                                                         continue;
                                                     }
-                                                    for(int f_depth = 0; f_depth < kernelD; f_depth++)
+                                                    var weight_base = ((f_height * kernelW) + f_width) * kernelD;
+                                                    var input_base = ((iy * inW) + ix) * inD; 
+                                                    for(int depth = kernelD * group; depth < kernelD * (group + 1); depth++)
                                                     {
-                                                        for(int depth = kernelD * group; depth < kernelD * (group + 1); depth++)
-                                                        {
-                                                            Result.__data_float32[(((height * outW) + width) * outD + o_depth) * outB + batch] += weight.__data_float32[(((f_height * kernelW) + f_width) * kernelD + f_depth) * kernelN + o_depth] * input.__data_float32[(((iy * inW) + ix) * inD + depth) * inB + batch];
-                                                        }
+                                                        sum += f.__data_float32[weight_base + depth - kernelD * group] * _input[(input_base + depth) * inB + batch];
                                                     }
                                                 }
                                             }
+                                            _result[(result_base + o_depth) * outB + batch] = sum;
                                         }
                                     }
                                 }
-                            }
-                        });
+                            });
+                        }
                         if(bias != null)
                         {
                             Parallel.For(0, outD, (int depth) =>
@@ -411,18 +423,24 @@ public static partial class torch
                     case torch.dtype.float64:
                     case torch.dtype.@double:
                     {
-                        Parallel.For(0, outB, (int batch) =>
+                        var _input = input.__data_float64;
+                        var _result = Result.__data_float64;
+                        var depth_stride = kernelN / groups;
+                        for(int group = 0; group < groups; ++group)
                         {
-                            for(int height = 0; height < outH; height++)
+                            Parallel.For(depth_stride * group, depth_stride * (group + 1), (int o_depth) =>
                             {
-                                var i_height = height * strideY - paddingY;
-                                for(int width = 0; width < outW; width++)
+                                var f = weight[o_depth];
+                                for(int batch = 0; batch < outB; ++batch)
                                 {
-                                    var i_width = width * strideX - paddingX;
-                                    for(int group = 0; group < groups; group++)
+                                    for(int height = 0; height < outH; height++)
                                     {
-                                        for(int o_depth = kernelN / groups * group; o_depth < kernelN / groups * (group + 1); o_depth++)
+                                        var i_height = height * strideY - paddingY;
+                                        for(int width = 0; width < outW; ++width)
                                         {
+                                            var result_base = ((height * outW) + width) * outD;
+                                            var i_width = width * strideX - paddingX;
+                                            double sum = 0f;
                                             for(int f_height = 0; f_height < kernelH; f_height++)
                                             {
                                                 var iy = i_height + f_height * dilationY;
@@ -437,20 +455,20 @@ public static partial class torch
                                                     {
                                                         continue;
                                                     }
-                                                    for(int f_depth = 0; f_depth < kernelD; f_depth++)
+                                                    var weight_base = ((f_height * kernelW) + f_width) * kernelD;
+                                                    var input_base = ((iy * inW) + ix) * inD; 
+                                                    for(int depth = kernelD * group; depth < kernelD * (group + 1); depth++)
                                                     {
-                                                        for(int depth = kernelD * group; depth < kernelD * (group + 1); depth++)
-                                                        {
-                                                            Result.__data_float64[(((height * outW) + width) * outD + o_depth) * outB + batch] += weight.__data_float64[(((f_height * kernelW) + f_width) * kernelD + f_depth) * kernelN + o_depth] * input.__data_float64[(((iy * inW) + ix) * inD + depth) * inB + batch];
-                                                        }
+                                                        sum += f.__data_float64[weight_base + depth - kernelD * group] * _input[(input_base + depth) * inB + batch];
                                                     }
                                                 }
                                             }
+                                            _result[(result_base + o_depth) * outB + batch] = sum;
                                         }
                                     }
                                 }
-                            }
-                        });
+                            });
+                        }
                         if(bias != null)
                         {
                             Parallel.For(0, outD, (int depth) =>
@@ -471,18 +489,24 @@ public static partial class torch
                     }
                     case torch.dtype.int8:
                     {
-                        Parallel.For(0, outB, (int batch) =>
+                        var _input = input.__data_int8;
+                        var _result = Result.__data_int8;
+                        var depth_stride = kernelN / groups;
+                        for(int group = 0; group < groups; ++group)
                         {
-                            for(int height = 0; height < outH; height++)
+                            Parallel.For(depth_stride * group, depth_stride * (group + 1), (int o_depth) =>
                             {
-                                var i_height = height * strideY - paddingY;
-                                for(int width = 0; width < outW; width++)
+                                var f = weight[o_depth];
+                                for(int batch = 0; batch < outB; ++batch)
                                 {
-                                    var i_width = width * strideX - paddingX;
-                                    for(int group = 0; group < groups; group++)
+                                    for(int height = 0; height < outH; height++)
                                     {
-                                        for(int o_depth = kernelN / groups * group; o_depth < kernelN / groups * (group + 1); o_depth++)
+                                        var i_height = height * strideY - paddingY;
+                                        for(int width = 0; width < outW; ++width)
                                         {
+                                            var result_base = ((height * outW) + width) * outD;
+                                            var i_width = width * strideX - paddingX;
+                                            sbyte sum = 0;
                                             for(int f_height = 0; f_height < kernelH; f_height++)
                                             {
                                                 var iy = i_height + f_height * dilationY;
@@ -497,20 +521,20 @@ public static partial class torch
                                                     {
                                                         continue;
                                                     }
-                                                    for(int f_depth = 0; f_depth < kernelD; f_depth++)
+                                                    var weight_base = ((f_height * kernelW) + f_width) * kernelD;
+                                                    var input_base = ((iy * inW) + ix) * inD; 
+                                                    for(int depth = kernelD * group; depth < kernelD * (group + 1); depth++)
                                                     {
-                                                        for(int depth = kernelD * group; depth < kernelD * (group + 1); depth++)
-                                                        {
-                                                            Result.__data_int8[(((height * outW) + width) * outD + o_depth) * outB + batch] += (sbyte)(weight.__data_int8[(((f_height * kernelW) + f_width) * kernelD + f_depth) * kernelN + o_depth] * input.__data_int8[(((iy * inW) + ix) * inD + depth) * inB + batch]);
-                                                        }
+                                                        sum += (sbyte)(f.__data_int8[weight_base + depth - kernelD * group] * _input[(input_base + depth) * inB + batch]);
                                                     }
                                                 }
                                             }
+                                            _result[(result_base + o_depth) * outB + batch] = sum;
                                         }
                                     }
                                 }
-                            }
-                        });
+                            });
+                        }
                         if(bias != null)
                         {
                             Parallel.For(0, outD, (int depth) =>
@@ -531,18 +555,24 @@ public static partial class torch
                     }
                     case torch.dtype.uint8:
                     {
-                        Parallel.For(0, outB, (int batch) =>
+                        var _input = input.__data_uint8;
+                        var _result = Result.__data_uint8;
+                        var depth_stride = kernelN / groups;
+                        for(int group = 0; group < groups; ++group)
                         {
-                            for(int height = 0; height < outH; height++)
+                            Parallel.For(depth_stride * group, depth_stride * (group + 1), (int o_depth) =>
                             {
-                                var i_height = height * strideY - paddingY;
-                                for(int width = 0; width < outW; width++)
+                                var f = weight[o_depth];
+                                for(int batch = 0; batch < outB; ++batch)
                                 {
-                                    var i_width = width * strideX - paddingX;
-                                    for(int group = 0; group < groups; group++)
+                                    for(int height = 0; height < outH; height++)
                                     {
-                                        for(int o_depth = kernelN / groups * group; o_depth < kernelN / groups * (group + 1); o_depth++)
+                                        var i_height = height * strideY - paddingY;
+                                        for(int width = 0; width < outW; ++width)
                                         {
+                                            var result_base = ((height * outW) + width) * outD;
+                                            var i_width = width * strideX - paddingX;
+                                            byte sum = 0;
                                             for(int f_height = 0; f_height < kernelH; f_height++)
                                             {
                                                 var iy = i_height + f_height * dilationY;
@@ -557,20 +587,20 @@ public static partial class torch
                                                     {
                                                         continue;
                                                     }
-                                                    for(int f_depth = 0; f_depth < kernelD; f_depth++)
+                                                    var weight_base = ((f_height * kernelW) + f_width) * kernelD;
+                                                    var input_base = ((iy * inW) + ix) * inD; 
+                                                    for(int depth = kernelD * group; depth < kernelD * (group + 1); depth++)
                                                     {
-                                                        for(int depth = kernelD * group; depth < kernelD * (group + 1); depth++)
-                                                        {
-                                                            Result.__data_uint8[(((height * outW) + width) * outD + o_depth) * outB + batch] += (byte)(weight.__data_uint8[(((f_height * kernelW) + f_width) * kernelD + f_depth) * kernelN + o_depth] * input.__data_uint8[(((iy * inW) + ix) * inD + depth) * inB + batch]);
-                                                        }
+                                                        sum += (byte)(f.__data_uint8[weight_base + depth - kernelD * group] * _input[(input_base + depth) * inB + batch]);
                                                     }
                                                 }
                                             }
+                                            _result[(result_base + o_depth) * outB + batch] = sum;
                                         }
                                     }
                                 }
-                            }
-                        });
+                            });
+                        }
                         if(bias != null)
                         {
                             Parallel.For(0, outD, (int depth) =>
@@ -592,18 +622,24 @@ public static partial class torch
                     case torch.dtype.int16:
                     case torch.dtype.@short:
                     {
-                        Parallel.For(0, outB, (int batch) =>
+                        var _input = input.__data_int16;
+                        var _result = Result.__data_int16;
+                        var depth_stride = kernelN / groups;
+                        for(int group = 0; group < groups; ++group)
                         {
-                            for(int height = 0; height < outH; height++)
+                            Parallel.For(depth_stride * group, depth_stride * (group + 1), (int o_depth) =>
                             {
-                                var i_height = height * strideY - paddingY;
-                                for(int width = 0; width < outW; width++)
+                                var f = weight[o_depth];
+                                for(int batch = 0; batch < outB; ++batch)
                                 {
-                                    var i_width = width * strideX - paddingX;
-                                    for(int group = 0; group < groups; group++)
+                                    for(int height = 0; height < outH; height++)
                                     {
-                                        for(int o_depth = kernelN / groups * group; o_depth < kernelN / groups * (group + 1); o_depth++)
+                                        var i_height = height * strideY - paddingY;
+                                        for(int width = 0; width < outW; ++width)
                                         {
+                                            var result_base = ((height * outW) + width) * outD;
+                                            var i_width = width * strideX - paddingX;
+                                            short sum = 0;
                                             for(int f_height = 0; f_height < kernelH; f_height++)
                                             {
                                                 var iy = i_height + f_height * dilationY;
@@ -618,20 +654,20 @@ public static partial class torch
                                                     {
                                                         continue;
                                                     }
-                                                    for(int f_depth = 0; f_depth < kernelD; f_depth++)
+                                                    var weight_base = ((f_height * kernelW) + f_width) * kernelD;
+                                                    var input_base = ((iy * inW) + ix) * inD; 
+                                                    for(int depth = kernelD * group; depth < kernelD * (group + 1); depth++)
                                                     {
-                                                        for(int depth = kernelD * group; depth < kernelD * (group + 1); depth++)
-                                                        {
-                                                            Result.__data_int16[(((height * outW) + width) * outD + o_depth) * outB + batch] += (short)(weight.__data_int16[(((f_height * kernelW) + f_width) * kernelD + f_depth) * kernelN + o_depth] * input.__data_int16[(((iy * inW) + ix) * inD + depth) * inB + batch]);
-                                                        }
+                                                        sum += (short)(f.__data_int16[weight_base + depth - kernelD * group] * _input[(input_base + depth) * inB + batch]);
                                                     }
                                                 }
                                             }
+                                            _result[(result_base + o_depth) * outB + batch] = sum;
                                         }
                                     }
                                 }
-                            }
-                        });
+                            });
+                        }
                         if(bias != null)
                         {
                             Parallel.For(0, outD, (int depth) =>
@@ -653,18 +689,24 @@ public static partial class torch
                     case torch.dtype.int32:
                     case torch.dtype.@int:
                     {
-                        Parallel.For(0, outB, (int batch) =>
+                        var _input = input.__data_int32;
+                        var _result = Result.__data_int32;
+                        var depth_stride = kernelN / groups;
+                        for(int group = 0; group < groups; ++group)
                         {
-                            for(int height = 0; height < outH; height++)
+                            Parallel.For(depth_stride * group, depth_stride * (group + 1), (int o_depth) =>
                             {
-                                var i_height = height * strideY - paddingY;
-                                for(int width = 0; width < outW; width++)
+                                var f = weight[o_depth];
+                                for(int batch = 0; batch < outB; ++batch)
                                 {
-                                    var i_width = width * strideX - paddingX;
-                                    for(int group = 0; group < groups; group++)
+                                    for(int height = 0; height < outH; height++)
                                     {
-                                        for(int o_depth = kernelN / groups * group; o_depth < kernelN / groups * (group + 1); o_depth++)
+                                        var i_height = height * strideY - paddingY;
+                                        for(int width = 0; width < outW; ++width)
                                         {
+                                            var result_base = ((height * outW) + width) * outD;
+                                            var i_width = width * strideX - paddingX;
+                                            int sum = 0;
                                             for(int f_height = 0; f_height < kernelH; f_height++)
                                             {
                                                 var iy = i_height + f_height * dilationY;
@@ -679,20 +721,20 @@ public static partial class torch
                                                     {
                                                         continue;
                                                     }
-                                                    for(int f_depth = 0; f_depth < kernelD; f_depth++)
+                                                    var weight_base = ((f_height * kernelW) + f_width) * kernelD;
+                                                    var input_base = ((iy * inW) + ix) * inD; 
+                                                    for(int depth = kernelD * group; depth < kernelD * (group + 1); depth++)
                                                     {
-                                                        for(int depth = kernelD * group; depth < kernelD * (group + 1); depth++)
-                                                        {
-                                                            Result.__data_int32[(((height * outW) + width) * outD + o_depth) * outB + batch] += weight.__data_int32[(((f_height * kernelW) + f_width) * kernelD + f_depth) * kernelN + o_depth] * input.__data_int32[(((iy * inW) + ix) * inD + depth) * inB + batch];
-                                                        }
+                                                        sum += f.__data_int32[weight_base + depth - kernelD * group] * _input[(input_base + depth) * inB + batch];
                                                     }
                                                 }
                                             }
+                                            _result[(result_base + o_depth) * outB + batch] = sum;
                                         }
                                     }
                                 }
-                            }
-                        });
+                            });
+                        }
                         if(bias != null)
                         {
                             Parallel.For(0, outD, (int depth) =>
@@ -714,18 +756,24 @@ public static partial class torch
                     case torch.dtype.int64:
                     case torch.dtype.@long:
                     {
-                        Parallel.For(0, outB, (int batch) =>
+                        var _input = input.__data_int64;
+                        var _result = Result.__data_int64;
+                        var depth_stride = kernelN / groups;
+                        for(int group = 0; group < groups; ++group)
                         {
-                            for(int height = 0; height < outH; height++)
+                            Parallel.For(depth_stride * group, depth_stride * (group + 1), (int o_depth) =>
                             {
-                                var i_height = height * strideY - paddingY;
-                                for(int width = 0; width < outW; width++)
+                                var f = weight[o_depth];
+                                for(int batch = 0; batch < outB; ++batch)
                                 {
-                                    var i_width = width * strideX - paddingX;
-                                    for(int group = 0; group < groups; group++)
+                                    for(int height = 0; height < outH; height++)
                                     {
-                                        for(int o_depth = kernelN / groups * group; o_depth < kernelN / groups * (group + 1); o_depth++)
+                                        var i_height = height * strideY - paddingY;
+                                        for(int width = 0; width < outW; ++width)
                                         {
+                                            var result_base = ((height * outW) + width) * outD;
+                                            var i_width = width * strideX - paddingX;
+                                            long sum = 0;
                                             for(int f_height = 0; f_height < kernelH; f_height++)
                                             {
                                                 var iy = i_height + f_height * dilationY;
@@ -740,20 +788,20 @@ public static partial class torch
                                                     {
                                                         continue;
                                                     }
-                                                    for(int f_depth = 0; f_depth < kernelD; f_depth++)
+                                                    var weight_base = ((f_height * kernelW) + f_width) * kernelD;
+                                                    var input_base = ((iy * inW) + ix) * inD; 
+                                                    for(int depth = kernelD * group; depth < kernelD * (group + 1); depth++)
                                                     {
-                                                        for(int depth = kernelD * group; depth < kernelD * (group + 1); depth++)
-                                                        {
-                                                            Result.__data_int64[(((height * outW) + width) * outD + o_depth) * outB + batch] += weight.__data_int64[(((f_height * kernelW) + f_width) * kernelD + f_depth) * kernelN + o_depth] * input.__data_int64[(((iy * inW) + ix) * inD + depth) * inB + batch];
-                                                        }
+                                                        sum += f.__data_int64[weight_base + depth - kernelD * group] * _input[(input_base + depth) * inB + batch];
                                                     }
                                                 }
                                             }
+                                            _result[(result_base + o_depth) * outB + batch] = sum;
                                         }
                                     }
                                 }
-                            }
-                        });
+                            });
+                        }
                         if(bias != null)
                         {
                             Parallel.For(0, outD, (int depth) =>
