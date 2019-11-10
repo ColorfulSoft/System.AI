@@ -517,35 +517,93 @@ public static partial class torch
                 {
                     throw new torch.TorchException("TorchException: element 0 of the tensor does not require grad and does not have a backward function.");
                 }
-                switch(this.dtype)
+                if(gradient == null)
                 {
-                    case torch.dtype.float16:
-                    case torch.dtype.half:
+                    switch(this.dtype)
                     {
-                        this.__grad_float16[0] = (Half)1f;
-                        break;
-                    }
-                    case torch.dtype.float32:
-                    case torch.dtype.@float:
-                    {
-                        this.__grad_float32[0] = 1f;
-                        break;
-                    }
-                    case torch.dtype.float64:
-                    case torch.dtype.@double:
-                    {
-                        this.__grad_float64[0] = 1f;
-                        break;
+                        case torch.dtype.float16:
+                        case torch.dtype.half:
+                        {
+                            this.__grad_float16[0] = (Half)1f;
+                            break;
+                        }
+                        case torch.dtype.float32:
+                        case torch.dtype.@float:
+                        {
+                            this.__grad_float32[0] = 1f;
+                            break;
+                        }
+                        case torch.dtype.float64:
+                        case torch.dtype.@double:
+                        {
+                            this.__grad_float64[0] = 1f;
+                            break;
+                        }
                     }
                 }
-                if(this.__backward_fn != null)
+                else
                 {
-                    this.__backward_fn();
+                    if(((gradient.__data_float16 == null) == (this.__grad_float16 == null)) &&
+                       ((gradient.__data_float32 == null) == (this.__grad_float32 == null)) &&
+                       ((gradient.__data_float64 == null) == (this.__grad_float64 == null)))
+                    {
+                        if((gradient.__width == this.__width) &&
+                           (gradient.__height == this.__height) &&
+                           (gradient.__depth == this.__depth) &&
+                           (gradient.__time == this.__time) &&
+                           (gradient.__batch == this.__batch))
+                        {
+                            this.__grad_float16 = gradient.__data_float16;
+                            this.__grad_float32 = gradient.__data_float32;
+                            this.__grad_float64 = gradient.__data_float64;
+                        }
+                        else
+                        {
+                            throw new TorchException("TorchException: The gradient dimensions should repeat the dimensions of the current tensor.");
+                        }
+                    }
+                    else
+                    {
+                        throw new TorchException("TorchException: The gradient data type must repeat the tensor data type.");
+                    }
                 }
             }
             else
             {
-                throw new torch.TorchException("TorchException: Grad can be implicitly created only for scalar outputs.");
+                if(gradient != null)
+                {
+                    if(((gradient.__data_float16 == null) == (this.__grad_float16 == null)) &&
+                       ((gradient.__data_float32 == null) == (this.__grad_float32 == null)) &&
+                       ((gradient.__data_float64 == null) == (this.__grad_float64 == null)))
+                    {
+                        if((gradient.__width == this.__width) &&
+                           (gradient.__height == this.__height) &&
+                           (gradient.__depth == this.__depth) &&
+                           (gradient.__time == this.__time) &&
+                           (gradient.__batch == this.__batch))
+                        {
+                            this.__grad_float16 = gradient.__data_float16;
+                            this.__grad_float32 = gradient.__data_float32;
+                            this.__grad_float64 = gradient.__data_float64;
+                        }
+                        else
+                        {
+                            throw new TorchException("TorchException: The gradient dimensions should repeat the dimensions of the current tensor.");
+                        }
+                    }
+                    else
+                    {
+                        throw new TorchException("TorchException: The gradient data type must repeat the tensor data type.");
+                    }
+                }
+                else
+                {
+                    throw new TorchException("TorchException: Grad can be implicitly created only for scalar outputs.");
+                }
+            }
+            if(this.__backward_fn != null)
+            {
+                this.__backward_fn();
             }
         }
 
