@@ -192,51 +192,51 @@ public static partial class torch
     {
 
         ///<summary>16-bit floating point. Alias for dtype.half.</summary>
-        float16,
+        float16 = 0,
 
         ///<summary>16-bit floating point. Alias for dtype.float16.</summary>
-        half,
+        half = 0,
 
         ///<summary>32-bit floating point. Alias for dtype.float.</summary>
-        float32,
+        float32 = 1,
 
         ///<summary>32-bit floating point. Alias for dtype.float32.</summary>
-        @float,
+        @float = 1,
 
         ///<summary>64-bit floating point. Alias for dtype.double.</summary>
-        float64,
+        float64 = 2,
 
         ///<summary>64-bit floating point. Alias for dtype.float64.</summary>
-        @double,
+        @double = 2,
 
         ///<summary>8-bit integer (unsigned).</summary>
-        uint8,
+        uint8 = 3,
 
         ///<summary>8-bit integer (signed).</summary>
-        int8,
+        int8 = 4,
 
         ///<summary>16-bit integer (signed). Alias for dtype.short.</summary>
-        int16,
+        int16 = 5,
 
         ///<summary>16-bit integer (signed). Alias for dtype.int16.</summary>
-        @short,
+        @short = 5,
 
         ///<summary>32-bit integer (signed). Alias for dtype.int.</summary>
-        int32,
+        int32 = 6,
 
         ///<summary>32-bit integer (signed). Alias for dtype.int32.</summary>
-        @int,
+        @int = 6,
 
         ///<summary>64-bit integer (signed). Alias for dtype.long.</summary>
-        int64,
+        int64 = 7,
 
         ///<summary>64-bit integer (signed). Alias for dtype.int64.</summary>
-        @long,
+        @long = 7,
 
         ///<summary>Boolean.</summary>
-        @bool,
+        @bool = 8,
 
-        @default
+        @default = -1
 
     }
 

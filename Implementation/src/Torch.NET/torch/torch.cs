@@ -289,7 +289,6 @@ public static partial class torch
             switch(data.dtype)
             {
                 case torch.dtype.float16:
-                case torch.dtype.half:
                 {
                     fs.Write((byte)0);
                     var src = data.__data_float16;
@@ -300,7 +299,6 @@ public static partial class torch
                     break;
                 }
                 case torch.dtype.float32:
-                case torch.dtype.@float:
                 {
                     fs.Write((byte)1);
                     var src = data.__data_float32;
@@ -311,7 +309,6 @@ public static partial class torch
                     break;
                 }
                 case torch.dtype.float64:
-                case torch.dtype.@double:
                 {
                     fs.Write((byte)2);
                     var src = data.__data_float64;
@@ -342,7 +339,6 @@ public static partial class torch
                     break;
                 }
                 case torch.dtype.int16:
-                case torch.dtype.@short:
                 {
                     fs.Write((byte)5);
                     var src = data.__data_int16;
@@ -353,7 +349,6 @@ public static partial class torch
                     break;
                 }
                 case torch.dtype.int32:
-                case torch.dtype.@int:
                 {
                     fs.Write((byte)6);
                     var src = data.__data_int32;
@@ -364,7 +359,6 @@ public static partial class torch
                     break;
                 }
                 case torch.dtype.int64:
-                case torch.dtype.@long:
                 {
                     fs.Write((byte)7);
                     var src = data.__data_int64;
