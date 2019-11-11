@@ -202,7 +202,6 @@ public static partial class torch
                 switch(Result.dtype)
                 {
                     case torch.dtype.float16:
-                    case torch.dtype.half:
                     {
                         var src = x.__data_float16;
                         var dest = Result.__data_float16;
@@ -224,7 +223,6 @@ public static partial class torch
                         break;
                     }
                     case torch.dtype.float32:
-                    case torch.dtype.@float:
                     {
                         var src = x.__data_float32;
                         var dest = Result.__data_float32;
@@ -246,7 +244,6 @@ public static partial class torch
                         break;
                     }
                     case torch.dtype.float64:
-                    case torch.dtype.@double:
                     {
                         var src = x.__data_float64;
                         var dest = Result.__data_float64;
@@ -310,7 +307,6 @@ public static partial class torch
                         break;
                     }
                     case torch.dtype.int16:
-                    case torch.dtype.@short:
                     {
                         var src = x.__data_int16;
                         var dest = Result.__data_int16;
@@ -332,7 +328,6 @@ public static partial class torch
                         break;
                     }
                     case torch.dtype.int32:
-                    case torch.dtype.@int:
                     {
                         var src = x.__data_int32;
                         var dest = Result.__data_int32;
@@ -354,7 +349,6 @@ public static partial class torch
                         break;
                     }
                     case torch.dtype.int64:
-                    case torch.dtype.@long:
                     {
                         var src = x.__data_int64;
                         var dest = Result.__data_int64;
@@ -387,7 +381,6 @@ public static partial class torch
                         switch(x.dtype)
                         {
                             case torch.dtype.float16:
-                            case torch.dtype.half:
                             {
                                 var srcW = x.__data_float16;
                                 var srcDW = x.__grad_float16;
@@ -412,7 +405,6 @@ public static partial class torch
                                 break;
                             }
                             case torch.dtype.float32:
-                            case torch.dtype.@float:
                             {
                                 var srcW = x.__data_float32;
                                 var srcDW = x.__grad_float32;
@@ -437,7 +429,6 @@ public static partial class torch
                                 break;
                             }
                             case torch.dtype.float64:
-                            case torch.dtype.@double:
                             {
                                 var srcW = x.__data_float64;
                                 var srcDW = x.__grad_float64;

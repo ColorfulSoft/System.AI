@@ -210,7 +210,6 @@ public static partial class torch
                 switch(Result.dtype)
                 {
                     case torch.dtype.float16:
-                    case torch.dtype.half:
                     {
                         Parallel.For(0, outB, (int batch) =>
                         {
@@ -254,7 +253,6 @@ public static partial class torch
                         break;
                     }
                     case torch.dtype.float32:
-                    case torch.dtype.@float:
                     {
                         Parallel.For(0, outB, (int batch) =>
                         {
@@ -298,7 +296,6 @@ public static partial class torch
                         break;
                     }
                     case torch.dtype.float64:
-                    case torch.dtype.@double:
                     {
                         Parallel.For(0, outB, (int batch) =>
                         {
@@ -422,7 +419,6 @@ public static partial class torch
                         break;
                     }
                     case torch.dtype.int16:
-                    case torch.dtype.@short:
                     {
                         Parallel.For(0, outB, (int batch) =>
                         {
@@ -463,7 +459,6 @@ public static partial class torch
                         break;
                     }
                     case torch.dtype.int32:
-                    case torch.dtype.@int:
                     {
                         Parallel.For(0, outB, (int batch) =>
                         {
@@ -504,7 +499,6 @@ public static partial class torch
                         break;
                     }
                     case torch.dtype.int64:
-                    case torch.dtype.@long:
                     {
                         Parallel.For(0, outB, (int batch) =>
                         {
@@ -556,7 +550,6 @@ public static partial class torch
                         switch(input.dtype)
                         {
                             case torch.dtype.float16:
-                            case torch.dtype.half:
                             {
                                 Parallel.For(0, outB, (int batch) =>
                                 {
@@ -578,7 +571,6 @@ public static partial class torch
                                 break;
                             }
                             case torch.dtype.float32:
-                            case torch.dtype.@float:
                             {
                                 Parallel.For(0, outB, (int batch) =>
                                 {
@@ -600,7 +592,6 @@ public static partial class torch
                                 break;
                             }
                             case torch.dtype.float64:
-                            case torch.dtype.@double:
                             {
                                 Parallel.For(0, outB, (int batch) =>
                                 {

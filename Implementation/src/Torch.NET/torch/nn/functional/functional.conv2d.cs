@@ -287,7 +287,6 @@ public static partial class torch
                 switch(Result.dtype)
                 {
                     case torch.dtype.float16:
-                    case torch.dtype.half:
                     {
                         var _input = input.__data_float16;
                         var _result = Result.__data_float16;
@@ -354,7 +353,6 @@ public static partial class torch
                         break;
                     }
                     case torch.dtype.float32:
-                    case torch.dtype.@float:
                     {
                         var _input = input.__data_float32;
                         var _result = Result.__data_float32;
@@ -421,7 +419,6 @@ public static partial class torch
                         break;
                     }
                     case torch.dtype.float64:
-                    case torch.dtype.@double:
                     {
                         var _input = input.__data_float64;
                         var _result = Result.__data_float64;
@@ -620,7 +617,6 @@ public static partial class torch
                         break;
                     }
                     case torch.dtype.int16:
-                    case torch.dtype.@short:
                     {
                         var _input = input.__data_int16;
                         var _result = Result.__data_int16;
@@ -687,7 +683,6 @@ public static partial class torch
                         break;
                     }
                     case torch.dtype.int32:
-                    case torch.dtype.@int:
                     {
                         var _input = input.__data_int32;
                         var _result = Result.__data_int32;
@@ -754,7 +749,6 @@ public static partial class torch
                         break;
                     }
                     case torch.dtype.int64:
-                    case torch.dtype.@long:
                     {
                         var _input = input.__data_int64;
                         var _result = Result.__data_int64;
@@ -832,7 +826,6 @@ public static partial class torch
                         switch(input.dtype)
                         {
                             case torch.dtype.float16:
-                            case torch.dtype.half:
                             {
                                 var kernelData = weight.__data_float16;
                                 var kernelGrad = weight.__grad_float16;
@@ -914,7 +907,6 @@ public static partial class torch
                                 break;
                             }
                             case torch.dtype.float32:
-                            case torch.dtype.@float:
                             {
                                 var kernelData = weight.__data_float32;
                                 var kernelGrad = weight.__grad_float32;
@@ -996,7 +988,6 @@ public static partial class torch
                                 break;
                             }
                             case torch.dtype.float64:
-                            case torch.dtype.@double:
                             {
                                 var kernelData = weight.__data_float64;
                                 var kernelGrad = weight.__grad_float64;
@@ -1091,7 +1082,6 @@ public static partial class torch
                         switch(input.dtype)
                         {
                             case torch.dtype.float16:
-                            case torch.dtype.half:
                             {
                                 var kernelData = weight.__data_float16;
                                 var inputGrad = input.__grad_float16;
@@ -1171,7 +1161,6 @@ public static partial class torch
                                 break;
                             }
                             case torch.dtype.float32:
-                            case torch.dtype.@float:
                             {
                                 var kernelData = weight.__data_float32;
                                 var inputGrad = input.__grad_float32;
@@ -1251,7 +1240,6 @@ public static partial class torch
                                 break;
                             }
                             case torch.dtype.float64:
-                            case torch.dtype.@double:
                             {
                                 var kernelData = weight.__data_float64;
                                 var inputGrad = input.__grad_float64;
