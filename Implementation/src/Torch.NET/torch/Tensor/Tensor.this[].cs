@@ -224,7 +224,6 @@ public static partial class torch
                 switch(this.dtype)
                 {
                     case torch.dtype.float16:
-                    case torch.dtype.half:
                     {
                         for(int b = minB; b < maxB; b++)
                         {
@@ -245,7 +244,6 @@ public static partial class torch
                         break;
                     }
                     case torch.dtype.float32:
-                    case torch.dtype.@float:
                     {
                         for(int b = minB; b < maxB; b++)
                         {
@@ -266,7 +264,6 @@ public static partial class torch
                         break;
                     }
                     case torch.dtype.float64:
-                    case torch.dtype.@double:
                     {
                         for(int b = minB; b < maxB; b++)
                         {
@@ -327,7 +324,6 @@ public static partial class torch
                         break;
                     }
                     case torch.dtype.int16:
-                    case torch.dtype.@short:
                     {
                         for(int b = minB; b < maxB; b++)
                         {
@@ -348,7 +344,6 @@ public static partial class torch
                         break;
                     }
                     case torch.dtype.int32:
-                    case torch.dtype.@int:
                     {
                         for(int b = minB; b < maxB; b++)
                         {
@@ -369,7 +364,6 @@ public static partial class torch
                         break;
                     }
                     case torch.dtype.int64:
-                    case torch.dtype.@long:
                     {
                         for(int b = minB; b < maxB; b++)
                         {
@@ -417,7 +411,6 @@ public static partial class torch
                         switch(this.dtype)
                         {
                             case torch.dtype.float16:
-                            case torch.dtype.half:
                             {
                                 for(int b = minB; b < maxB; b++)
                                 {
@@ -438,7 +431,6 @@ public static partial class torch
                                 break;
                             }
                             case torch.dtype.float32:
-                            case torch.dtype.@float:
                             {
                                 for(int b = minB; b < maxB; b++)
                                 {
@@ -459,7 +451,6 @@ public static partial class torch
                                 break;
                             }
                             case torch.dtype.float64:
-                            case torch.dtype.@double:
                             {
                                 for(int b = minB; b < maxB; b++)
                                 {
@@ -517,12 +508,10 @@ public static partial class torch
                 switch(this.dtype)
                 {
                     case torch.dtype.float16:
-                    case torch.dtype.half:
                     {
                         switch(value.dtype)
                         {
                             case dtype.float16:
-                            case dtype.half:
                             {
                                 for(int b = minB; b < maxB; b++)
                                 {
@@ -543,7 +532,6 @@ public static partial class torch
                                 break;
                             }
                             case dtype.float32:
-                            case dtype.@float:
                             {
                                 for(int b = minB; b < maxB; b++)
                                 {
@@ -564,7 +552,6 @@ public static partial class torch
                                 break;
                             }
                             case dtype.float64:
-                            case dtype.@double:
                             {
                                 for(int b = minB; b < maxB; b++)
                                 {
@@ -625,7 +612,6 @@ public static partial class torch
                                 break;
                             }
                             case dtype.int16:
-                            case dtype.@short:
                             {
                                 for(int b = minB; b < maxB; b++)
                                 {
@@ -646,7 +632,6 @@ public static partial class torch
                                 break;
                             }
                             case dtype.int32:
-                            case dtype.@int:
                             {
                                 for(int b = minB; b < maxB; b++)
                                 {
@@ -667,7 +652,6 @@ public static partial class torch
                                 break;
                             }
                             case dtype.int64:
-                            case dtype.@long:
                             {
                                 for(int b = minB; b < maxB; b++)
                                 {
@@ -695,12 +679,10 @@ public static partial class torch
                         break;
                     }
                     case torch.dtype.float32:
-                    case torch.dtype.@float:
                     {
                         switch(value.dtype)
                         {
                             case dtype.float16:
-                            case dtype.half:
                             {
                                 for(int b = minB; b < maxB; b++)
                                 {
@@ -721,7 +703,6 @@ public static partial class torch
                                 break;
                             }
                             case dtype.float32:
-                            case dtype.@float:
                             {
                                 for(int b = minB; b < maxB; b++)
                                 {
@@ -742,7 +723,6 @@ public static partial class torch
                                 break;
                             }
                             case dtype.float64:
-                            case dtype.@double:
                             {
                                 for(int b = minB; b < maxB; b++)
                                 {
@@ -803,7 +783,6 @@ public static partial class torch
                                 break;
                             }
                             case dtype.int16:
-                            case dtype.@short:
                             {
                                 for(int b = minB; b < maxB; b++)
                                 {
@@ -824,7 +803,6 @@ public static partial class torch
                                 break;
                             }
                             case dtype.int32:
-                            case dtype.@int:
                             {
                                 for(int b = minB; b < maxB; b++)
                                 {
@@ -845,7 +823,6 @@ public static partial class torch
                                 break;
                             }
                             case dtype.int64:
-                            case dtype.@long:
                             {
                                 for(int b = minB; b < maxB; b++)
                                 {
@@ -873,12 +850,10 @@ public static partial class torch
                         break;
                     }
                     case torch.dtype.float64:
-                    case torch.dtype.@double:
                     {
                         switch(value.dtype)
                         {
                             case dtype.float16:
-                            case dtype.half:
                             {
                                 for(int b = minB; b < maxB; b++)
                                 {
@@ -899,7 +874,6 @@ public static partial class torch
                                 break;
                             }
                             case dtype.float32:
-                            case dtype.@float:
                             {
                                 for(int b = minB; b < maxB; b++)
                                 {
@@ -920,7 +894,6 @@ public static partial class torch
                                 break;
                             }
                             case dtype.float64:
-                            case dtype.@double:
                             {
                                 for(int b = minB; b < maxB; b++)
                                 {
@@ -981,7 +954,6 @@ public static partial class torch
                                 break;
                             }
                             case dtype.int16:
-                            case dtype.@short:
                             {
                                 for(int b = minB; b < maxB; b++)
                                 {
@@ -1002,7 +974,6 @@ public static partial class torch
                                 break;
                             }
                             case dtype.int32:
-                            case dtype.@int:
                             {
                                 for(int b = minB; b < maxB; b++)
                                 {
@@ -1023,7 +994,6 @@ public static partial class torch
                                 break;
                             }
                             case dtype.int64:
-                            case dtype.@long:
                             {
                                 for(int b = minB; b < maxB; b++)
                                 {
@@ -1055,11 +1025,8 @@ public static partial class torch
                         switch(value.dtype)
                         {
                             case dtype.float16:
-                            case dtype.half:
                             case dtype.float32:
-                            case dtype.@float:
                             case dtype.float64:
-                            case dtype.@double:
                             {
                                 throw new TorchException("TorchException: It is not possible to convert a floating point tensor to a tensor of integer or bool type.");
                             }
@@ -1104,7 +1071,6 @@ public static partial class torch
                                 break;
                             }
                             case dtype.int16:
-                            case dtype.@short:
                             {
                                 for(int b = minB; b < maxB; b++)
                                 {
@@ -1125,7 +1091,6 @@ public static partial class torch
                                 break;
                             }
                             case dtype.int32:
-                            case dtype.@int:
                             {
                                 for(int b = minB; b < maxB; b++)
                                 {
@@ -1146,7 +1111,6 @@ public static partial class torch
                                 break;
                             }
                             case dtype.int64:
-                            case dtype.@long:
                             {
                                 for(int b = minB; b < maxB; b++)
                                 {
@@ -1178,11 +1142,8 @@ public static partial class torch
                         switch(value.dtype)
                         {
                             case dtype.float16:
-                            case dtype.half:
                             case dtype.float32:
-                            case dtype.@float:
                             case dtype.float64:
-                            case dtype.@double:
                             {
                                 throw new TorchException("TorchException: It is not possible to convert a floating point tensor to a tensor of integer or bool type.");
                             }
@@ -1227,7 +1188,6 @@ public static partial class torch
                                 break;
                             }
                             case dtype.int16:
-                            case dtype.@short:
                             {
                                 for(int b = minB; b < maxB; b++)
                                 {
@@ -1248,7 +1208,6 @@ public static partial class torch
                                 break;
                             }
                             case dtype.int32:
-                            case dtype.@int:
                             {
                                 for(int b = minB; b < maxB; b++)
                                 {
@@ -1269,7 +1228,6 @@ public static partial class torch
                                 break;
                             }
                             case dtype.int64:
-                            case dtype.@long:
                             {
                                 for(int b = minB; b < maxB; b++)
                                 {
@@ -1297,16 +1255,12 @@ public static partial class torch
                         break;
                     }
                     case torch.dtype.int16:
-                    case torch.dtype.@short:
                     {
                         switch(value.dtype)
                         {
                             case dtype.float16:
-                            case dtype.half:
                             case dtype.float32:
-                            case dtype.@float:
                             case dtype.float64:
-                            case dtype.@double:
                             {
                                 throw new TorchException("TorchException: It is not possible to convert a floating point tensor to a tensor of integer or bool type.");
                             }
@@ -1351,7 +1305,6 @@ public static partial class torch
                                 break;
                             }
                             case dtype.int16:
-                            case dtype.@short:
                             {
                                 for(int b = minB; b < maxB; b++)
                                 {
@@ -1372,7 +1325,6 @@ public static partial class torch
                                 break;
                             }
                             case dtype.int32:
-                            case dtype.@int:
                             {
                                 for(int b = minB; b < maxB; b++)
                                 {
@@ -1393,7 +1345,6 @@ public static partial class torch
                                 break;
                             }
                             case dtype.int64:
-                            case dtype.@long:
                             {
                                 for(int b = minB; b < maxB; b++)
                                 {
@@ -1421,16 +1372,12 @@ public static partial class torch
                         break;
                     }
                     case torch.dtype.int32:
-                    case torch.dtype.@int:
                     {
                         switch(value.dtype)
                         {
                             case dtype.float16:
-                            case dtype.half:
                             case dtype.float32:
-                            case dtype.@float:
                             case dtype.float64:
-                            case dtype.@double:
                             {
                                 throw new TorchException("TorchException: It is not possible to convert a floating point tensor to a tensor of integer or bool type.");
                             }
@@ -1475,7 +1422,6 @@ public static partial class torch
                                 break;
                             }
                             case dtype.int16:
-                            case dtype.@short:
                             {
                                 for(int b = minB; b < maxB; b++)
                                 {
@@ -1496,7 +1442,6 @@ public static partial class torch
                                 break;
                             }
                             case dtype.int32:
-                            case dtype.@int:
                             {
                                 for(int b = minB; b < maxB; b++)
                                 {
@@ -1517,7 +1462,6 @@ public static partial class torch
                                 break;
                             }
                             case dtype.int64:
-                            case dtype.@long:
                             {
                                 for(int b = minB; b < maxB; b++)
                                 {
@@ -1545,16 +1489,12 @@ public static partial class torch
                         break;
                     }
                     case torch.dtype.int64:
-                    case torch.dtype.@long:
                     {
                         switch(value.dtype)
                         {
                             case dtype.float16:
-                            case dtype.half:
                             case dtype.float32:
-                            case dtype.@float:
                             case dtype.float64:
-                            case dtype.@double:
                             {
                                 throw new TorchException("TorchException: It is not possible to convert a floating point tensor to a tensor of integer or bool type.");
                             }
@@ -1599,7 +1539,6 @@ public static partial class torch
                                 break;
                             }
                             case dtype.int16:
-                            case dtype.@short:
                             {
                                 for(int b = minB; b < maxB; b++)
                                 {
@@ -1620,7 +1559,6 @@ public static partial class torch
                                 break;
                             }
                             case dtype.int32:
-                            case dtype.@int:
                             {
                                 for(int b = minB; b < maxB; b++)
                                 {
@@ -1641,7 +1579,6 @@ public static partial class torch
                                 break;
                             }
                             case dtype.int64:
-                            case dtype.@long:
                             {
                                 for(int b = minB; b < maxB; b++)
                                 {
@@ -1673,19 +1610,13 @@ public static partial class torch
                         switch(value.dtype)
                         {
                             case dtype.float16:
-                            case dtype.half:
                             case dtype.float32:
-                            case dtype.@float:
                             case dtype.float64:
-                            case dtype.@double:
                             case dtype.uint8:
                             case dtype.int8:
                             case dtype.int16:
-                            case dtype.@short:
                             case dtype.int32:
-                            case dtype.@int:
                             case dtype.int64:
-                            case dtype.@long:
                             {
                                 throw new TorchException("TorchException: It is not possible to convert a tensor of integer or float data type to bool tensor.");
                             }
@@ -1721,12 +1652,10 @@ public static partial class torch
                         switch(this.dtype)
                         {
                             case torch.dtype.float16:
-                            case torch.dtype.half:
                             {
                                 switch(value.dtype)
                                 {
                                     case dtype.float16:
-                                    case dtype.half:
                                     {
                                         for(int b = minB; b < maxB; b++)
                                         {
@@ -1748,7 +1677,6 @@ public static partial class torch
                                         break;
                                     }
                                     case dtype.float32:
-                                    case dtype.@float:
                                     {
                                         for(int b = minB; b < maxB; b++)
                                         {
@@ -1770,7 +1698,6 @@ public static partial class torch
                                         break;
                                     }
                                     case dtype.float64:
-                                    case dtype.@double:
                                     {
                                         for(int b = minB; b < maxB; b++)
                                         {
@@ -1795,12 +1722,10 @@ public static partial class torch
                                 break;
                             }
                             case torch.dtype.float32:
-                            case torch.dtype.@float:
                             {
                                 switch(value.dtype)
                                 {
                                     case dtype.float16:
-                                    case dtype.half:
                                     {
                                         for(int b = minB; b < maxB; b++)
                                         {
@@ -1822,7 +1747,6 @@ public static partial class torch
                                         break;
                                     }
                                     case dtype.float32:
-                                    case dtype.@float:
                                     {
                                         for(int b = minB; b < maxB; b++)
                                         {
@@ -1844,7 +1768,6 @@ public static partial class torch
                                         break;
                                     }
                                     case dtype.float64:
-                                    case dtype.@double:
                                     {
                                         for(int b = minB; b < maxB; b++)
                                         {
@@ -1869,12 +1792,10 @@ public static partial class torch
                                 break;
                             }
                             case torch.dtype.float64:
-                            case torch.dtype.@double:
                             {
                                 switch(value.dtype)
                                 {
                                     case dtype.float16:
-                                    case dtype.half:
                                     {
                                         for(int b = minB; b < maxB; b++)
                                         {
@@ -1896,7 +1817,6 @@ public static partial class torch
                                         break;
                                     }
                                     case dtype.float32:
-                                    case dtype.@float:
                                     {
                                         for(int b = minB; b < maxB; b++)
                                         {
@@ -1918,7 +1838,6 @@ public static partial class torch
                                         break;
                                     }
                                     case dtype.float64:
-                                    case dtype.@double:
                                     {
                                         for(int b = minB; b < maxB; b++)
                                         {
@@ -1961,7 +1880,6 @@ public static partial class torch
                         switch(this.dtype)
                         {
                             case torch.dtype.float16:
-                            case torch.dtype.half:
                             {
                                 for(int b = minB; b < maxB; b++)
                                 {
@@ -1982,7 +1900,6 @@ public static partial class torch
                                 break;
                             }
                             case torch.dtype.float32:
-                            case torch.dtype.@float:
                             {
                                 for(int b = minB; b < maxB; b++)
                                 {
@@ -2003,7 +1920,6 @@ public static partial class torch
                                 break;
                             }
                             case torch.dtype.float64:
-                            case torch.dtype.@double:
                             {
                                 for(int b = minB; b < maxB; b++)
                                 {

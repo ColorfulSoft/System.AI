@@ -291,19 +291,16 @@ public static partial class torch
             switch(this.dtype)
             {
                 case(torch.dtype.float16):
-                case(torch.dtype.half):
                 {
                     this.__data_float16 = new Half[this.__width * this.__height * this.__depth * this.__time * this.__batch];
                     break;
                 }
                 case(torch.dtype.float32):
-                case(torch.dtype.@float):
                 {
                     this.__data_float32 = new float[this.__width * this.__height * this.__depth * this.__time * this.__batch];
                     break;
                 }
                 case(torch.dtype.float64):
-                case(torch.dtype.@double):
                 {
                     this.__data_float64 = new double[this.__width * this.__height * this.__depth * this.__time * this.__batch];
                     break;
@@ -319,19 +316,16 @@ public static partial class torch
                     break;
                 }
                 case(torch.dtype.int16):
-                case(torch.dtype.@short):
                 {
                     this.__data_int16 = new short[this.__width * this.__height * this.__depth * this.__time * this.__batch];
                     break;
                 }
                 case(torch.dtype.int32):
-                case(torch.dtype.@int):
                 {
                     this.__data_int32 = new int[this.__width * this.__height * this.__depth * this.__time * this.__batch];
                     break;
                 }
                 case(torch.dtype.int64):
-                case(torch.dtype.@long):
                 {
                     this.__data_int64 = new long[this.__width * this.__height * this.__depth * this.__time * this.__batch];
                     break;
@@ -350,19 +344,16 @@ public static partial class torch
             switch(this.dtype)
             {
                 case(torch.dtype.float16):
-                case(torch.dtype.half):
                 {
                     this.__grad_float16 = new Half[this.__width * this.__height * this.__depth * this.__time * this.__batch];
                     break;
                 }
                 case(torch.dtype.float32):
-                case(torch.dtype.@float):
                 {
                     this.__grad_float32 = new float[this.__width * this.__height * this.__depth * this.__time * this.__batch];
                     break;
                 }
                 case(torch.dtype.float64):
-                case(torch.dtype.@double):
                 {
                     this.__grad_float64 = new double[this.__width * this.__height * this.__depth * this.__time * this.__batch];
                     break;
@@ -376,19 +367,16 @@ public static partial class torch
             switch(this.dtype)
             {
                 case(torch.dtype.float16):
-                case(torch.dtype.half):
                 {
                     this.__grad_float16 = null;
                     break;
                 }
                 case(torch.dtype.float32):
-                case(torch.dtype.@float):
                 {
                     this.__grad_float32 = null;
                     break;
                 }
                 case(torch.dtype.float64):
-                case(torch.dtype.@double):
                 {
                     this.__grad_float64 = null;
                     break;

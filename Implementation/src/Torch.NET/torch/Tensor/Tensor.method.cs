@@ -214,7 +214,6 @@ public static partial class torch
             switch(result.dtype)
             {
                 case torch.dtype.float16:
-                case torch.dtype.half:
                 {
                     for(int i = 0; i < result.__data_float16.Length; i++)
                     {
@@ -223,7 +222,6 @@ public static partial class torch
                     break;
                 }
                 case torch.dtype.float32:
-                case torch.dtype.@float:
                 {
                     for(int i = 0; i < result.__data_float32.Length; i++)
                     {
@@ -232,7 +230,6 @@ public static partial class torch
                     break;
                 }
                 case torch.dtype.float64:
-                case torch.dtype.@double:
                 {
                     for(int i = 0; i < result.__data_float64.Length; i++)
                     {
@@ -257,7 +254,6 @@ public static partial class torch
                     break;
                 }
                 case torch.dtype.int16:
-                case torch.dtype.@short:
                 {
                     for(int i = 0; i < result.__data_int16.Length; i++)
                     {
@@ -266,7 +262,6 @@ public static partial class torch
                     break;
                 }
                 case torch.dtype.int32:
-                case torch.dtype.@int:
                 {
                     for(int i = 0; i < result.__data_int32.Length; i++)
                     {
@@ -275,7 +270,6 @@ public static partial class torch
                     break;
                 }
                 case torch.dtype.int64:
-                case torch.dtype.@long:
                 {
                     for(int i = 0; i < result.__data_int64.Length; i++)
                     {
@@ -522,19 +516,16 @@ public static partial class torch
                     switch(this.dtype)
                     {
                         case torch.dtype.float16:
-                        case torch.dtype.half:
                         {
                             this.__grad_float16[0] = (Half)1f;
                             break;
                         }
                         case torch.dtype.float32:
-                        case torch.dtype.@float:
                         {
                             this.__grad_float32[0] = 1f;
                             break;
                         }
                         case torch.dtype.float64:
-                        case torch.dtype.@double:
                         {
                             this.__grad_float64[0] = 1f;
                             break;
@@ -632,17 +623,14 @@ public static partial class torch
             switch(this.dtype)
             {
                 case torch.dtype.float16:
-                case torch.dtype.half:
                 {
                     return this.__print_tensor(this.__data_float16);
                 }
                 case torch.dtype.float32:
-                case torch.dtype.@float:
                 {
                     return this.__print_tensor(this.__data_float32);
                 }
                 case torch.dtype.float64:
-                case torch.dtype.@double:
                 {
                     return this.__print_tensor(this.__data_float64);
                 }
@@ -655,17 +643,14 @@ public static partial class torch
                     return this.__print_tensor(this.__data_uint8);
                 }
                 case torch.dtype.int16:
-                case torch.dtype.@short:
                 {
                     return this.__print_tensor(this.__data_int16);
                 }
                 case torch.dtype.int32:
-                case torch.dtype.@int:
                 {
                     return this.__print_tensor(this.__data_int32);
                 }
                 case torch.dtype.int64:
-                case torch.dtype.@long:
                 {
                     return this.__print_tensor(this.__data_int64);
                 }
@@ -675,7 +660,7 @@ public static partial class torch
                 }
                 default:
                 {
-                    return "torch.Tensor";
+                    return "tensor";
                 }
             }
         }
