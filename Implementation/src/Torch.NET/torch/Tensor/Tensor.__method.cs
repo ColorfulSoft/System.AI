@@ -808,7 +808,7 @@ public static partial class torch
         ///<param name = "data">The data of the tensor.</param>
         private string __print_tensor<T>(T[] data)
         {
-            var result = "Torch.Tensor(";
+            var result = "tensor(";
             switch(this.__ndim)
             {
                 case 0:
@@ -946,7 +946,7 @@ public static partial class torch
                 }
                 default:
                 {
-                    return "torch.Tensor";
+                    return "tensor";
                 }
             }
         }

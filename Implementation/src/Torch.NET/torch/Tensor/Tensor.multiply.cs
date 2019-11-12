@@ -191,7 +191,7 @@ public static partial class torch
     public sealed partial class Tensor
     {
 
-        public static Tensor operator +(Tensor a, Tensor b)
+        public static Tensor operator *(Tensor a, Tensor b)
         {
             var _result_shape = new int[Math.Max(a.__ndim, b.__ndim)];
             if(a.__width != b.__width)
@@ -281,7 +281,7 @@ public static partial class torch
                                 {
                                     for(int _w = 0; _w < result_width; _w++)
                                     {
-                                        result.__data_float16[((((_h * result.__width) + _w) * result.__depth + _d) * result.__time + _t) * result.__batch + _b] = a.__data_float16[(((((((_h > (a.__height - 1)) ? 0 : _h) * a.__width) + ((_w > (a.__width - 1)) ? 0 : _w)) * a.__depth + ((_d > (a.__depth - 1)) ? 0 : _d)) * a.__time + ((_t > (a.__time - 1)) ? 0 : _t)) * a.__batch + ((_b > (a.__batch - 1)) ? 0 : _b))] + b.__data_float16[(((((((_h > (b.__height - 1)) ? 0 : _h) * b.__width) + ((_w > (b.__width - 1)) ? 0 : _w)) * b.__depth + ((_d > (b.__depth - 1)) ? 0 : _d)) * b.__time + ((_t > (b.__time - 1)) ? 0 : _t)) * b.__batch + ((_b > (b.__batch - 1)) ? 0 : _b))];
+                                        result.__data_float16[((((_h * result.__width) + _w) * result.__depth + _d) * result.__time + _t) * result.__batch + _b] = a.__data_float16[(((((((_h > (a.__height - 1)) ? 0 : _h) * a.__width) + ((_w > (a.__width - 1)) ? 0 : _w)) * a.__depth + ((_d > (a.__depth - 1)) ? 0 : _d)) * a.__time + ((_t > (a.__time - 1)) ? 0 : _t)) * a.__batch + ((_b > (a.__batch - 1)) ? 0 : _b))] * b.__data_float16[(((((((_h > (b.__height - 1)) ? 0 : _h) * b.__width) + ((_w > (b.__width - 1)) ? 0 : _w)) * b.__depth + ((_d > (b.__depth - 1)) ? 0 : _d)) * b.__time + ((_t > (b.__time - 1)) ? 0 : _t)) * b.__batch + ((_b > (b.__batch - 1)) ? 0 : _b))];
                                     }
                                 }
                             }
@@ -301,7 +301,7 @@ public static partial class torch
                                 {
                                     for(int _w = 0; _w < result_width; _w++)
                                     {
-                                        result.__data_float32[((((_h * result.__width) + _w) * result.__depth + _d) * result.__time + _t) * result.__batch + _b] = a.__data_float32[(((((((_h > (a.__height - 1)) ? 0 : _h) * a.__width) + ((_w > (a.__width - 1)) ? 0 : _w)) * a.__depth + ((_d > (a.__depth - 1)) ? 0 : _d)) * a.__time + ((_t > (a.__time - 1)) ? 0 : _t)) * a.__batch + ((_b > (a.__batch - 1)) ? 0 : _b))] + b.__data_float32[(((((((_h > (b.__height - 1)) ? 0 : _h) * b.__width) + ((_w > (b.__width - 1)) ? 0 : _w)) * b.__depth + ((_d > (b.__depth - 1)) ? 0 : _d)) * b.__time + ((_t > (b.__time - 1)) ? 0 : _t)) * b.__batch + ((_b > (b.__batch - 1)) ? 0 : _b))];
+                                        result.__data_float32[((((_h * result.__width) + _w) * result.__depth + _d) * result.__time + _t) * result.__batch + _b] = a.__data_float32[(((((((_h > (a.__height - 1)) ? 0 : _h) * a.__width) + ((_w > (a.__width - 1)) ? 0 : _w)) * a.__depth + ((_d > (a.__depth - 1)) ? 0 : _d)) * a.__time + ((_t > (a.__time - 1)) ? 0 : _t)) * a.__batch + ((_b > (a.__batch - 1)) ? 0 : _b))] * b.__data_float32[(((((((_h > (b.__height - 1)) ? 0 : _h) * b.__width) + ((_w > (b.__width - 1)) ? 0 : _w)) * b.__depth + ((_d > (b.__depth - 1)) ? 0 : _d)) * b.__time + ((_t > (b.__time - 1)) ? 0 : _t)) * b.__batch + ((_b > (b.__batch - 1)) ? 0 : _b))];
                                     }
                                 }
                             }
@@ -321,7 +321,7 @@ public static partial class torch
                                 {
                                     for(int _w = 0; _w < result_width; _w++)
                                     {
-                                        result.__data_float64[((((_h * result.__width) + _w) * result.__depth + _d) * result.__time + _t) * result.__batch + _b] = a.__data_float64[(((((((_h > (a.__height - 1)) ? 0 : _h) * a.__width) + ((_w > (a.__width - 1)) ? 0 : _w)) * a.__depth + ((_d > (a.__depth - 1)) ? 0 : _d)) * a.__time + ((_t > (a.__time - 1)) ? 0 : _t)) * a.__batch + ((_b > (a.__batch - 1)) ? 0 : _b))] + b.__data_float64[(((((((_h > (b.__height - 1)) ? 0 : _h) * b.__width) + ((_w > (b.__width - 1)) ? 0 : _w)) * b.__depth + ((_d > (b.__depth - 1)) ? 0 : _d)) * b.__time + ((_t > (b.__time - 1)) ? 0 : _t)) * b.__batch + ((_b > (b.__batch - 1)) ? 0 : _b))];
+                                        result.__data_float64[((((_h * result.__width) + _w) * result.__depth + _d) * result.__time + _t) * result.__batch + _b] = a.__data_float64[(((((((_h > (a.__height - 1)) ? 0 : _h) * a.__width) + ((_w > (a.__width - 1)) ? 0 : _w)) * a.__depth + ((_d > (a.__depth - 1)) ? 0 : _d)) * a.__time + ((_t > (a.__time - 1)) ? 0 : _t)) * a.__batch + ((_b > (a.__batch - 1)) ? 0 : _b))] * b.__data_float64[(((((((_h > (b.__height - 1)) ? 0 : _h) * b.__width) + ((_w > (b.__width - 1)) ? 0 : _w)) * b.__depth + ((_d > (b.__depth - 1)) ? 0 : _d)) * b.__time + ((_t > (b.__time - 1)) ? 0 : _t)) * b.__batch + ((_b > (b.__batch - 1)) ? 0 : _b))];
                                     }
                                 }
                             }
@@ -341,7 +341,7 @@ public static partial class torch
                                 {
                                     for(int _w = 0; _w < result_width; _w++)
                                     {
-                                        result.__data_int8[((((_h * result.__width) + _w) * result.__depth + _d) * result.__time + _t) * result.__batch + _b] = (sbyte)(a.__data_int8[(((((((_h > (a.__height - 1)) ? 0 : _h) * a.__width) + ((_w > (a.__width - 1)) ? 0 : _w)) * a.__depth + ((_d > (a.__depth - 1)) ? 0 : _d)) * a.__time + ((_t > (a.__time - 1)) ? 0 : _t)) * a.__batch + ((_b > (a.__batch - 1)) ? 0 : _b))] + b.__data_int8[(((((((_h > (b.__height - 1)) ? 0 : _h) * b.__width) + ((_w > (b.__width - 1)) ? 0 : _w)) * b.__depth + ((_d > (b.__depth - 1)) ? 0 : _d)) * b.__time + ((_t > (b.__time - 1)) ? 0 : _t)) * b.__batch + ((_b > (b.__batch - 1)) ? 0 : _b))]);
+                                        result.__data_int8[((((_h * result.__width) + _w) * result.__depth + _d) * result.__time + _t) * result.__batch + _b] = (sbyte)(a.__data_int8[(((((((_h > (a.__height - 1)) ? 0 : _h) * a.__width) + ((_w > (a.__width - 1)) ? 0 : _w)) * a.__depth + ((_d > (a.__depth - 1)) ? 0 : _d)) * a.__time + ((_t > (a.__time - 1)) ? 0 : _t)) * a.__batch + ((_b > (a.__batch - 1)) ? 0 : _b))] * b.__data_int8[(((((((_h > (b.__height - 1)) ? 0 : _h) * b.__width) + ((_w > (b.__width - 1)) ? 0 : _w)) * b.__depth + ((_d > (b.__depth - 1)) ? 0 : _d)) * b.__time + ((_t > (b.__time - 1)) ? 0 : _t)) * b.__batch + ((_b > (b.__batch - 1)) ? 0 : _b))]);
                                     }
                                 }
                             }
@@ -361,7 +361,7 @@ public static partial class torch
                                 {
                                     for(int _w = 0; _w < result_width; _w++)
                                     {
-                                        result.__data_uint8[((((_h * result.__width) + _w) * result.__depth + _d) * result.__time + _t) * result.__batch + _b] = (byte)(a.__data_uint8[(((((((_h > (a.__height - 1)) ? 0 : _h) * a.__width) + ((_w > (a.__width - 1)) ? 0 : _w)) * a.__depth + ((_d > (a.__depth - 1)) ? 0 : _d)) * a.__time + ((_t > (a.__time - 1)) ? 0 : _t)) * a.__batch + ((_b > (a.__batch - 1)) ? 0 : _b))] + b.__data_uint8[(((((((_h > (b.__height - 1)) ? 0 : _h) * b.__width) + ((_w > (b.__width - 1)) ? 0 : _w)) * b.__depth + ((_d > (b.__depth - 1)) ? 0 : _d)) * b.__time + ((_t > (b.__time - 1)) ? 0 : _t)) * b.__batch + ((_b > (b.__batch - 1)) ? 0 : _b))]);
+                                        result.__data_uint8[((((_h * result.__width) + _w) * result.__depth + _d) * result.__time + _t) * result.__batch + _b] = (byte)(a.__data_uint8[(((((((_h > (a.__height - 1)) ? 0 : _h) * a.__width) + ((_w > (a.__width - 1)) ? 0 : _w)) * a.__depth + ((_d > (a.__depth - 1)) ? 0 : _d)) * a.__time + ((_t > (a.__time - 1)) ? 0 : _t)) * a.__batch + ((_b > (a.__batch - 1)) ? 0 : _b))] * b.__data_uint8[(((((((_h > (b.__height - 1)) ? 0 : _h) * b.__width) + ((_w > (b.__width - 1)) ? 0 : _w)) * b.__depth + ((_d > (b.__depth - 1)) ? 0 : _d)) * b.__time + ((_t > (b.__time - 1)) ? 0 : _t)) * b.__batch + ((_b > (b.__batch - 1)) ? 0 : _b))]);
                                     }
                                 }
                             }
@@ -381,7 +381,7 @@ public static partial class torch
                                 {
                                     for(int _w = 0; _w < result_width; _w++)
                                     {
-                                        result.__data_int16[((((_h * result.__width) + _w) * result.__depth + _d) * result.__time + _t) * result.__batch + _b] = (short)(a.__data_int16[(((((((_h > (a.__height - 1)) ? 0 : _h) * a.__width) + ((_w > (a.__width - 1)) ? 0 : _w)) * a.__depth + ((_d > (a.__depth - 1)) ? 0 : _d)) * a.__time + ((_t > (a.__time - 1)) ? 0 : _t)) * a.__batch + ((_b > (a.__batch - 1)) ? 0 : _b))] + b.__data_int16[(((((((_h > (b.__height - 1)) ? 0 : _h) * b.__width) + ((_w > (b.__width - 1)) ? 0 : _w)) * b.__depth + ((_d > (b.__depth - 1)) ? 0 : _d)) * b.__time + ((_t > (b.__time - 1)) ? 0 : _t)) * b.__batch + ((_b > (b.__batch - 1)) ? 0 : _b))]);
+                                        result.__data_int16[((((_h * result.__width) + _w) * result.__depth + _d) * result.__time + _t) * result.__batch + _b] = (short)(a.__data_int16[(((((((_h > (a.__height - 1)) ? 0 : _h) * a.__width) + ((_w > (a.__width - 1)) ? 0 : _w)) * a.__depth + ((_d > (a.__depth - 1)) ? 0 : _d)) * a.__time + ((_t > (a.__time - 1)) ? 0 : _t)) * a.__batch + ((_b > (a.__batch - 1)) ? 0 : _b))] * b.__data_int16[(((((((_h > (b.__height - 1)) ? 0 : _h) * b.__width) + ((_w > (b.__width - 1)) ? 0 : _w)) * b.__depth + ((_d > (b.__depth - 1)) ? 0 : _d)) * b.__time + ((_t > (b.__time - 1)) ? 0 : _t)) * b.__batch + ((_b > (b.__batch - 1)) ? 0 : _b))]);
                                     }
                                 }
                             }
@@ -401,7 +401,7 @@ public static partial class torch
                                 {
                                     for(int _w = 0; _w < result_width; _w++)
                                     {
-                                        result.__data_int32[((((_h * result.__width) + _w) * result.__depth + _d) * result.__time + _t) * result.__batch + _b] = a.__data_int32[(((((((_h > (a.__height - 1)) ? 0 : _h) * a.__width) + ((_w > (a.__width - 1)) ? 0 : _w)) * a.__depth + ((_d > (a.__depth - 1)) ? 0 : _d)) * a.__time + ((_t > (a.__time - 1)) ? 0 : _t)) * a.__batch + ((_b > (a.__batch - 1)) ? 0 : _b))] + b.__data_int32[(((((((_h > (b.__height - 1)) ? 0 : _h) * b.__width) + ((_w > (b.__width - 1)) ? 0 : _w)) * b.__depth + ((_d > (b.__depth - 1)) ? 0 : _d)) * b.__time + ((_t > (b.__time - 1)) ? 0 : _t)) * b.__batch + ((_b > (b.__batch - 1)) ? 0 : _b))];
+                                        result.__data_int32[((((_h * result.__width) + _w) * result.__depth + _d) * result.__time + _t) * result.__batch + _b] = a.__data_int32[(((((((_h > (a.__height - 1)) ? 0 : _h) * a.__width) + ((_w > (a.__width - 1)) ? 0 : _w)) * a.__depth + ((_d > (a.__depth - 1)) ? 0 : _d)) * a.__time + ((_t > (a.__time - 1)) ? 0 : _t)) * a.__batch + ((_b > (a.__batch - 1)) ? 0 : _b))] * b.__data_int32[(((((((_h > (b.__height - 1)) ? 0 : _h) * b.__width) + ((_w > (b.__width - 1)) ? 0 : _w)) * b.__depth + ((_d > (b.__depth - 1)) ? 0 : _d)) * b.__time + ((_t > (b.__time - 1)) ? 0 : _t)) * b.__batch + ((_b > (b.__batch - 1)) ? 0 : _b))];
                                     }
                                 }
                             }
@@ -421,7 +421,7 @@ public static partial class torch
                                 {
                                     for(int _w = 0; _w < result_width; _w++)
                                     {
-                                        result.__data_int64[((((_h * result.__width) + _w) * result.__depth + _d) * result.__time + _t) * result.__batch + _b] = a.__data_int64[(((((((_h > (a.__height - 1)) ? 0 : _h) * a.__width) + ((_w > (a.__width - 1)) ? 0 : _w)) * a.__depth + ((_d > (a.__depth - 1)) ? 0 : _d)) * a.__time + ((_t > (a.__time - 1)) ? 0 : _t)) * a.__batch + ((_b > (a.__batch - 1)) ? 0 : _b))] + b.__data_int64[(((((((_h > (b.__height - 1)) ? 0 : _h) * b.__width) + ((_w > (b.__width - 1)) ? 0 : _w)) * b.__depth + ((_d > (b.__depth - 1)) ? 0 : _d)) * b.__time + ((_t > (b.__time - 1)) ? 0 : _t)) * b.__batch + ((_b > (b.__batch - 1)) ? 0 : _b))];
+                                        result.__data_int64[((((_h * result.__width) + _w) * result.__depth + _d) * result.__time + _t) * result.__batch + _b] = a.__data_int64[(((((((_h > (a.__height - 1)) ? 0 : _h) * a.__width) + ((_w > (a.__width - 1)) ? 0 : _w)) * a.__depth + ((_d > (a.__depth - 1)) ? 0 : _d)) * a.__time + ((_t > (a.__time - 1)) ? 0 : _t)) * a.__batch + ((_b > (a.__batch - 1)) ? 0 : _b))] * b.__data_int64[(((((((_h > (b.__height - 1)) ? 0 : _h) * b.__width) + ((_w > (b.__width - 1)) ? 0 : _w)) * b.__depth + ((_d > (b.__depth - 1)) ? 0 : _d)) * b.__time + ((_t > (b.__time - 1)) ? 0 : _t)) * b.__batch + ((_b > (b.__batch - 1)) ? 0 : _b))];
                                     }
                                 }
                             }
@@ -451,8 +451,8 @@ public static partial class torch
                                                 for(int _w = 0; _w < result_width; _w++)
                                                 {
                                                     var dw = result.__grad_float16[((((_h * result.__width) + _w) * result.__depth + _d) * result.__time + _t) * result.__batch + _b];
-                                                    a.__grad_float16[(((((((_h > (a.__height - 1)) ? 0 : _h) * a.__width) + ((_w > (a.__width - 1)) ? 0 : _w)) * a.__depth + ((_d > (a.__depth - 1)) ? 0 : _d)) * a.__time + ((_t > (a.__time - 1)) ? 0 : _t)) * a.__batch + ((_b > (a.__batch - 1)) ? 0 : _b))] += dw;
-                                                    b.__grad_float16[(((((((_h > (b.__height - 1)) ? 0 : _h) * b.__width) + ((_w > (b.__width - 1)) ? 0 : _w)) * b.__depth + ((_d > (b.__depth - 1)) ? 0 : _d)) * b.__time + ((_t > (b.__time - 1)) ? 0 : _t)) * b.__batch + ((_b > (b.__batch - 1)) ? 0 : _b))] += dw;
+                                                    a.__grad_float16[(((((((_h > (a.__height - 1)) ? 0 : _h) * a.__width) + ((_w > (a.__width - 1)) ? 0 : _w)) * a.__depth + ((_d > (a.__depth - 1)) ? 0 : _d)) * a.__time + ((_t > (a.__time - 1)) ? 0 : _t)) * a.__batch + ((_b > (a.__batch - 1)) ? 0 : _b))] += dw * b.__data_float16[(((((((_h > (b.__height - 1)) ? 0 : _h) * b.__width) + ((_w > (b.__width - 1)) ? 0 : _w)) * b.__depth + ((_d > (b.__depth - 1)) ? 0 : _d)) * b.__time + ((_t > (b.__time - 1)) ? 0 : _t)) * b.__batch + ((_b > (b.__batch - 1)) ? 0 : _b))];
+                                                    b.__grad_float16[(((((((_h > (b.__height - 1)) ? 0 : _h) * b.__width) + ((_w > (b.__width - 1)) ? 0 : _w)) * b.__depth + ((_d > (b.__depth - 1)) ? 0 : _d)) * b.__time + ((_t > (b.__time - 1)) ? 0 : _t)) * b.__batch + ((_b > (b.__batch - 1)) ? 0 : _b))] += dw * a.__data_float16[(((((((_h > (a.__height - 1)) ? 0 : _h) * a.__width) + ((_w > (a.__width - 1)) ? 0 : _w)) * a.__depth + ((_d > (a.__depth - 1)) ? 0 : _d)) * a.__time + ((_t > (a.__time - 1)) ? 0 : _t)) * a.__batch + ((_b > (a.__batch - 1)) ? 0 : _b))];
                                                 }
                                             }
                                         }
@@ -473,8 +473,8 @@ public static partial class torch
                                                 for(int _w = 0; _w < result_width; _w++)
                                                 {
                                                     var dw = result.__grad_float32[((((_h * result.__width) + _w) * result.__depth + _d) * result.__time + _t) * result.__batch + _b];
-                                                    a.__grad_float32[(((((((_h > (a.__height - 1)) ? 0 : _h) * a.__width) + ((_w > (a.__width - 1)) ? 0 : _w)) * a.__depth + ((_d > (a.__depth - 1)) ? 0 : _d)) * a.__time + ((_t > (a.__time - 1)) ? 0 : _t)) * a.__batch + ((_b > (a.__batch - 1)) ? 0 : _b))] += dw;
-                                                    b.__grad_float32[(((((((_h > (b.__height - 1)) ? 0 : _h) * b.__width) + ((_w > (b.__width - 1)) ? 0 : _w)) * b.__depth + ((_d > (b.__depth - 1)) ? 0 : _d)) * b.__time + ((_t > (b.__time - 1)) ? 0 : _t)) * b.__batch + ((_b > (b.__batch - 1)) ? 0 : _b))] += dw;
+                                                    a.__grad_float32[(((((((_h > (a.__height - 1)) ? 0 : _h) * a.__width) + ((_w > (a.__width - 1)) ? 0 : _w)) * a.__depth + ((_d > (a.__depth - 1)) ? 0 : _d)) * a.__time + ((_t > (a.__time - 1)) ? 0 : _t)) * a.__batch + ((_b > (a.__batch - 1)) ? 0 : _b))] += dw * b.__data_float32[(((((((_h > (b.__height - 1)) ? 0 : _h) * b.__width) + ((_w > (b.__width - 1)) ? 0 : _w)) * b.__depth + ((_d > (b.__depth - 1)) ? 0 : _d)) * b.__time + ((_t > (b.__time - 1)) ? 0 : _t)) * b.__batch + ((_b > (b.__batch - 1)) ? 0 : _b))];
+                                                    b.__grad_float32[(((((((_h > (b.__height - 1)) ? 0 : _h) * b.__width) + ((_w > (b.__width - 1)) ? 0 : _w)) * b.__depth + ((_d > (b.__depth - 1)) ? 0 : _d)) * b.__time + ((_t > (b.__time - 1)) ? 0 : _t)) * b.__batch + ((_b > (b.__batch - 1)) ? 0 : _b))] += dw * a.__data_float32[(((((((_h > (a.__height - 1)) ? 0 : _h) * a.__width) + ((_w > (a.__width - 1)) ? 0 : _w)) * a.__depth + ((_d > (a.__depth - 1)) ? 0 : _d)) * a.__time + ((_t > (a.__time - 1)) ? 0 : _t)) * a.__batch + ((_b > (a.__batch - 1)) ? 0 : _b))];
                                                 }
                                             }
                                         }
@@ -495,8 +495,8 @@ public static partial class torch
                                                 for(int _w = 0; _w < result_width; _w++)
                                                 {
                                                     var dw = result.__grad_float64[((((_h * result.__width) + _w) * result.__depth + _d) * result.__time + _t) * result.__batch + _b];
-                                                    a.__grad_float64[(((((((_h > (a.__height - 1)) ? 0 : _h) * a.__width) + ((_w > (a.__width - 1)) ? 0 : _w)) * a.__depth + ((_d > (a.__depth - 1)) ? 0 : _d)) * a.__time + ((_t > (a.__time - 1)) ? 0 : _t)) * a.__batch + ((_b > (a.__batch - 1)) ? 0 : _b))] += dw;
-                                                    b.__grad_float64[(((((((_h > (b.__height - 1)) ? 0 : _h) * b.__width) + ((_w > (b.__width - 1)) ? 0 : _w)) * b.__depth + ((_d > (b.__depth - 1)) ? 0 : _d)) * b.__time + ((_t > (b.__time - 1)) ? 0 : _t)) * b.__batch + ((_b > (b.__batch - 1)) ? 0 : _b))] += dw;
+                                                    a.__grad_float64[(((((((_h > (a.__height - 1)) ? 0 : _h) * a.__width) + ((_w > (a.__width - 1)) ? 0 : _w)) * a.__depth + ((_d > (a.__depth - 1)) ? 0 : _d)) * a.__time + ((_t > (a.__time - 1)) ? 0 : _t)) * a.__batch + ((_b > (a.__batch - 1)) ? 0 : _b))] += dw * b.__data_float64[(((((((_h > (b.__height - 1)) ? 0 : _h) * b.__width) + ((_w > (b.__width - 1)) ? 0 : _w)) * b.__depth + ((_d > (b.__depth - 1)) ? 0 : _d)) * b.__time + ((_t > (b.__time - 1)) ? 0 : _t)) * b.__batch + ((_b > (b.__batch - 1)) ? 0 : _b))];
+                                                    b.__grad_float64[(((((((_h > (b.__height - 1)) ? 0 : _h) * b.__width) + ((_w > (b.__width - 1)) ? 0 : _w)) * b.__depth + ((_d > (b.__depth - 1)) ? 0 : _d)) * b.__time + ((_t > (b.__time - 1)) ? 0 : _t)) * b.__batch + ((_b > (b.__batch - 1)) ? 0 : _b))] += dw * a.__data_float64[(((((((_h > (a.__height - 1)) ? 0 : _h) * a.__width) + ((_w > (a.__width - 1)) ? 0 : _w)) * a.__depth + ((_d > (a.__depth - 1)) ? 0 : _d)) * a.__time + ((_t > (a.__time - 1)) ? 0 : _t)) * a.__batch + ((_b > (a.__batch - 1)) ? 0 : _b))];
                                                 }
                                             }
                                         }
@@ -531,7 +531,7 @@ public static partial class torch
                                                 for(int _w = 0; _w < result_width; _w++)
                                                 {
                                                     var dw = result.__grad_float16[((((_h * result.__width) + _w) * result.__depth + _d) * result.__time + _t) * result.__batch + _b];
-                                                    a.__grad_float16[(((((((_h > (a.__height - 1)) ? 0 : _h) * a.__width) + ((_w > (a.__width - 1)) ? 0 : _w)) * a.__depth + ((_d > (a.__depth - 1)) ? 0 : _d)) * a.__time + ((_t > (a.__time - 1)) ? 0 : _t)) * a.__batch + ((_b > (a.__batch - 1)) ? 0 : _b))] += dw;
+                                                    a.__grad_float16[(((((((_h > (a.__height - 1)) ? 0 : _h) * a.__width) + ((_w > (a.__width - 1)) ? 0 : _w)) * a.__depth + ((_d > (a.__depth - 1)) ? 0 : _d)) * a.__time + ((_t > (a.__time - 1)) ? 0 : _t)) * a.__batch + ((_b > (a.__batch - 1)) ? 0 : _b))] += dw * b.__data_float16[(((((((_h > (b.__height - 1)) ? 0 : _h) * b.__width) + ((_w > (b.__width - 1)) ? 0 : _w)) * b.__depth + ((_d > (b.__depth - 1)) ? 0 : _d)) * b.__time + ((_t > (b.__time - 1)) ? 0 : _t)) * b.__batch + ((_b > (b.__batch - 1)) ? 0 : _b))];
                                                 }
                                             }
                                         }
@@ -552,7 +552,7 @@ public static partial class torch
                                                 for(int _w = 0; _w < result_width; _w++)
                                                 {
                                                     var dw = result.__grad_float32[((((_h * result.__width) + _w) * result.__depth + _d) * result.__time + _t) * result.__batch + _b];
-                                                    a.__grad_float32[(((((((_h > (a.__height - 1)) ? 0 : _h) * a.__width) + ((_w > (a.__width - 1)) ? 0 : _w)) * a.__depth + ((_d > (a.__depth - 1)) ? 0 : _d)) * a.__time + ((_t > (a.__time - 1)) ? 0 : _t)) * a.__batch + ((_b > (a.__batch - 1)) ? 0 : _b))] += dw;
+                                                    a.__grad_float32[(((((((_h > (a.__height - 1)) ? 0 : _h) * a.__width) + ((_w > (a.__width - 1)) ? 0 : _w)) * a.__depth + ((_d > (a.__depth - 1)) ? 0 : _d)) * a.__time + ((_t > (a.__time - 1)) ? 0 : _t)) * a.__batch + ((_b > (a.__batch - 1)) ? 0 : _b))] += dw * b.__data_float32[(((((((_h > (b.__height - 1)) ? 0 : _h) * b.__width) + ((_w > (b.__width - 1)) ? 0 : _w)) * b.__depth + ((_d > (b.__depth - 1)) ? 0 : _d)) * b.__time + ((_t > (b.__time - 1)) ? 0 : _t)) * b.__batch + ((_b > (b.__batch - 1)) ? 0 : _b))];
                                                 }
                                             }
                                         }
@@ -573,7 +573,7 @@ public static partial class torch
                                                 for(int _w = 0; _w < result_width; _w++)
                                                 {
                                                     var dw = result.__grad_float64[((((_h * result.__width) + _w) * result.__depth + _d) * result.__time + _t) * result.__batch + _b];
-                                                    a.__grad_float64[(((((((_h > (a.__height - 1)) ? 0 : _h) * a.__width) + ((_w > (a.__width - 1)) ? 0 : _w)) * a.__depth + ((_d > (a.__depth - 1)) ? 0 : _d)) * a.__time + ((_t > (a.__time - 1)) ? 0 : _t)) * a.__batch + ((_b > (a.__batch - 1)) ? 0 : _b))] += dw;
+                                                    a.__grad_float64[(((((((_h > (a.__height - 1)) ? 0 : _h) * a.__width) + ((_w > (a.__width - 1)) ? 0 : _w)) * a.__depth + ((_d > (a.__depth - 1)) ? 0 : _d)) * a.__time + ((_t > (a.__time - 1)) ? 0 : _t)) * a.__batch + ((_b > (a.__batch - 1)) ? 0 : _b))] += dw * b.__data_float64[(((((((_h > (b.__height - 1)) ? 0 : _h) * b.__width) + ((_w > (b.__width - 1)) ? 0 : _w)) * b.__depth + ((_d > (b.__depth - 1)) ? 0 : _d)) * b.__time + ((_t > (b.__time - 1)) ? 0 : _t)) * b.__batch + ((_b > (b.__batch - 1)) ? 0 : _b))];
                                                 }
                                             }
                                         }
@@ -604,7 +604,7 @@ public static partial class torch
                                                 for(int _w = 0; _w < result_width; _w++)
                                                 {
                                                     var dw = result.__grad_float16[((((_h * result.__width) + _w) * result.__depth + _d) * result.__time + _t) * result.__batch + _b];
-                                                    b.__grad_float16[(((((((_h > (b.__height - 1)) ? 0 : _h) * b.__width) + ((_w > (b.__width - 1)) ? 0 : _w)) * b.__depth + ((_d > (b.__depth - 1)) ? 0 : _d)) * b.__time + ((_t > (b.__time - 1)) ? 0 : _t)) * b.__batch + ((_b > (b.__batch - 1)) ? 0 : _b))] += dw;
+                                                    b.__grad_float16[(((((((_h > (b.__height - 1)) ? 0 : _h) * b.__width) + ((_w > (b.__width - 1)) ? 0 : _w)) * b.__depth + ((_d > (b.__depth - 1)) ? 0 : _d)) * b.__time + ((_t > (b.__time - 1)) ? 0 : _t)) * b.__batch + ((_b > (b.__batch - 1)) ? 0 : _b))] += dw * a.__data_float16[(((((((_h > (a.__height - 1)) ? 0 : _h) * a.__width) + ((_w > (a.__width - 1)) ? 0 : _w)) * a.__depth + ((_d > (a.__depth - 1)) ? 0 : _d)) * a.__time + ((_t > (a.__time - 1)) ? 0 : _t)) * a.__batch + ((_b > (a.__batch - 1)) ? 0 : _b))];
                                                 }
                                             }
                                         }
@@ -625,7 +625,7 @@ public static partial class torch
                                                 for(int _w = 0; _w < result_width; _w++)
                                                 {
                                                     var dw = result.__grad_float32[((((_h * result.__width) + _w) * result.__depth + _d) * result.__time + _t) * result.__batch + _b];
-                                                    b.__grad_float32[(((((((_h > (b.__height - 1)) ? 0 : _h) * b.__width) + ((_w > (b.__width - 1)) ? 0 : _w)) * b.__depth + ((_d > (b.__depth - 1)) ? 0 : _d)) * b.__time + ((_t > (b.__time - 1)) ? 0 : _t)) * b.__batch + ((_b > (b.__batch - 1)) ? 0 : _b))] += dw;
+                                                    b.__grad_float32[(((((((_h > (b.__height - 1)) ? 0 : _h) * b.__width) + ((_w > (b.__width - 1)) ? 0 : _w)) * b.__depth + ((_d > (b.__depth - 1)) ? 0 : _d)) * b.__time + ((_t > (b.__time - 1)) ? 0 : _t)) * b.__batch + ((_b > (b.__batch - 1)) ? 0 : _b))] += dw * a.__data_float32[(((((((_h > (a.__height - 1)) ? 0 : _h) * a.__width) + ((_w > (a.__width - 1)) ? 0 : _w)) * a.__depth + ((_d > (a.__depth - 1)) ? 0 : _d)) * a.__time + ((_t > (a.__time - 1)) ? 0 : _t)) * a.__batch + ((_b > (a.__batch - 1)) ? 0 : _b))];
                                                 }
                                             }
                                         }
@@ -646,7 +646,7 @@ public static partial class torch
                                                 for(int _w = 0; _w < result_width; _w++)
                                                 {
                                                     var dw = result.__grad_float64[((((_h * result.__width) + _w) * result.__depth + _d) * result.__time + _t) * result.__batch + _b];
-                                                    b.__grad_float64[(((((((_h > (b.__height - 1)) ? 0 : _h) * b.__width) + ((_w > (b.__width - 1)) ? 0 : _w)) * b.__depth + ((_d > (b.__depth - 1)) ? 0 : _d)) * b.__time + ((_t > (b.__time - 1)) ? 0 : _t)) * b.__batch + ((_b > (b.__batch - 1)) ? 0 : _b))] += dw;
+                                                    b.__grad_float64[(((((((_h > (b.__height - 1)) ? 0 : _h) * b.__width) + ((_w > (b.__width - 1)) ? 0 : _w)) * b.__depth + ((_d > (b.__depth - 1)) ? 0 : _d)) * b.__time + ((_t > (b.__time - 1)) ? 0 : _t)) * b.__batch + ((_b > (b.__batch - 1)) ? 0 : _b))] += dw * a.__data_float64[(((((((_h > (a.__height - 1)) ? 0 : _h) * a.__width) + ((_w > (a.__width - 1)) ? 0 : _w)) * a.__depth + ((_d > (a.__depth - 1)) ? 0 : _d)) * a.__time + ((_t > (a.__time - 1)) ? 0 : _t)) * a.__batch + ((_b > (a.__batch - 1)) ? 0 : _b))];
                                                 }
                                             }
                                         }
