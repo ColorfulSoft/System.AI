@@ -229,14 +229,14 @@ public static partial class torch
                     {
                         throw new TorchException("TorchException: stride must contain null, 1 or 2 values.");
                     }
-                    strideX = stride[0];
+                    strideY = stride[0];
                     if(stride.Length == 2)
                     {
-                        strideY = stride[1];
+                        strideX = stride[1];
                     }
                     else
                     {
-                        strideY = stride[0];
+                        strideX = stride[0];
                     }
                 }
                 if(padding != null)
@@ -245,14 +245,14 @@ public static partial class torch
                     {
                         throw new TorchException("TorchException: padding must contain null, 1 or 2 values.");
                     }
-                    paddingX = padding[0];
+                    paddingY = padding[0];
                     if(padding.Length == 2)
                     {
-                        paddingY = padding[1];
+                        paddingX = padding[1];
                     }
                     else
                     {
-                        paddingY = padding[0];
+                        paddingX = padding[0];
                     }
                 }
                 if(dilation != null)
@@ -261,14 +261,14 @@ public static partial class torch
                     {
                         throw new TorchException("TorchException: dilation must contain null, 1 or 2 values.");
                     }
-                    dilationX = dilation[0];
+                    dilationY = dilation[0];
                     if(dilation.Length == 2)
                     {
-                        dilationY = dilation[1];
+                        dilationX = dilation[1];
                     }
                     else
                     {
-                        dilationY = dilation[0];
+                        dilationX = dilation[0];
                     }
                 }
                 var outW = (input.__width + 2 * paddingX - dilationX * (weight.__width - 1) - 1) / strideX + 1;
@@ -283,7 +283,7 @@ public static partial class torch
                 var kernelD = weight.__depth;
                 var kernelH = weight.__height;
                 var kernelW = weight.__width;
-                var Result = new Tensor(outW, outH, outD, outB, dtype: input.dtype, requires_grad: input.requires_grad);
+                var Result = new Tensor(outB, outD, outH, outW, dtype: input.dtype, requires_grad: input.requires_grad);
                 switch(Result.dtype)
                 {
                     case torch.dtype.float16:

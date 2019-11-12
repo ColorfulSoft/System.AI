@@ -204,7 +204,7 @@ public static partial class torch
                 var inH = input.__height;
                 var inD = input.__depth;
                 var inB = input.__time;
-                var Result = new Tensor(new int[]{outW, outH, outD, outB}, dtype: input.dtype, requires_grad: input.requires_grad);
+                var Result = new Tensor(outB, outD, outH, outW, dtype: input.dtype, requires_grad: input.requires_grad);
                 var IndicesX = new int[outW * outH * outD * outB];
                 var IndicesY = new int[outW * outH * outD * outB];
                 switch(Result.dtype)
@@ -232,7 +232,7 @@ public static partial class torch
                                                 var oy = y + fy * dilation;
                                                 if((oy >= 0) && (oy < inH) && (ox >= 0) && (ox < inW))
                                                 {
-                                                    var v = input.__data_float16[(((oy * outW) + ox) * outD + out_depth) * outB + batch];
+                                                    var v = input.__data_float16[(((oy * inW) + ox) * inD + out_depth) * inB + batch];
                                                     if(v > max)
                                                     {
                                                         max = v;
@@ -275,7 +275,7 @@ public static partial class torch
                                                 var oy = y + fy * dilation;
                                                 if((oy >= 0) && (oy < inH) && (ox >= 0) && (ox < inW))
                                                 {
-                                                    var v = input.__data_float32[(((oy * outW) + ox) * outD + out_depth) * outB + batch];
+                                                    var v = input.__data_float32[(((oy * inW) + ox) * inD + out_depth) * inB + batch];
                                                     if(v > max)
                                                     {
                                                         max = v;
@@ -318,7 +318,7 @@ public static partial class torch
                                                 var oy = y + fy * dilation;
                                                 if((oy >= 0) && (oy < inH) && (ox >= 0) && (ox < inW))
                                                 {
-                                                    var v = input.__data_float64[(((oy * outW) + ox) * outD + out_depth) * outB + batch];
+                                                    var v = input.__data_float64[(((oy * inW) + ox) * inD + out_depth) * inB + batch];
                                                     if(v > max)
                                                     {
                                                         max = v;
@@ -361,7 +361,7 @@ public static partial class torch
                                                 var oy = y + fy * dilation;
                                                 if((oy >= 0) && (oy < inH) && (ox >= 0) && (ox < inW))
                                                 {
-                                                    var v = input.__data_int8[(((oy * outW) + ox) * outD + out_depth) * outB + batch];
+                                                    var v = input.__data_int8[(((oy * inW) + ox) * inD + out_depth) * inB + batch];
                                                     if(v > max)
                                                     {
                                                         max = v;
@@ -401,7 +401,7 @@ public static partial class torch
                                                 var oy = y + fy * dilation;
                                                 if((oy >= 0) && (oy < inH) && (ox >= 0) && (ox < inW))
                                                 {
-                                                    var v = input.__data_uint8[(((oy * outW) + ox) * outD + out_depth) * outB + batch];
+                                                    var v = input.__data_uint8[(((oy * inW) + ox) * inD + out_depth) * inB + batch];
                                                     if(v > max)
                                                     {
                                                         max = v;
@@ -441,7 +441,7 @@ public static partial class torch
                                                 var oy = y + fy * dilation;
                                                 if((oy >= 0) && (oy < inH) && (ox >= 0) && (ox < inW))
                                                 {
-                                                    var v = input.__data_int16[(((oy * outW) + ox) * outD + out_depth) * outB + batch];
+                                                    var v = input.__data_int16[(((oy * inW) + ox) * inD + out_depth) * inB + batch];
                                                     if(v > max)
                                                     {
                                                         max = v;
@@ -481,7 +481,7 @@ public static partial class torch
                                                 var oy = y + fy * dilation;
                                                 if((oy >= 0) && (oy < inH) && (ox >= 0) && (ox < inW))
                                                 {
-                                                    var v = input.__data_int32[(((oy * outW) + ox) * outD + out_depth) * outB + batch];
+                                                    var v = input.__data_int32[(((oy * inW) + ox) * inD + out_depth) * inB + batch];
                                                     if(v > max)
                                                     {
                                                         max = v;
@@ -521,7 +521,7 @@ public static partial class torch
                                                 var oy = y + fy * dilation;
                                                 if((oy >= 0) && (oy < inH) && (ox >= 0) && (ox < inW))
                                                 {
-                                                    var v = input.__data_int64[(((oy * outW) + ox) * outD + out_depth) * outB + batch];
+                                                    var v = input.__data_int64[(((oy * inW) + ox) * inD + out_depth) * inB + batch];
                                                     if(v > max)
                                                     {
                                                         max = v;
@@ -563,7 +563,7 @@ public static partial class torch
                                                 var max_x = IndicesX[i];
                                                 var max_y = IndicesY[i];
                                                 var v = Result.__grad_float16[(((out_height * outW) + out_width) * outD + out_depth) * outB + batch];
-                                                input.__grad_float16[(((max_y * outW) + max_x) * outD + out_depth) * outB + batch] += v;
+                                                input.__grad_float16[(((max_y * inW) + max_x) * inD + out_depth) * inB + batch] += v;
                                             }
                                         }
                                     }
@@ -584,7 +584,7 @@ public static partial class torch
                                                 var max_x = IndicesX[i];
                                                 var max_y = IndicesY[i];
                                                 var v = Result.__grad_float32[(((out_height * outW) + out_width) * outD + out_depth) * outB + batch];
-                                                input.__grad_float32[(((max_y * outW) + max_x) * outD + out_depth) * outB + batch] += v;
+                                                input.__grad_float32[(((max_y * inW) + max_x) * inD + out_depth) * inB + batch] += v;
                                             }
                                         }
                                     }
@@ -605,7 +605,7 @@ public static partial class torch
                                                 var max_x = IndicesX[i];
                                                 var max_y = IndicesY[i];
                                                 var v = Result.__grad_float64[(((out_height * outW) + out_width) * outD + out_depth) * outB + batch];
-                                                input.__grad_float64[(((max_y * outW) + max_x) * outD + out_depth) * outB + batch] += v;
+                                                input.__grad_float64[(((max_y * inW) + max_x) * inD + out_depth) * inB + batch] += v;
                                             }
                                         }
                                     }
