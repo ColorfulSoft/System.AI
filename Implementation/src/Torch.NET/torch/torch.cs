@@ -418,22 +418,22 @@ public static partial class torch
                         }
                         case 2:
                         {
-                            data = new Tensor(width, height, dtype: torch.dtype.float16);
+                            data = new Tensor(height, width, dtype: torch.dtype.float16);
                             break;
                         }
                         case 3:
                         {
-                            data = new Tensor(width, height, depth, dtype: torch.dtype.float16);
+                            data = new Tensor(depth, height, width, dtype: torch.dtype.float16);
                             break;
                         }
                         case 4:
                         {
-                            data = new Tensor(width, height, depth, time, dtype: torch.dtype.float16);
+                            data = new Tensor(time, depth, height, width, dtype: torch.dtype.float16);
                             break;
                         }
                         case 5:
                         {
-                            data = new Tensor(width, height, depth, time, batch, dtype: torch.dtype.float16);
+                            data = new Tensor(batch, time, depth, height, width, dtype: torch.dtype.float16);
                             break;
                         }
                     }
@@ -460,22 +460,22 @@ public static partial class torch
                         }
                         case 2:
                         {
-                            data = new Tensor(width, height, dtype: torch.dtype.float32);
+                            data = new Tensor(height, width, dtype: torch.dtype.float32);
                             break;
                         }
                         case 3:
                         {
-                            data = new Tensor(width, height, depth, dtype: torch.dtype.float32);
+                            data = new Tensor(depth, height, width, dtype: torch.dtype.float32);
                             break;
                         }
                         case 4:
                         {
-                            data = new Tensor(width, height, depth, time, dtype: torch.dtype.float32);
+                            data = new Tensor(time, depth, height, width, dtype: torch.dtype.float32);
                             break;
                         }
                         case 5:
                         {
-                            data = new Tensor(width, height, depth, time, batch, dtype: torch.dtype.float32);
+                            data = new Tensor(batch, time, depth, height, width, dtype: torch.dtype.float32);
                             break;
                         }
                     }
@@ -502,22 +502,22 @@ public static partial class torch
                         }
                         case 2:
                         {
-                            data = new Tensor(width, height, dtype: torch.dtype.float64);
+                            data = new Tensor(height, depth, dtype: torch.dtype.float64);
                             break;
                         }
                         case 3:
                         {
-                            data = new Tensor(width, height, depth, dtype: torch.dtype.float64);
+                            data = new Tensor(depth, height, width, dtype: torch.dtype.float64);
                             break;
                         }
                         case 4:
                         {
-                            data = new Tensor(width, height, depth, time, dtype: torch.dtype.float64);
+                            data = new Tensor(time, depth, height, width, dtype: torch.dtype.float64);
                             break;
                         }
                         case 5:
                         {
-                            data = new Tensor(width, height, depth, time, batch, dtype: torch.dtype.float64);
+                            data = new Tensor(batch, time, depth, height, width, dtype: torch.dtype.float64);
                             break;
                         }
                     }
@@ -544,22 +544,22 @@ public static partial class torch
                         }
                         case 2:
                         {
-                            data = new Tensor(width, height, dtype: torch.dtype.uint8);
+                            data = new Tensor(height, width, dtype: torch.dtype.uint8);
                             break;
                         }
                         case 3:
                         {
-                            data = new Tensor(width, height, depth, dtype: torch.dtype.uint8);
+                            data = new Tensor(depth, height, width, dtype: torch.dtype.uint8);
                             break;
                         }
                         case 4:
                         {
-                            data = new Tensor(width, height, depth, time, dtype: torch.dtype.uint8);
+                            data = new Tensor(time, depth, height, width, dtype: torch.dtype.uint8);
                             break;
                         }
                         case 5:
                         {
-                            data = new Tensor(width, height, depth, time, batch, dtype: torch.dtype.uint8);
+                            data = new Tensor(batch, time, depth, height, width, dtype: torch.dtype.uint8);
                             break;
                         }
                     }
@@ -586,22 +586,22 @@ public static partial class torch
                         }
                         case 2:
                         {
-                            data = new Tensor(width, height, dtype: torch.dtype.int8);
+                            data = new Tensor(height, width, dtype: torch.dtype.int8);
                             break;
                         }
                         case 3:
                         {
-                            data = new Tensor(width, height, depth, dtype: torch.dtype.int8);
+                            data = new Tensor(depth, height, width, dtype: torch.dtype.int8);
                             break;
                         }
                         case 4:
                         {
-                            data = new Tensor(width, height, depth, time, dtype: torch.dtype.int8);
+                            data = new Tensor(time, depth, height, width, dtype: torch.dtype.int8);
                             break;
                         }
                         case 5:
                         {
-                            data = new Tensor(width, height, depth, time, batch, dtype: torch.dtype.int8);
+                            data = new Tensor(batch, time, depth, height, width, dtype: torch.dtype.int8);
                             break;
                         }
                     }
@@ -628,22 +628,22 @@ public static partial class torch
                         }
                         case 2:
                         {
-                            data = new Tensor(width, height, dtype: torch.dtype.int16);
+                            data = new Tensor(height, width, dtype: torch.dtype.int16);
                             break;
                         }
                         case 3:
                         {
-                            data = new Tensor(width, height, depth, dtype: torch.dtype.int16);
+                            data = new Tensor(depth, height, width, dtype: torch.dtype.int16);
                             break;
                         }
                         case 4:
                         {
-                            data = new Tensor(width, height, depth, time, dtype: torch.dtype.int16);
+                            data = new Tensor(time, depth, height, width, dtype: torch.dtype.int16);
                             break;
                         }
                         case 5:
                         {
-                            data = new Tensor(width, height, depth, time, batch, dtype: torch.dtype.int16);
+                            data = new Tensor(batch, time, depth, height, width, dtype: torch.dtype.int16);
                             break;
                         }
                     }
@@ -670,22 +670,22 @@ public static partial class torch
                         }
                         case 2:
                         {
-                            data = new Tensor(width, height, dtype: torch.dtype.int32);
+                            data = new Tensor(height, width, dtype: torch.dtype.int32);
                             break;
                         }
                         case 3:
                         {
-                            data = new Tensor(width, height, depth, dtype: torch.dtype.int32);
+                            data = new Tensor(depth, height, width, dtype: torch.dtype.int32);
                             break;
                         }
                         case 4:
                         {
-                            data = new Tensor(width, height, depth, time, dtype: torch.dtype.int32);
+                            data = new Tensor(time, depth, height, width, dtype: torch.dtype.int32);
                             break;
                         }
                         case 5:
                         {
-                            data = new Tensor(width, height, depth, time, batch, dtype: torch.dtype.int32);
+                            data = new Tensor(batch, time, depth, height, width, dtype: torch.dtype.int32);
                             break;
                         }
                     }
@@ -712,22 +712,22 @@ public static partial class torch
                         }
                         case 2:
                         {
-                            data = new Tensor(width, height, dtype: torch.dtype.int64);
+                            data = new Tensor(height, width, dtype: torch.dtype.int64);
                             break;
                         }
                         case 3:
                         {
-                            data = new Tensor(width, height, depth, dtype: torch.dtype.int64);
+                            data = new Tensor(depth, height, width, dtype: torch.dtype.int64);
                             break;
                         }
                         case 4:
                         {
-                            data = new Tensor(width, height, depth, time, dtype: torch.dtype.int64);
+                            data = new Tensor(time, depth, height, width, dtype: torch.dtype.int64);
                             break;
                         }
                         case 5:
                         {
-                            data = new Tensor(width, height, depth, time, batch, dtype: torch.dtype.int64);
+                            data = new Tensor(batch, time, depth, height, width, dtype: torch.dtype.int64);
                             break;
                         }
                     }
@@ -754,22 +754,22 @@ public static partial class torch
                         }
                         case 2:
                         {
-                            data = new Tensor(width, height, dtype: torch.dtype.@bool);
+                            data = new Tensor(height, width, dtype: torch.dtype.@bool);
                             break;
                         }
                         case 3:
                         {
-                            data = new Tensor(width, height, depth, dtype: torch.dtype.@bool);
+                            data = new Tensor(depth, height, width, dtype: torch.dtype.@bool);
                             break;
                         }
                         case 4:
                         {
-                            data = new Tensor(width, height, depth, time, dtype: torch.dtype.@bool);
+                            data = new Tensor(time, depth, height, width, dtype: torch.dtype.@bool);
                             break;
                         }
                         case 5:
                         {
-                            data = new Tensor(width, height, depth, time, batch, dtype: torch.dtype.@bool);
+                            data = new Tensor(batch, time, depth, height, width, dtype: torch.dtype.@bool);
                             break;
                         }
                     }

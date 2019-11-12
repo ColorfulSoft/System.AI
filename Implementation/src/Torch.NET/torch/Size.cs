@@ -226,9 +226,9 @@ public static partial class torch
         }
 
         ///<summary>Initializes an instance of the Size structure.</summary>
-        ///<param name = "width">The width of the tensor.</param>
         ///<param name = "height">The height of the tensor.</param>
-        public Size(int width, int height)
+        ///<param name = "width">The width of the tensor.</param>
+        public Size(int height, int width)
         {
             if(width < 1)
             {
@@ -247,10 +247,10 @@ public static partial class torch
         }
 
         ///<summary>Initializes an instance of the Size structure.</summary>
-        ///<param name = "width">The width of the tensor.</param>
-        ///<param name = "height">The height of the tensor.</param>
         ///<param name = "depth">The depth of the tensor.</param>
-        public Size(int width, int height, int depth)
+        ///<param name = "height">The height of the tensor.</param>
+        ///<param name = "width">The width of the tensor.</param>
+        public Size(int depth, int height, int width)
         {
             if(width < 1)
             {
@@ -273,11 +273,11 @@ public static partial class torch
         }
 
         ///<summary>Initializes an instance of the Size structure.</summary>
-        ///<param name = "width">The width of the tensor.</param>
-        ///<param name = "height">The height of the tensor.</param>
-        ///<param name = "depth">The depth of the tensor.</param>
         ///<param name = "time">The time dimension of the tensor.</param>
-        public Size(int width, int height, int depth, int time)
+        ///<param name = "depth">The depth of the tensor.</param>
+        ///<param name = "height">The height of the tensor.</param>
+        ///<param name = "width">The width of the tensor.</param>
+        public Size(int time, int depth, int height, int width)
         {
             if(width < 1)
             {
@@ -304,12 +304,12 @@ public static partial class torch
         }
 
         ///<summary>Initializes an instance of the Size structure.</summary>
-        ///<param name = "width">The width of the tensor.</param>
-        ///<param name = "height">The height of the tensor.</param>
-        ///<param name = "depth">The depth of the tensor.</param>
-        ///<param name = "time">The time dimension of the tensor.</param>
         ///<param name = "batch">The batch size of the tensor.</param>
-        public Size(int width, int height, int depth, int time, int batch)
+        ///<param name = "time">The time dimension of the tensor.</param>
+        ///<param name = "depth">The depth of the tensor.</param>
+        ///<param name = "height">The height of the tensor.</param>
+        ///<param name = "width">The width of the tensor.</param>
+        public Size(int batch, int time, int depth, int height, int width)
         {
             if(width < 1)
             {
@@ -353,11 +353,11 @@ public static partial class torch
                 {
                     case 0:
                     {
-                        return this.__w;
+                        return this.__b;
                     }
                     case 1:
                     {
-                        return this.__h;
+                        return this.__t;
                     }
                     case 2:
                     {
@@ -365,11 +365,11 @@ public static partial class torch
                     }
                     case 3:
                     {
-                        return this.__t;
+                        return this.__h;
                     }
                     case 4:
                     {
-                        return this.__b;
+                        return this.__w;
                     }
                     default:
                     {
@@ -528,32 +528,32 @@ public static partial class torch
                 }
                 case 2:
                 {
-                    result[0] = (byte)size.__w;
-                    result[1] = (byte)size.__h;
+                    result[0] = (byte)size.__h;
+                    result[1] = (byte)size.__w;
                     return result;
                 }
                 case 3:
                 {
-                    result[0] = (byte)size.__w;
+                    result[0] = (byte)size.__d;
                     result[1] = (byte)size.__h;
-                    result[2] = (byte)size.__d;
+                    result[2] = (byte)size.__w;
                     return result;
                 }
                 case 4:
                 {
-                    result[0] = (byte)size.__w;
-                    result[1] = (byte)size.__h;
-                    result[2] = (byte)size.__d;
-                    result[3] = (byte)size.__t;
+                    result[0] = (byte)size.__t;
+                    result[1] = (byte)size.__d;
+                    result[2] = (byte)size.__h;
+                    result[3] = (byte)size.__w;
                     return result;
                 }
                 case 5:
                 {
-                    result[0] = (byte)size.__w;
-                    result[1] = (byte)size.__h;
+                    result[0] = (byte)size.__b;
+                    result[1] = (byte)size.__t;
                     result[2] = (byte)size.__d;
-                    result[3] = (byte)size.__t;
-                    result[4] = (byte)size.__b;
+                    result[3] = (byte)size.__h;
+                    result[4] = (byte)size.__w;
                     return result;
                 }
                 default:
@@ -579,32 +579,32 @@ public static partial class torch
                 }
                 case 2:
                 {
-                    result[0] = size.__w;
-                    result[1] = size.__h;
+                    result[0] = size.__h;
+                    result[1] = size.__w;
                     return result;
                 }
                 case 3:
                 {
-                    result[0] = size.__w;
+                    result[0] = size.__d;
                     result[1] = size.__h;
-                    result[2] = size.__d;
+                    result[2] = size.__w;
                     return result;
                 }
                 case 4:
                 {
-                    result[0] = size.__w;
-                    result[1] = size.__h;
-                    result[2] = size.__d;
-                    result[3] = size.__t;
+                    result[0] = size.__t;
+                    result[1] = size.__d;
+                    result[2] = size.__h;
+                    result[3] = size.__w;
                     return result;
                 }
                 case 5:
                 {
-                    result[0] = size.__w;
-                    result[1] = size.__h;
+                    result[0] = size.__b;
+                    result[1] = size.__t;
                     result[2] = size.__d;
-                    result[3] = size.__t;
-                    result[4] = size.__b;
+                    result[3] = size.__h;
+                    result[4] = size.__w;
                     return result;
                 }
                 default:
@@ -630,32 +630,32 @@ public static partial class torch
                 }
                 case 2:
                 {
-                    result[0] = (byte)size.__w;
-                    result[1] = (byte)size.__h;
+                    result[0] = (byte)size.__h;
+                    result[1] = (byte)size.__w;
                     return result;
                 }
                 case 3:
                 {
-                    result[0] = (byte)size.__w;
+                    result[0] = (byte)size.__d;
                     result[1] = (byte)size.__h;
-                    result[2] = (byte)size.__d;
+                    result[2] = (byte)size.__w;
                     return result;
                 }
                 case 4:
                 {
-                    result[0] = (byte)size.__w;
-                    result[1] = (byte)size.__h;
-                    result[2] = (byte)size.__d;
-                    result[3] = (byte)size.__t;
+                    result[0] = (byte)size.__t;
+                    result[1] = (byte)size.__d;
+                    result[2] = (byte)size.__h;
+                    result[3] = (byte)size.__w;
                     return result;
                 }
                 case 5:
                 {
-                    result[0] = (byte)size.__w;
-                    result[1] = (byte)size.__h;
+                    result[0] = (byte)size.__b;
+                    result[1] = (byte)size.__t;
                     result[2] = (byte)size.__d;
-                    result[3] = (byte)size.__t;
-                    result[4] = (byte)size.__b;
+                    result[3] = (byte)size.__h;
+                    result[4] = (byte)size.__w;
                     return result;
                 }
                 default:
