@@ -3876,38 +3876,152 @@ public static partial class torch
         }
 
         ///<summary>Initializes a tensor of the default data type with the specified dimensions and sets all elements to 0.</summary>
-        ///<param name = "width">The width of the tensor or 1.</param>
-        ///<param name = "height">The height of the tensor or 1.</param>
-        ///<param name = "depth">The depth of the tensor or 1.</param>
-        ///<param name = "time">The number of times in the tensor (video) or 1.</param>
-        ///<param name = "batch">The batch dimension. Highest dimension or 1.</param>
+        ///<param name = "width">The width of the tensor.</param>
         ///<param name = "dtype">Tensor data type.</param>
         ///<param name = "requires_grad">If autograd should record operations on the returned tensor. Default: false.</param>
-        public Tensor(int width = 1, int height = 1, int depth = 1, int time = 1, int batch = 1, bool requires_grad = false, torch.dtype dtype = torch.dtype.@default)
+        public Tensor(int width, bool requires_grad = false, torch.dtype dtype = torch.dtype.@default)
+        {
+            //-> Initialize the dimensions...
+            this.__RaiseIfDimensionIsInvalid(width, 1, 1, 1, 1);
+            this.__ndim = 1;
+            this.__width = width;
+            this.__height = 1;
+            this.__depth = 1;
+            this.__time = 1;
+            this.__batch = 1;
+            //-> Initialize the data storage...
+            if(dtype == torch.dtype.@default)
+            {
+                dtype = torch.default_dtype;
+            }
+            this.dtype = dtype;
+            this.requires_grad = requires_grad;
+            if((requires_grad) && (dtype != torch.dtype.float16) && (dtype != torch.dtype.float32) && (dtype != torch.dtype.float64))
+            {
+                throw new torch.TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
+            }
+            if(requires_grad)
+            {
+                this.__InitializeGrad();
+            }
+            this.__InitializeData();
+        }
+
+        ///<summary>Initializes a tensor of the default data type with the specified dimensions and sets all elements to 0.</summary>
+        ///<param name = "height">The height of the tensor.</param>
+        ///<param name = "width">The width of the tensor.</param>
+        ///<param name = "dtype">Tensor data type.</param>
+        ///<param name = "requires_grad">If autograd should record operations on the returned tensor. Default: false.</param>
+        public Tensor(int height, int width, bool requires_grad = false, torch.dtype dtype = torch.dtype.@default)
+        {
+            //-> Initialize the dimensions...
+            this.__RaiseIfDimensionIsInvalid(width, height, 1, 1, 1);
+            this.__ndim = 2;
+            this.__width = width;
+            this.__height = height;
+            this.__depth = 1;
+            this.__time = 1;
+            this.__batch = 1;
+            //-> Initialize the data storage...
+            if(dtype == torch.dtype.@default)
+            {
+                dtype = torch.default_dtype;
+            }
+            this.dtype = dtype;
+            this.requires_grad = requires_grad;
+            if((requires_grad) && (dtype != torch.dtype.float16) && (dtype != torch.dtype.float32) && (dtype != torch.dtype.float64))
+            {
+                throw new torch.TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
+            }
+            if(requires_grad)
+            {
+                this.__InitializeGrad();
+            }
+            this.__InitializeData();
+        }
+
+        ///<summary>Initializes a tensor of the default data type with the specified dimensions and sets all elements to 0.</summary>
+        ///<param name = "depth">The depth of the tensor.</param>
+        ///<param name = "height">The height of the tensor.</param>
+        ///<param name = "width">The width of the tensor.</param>
+        ///<param name = "dtype">Tensor data type.</param>
+        ///<param name = "requires_grad">If autograd should record operations on the returned tensor. Default: false.</param>
+        public Tensor(int depth, int height, int width, bool requires_grad = false, torch.dtype dtype = torch.dtype.@default)
+        {
+            //-> Initialize the dimensions...
+            this.__RaiseIfDimensionIsInvalid(width, height, depth, 1, 1);
+            this.__ndim = 3;
+            this.__width = width;
+            this.__height = height;
+            this.__depth = depth;
+            this.__time = 1;
+            this.__batch = 1;
+            //-> Initialize the data storage...
+            if(dtype == torch.dtype.@default)
+            {
+                dtype = torch.default_dtype;
+            }
+            this.dtype = dtype;
+            this.requires_grad = requires_grad;
+            if((requires_grad) && (dtype != torch.dtype.float16) && (dtype != torch.dtype.float32) && (dtype != torch.dtype.float64))
+            {
+                throw new torch.TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
+            }
+            if(requires_grad)
+            {
+                this.__InitializeGrad();
+            }
+            this.__InitializeData();
+        }
+
+        ///<summary>Initializes a tensor of the default data type with the specified dimensions and sets all elements to 0.</summary>
+        ///<param name = "time">The number of times in the tensor (video).</param>
+        ///<param name = "depth">The depth of the tensor.</param>
+        ///<param name = "height">The height of the tensor.</param>
+        ///<param name = "width">The width of the tensor.</param>
+        ///<param name = "dtype">Tensor data type.</param>
+        ///<param name = "requires_grad">If autograd should record operations on the returned tensor. Default: false.</param>
+        public Tensor(int time, int depth, int height, int width, bool requires_grad = false, torch.dtype dtype = torch.dtype.@default)
+        {
+            //-> Initialize the dimensions...
+            this.__RaiseIfDimensionIsInvalid(width, height, depth, time, 1);
+            this.__ndim = 4;
+            this.__width = width;
+            this.__height = height;
+            this.__depth = depth;
+            this.__time = time;
+            this.__batch = 1;
+            //-> Initialize the data storage...
+            if(dtype == torch.dtype.@default)
+            {
+                dtype = torch.default_dtype;
+            }
+            this.dtype = dtype;
+            this.requires_grad = requires_grad;
+            if((requires_grad) && (dtype != torch.dtype.float16) && (dtype != torch.dtype.float32) && (dtype != torch.dtype.float64))
+            {
+                throw new torch.TorchException("TorchException: Only Tensors of floating point dtype can require gradients.");
+            }
+            if(requires_grad)
+            {
+                this.__InitializeGrad();
+            }
+            this.__InitializeData();
+        }
+
+        ///<summary>Initializes a tensor of the default data type with the specified dimensions and sets all elements to 0.</summary>
+        ///<param name = "batch">The batch dimension. Highest dimension.</param>
+        ///<param name = "time">The number of times in the tensor (video).</param>
+        ///<param name = "depth">The depth of the tensor.</param>
+        ///<param name = "height">The height of the tensor.</param>
+        ///<param name = "width">The width of the tensor.</param>
+        ///<param name = "dtype">Tensor data type.</param>
+        ///<param name = "requires_grad">If autograd should record operations on the returned tensor. Default: false.</param>
+        public Tensor(int batch, int time, int depth, int height, int width, bool requires_grad = false, torch.dtype dtype = torch.dtype.@default)
         {
             //-> Initialize the dimensions...
             this.__RaiseIfDimensionIsInvalid(width, height, depth, time, batch);
-            this.__ndim = 0;
-            if(width > 1)
-            {
-                this.__ndim = 1;
-            }
-            if(height > 1)
-            {
-                this.__ndim = 2;
-            }
-            if(depth > 1)
-            {
-                this.__ndim = 3;
-            }
-            if(time > 1)
-            {
-                this.__ndim = 4;
-            }
-            if(batch > 1)
-            {
-                this.__ndim = 5;
-            }
+            this.__ndim = 5;
             this.__width = width;
             this.__height = height;
             this.__depth = depth;

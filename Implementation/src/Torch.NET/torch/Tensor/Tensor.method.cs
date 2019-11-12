@@ -665,6 +665,46 @@ public static partial class torch
             }
         }
 
+        ///<summary>Returns the size of the current tensor.</summary>
+        public torch.Size size()
+        {
+            if(this.__ndim == 0)
+            {
+                return new torch.Size();
+            }
+            switch(this.__ndim)
+            {
+                case 0:
+                {
+                    return new torch.Size();
+                }
+                case 1:
+                {
+                    return new torch.Size(this.__width);
+                }
+                case 2:
+                {
+                    return new torch.Size(this.__height, this.__width);
+                }
+                case 3:
+                {
+                    return new torch.Size(this.__depth, this.__height, this.__width);
+                }
+                case 4:
+                {
+                    return new torch.Size(this.__time, this.__depth, this.__height, this.__width);
+                }
+                case 5:
+                {
+                    return new torch.Size(this.__batch, this.__time, this.__depth, this.__height, this.__width);
+                }
+                default:
+                {
+                    throw new torch.TorchException("TorchException: Internal data error.");
+                }
+            }
+        }
+
     }
 
 }

@@ -287,47 +287,6 @@ public static partial class torch
         ///<summary>Batch's dimension. Higher dimension.</summary>
         internal int __batch;
 
-        ///<summary>Returns the size of the current tensor.</summary>
-        public torch.Size size()
-        {
-            if(this.__ndim == 0)
-            {
-                return new torch.Size();
-            }
-            switch(this.__ndim)
-            {
-                case 0:
-                {
-                    return new torch.Size();
-                }
-                case 1:
-                {
-                    return new torch.Size(this.__width);
-                }
-                case 2:
-                {
-                    return new torch.Size(this.__width, this.__height);
-                }
-                case 3:
-                {
-                    return new torch.Size(this.__width, this.__height, this.__depth);
-                }
-                case 4:
-                {
-                    return new torch.Size(this.__width, this.__height, this.__depth, this.__time);
-                }
-                case 5:
-                {
-                    return new torch.Size(this.__width, this.__height, this.__depth, this.__time, this.__batch);
-                }
-                default:
-                {
-                    throw new torch.TorchException("TorchException: Internal data error.");
-                }
-            }
-
-        }
-
     }
 
 }

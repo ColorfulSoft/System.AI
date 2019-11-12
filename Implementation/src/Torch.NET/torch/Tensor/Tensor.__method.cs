@@ -833,7 +833,7 @@ public static partial class torch
                     {
                         if(y > 0)
                         {
-                            result += "              ";
+                            result += "        ";
                         }
                         result += "[";
                         for(int x = 0; x < this.__width; x++)
@@ -857,14 +857,14 @@ public static partial class torch
                     {
                         if(d > 0)
                         {
-                            result += "              ";
+                            result += "        ";
                         } 
                         result += "[";
                         for(int y = 0; y < this.__height; y++)
                         {
                             if(y > 0)
                             {
-                                result += "               ";
+                                result += "         ";
                             }
                             result += "[";
                             for(int x = 0; x < this.__width; x++)
@@ -896,21 +896,21 @@ public static partial class torch
                     {
                         if(n > 0)
                         {
-                            result += "              ";
+                            result += "        ";
                         } 
                         result += "[";
                         for(int d = 0; d < this.__depth; d++)
                         {
                             if(d > 0)
                             {
-                                result += "               ";
+                                result += "         ";
                             } 
                             result += "[";
                             for(int y = 0; y < this.__height; y++)
                             {
                                 if(y > 0)
                                 {
-                                    result += "                ";
+                                    result += "          ";
                                 }
                                 result += "[";
                                 for(int x = 0; x < this.__width; x++)

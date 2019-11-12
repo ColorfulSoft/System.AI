@@ -257,11 +257,16 @@ public static partial class torch
                     }
                 }
             }
-            var result_batch = (_result_shape.Length > 4) ? _result_shape[4] : 1;
-            var result_time = (_result_shape.Length > 3) ? _result_shape[3] : 1;
-            var result_depth = (_result_shape.Length > 2) ? _result_shape[2] : 1;
-            var result_height = (_result_shape.Length > 1) ? _result_shape[1] : 1;
-            var result_width = (_result_shape.Length > 0) ? _result_shape[0] : 1;
+            var __result_shape = new int[_result_shape.Length];
+            for(int i = 0; i < _result_shape.Length; i++)
+            {
+                __result_shape[_result_shape.Length - 1 - i] = _result_shape[i];
+            }
+            var result_batch = (__result_shape.Length > 4) ? __result_shape[4] : 1;
+            var result_time = (__result_shape.Length > 3) ? __result_shape[3] : 1;
+            var result_depth = (__result_shape.Length > 2) ? __result_shape[2] : 1;
+            var result_height = (__result_shape.Length > 1) ? __result_shape[1] : 1;
+            var result_width = (__result_shape.Length > 0) ? __result_shape[0] : 1;
             if(a.dtype != b.dtype)
             {
                 throw new TorchException("TorchException: Tensors must have the same data type.");

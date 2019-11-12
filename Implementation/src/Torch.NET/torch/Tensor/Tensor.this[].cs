@@ -220,7 +220,8 @@ public static partial class torch
                 int minH = (_i[3] == -1) ? 0 : _i[3];
                 int maxW = (_i[4] == -1) ? this.__width : (_i[4] + 1);
                 int minW = (_i[4] == -1) ? 0 : _i[4];
-                var result = new Tensor(maxW - minW, maxH - minH, maxD - minD, maxT - minT, maxB - minB, this.requires_grad, this.dtype);
+                var result = new Tensor(maxB - minB, maxT - minT, maxD - minD, maxH - minH, maxW - minW, this.requires_grad, this.dtype);
+                result.__ndim = (byte)(this.__ndim - i.Length);
                 switch(this.dtype)
                 {
                     case torch.dtype.float16:
