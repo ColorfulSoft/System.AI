@@ -1,5 +1,6 @@
 # Here are the latest news about Torch.NET
 
+* [13.11.2019] Added support for all tensor operations(+, -, *, /).
 * [12.11.2019] **Big update: Added + and * operators for tensors. Tensors are translated to BCHW format(as in PyTorch). Fixed a bug in nn.functional.max_pool2d. torch.tanh method added. Improved printing of tensors. Fixed minor bugs.**
 * [10.11.2019] torch.Tensor.backward(Tensor gradient) have been implemented. torch.nn.functional.conv2d.forward have been optimized.
 * [07.11.2019] Fixed minor bugs. Fixed a bug in the index property setter of the tensor.
