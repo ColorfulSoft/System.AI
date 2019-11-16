@@ -211,6 +211,7 @@
 "src\Torch.NET\torch\nn\'activations'\Tanh.cs"
 "src\Torch.NET\torch\nn\'convolution_layers'\Conv2d.cs"
 "src\Torch.NET\torch\nn\functional\functional.conv2d.cs"
+"src\Torch.NET\torch\nn\functional\functional.dropout.cs"
 "src\Torch.NET\torch\nn\functional\functional.max_pool2d.cs"
 "src\Torch.NET\torch\nn\functional\functional.relu.cs"
 "src\Torch.NET\torch\nn\functional\functional.tanh.cs"
