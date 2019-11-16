@@ -209,6 +209,40 @@ Torch.Tensor([[0, 0],
 This designer supports "dtype" and "requires_grad" positional arguments.
 **Dimensions entered in the torch.Size constructor must be in the WHCB format.**
 
+#### Random initialization from shape
+
+As in PyTorch, you can use random value initialization methods. At the moment, Torch.NET only supports the torch.randn and torch.uniform.
+
+**torch.randn usage exapmle**
+
+```C#
+var t = torch.randn(2, 2, dtype: torch.@double, requires_grad: true);
+Console.WriteLine(t);
+```
+
+Let's look at the written code. First, torch.randn takes the dimensions of the tensor. They can be passed as a sequence of numbers, an array, and a tuple. Next, there are the dtype and requires_grad parameters, which have default values equal to torch.default_dtype(Please note that this method can only work with floating point tensors) and false respectively. If you run the above code, the console will display something like the following:
+
+```
+tensor([[1,19845928947948, -1,44567358515229],
+        [-1,44567358515229, 0,78331244965002]], dtype=double, requires_grad=true)
+```
+
+**torch.uniform usage exapmle**
+
+Overall, torch.uniform initializes the tensor with random values in the interval (min, max).
+
+```C#
+var t = torch.uniform(2, 2, min: -10, max: 10, dtype: torch.@double, requires_grad: true);
+Console.WriteLine(t);
+```
+
+Let's look at the written code. First, torch.randn takes the dimensions of the tensor. They can be passed as a sequence of numbers, an array, and a tuple. In addition, torch.uniform requires you to specify min and max values of type double. Next, there are the dtype and requires_grad parameters, which have default values equal to torch.default_dtype(Please note that this method can only work with floating point tensors) and false respectively. If you run the above code, the console will display something like the following:
+
+```
+tensor([[4,06107173956049, 4,4880979575627],
+        [-6,1454403755001, 4,23170401446135]], dtype=double, requires_grad=true)
+```
+
 
 ## .NET-style tensor creation
 
