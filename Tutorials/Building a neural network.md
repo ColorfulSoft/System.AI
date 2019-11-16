@@ -15,57 +15,26 @@ Your module should inherit torch.nn.Module.
 
 The simplest module can be created using following code:
 
-C#:
-
 ```C#
-using torch;
-using torch.nn;
+using nn = torch.nn;
 
 namespace Example
 {
 
-    public class MyModule : Module
+    public class MyModule : nn.Module
     {
 
-        private ReLU relu; // Module
+        private nn.ReLU relu; // Module
 
-        private Parameter alpha; // Parameter
+        private nn.Parameter alpha; // Parameter
 
         public MyModule()
         {
-            this.relu = new ReLU();
-            this.alpha = new Parameter(1f, true);
+            this.relu = new nn.ReLU();
+            this.alpha = new nn.Parameter(1f, true);
         }
 
     }
 
 }
-```
-
-PascalABC.NET:
-
-```Pascal
-{$Reference 'Release\torch.dll'}
-
-uses System;
-uses torch;
-uses torch.nn;
-
-type MyUnit = class(Module)
-
-  private relu: ReLU; // Module
-
-  private alpha: Parameter; // Parameter
-
-  public constructor();
-  begin
-    self.relu := new torch.nn.ReLU();
-    self.alpha := new Parameter(1.0);
-  end;
-
-end;
-
-begin
-  
-end.
 ```
