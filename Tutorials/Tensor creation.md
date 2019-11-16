@@ -134,7 +134,8 @@ Torch.Tensor([[1, 2, 3],
 
 **Importantly, the input array should be in WHCB format.**
 
-#### From shape
+### From shape
+#### Create a tensor with zeros
 
 Sometimes it is necessary to create an empty tensor of certain sizes. To do this, you can use specialized designers.
 This code creates a 0-dimensional tensor with a default data type.
