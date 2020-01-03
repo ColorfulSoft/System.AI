@@ -11,9 +11,12 @@
 | torch.int32 | Not used in machine learning. |
 | torch.bool | The logical type is usually imitated via uint8, so a separate type is not required.|
 
+Torch.NET - this is a framework with a strict type system that does not allow you to make mistakes.
+
 ## The types available in Torch.NET
 
 | Type | Usage |
+|------|-------|
 | torch.uint8 | Logical operations. |
 | torch.long | The index operations. |
 | torch.float(torch.float32) | Data processing, neural network parameters. |
