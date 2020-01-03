@@ -1,13 +1,13 @@
 # Tensor creation
 ## Usings
 
-Using System namespace for System.Console input/output.
+Using `System` namespace for `System.Console` input/output.
 
 ```C#
 using System;
 ```
 
-Using System.AI namespace to access to Torch.NET framework.
+Using `System.AI` namespace to access to Torch.NET framework.
 
 ```C#
 using System.AI;
@@ -17,7 +17,7 @@ using System.AI;
 ### Creation from a given data
 #### From standard .NET number
 
-The simplest way to create the torch.Tensor is simple conversion from the standard .NET number.
+The simplest way to create the `torch.Tensor` is simple conversion from the standard .NET number.
 
 ```C#
 Single f = 2;
@@ -198,7 +198,7 @@ var t = torch.randn(2, 2, dtype: torch.@float, requires_grad: true);
 Console.WriteLine(t);
 ```
 
-Let's look at the written code. First, torch.randn takes the dimensions of the tensor. They can be passed as a sequence of numbers, an array, and a tuple. Next, there are the dtype and requires_grad parameters, which have default values equal to torch.default_dtype(Please note that this method can only work with floating point tensors) and false respectively. If you run the above code, the console will display something like the following:
+Let's look at the written code. First, torch.randn takes the dimensions of the tensor. They can be passed as a sequence of numbers, an array, and a tuple. Next, there are the `dtype` and `requires_grad` parameters, which have default values equal to `torch.default_dtype` (Please note that this method can only work with floating point tensors) and false respectively. If you run the above code, the console will display something like the following:
 
 ```
 tensor([[1,19845928947948, -1,44567358515229],
@@ -207,14 +207,14 @@ tensor([[1,19845928947948, -1,44567358515229],
 
 **torch.uniform usage exapmle**
 
-Overall, torch.uniform initializes the tensor with random values in the interval (min, max).
+Overall, `torch.uniform` initializes the tensor with random values in the interval (`min`, `max`).
 
 ```C#
 var t = torch.uniform(2, 2, min: -10, max: 10, dtype: torch.@float, requires_grad: true);
 Console.WriteLine(t);
 ```
 
-Let's look at the written code. First, torch.randn takes the dimensions of the tensor. They can be passed as a sequence of numbers, an array, and a tuple. In addition, torch.uniform requires you to specify min and max values of type double. Next, there are the dtype and requires_grad parameters, which have default values equal to torch.default_dtype(Please note that this method can only work with floating point tensors) and false respectively. If you run the above code, the console will display something like the following:
+Let's look at the written code. First, torch.randn takes the dimensions of the tensor. They can be passed as a sequence of numbers, an array, and a tuple. In addition, `torch.uniform` requires you to specify `min` and `max` values of type double. Next, there are the `dtype` and `requires_grad` parameters, which have default values equal to torch.default_dtype(Please note that this method can only work with floating point tensors) and false respectively. If you run the above code, the console will display something like the following:
 
 ```
 tensor([[4,06107173956049, 4,4880979575627],
@@ -252,11 +252,11 @@ tensor(2, dtype=float32, requires_grad=true)
 tensor(4, dtype=uint8)
 ```
 
-Explicit conversion does not support the initialization-time type conversion, i.e. tensor's type always will be equal to input data type. Explicit conversion returns 0-dim tensors. If you convert Single(float) to tensor, the resulting tensor will have a gradient.
+Explicit conversion does not support the initialization-time type conversion, i.e. tensor's type always will be equal to input data type. Explicit conversion returns 0-dim tensors. If you convert `Single`(`float`) to tensor, the resulting tensor will have a gradient.
 
 #### From standard .NET array
 
-Another initialization option is to create tensors from standard .NET arrays. The designers of the torch.Tensor supports one-dimensional and multidimensional arrays of all standard .NET numeric types. For example, let's create the tensor from a 1-dim Half array.
+Another initialization option is to create tensors from standard .NET arrays. The designers of the torch.Tensor supports one-dimensional and multidimensional arrays of all standard .NET numeric types. For example, let's create the tensor from a 1-dim `float` array.
 
 ```C#
 var float_array = new float[]{1.5f, 2.3f, 5f, 3f, -1.2f};
