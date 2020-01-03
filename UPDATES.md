@@ -1,5 +1,6 @@
 # Here are the latest news about Torch.NET
 
+* [03.01.2020] **Big update: Library restructuring. Removed some data types(read more here: https://github.com/ColorfulSoft/Torch.NET/blob/master/Tutorials/Data%20types.md). The index property returns a reference to the tensor, as in PyTorch. Added Tensor.clone() method.**
 * [16.11.2019] nn.functional.dropout, torch.randn and torch.uniform are added.
 * [13.11.2019] Added support for all tensor operations(+, -, *, /).
 * [12.11.2019] **Big update: Added + and * operators for tensors. Tensors are translated to BCHW format(as in PyTorch). Fixed a bug in nn.functional.max_pool2d. torch.tanh method added. Improved printing of tensors. Fixed minor bugs.**
