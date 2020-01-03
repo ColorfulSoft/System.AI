@@ -45,6 +45,7 @@ namespace FirtProgram
 This code will write "Torch.NET ver. 0.3 -> build 03.01.2020" or another version you are using.
 
 ## Tutorials
+* Data types: https://github.com/ColorfulSoft/Torch.NET/blob/master/Tutorials/Data%20types.md
 * Tensor creation: https://github.com/ColorfulSoft/Torch.NET/blob/master/Tutorials/Tensor%20creation.md
 
 More tutorials can be found here: https://github.com/ColorfulSoft/Torch.NET/blob/master/Tutorials
