@@ -23,7 +23,7 @@ Torch.NET - this is a framework with a strict type system that does not allow yo
 
 ## Usage of data types
 
-Data types in Torch.NET - this is a label for tensor initialization methods that allows you to select a specific type of storage within the tensor. The data type is a constant of the torch.dtype enum. You can manually set the `dtype` type as shown in the example.
+Data types in Torch.NET - this is a label for tensor initialization methods that allows you to select a specific type of storage within the tensor. The data type is a constant of the `torch.dtype` enum. You can manually set the `dtype` type as shown in the example.
 
 C#:
 
@@ -32,7 +32,7 @@ var a = torch.zeros(2, 2, dtype: torch.uint8);
 ```
 ## Default data type
 
-As in PyTorch, Torch.NET has a default data type that will be used when creating template tensors (via random number generators, sequences, ones, or zeros). It is initially installed as a torch.float, however, can be changed via calling the `torch.set_default_tensor_type()` method.
+As in PyTorch, Torch.NET has a default data type that will be used when creating template tensors (via random number generators, sequences, ones, or zeros). It is initially installed as a `torch.float`, however, can be changed via calling the `torch.set_default_tensor_type()` method.
 
 C#:
 
@@ -47,3 +47,7 @@ C#:
 ```C#
 Console.WriteLine(torch.default_dtype);
 ```
+
+## Limitations of data types
+
+In Torch.NET there is a strict differentiation of the scope of different types of data. This entails restrictions on the use of certain operations for a particular data type. For example, we can't call a two-dimensional convolution for an integer data type tensor, but we can do it for a floating point data type tensor.
