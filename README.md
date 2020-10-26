@@ -8,6 +8,10 @@ System.AI is a stack of machine learning and data analysis technologies for the 
 
 System.AI is supported by any software and hardware platforms that support the Microsoft .NET Framework or its implementations, such as Microsoft .NET Core, Mono, or Xamarin. The core of the System.AI is written in pure C# and is exclusively managed code.
 
+# Getting started
+
+Detailed instructions for launching on different platforms: https://github.com/ColorfulSoft/System.AI/blob/master/Docs/GettingStarted.md
+
 # Libraries included in the System.AI
 
 |Library            |Status    |Version |
