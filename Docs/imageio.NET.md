@@ -8,6 +8,8 @@
 
 # Sample programs
 
+*Note: Android users need to specify full file paths. The full path usually starts with "/storage/emulated/0/". Only short file names are specified in the examples.*
+
 Generate random noise and save it in png and jpeg with 75 quality.
 
 ```C#
