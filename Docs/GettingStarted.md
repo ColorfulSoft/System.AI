@@ -21,4 +21,6 @@
 5) Find and select System.AI.cspro file in the Implementation folder.
 6) After selecting the file, click "Export assembly (exe)" in the menu tab.
 7) In the window that opens, make sure that "Export assembly (.dll)" is selected and click "Export assembly".
-8) The bin folder with the System.AI.dll file will appear in the Implementation folder of the unpacked repository.
+8) Wait for the compilation to complete.
+9) The bin folder with the System.AI.dll file will appear in the Implementation folder of the unpacked repository.
+10) Reference the Mono binaries of System.AI in the C# project directly on your smartphone!
