@@ -12,9 +12,10 @@
 
 ## On Android
 
-### Using C# Shell (https://play.google.com/store/apps/details?id=com.radinc.csharpshell)
+### Using C# Shell
 
-1) Install C# Shell from Play Market (C# Shell is an offline C# compiler and the Mono runtime for Android), Liminted free version is available
+1) Install C# Shell from Play Market (C# Shell is an offline C# compiler and the Mono runtime for Android), Liminted free version is available.
+1.1)  Official C# Shell release on PlayMarket: https://play.google.com/store/apps/details?id=com.radinc.csharpshell
 2) Download and unpack the System.AI repository to your Android device.
 3) Run C# Shell, click the "Open file/project" button on the menu tab.
 4) In the file manager that opens, go to the unpacked repository.
