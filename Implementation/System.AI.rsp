@@ -1,0 +1,50 @@
+﻿#(C) ColorfulSoft corp., 2020. All rights reserved.
+#The System.AI project
+#This code is available under the Apache-2.0 license.
+
+# Common info
+
+/unsafe
+/optimize
+/warn:0
+/target:library
+/out:"Release\System.AI.dll"
+/doc:"Release\System.AI.xml"
+"src\AssemblyInfo.cs"
+
+# DotnetExtension section
+
+"src\DotnetExtension\ArrayExtension.cs"
+"src\DotnetExtension\StreamExtension.cs"
+
+# imageio section
+
+"src\imageio\StbImageSharp\AnimatedFrameResult.cs"
+"src\imageio\StbImageSharp\ColorComponents.cs"
+"src\imageio\StbImageSharp\CRuntime.cs"
+"src\imageio\StbImageSharp\ImageResult.cs"
+"src\imageio\StbImageSharp\MemoryStats.cs"
+"src\imageio\StbImageSharp\StbImage.cs"
+"src\imageio\StbImageSharp\StbImage.Generated.Bmp.cs"
+"src\imageio\StbImageSharp\StbImage.Generated.Common.cs"
+"src\imageio\StbImageSharp\StbImage.Generated.Gif.cs"
+"src\imageio\StbImageSharp\StbImage.Generated.Jpg.cs"
+"src\imageio\StbImageSharp\StbImage.Generated.Png.cs"
+"src\imageio\StbImageSharp\StbImage.Generated.Psd.cs"
+"src\imageio\StbImageSharp\StbImage.Generated.Tga.cs"
+"src\imageio\StbImageSharp\StbImage.Generated.Zlib.cs"
+
+"src\imageio\StbImageWriteSharp\ColorComponents.cs"
+"src\imageio\StbImageWriteSharp\CRuntime.cs"
+"src\imageio\StbImageWriteSharp\ImageWriter.cs"
+"src\imageio\StbImageWriteSharp\MemoryStats.cs"
+"src\imageio\StbImageWriteSharp\StbImageWrite.cs"
+"src\imageio\StbImageWriteSharp\StbImageWrite.Generated.cs"
+
+"src\imageio\imageio.cs"
+
+
+# System.Half section
+
+"src\System.Half\Half.cs"
+"src\System.Half\HalfHelper.cs"
