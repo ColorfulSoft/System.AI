@@ -41,7 +41,9 @@ namespace imageio1
     }
 }
 ```
+
 Generate mosaic and save to bmp.
+
 ```C#
 using System;
 using System.AI;
@@ -73,7 +75,9 @@ namespace imageio2
     }
 }
 ```
+
 Open a color image 1.jpg, convert to black and white and save as 2.png.
+
 ```C#
 using System;
 using System.AI;
@@ -102,3 +106,11 @@ namespace imageio3
     }
 }
 ```
+
+
+# Third-party codes as part of imageio.NET
+
+As a backend, imageio.NET uses a pure reimplementation of the STB(C language) library for C#. In accordance with the license of the original STB library, as well as those used in imageio.NET StbImageSharp and StbImageWriteSharp codes, the source codes were refactored and included in the library imageio.NET which is an integral part of the System.AI package.
+
+* **StbImageWriteSharp original sources:** https://github.com/StbSharp/StbImageWriteSharp
+* **StbImageSharp original sources:** https://github.com/StbSharp/StbImageSharp
