@@ -35,7 +35,9 @@
 //+src=src/imageio/StbImageWriteSharp/StbImageWrite.cs
 //+src=src/imageio/StbImageWriteSharp/StbImageWrite.Generated.cs
 
+//+src=src/imageio/__Warnings.cs
 //+src=src/imageio/imageio.cs
+//+src=src/imageio/ImageIOException.cs
 
 // System.Half section
 

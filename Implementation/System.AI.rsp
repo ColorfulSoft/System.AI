@@ -41,7 +41,9 @@
 "src\imageio\StbImageWriteSharp\StbImageWrite.cs"
 "src\imageio\StbImageWriteSharp\StbImageWrite.Generated.cs"
 
+"src\imageio\__Warnings.cs"
 "src\imageio\imageio.cs"
+"src\imageio\ImageIOException.cs"
 
 
 # System.Half section
