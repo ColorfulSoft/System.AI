@@ -5,6 +5,7 @@
 
 using System;
 using System.IO;
+using System.Collections.Generic;
 
 namespace System
 {
@@ -15,18 +16,49 @@ namespace System
         public static partial class imageio
         {
 
+            public static bool warnings_are_enabled
+            {
+                get;
+                set;
+            }
+
+            static imageio()
+            {
+                warnings_are_enabled = true;
+            }
+
             public static string __version__
             {
 
                 get
                 {
-                    return "0.1";
+                    return "1.0";
                 }
 
             }
 
-            public static void imwrite(string uri, byte[,,] im, string format = null, params object[] kwargs)
+            public static void imwrite(Stream s, Array im, string format = "jpg", params object[] kwargs)
             {
+                if(s == null)
+                {
+                    throw new ArgumentException("Null value is not valid for output stream s.");
+                }
+                if(!s.CanWrite)
+                {
+                    throw new ArgumentException("Stream s is not writable");
+                }
+                if(im == null)
+                {
+                    throw new ArgumentException("Null value is not valid for pixel array im.");
+                }
+                if(im.Rank != 3)
+                {
+                    throw new ImageIOException("The pixel array im is not three-dimensional.");
+                }
+                if(im.GetLength(2) != 3)
+                {
+                    throw new ImageIOException("Image should have 3 channels. Pixel array im have " + im.GetLength(2).ToString() + " channels (WHC data format).");
+                }
                 int quality = 80;
                 bool quality_trigger = false;
                 if(kwargs.Length == 1)
@@ -73,13 +105,480 @@ namespace System
                     }
                     if(!quality_trigger)
                     {
-                        throw new Exception("The first optional argument is quality and it should be integer value.");
+                        throw new ImageIOException("The first optional argument is quality and it should be integer value.");
                     }
                 }
                 if((quality > 100) || (quality < 0))
                 {
                     throw new ArgumentException("The first optional argument is quality and it should be in [0..100] range.");
                 }
+                var data = new byte[im.Length];
+                var width = im.GetLength(0);
+                var height = im.GetLength(1);
+                if(im.GetType() == typeof(byte[,,]))
+                {
+                    var im_ = im as byte[,,];
+                    var n = 0;
+                    for(int i = 0; i < height; i++)
+                    {
+                        for(int j = 0; j < width; j++)
+                        {
+                             data[n * 3] = im_[j, i, 0];
+                             data[n * 3 + 1] = im_[j, i, 1];
+                             data[n * 3 + 2] = im_[j, i, 2];
+                             n += 1;
+                        }
+                    }
+                }
+                if(im.GetType() == typeof(sbyte[,,]))
+                {
+                    float max = sbyte.MinValue;
+                    float min = sbyte.MaxValue;
+                    var im_ = im as sbyte[,,];
+                    foreach(var v in im_)
+                    {
+                        if(max < v)
+                        {
+                            max = v;
+                        }
+                        if(min > v)
+                        {
+                            min = v;
+                        }
+                    }
+                    __Warnings.warn("Lossy conversion from int8 to uint8. Range [" + min.ToString() + ", " + max.ToString() + "]. Convert image to uint8 prior to saving to suppress this warning.", true);
+                    var n = 0;
+                    for(int i = 0; i < height; i++)
+                    {
+                        for(int j = 0; j < width; j++)
+                        {
+                            unchecked
+                            {
+                                var p = (im_[j, i, 0] - min) / (max - min) * 255;
+                                p = (p < 0) ? 0 : p;
+                                p = (p > 255) ? 255 : p;
+                                data[n * 3] = (byte)p;
+                                p = (im_[j, i, 1] - min) / (max - min) * 255;
+                                p = (p < 0) ? 0 : p;
+                                p = (p > 255) ? 255 : p;
+                                data[n * 3 + 1] = (byte)p;
+                                p = (im_[j, i, 2] - min) / (max - min) * 255;
+                                p = (p < 0) ? 0 : p;
+                                p = (p > 255) ? 255 : p;
+                                data[n * 3 + 2] = (byte)p;
+                            }
+                            n += 1;
+                        }
+                    }
+                }
+                if(im.GetType() == typeof(short[,,]))
+                {
+                    float max = short.MinValue;
+                    float min = short.MaxValue;
+                    var im_ = im as short[,,];
+                    foreach(var v in im_)
+                    {
+                        if(max < v)
+                        {
+                            max = v;
+                        }
+                        if(min > v)
+                        {
+                            min = v;
+                        }
+                    }
+                    __Warnings.warn("Lossy conversion from int16 to uint8. Range [" + min.ToString() + ", " + max.ToString() + "]. Convert image to uint8 prior to saving to suppress this warning.", true);
+                    var n = 0;
+                    for(int i = 0; i < height; i++)
+                    {
+                        for(int j = 0; j < width; j++)
+                        {
+                            unchecked
+                            {
+                                var p = (im_[j, i, 0] - min) / (max - min) * 255;
+                                p = (p < 0) ? 0 : p;
+                                p = (p > 255) ? 255 : p;
+                                data[n * 3] = (byte)p;
+                                p = (im_[j, i, 1] - min) / (max - min) * 255;
+                                p = (p < 0) ? 0 : p;
+                                p = (p > 255) ? 255 : p;
+                                data[n * 3 + 1] = (byte)p;
+                                p = (im_[j, i, 2] - min) / (max - min) * 255;
+                                p = (p < 0) ? 0 : p;
+                                p = (p > 255) ? 255 : p;
+                                data[n * 3 + 2] = (byte)p;
+                            }
+                            n += 1;
+                        }
+                    }
+                }
+                if(im.GetType() == typeof(ushort[,,]))
+                {
+                    float max = ushort.MinValue;
+                    float min = ushort.MaxValue;
+                    var im_ = im as ushort[,,];
+                    foreach(var v in im_)
+                    {
+                        if(max < v)
+                        {
+                            max = v;
+                        }
+                        if(min > v)
+                        {
+                            min = v;
+                        }
+                    }
+                    __Warnings.warn("Lossy conversion from uint16 to uint8. Range [" + min.ToString() + ", " + max.ToString() + "]. Convert image to uint8 prior to saving to suppress this warning.", true);
+                    var n = 0;
+                    for(int i = 0; i < height; i++)
+                    {
+                        for(int j = 0; j < width; j++)
+                        {
+                            unchecked
+                            {
+                                var p = (im_[j, i, 0] - min) / (max - min) * 255;
+                                p = (p < 0) ? 0 : p;
+                                p = (p > 255) ? 255 : p;
+                                data[n * 3] = (byte)p;
+                                p = (im_[j, i, 1] - min) / (max - min) * 255;
+                                p = (p < 0) ? 0 : p;
+                                p = (p > 255) ? 255 : p;
+                                data[n * 3 + 1] = (byte)p;
+                                p = (im_[j, i, 2] - min) / (max - min) * 255;
+                                p = (p < 0) ? 0 : p;
+                                p = (p > 255) ? 255 : p;
+                                data[n * 3 + 2] = (byte)p;
+                            }
+                            n += 1;
+                        }
+                    }
+                }
+                if(im.GetType() == typeof(int[,,]))
+                {
+                    double max = int.MinValue;
+                    double min = int.MaxValue;
+                    var im_ = im as int[,,];
+                    foreach(var v in im_)
+                    {
+                        if(max < v)
+                        {
+                            max = v;
+                        }
+                        if(min > v)
+                        {
+                            min = v;
+                        }
+                    }
+                    __Warnings.warn("Lossy conversion from int32 to uint8. Range [" + min.ToString() + ", " + max.ToString() + "]. Convert image to uint8 prior to saving to suppress this warning.", true);
+                    var n = 0;
+                    for(int i = 0; i < height; i++)
+                    {
+                        for(int j = 0; j < width; j++)
+                        {
+                            unchecked
+                            {
+                                var p = (im_[j, i, 0] - min) / (max - min) * 255;
+                                p = (p < 0) ? 0 : p;
+                                p = (p > 255) ? 255 : p;
+                                data[n * 3] = (byte)p;
+                                p = (im_[j, i, 1] - min) / (max - min) * 255;
+                                p = (p < 0) ? 0 : p;
+                                p = (p > 255) ? 255 : p;
+                                data[n * 3 + 1] = (byte)p;
+                                p = (im_[j, i, 2] - min) / (max - min) * 255;
+                                p = (p < 0) ? 0 : p;
+                                p = (p > 255) ? 255 : p;
+                                data[n * 3 + 2] = (byte)p;
+                            }
+                            n += 1;
+                        }
+                    }
+                }
+                if(im.GetType() == typeof(uint[,,]))
+                {
+                    double max = uint.MinValue;
+                    double min = uint.MaxValue;
+                    var im_ = im as uint[,,];
+                    foreach(var v in im_)
+                    {
+                        if(max < v)
+                        {
+                            max = v;
+                        }
+                        if(min > v)
+                        {
+                            min = v;
+                        }
+                    }
+                    __Warnings.warn("Lossy conversion from uint32 to uint8. Range [" + min.ToString() + ", " + max.ToString() + "]. Convert image to uint8 prior to saving to suppress this warning.", true);
+                    var n = 0;
+                    for(int i = 0; i < height; i++)
+                    {
+                        for(int j = 0; j < width; j++)
+                        {
+                            unchecked
+                            {
+                                var p = (im_[j, i, 0] - min) / (max - min) * 255;
+                                p = (p < 0) ? 0 : p;
+                                p = (p > 255) ? 255 : p;
+                                data[n * 3] = (byte)p;
+                                p = (im_[j, i, 1] - min) / (max - min) * 255;
+                                p = (p < 0) ? 0 : p;
+                                p = (p > 255) ? 255 : p;
+                                data[n * 3 + 1] = (byte)p;
+                                p = (im_[j, i, 2] - min) / (max - min) * 255;
+                                p = (p < 0) ? 0 : p;
+                                p = (p > 255) ? 255 : p;
+                                data[n * 3 + 2] = (byte)p;
+                            }
+                            n += 1;
+                        }
+                    }
+                }
+                if(im.GetType() == typeof(long[,,]))
+                {
+                    double max = long.MinValue;
+                    double min = long.MaxValue;
+                    var im_ = im as long[,,];
+                    foreach(var v in im_)
+                    {
+                        if(max < v)
+                        {
+                            max = v;
+                        }
+                        if(min > v)
+                        {
+                            min = v;
+                        }
+                    }
+                    __Warnings.warn("Lossy conversion from int64 to uint8. Range [" + min.ToString() + ", " + max.ToString() + "]. Convert image to uint8 prior to saving to suppress this warning.", true);
+                    var n = 0;
+                    for(int i = 0; i < height; i++)
+                    {
+                        for(int j = 0; j < width; j++)
+                        {
+                            unchecked
+                            {
+                                var p = (im_[j, i, 0] - min) / (max - min) * 255;
+                                p = (p < 0) ? 0 : p;
+                                p = (p > 255) ? 255 : p;
+                                data[n * 3] = (byte)p;
+                                p = (im_[j, i, 1] - min) / (max - min) * 255;
+                                p = (p < 0) ? 0 : p;
+                                p = (p > 255) ? 255 : p;
+                                data[n * 3 + 1] = (byte)p;
+                                p = (im_[j, i, 2] - min) / (max - min) * 255;
+                                p = (p < 0) ? 0 : p;
+                                p = (p > 255) ? 255 : p;
+                                data[n * 3 + 2] = (byte)p;
+                            }
+                            n += 1;
+                        }
+                    }
+                }
+                if(im.GetType() == typeof(ulong[,,]))
+                {
+                    double max = ulong.MinValue;
+                    double min = ulong.MaxValue;
+                    var im_ = im as ulong[,,];
+                    foreach(var v in im_)
+                    {
+                        if(max < v)
+                        {
+                            max = v;
+                        }
+                        if(min > v)
+                        {
+                            min = v;
+                        }
+                    }
+                    __Warnings.warn("Lossy conversion from uint64 to uint8. Range [" + min.ToString() + ", " + max.ToString() + "]. Convert image to uint8 prior to saving to suppress this warning.", true);
+                    var n = 0;
+                    for(int i = 0; i < height; i++)
+                    {
+                        for(int j = 0; j < width; j++)
+                        {
+                            unchecked
+                            {
+                                var p = (im_[j, i, 0] - min) / (max - min) * 255;
+                                p = (p < 0) ? 0 : p;
+                                p = (p > 255) ? 255 : p;
+                                data[n * 3] = (byte)p;
+                                p = (im_[j, i, 1] - min) / (max - min) * 255;
+                                p = (p < 0) ? 0 : p;
+                                p = (p > 255) ? 255 : p;
+                                data[n * 3 + 1] = (byte)p;
+                                p = (im_[j, i, 2] - min) / (max - min) * 255;
+                                p = (p < 0) ? 0 : p;
+                                p = (p > 255) ? 255 : p;
+                                data[n * 3 + 2] = (byte)p;
+                            }
+                            n += 1;
+                        }
+                    }
+                }
+                if(im.GetType() == typeof(Half[,,]))
+                {
+                    float max = Half.MinValue;
+                    float min = Half.MaxValue;
+                    var im_ = im as Half[,,];
+                    foreach(var v in im_)
+                    {
+                        if(max < v)
+                        {
+                            max = v;
+                        }
+                        if(min > v)
+                        {
+                            min = v;
+                        }
+                    }
+                    __Warnings.warn("Lossy conversion from float16 to uint8. Range [" + min.ToString() + ", " + max.ToString() + "]. Convert image to uint8 prior to saving to suppress this warning.", true);
+                    var n = 0;
+                    for(int i = 0; i < height; i++)
+                    {
+                        for(int j = 0; j < width; j++)
+                        {
+                            unchecked
+                            {
+                                var p = (im_[j, i, 0] - min) / (max - min) * 255;
+                                p = (p < 0) ? 0 : p;
+                                p = (p > 255) ? 255 : p;
+                                data[n * 3] = (byte)p;
+                                p = (im_[j, i, 1] - min) / (max - min) * 255;
+                                p = (p < 0) ? 0 : p;
+                                p = (p > 255) ? 255 : p;
+                                data[n * 3 + 1] = (byte)p;
+                                p = (im_[j, i, 2] - min) / (max - min) * 255;
+                                p = (p < 0) ? 0 : p;
+                                p = (p > 255) ? 255 : p;
+                                data[n * 3 + 2] = (byte)p;
+                            }
+                            n += 1;
+                        }
+                    }
+                }
+                if(im.GetType() == typeof(float[,,]))
+                {
+                    float max = float.MinValue;
+                    float min = float.MaxValue;
+                    var im_ = im as float[,,];
+                    foreach(var v in im_)
+                    {
+                        if(max < v)
+                        {
+                            max = v;
+                        }
+                        if(min > v)
+                        {
+                            min = v;
+                        }
+                    }
+                    __Warnings.warn("Lossy conversion from float32 to uint8. Range [" + min.ToString() + ", " + max.ToString() + "]. Convert image to uint8 prior to saving to suppress this warning.", true);
+                    var n = 0;
+                    for(int i = 0; i < height; i++)
+                    {
+                        for(int j = 0; j < width; j++)
+                        {
+                            unchecked
+                            {
+                                var p = (im_[j, i, 0] - min) / (max - min) * 255;
+                                p = (p < 0) ? 0 : p;
+                                p = (p > 255) ? 255 : p;
+                                data[n * 3] = (byte)p;
+                                p = (im_[j, i, 1] - min) / (max - min) * 255;
+                                p = (p < 0) ? 0 : p;
+                                p = (p > 255) ? 255 : p;
+                                data[n * 3 + 1] = (byte)p;
+                                p = (im_[j, i, 2] - min) / (max - min) * 255;
+                                p = (p < 0) ? 0 : p;
+                                p = (p > 255) ? 255 : p;
+                                data[n * 3 + 2] = (byte)p;
+                            }
+                            n += 1;
+                        }
+                    }
+                }
+                if(im.GetType() == typeof(double[,,]))
+                {
+                    double max = double.MinValue;
+                    double min = double.MaxValue;
+                    var im_ = im as double[,,];
+                    foreach(var v in im_)
+                    {
+                        if(max < v)
+                        {
+                            max = v;
+                        }
+                        if(min > v)
+                        {
+                            min = v;
+                        }
+                    }
+                    __Warnings.warn("Lossy conversion from float64 to uint8. Range [" + min.ToString() + ", " + max.ToString() + "]. Convert image to uint8 prior to saving to suppress this warning.", true);
+                    var n = 0;
+                    for(int i = 0; i < height; i++)
+                    {
+                        for(int j = 0; j < width; j++)
+                        {
+                            unchecked
+                            {
+                                var p = (im_[j, i, 0] - min) / (max - min) * 255;
+                                p = (p < 0) ? 0 : p;
+                                p = (p > 255) ? 255 : p;
+                                data[n * 3] = (byte)p;
+                                p = (im_[j, i, 1] - min) / (max - min) * 255;
+                                p = (p < 0) ? 0 : p;
+                                p = (p > 255) ? 255 : p;
+                                data[n * 3 + 1] = (byte)p;
+                                p = (im_[j, i, 2] - min) / (max - min) * 255;
+                                p = (p < 0) ? 0 : p;
+                                p = (p > 255) ? 255 : p;
+                                data[n * 3 + 2] = (byte)p;
+                            }
+                            n += 1;
+                        }
+                    }
+                }
+                switch(format.ToLower())
+                {
+                    case "jpg":
+                    case "jpe":
+                    case "jpeg":
+                    case "jfif":
+                    {
+                        new StbImageWriteSharp.ImageWriter().WriteJpg(data, width, height, StbImageWriteSharp.ColorComponents.RedGreenBlue, s, quality);
+                        return;
+                    }
+                    case "png":
+                    {
+                        new StbImageWriteSharp.ImageWriter().WritePng(data, width, height, StbImageWriteSharp.ColorComponents.RedGreenBlue, s);
+                        return;
+                    }
+                    case "hdr":
+                    {
+                        new StbImageWriteSharp.ImageWriter().WriteHdr(data, width, height, StbImageWriteSharp.ColorComponents.RedGreenBlue, s);
+                        return;
+                    }
+                    case "tga":
+                    {
+                        new StbImageWriteSharp.ImageWriter().WriteTga(data, width, height, StbImageWriteSharp.ColorComponents.RedGreenBlue, s);
+                        return;
+                    }
+                    case "bmp":
+                    {
+                        new StbImageWriteSharp.ImageWriter().WriteBmp(data, width, height, StbImageWriteSharp.ColorComponents.RedGreenBlue, s);
+                        return;
+                    }
+                    default:
+                    {
+                        throw new ImageIOException("Invalid image format.");
+                    }
+                }
+            }
+
+            public static void imwrite(string uri, Array im, string format = null, params object[] kwargs)
+            {
                 if(format == null)
                 {
                     var probe = uri.ToLower();
@@ -104,68 +603,22 @@ namespace System
                         format = "tga";
                     }
                 }
-                var data = new byte[im.Length];
-                var n = 0;
-                var width = im.GetLength(0);
-                var height = im.GetLength(1);
-                for(int i = 0; i < height; i++)
+                if(format == null)
                 {
-                    for(int j = 0; j < width; j++)
-                    {
-                         data[n * 3] = im[j, i, 0];
-                         data[n * 3 + 1] = im[j, i, 1];
-                         data[n * 3 + 2] = im[j, i, 2];
-                         n += 1;
-                    }
+                    throw new ImageIOException("Couldn't determine the image format to save. Specify the required format explicitly using the format parameter.");
                 }
-                switch(format.ToLower())
-                {
-                    case "jpg":
-                    case "jpe":
-                    case "jpeg":
-                    case "jfif":
-                    {
-                        var img = File.Create(uri);
-                        new StbImageWriteSharp.ImageWriter().WriteJpg(data, width, height, StbImageWriteSharp.ColorComponents.RedGreenBlue, img, quality);
-                        img.Close();
-                        return;
-                    }
-                    case "png":
-                    {
-                        var img = File.Create(uri);
-                        new StbImageWriteSharp.ImageWriter().WritePng(data, width, height, StbImageWriteSharp.ColorComponents.RedGreenBlue, img);
-                        img.Close();
-                        return;
-                    }
-                    case "hdr":
-                    {
-                        var img = File.Create(uri);
-                        new StbImageWriteSharp.ImageWriter().WriteHdr(data, width, height, StbImageWriteSharp.ColorComponents.RedGreenBlue, img);
-                        img.Close();
-                        return;
-                    }
-                    case "tga":
-                    {
-                        var img = File.Create(uri);
-                        new StbImageWriteSharp.ImageWriter().WriteTga(data, width, height, StbImageWriteSharp.ColorComponents.RedGreenBlue, img);
-                        img.Close();
-                        return;
-                    }
-                    case "bmp":
-                    {
-                        var img = File.Create(uri);
-                        new StbImageWriteSharp.ImageWriter().WriteBmp(data, width, height, StbImageWriteSharp.ColorComponents.RedGreenBlue, img);
-                        img.Close();
-                        return;
-                    }
-                }
+                var img = File.Create(uri);
+                imwrite(img, im, format, kwargs);
+                img.Close();
             }
 
-            public static byte[,,] imread(string uri)
+            public static byte[,,] imread(Stream s)
             {
-                var fs = File.OpenRead(uri);
-                var inf = StbImageSharp.ImageResult.FromStream(fs, StbImageSharp.ColorComponents.RedGreenBlue);
-                fs.Close();
+                if(s == null)
+                {
+                    throw new ArgumentException("The null value is invalid for the s parameter.");
+                }
+                var inf = StbImageSharp.ImageResult.FromStream(s, StbImageSharp.ColorComponents.RedGreenBlue);
                 var data = new byte[inf.Width, inf.Height, 3];
                 var n = 0;
                 for(int i = 0; i < inf.Height; i++)
@@ -179,6 +632,14 @@ namespace System
                     }
                 }
                 return data;
+            }
+
+            public static byte[,,] imread(string uri)
+            {
+                var fs = File.OpenRead(uri);
+                var img = imread(fs);
+                fs.Close();
+                return img;
             }
 
             public static void show_formats()
