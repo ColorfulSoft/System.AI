@@ -13,7 +13,7 @@ namespace System
     namespace AI
     {
 
-        public static partial class imageio
+        public static unsafe partial class imageio
         {
 
             public static bool warnings_are_enabled
@@ -32,7 +32,7 @@ namespace System
 
                 get
                 {
-                    return "1.0";
+                    return "1.1";
                 }
 
             }
@@ -113,20 +113,19 @@ namespace System
                     throw new ArgumentException("The first optional argument is quality and it should be in [0..100] range.");
                 }
                 var data = new byte[im.Length];
-                var width = im.GetLength(0);
-                var height = im.GetLength(1);
+                var width = im.GetLength(1);
+                var height = im.GetLength(0);
                 if(im.GetType() == typeof(byte[,,]))
                 {
                     var im_ = im as byte[,,];
-                    var n = 0;
-                    for(int i = 0; i < height; i++)
+                    fixed(byte* pdata = im_)
                     {
-                        for(int j = 0; j < width; j++)
+                        for(int i = 0; i < data.Length; i++)
                         {
-                             data[n * 3] = im_[j, i, 0];
-                             data[n * 3 + 1] = im_[j, i, 1];
-                             data[n * 3 + 2] = im_[j, i, 2];
-                             n += 1;
+                            unchecked
+                            {
+                                data[i] = pdata[i];
+                            }
                         }
                     }
                 }
@@ -147,27 +146,17 @@ namespace System
                         }
                     }
                     __Warnings.warn("Lossy conversion from int8 to uint8. Range [" + min.ToString() + ", " + max.ToString() + "]. Convert image to uint8 prior to saving to suppress this warning.", true);
-                    var n = 0;
-                    for(int i = 0; i < height; i++)
+                    fixed(sbyte* pdata = im_)
                     {
-                        for(int j = 0; j < width; j++)
+                        for(int i = 0; i < data.Length; i++)
                         {
                             unchecked
                             {
-                                var p = (im_[j, i, 0] - min) / (max - min) * 255;
+                                var p = (pdata[i] - min) / (max - min) * 255;
                                 p = (p < 0) ? 0 : p;
                                 p = (p > 255) ? 255 : p;
-                                data[n * 3] = (byte)p;
-                                p = (im_[j, i, 1] - min) / (max - min) * 255;
-                                p = (p < 0) ? 0 : p;
-                                p = (p > 255) ? 255 : p;
-                                data[n * 3 + 1] = (byte)p;
-                                p = (im_[j, i, 2] - min) / (max - min) * 255;
-                                p = (p < 0) ? 0 : p;
-                                p = (p > 255) ? 255 : p;
-                                data[n * 3 + 2] = (byte)p;
+                                data[i] = (byte)p;
                             }
-                            n += 1;
                         }
                     }
                 }
@@ -188,27 +177,17 @@ namespace System
                         }
                     }
                     __Warnings.warn("Lossy conversion from int16 to uint8. Range [" + min.ToString() + ", " + max.ToString() + "]. Convert image to uint8 prior to saving to suppress this warning.", true);
-                    var n = 0;
-                    for(int i = 0; i < height; i++)
+                    fixed(short* pdata = im_)
                     {
-                        for(int j = 0; j < width; j++)
+                        for(int i = 0; i < data.Length; i++)
                         {
                             unchecked
                             {
-                                var p = (im_[j, i, 0] - min) / (max - min) * 255;
+                                var p = (pdata[i] - min) / (max - min) * 255;
                                 p = (p < 0) ? 0 : p;
                                 p = (p > 255) ? 255 : p;
-                                data[n * 3] = (byte)p;
-                                p = (im_[j, i, 1] - min) / (max - min) * 255;
-                                p = (p < 0) ? 0 : p;
-                                p = (p > 255) ? 255 : p;
-                                data[n * 3 + 1] = (byte)p;
-                                p = (im_[j, i, 2] - min) / (max - min) * 255;
-                                p = (p < 0) ? 0 : p;
-                                p = (p > 255) ? 255 : p;
-                                data[n * 3 + 2] = (byte)p;
+                                data[i] = (byte)p;
                             }
-                            n += 1;
                         }
                     }
                 }
@@ -229,27 +208,17 @@ namespace System
                         }
                     }
                     __Warnings.warn("Lossy conversion from uint16 to uint8. Range [" + min.ToString() + ", " + max.ToString() + "]. Convert image to uint8 prior to saving to suppress this warning.", true);
-                    var n = 0;
-                    for(int i = 0; i < height; i++)
+                    fixed(ushort* pdata = im_)
                     {
-                        for(int j = 0; j < width; j++)
+                        for(int i = 0; i < data.Length; i++)
                         {
                             unchecked
                             {
-                                var p = (im_[j, i, 0] - min) / (max - min) * 255;
+                                var p = (pdata[i] - min) / (max - min) * 255;
                                 p = (p < 0) ? 0 : p;
                                 p = (p > 255) ? 255 : p;
-                                data[n * 3] = (byte)p;
-                                p = (im_[j, i, 1] - min) / (max - min) * 255;
-                                p = (p < 0) ? 0 : p;
-                                p = (p > 255) ? 255 : p;
-                                data[n * 3 + 1] = (byte)p;
-                                p = (im_[j, i, 2] - min) / (max - min) * 255;
-                                p = (p < 0) ? 0 : p;
-                                p = (p > 255) ? 255 : p;
-                                data[n * 3 + 2] = (byte)p;
+                                data[i] = (byte)p;
                             }
-                            n += 1;
                         }
                     }
                 }
@@ -270,27 +239,17 @@ namespace System
                         }
                     }
                     __Warnings.warn("Lossy conversion from int32 to uint8. Range [" + min.ToString() + ", " + max.ToString() + "]. Convert image to uint8 prior to saving to suppress this warning.", true);
-                    var n = 0;
-                    for(int i = 0; i < height; i++)
+                    fixed(int* pdata = im_)
                     {
-                        for(int j = 0; j < width; j++)
+                        for(int i = 0; i < data.Length; i++)
                         {
                             unchecked
                             {
-                                var p = (im_[j, i, 0] - min) / (max - min) * 255;
+                                var p = (pdata[i] - min) / (max - min) * 255;
                                 p = (p < 0) ? 0 : p;
                                 p = (p > 255) ? 255 : p;
-                                data[n * 3] = (byte)p;
-                                p = (im_[j, i, 1] - min) / (max - min) * 255;
-                                p = (p < 0) ? 0 : p;
-                                p = (p > 255) ? 255 : p;
-                                data[n * 3 + 1] = (byte)p;
-                                p = (im_[j, i, 2] - min) / (max - min) * 255;
-                                p = (p < 0) ? 0 : p;
-                                p = (p > 255) ? 255 : p;
-                                data[n * 3 + 2] = (byte)p;
+                                data[i] = (byte)p;
                             }
-                            n += 1;
                         }
                     }
                 }
@@ -311,27 +270,17 @@ namespace System
                         }
                     }
                     __Warnings.warn("Lossy conversion from uint32 to uint8. Range [" + min.ToString() + ", " + max.ToString() + "]. Convert image to uint8 prior to saving to suppress this warning.", true);
-                    var n = 0;
-                    for(int i = 0; i < height; i++)
+                    fixed(uint* pdata = im_)
                     {
-                        for(int j = 0; j < width; j++)
+                        for(int i = 0; i < data.Length; i++)
                         {
                             unchecked
                             {
-                                var p = (im_[j, i, 0] - min) / (max - min) * 255;
+                                var p = (pdata[i] - min) / (max - min) * 255;
                                 p = (p < 0) ? 0 : p;
                                 p = (p > 255) ? 255 : p;
-                                data[n * 3] = (byte)p;
-                                p = (im_[j, i, 1] - min) / (max - min) * 255;
-                                p = (p < 0) ? 0 : p;
-                                p = (p > 255) ? 255 : p;
-                                data[n * 3 + 1] = (byte)p;
-                                p = (im_[j, i, 2] - min) / (max - min) * 255;
-                                p = (p < 0) ? 0 : p;
-                                p = (p > 255) ? 255 : p;
-                                data[n * 3 + 2] = (byte)p;
+                                data[i] = (byte)p;
                             }
-                            n += 1;
                         }
                     }
                 }
@@ -352,27 +301,17 @@ namespace System
                         }
                     }
                     __Warnings.warn("Lossy conversion from int64 to uint8. Range [" + min.ToString() + ", " + max.ToString() + "]. Convert image to uint8 prior to saving to suppress this warning.", true);
-                    var n = 0;
-                    for(int i = 0; i < height; i++)
+                    fixed(long* pdata = im_)
                     {
-                        for(int j = 0; j < width; j++)
+                        for(int i = 0; i < data.Length; i++)
                         {
                             unchecked
                             {
-                                var p = (im_[j, i, 0] - min) / (max - min) * 255;
+                                var p = (pdata[i] - min) / (max - min) * 255;
                                 p = (p < 0) ? 0 : p;
                                 p = (p > 255) ? 255 : p;
-                                data[n * 3] = (byte)p;
-                                p = (im_[j, i, 1] - min) / (max - min) * 255;
-                                p = (p < 0) ? 0 : p;
-                                p = (p > 255) ? 255 : p;
-                                data[n * 3 + 1] = (byte)p;
-                                p = (im_[j, i, 2] - min) / (max - min) * 255;
-                                p = (p < 0) ? 0 : p;
-                                p = (p > 255) ? 255 : p;
-                                data[n * 3 + 2] = (byte)p;
+                                data[i] = (byte)p;
                             }
-                            n += 1;
                         }
                     }
                 }
@@ -393,27 +332,17 @@ namespace System
                         }
                     }
                     __Warnings.warn("Lossy conversion from uint64 to uint8. Range [" + min.ToString() + ", " + max.ToString() + "]. Convert image to uint8 prior to saving to suppress this warning.", true);
-                    var n = 0;
-                    for(int i = 0; i < height; i++)
+                    fixed(ulong* pdata = im_)
                     {
-                        for(int j = 0; j < width; j++)
+                        for(int i = 0; i < data.Length; i++)
                         {
                             unchecked
                             {
-                                var p = (im_[j, i, 0] - min) / (max - min) * 255;
+                                var p = (pdata[i] - min) / (max - min) * 255;
                                 p = (p < 0) ? 0 : p;
                                 p = (p > 255) ? 255 : p;
-                                data[n * 3] = (byte)p;
-                                p = (im_[j, i, 1] - min) / (max - min) * 255;
-                                p = (p < 0) ? 0 : p;
-                                p = (p > 255) ? 255 : p;
-                                data[n * 3 + 1] = (byte)p;
-                                p = (im_[j, i, 2] - min) / (max - min) * 255;
-                                p = (p < 0) ? 0 : p;
-                                p = (p > 255) ? 255 : p;
-                                data[n * 3 + 2] = (byte)p;
+                                data[i] = (byte)p;
                             }
-                            n += 1;
                         }
                     }
                 }
@@ -434,27 +363,17 @@ namespace System
                         }
                     }
                     __Warnings.warn("Lossy conversion from float16 to uint8. Range [" + min.ToString() + ", " + max.ToString() + "]. Convert image to uint8 prior to saving to suppress this warning.", true);
-                    var n = 0;
-                    for(int i = 0; i < height; i++)
+                    fixed(Half* pdata = im_)
                     {
-                        for(int j = 0; j < width; j++)
+                        for(int i = 0; i < data.Length; i++)
                         {
                             unchecked
                             {
-                                var p = (im_[j, i, 0] - min) / (max - min) * 255;
+                                var p = (pdata[i] - min) / (max - min) * 255;
                                 p = (p < 0) ? 0 : p;
                                 p = (p > 255) ? 255 : p;
-                                data[n * 3] = (byte)p;
-                                p = (im_[j, i, 1] - min) / (max - min) * 255;
-                                p = (p < 0) ? 0 : p;
-                                p = (p > 255) ? 255 : p;
-                                data[n * 3 + 1] = (byte)p;
-                                p = (im_[j, i, 2] - min) / (max - min) * 255;
-                                p = (p < 0) ? 0 : p;
-                                p = (p > 255) ? 255 : p;
-                                data[n * 3 + 2] = (byte)p;
+                                data[i] = (byte)p;
                             }
-                            n += 1;
                         }
                     }
                 }
@@ -475,27 +394,17 @@ namespace System
                         }
                     }
                     __Warnings.warn("Lossy conversion from float32 to uint8. Range [" + min.ToString() + ", " + max.ToString() + "]. Convert image to uint8 prior to saving to suppress this warning.", true);
-                    var n = 0;
-                    for(int i = 0; i < height; i++)
+                    fixed(float* pdata = im_)
                     {
-                        for(int j = 0; j < width; j++)
+                        for(int i = 0; i < data.Length; i++)
                         {
                             unchecked
                             {
-                                var p = (im_[j, i, 0] - min) / (max - min) * 255;
+                                var p = (pdata[i] - min) / (max - min) * 255;
                                 p = (p < 0) ? 0 : p;
                                 p = (p > 255) ? 255 : p;
-                                data[n * 3] = (byte)p;
-                                p = (im_[j, i, 1] - min) / (max - min) * 255;
-                                p = (p < 0) ? 0 : p;
-                                p = (p > 255) ? 255 : p;
-                                data[n * 3 + 1] = (byte)p;
-                                p = (im_[j, i, 2] - min) / (max - min) * 255;
-                                p = (p < 0) ? 0 : p;
-                                p = (p > 255) ? 255 : p;
-                                data[n * 3 + 2] = (byte)p;
+                                data[i] = (byte)p;
                             }
-                            n += 1;
                         }
                     }
                 }
@@ -516,27 +425,17 @@ namespace System
                         }
                     }
                     __Warnings.warn("Lossy conversion from float64 to uint8. Range [" + min.ToString() + ", " + max.ToString() + "]. Convert image to uint8 prior to saving to suppress this warning.", true);
-                    var n = 0;
-                    for(int i = 0; i < height; i++)
+                    fixed(double* pdata = im_)
                     {
-                        for(int j = 0; j < width; j++)
+                        for(int i = 0; i < data.Length; i++)
                         {
                             unchecked
                             {
-                                var p = (im_[j, i, 0] - min) / (max - min) * 255;
+                                var p = (pdata[i] - min) / (max - min) * 255;
                                 p = (p < 0) ? 0 : p;
                                 p = (p > 255) ? 255 : p;
-                                data[n * 3] = (byte)p;
-                                p = (im_[j, i, 1] - min) / (max - min) * 255;
-                                p = (p < 0) ? 0 : p;
-                                p = (p > 255) ? 255 : p;
-                                data[n * 3 + 1] = (byte)p;
-                                p = (im_[j, i, 2] - min) / (max - min) * 255;
-                                p = (p < 0) ? 0 : p;
-                                p = (p > 255) ? 255 : p;
-                                data[n * 3 + 2] = (byte)p;
+                                data[i] = (byte)p;
                             }
-                            n += 1;
                         }
                     }
                 }
@@ -619,16 +518,13 @@ namespace System
                     throw new ArgumentException("The null value is invalid for the s parameter.");
                 }
                 var inf = StbImageSharp.ImageResult.FromStream(s, StbImageSharp.ColorComponents.RedGreenBlue);
-                var data = new byte[inf.Width, inf.Height, 3];
-                var n = 0;
-                for(int i = 0; i < inf.Height; i++)
+                var data = new byte[inf.Height, inf.Width, 3];
+                var idata = inf.Data;
+                fixed(byte* pdata = data)
                 {
-                    for(int j = 0; j < inf.Width; j++)
+                    for(int i = 0; i < idata.Length; i++)
                     {
-                         data[j, i, 0] = inf.Data[n * 3];
-                         data[j, i, 1] = inf.Data[n * 3 + 1];
-                         data[j, i, 2] = inf.Data[n * 3 + 2];
-                         n += 1;
+                        pdata[i] = idata[i];
                     }
                 }
                 return data;
