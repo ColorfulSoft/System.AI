@@ -1,6 +1,6 @@
 # API reference
 
-* **imageio.imread(string uri) -> byte[,,]** - Reads an image from a file at the specified path uri. *Returns:* 3-d standard byte array with pixels in WHC RGB format.
+* **imageio.imread(string uri) -> byte[,,]** - Reads an image from a file at the specified path uri. *Returns:* 3-d standard byte array with pixels in HWC RGB format.
 * **imageio.imwrite(string uri, byte[,,] im, string format = null, params object[] kwargs) -> void** - Writes an image to a file at the specified path in the specified format.
 * **imageio.__version__ -> string** - *Returns:* current imageio version as string.
 * **imageio.show_formats() -> void** - Outputs supported image formats to the console.
@@ -28,9 +28,9 @@ namespace imageio1
             {
                 for(int x = 0; x < 512; x++)
                 {
-                    img[x, y, 0] = (byte)rand.Next(0, 255);
-                    img[x, y, 1] = (byte)rand.Next(0, 255);
-                    img[x, y, 2] = (byte)rand.Next(0, 255);
+                    img[y, x, 0] = (byte)rand.Next(0, 255);
+                    img[y, x, 1] = (byte)rand.Next(0, 255);
+                    img[y, x, 2] = (byte)rand.Next(0, 255);
                 }
             }
             imageio.imwrite("Noise.png", img);
@@ -62,9 +62,9 @@ namespace imageio2
                 {
                     unchecked
                     {
-                        img[x, y, 0] = (byte)((2 * x - y) % 255);
-                        img[x, y, 1] = (byte)((x - 3 * y) % 255);
-                        img[x, y, 2] = (byte)((x + y) % 255);
+                        img[y, x, 0] = (byte)((2 * x - y) % 255);
+                        img[y, x, 1] = (byte)((x - 3 * y) % 255);
+                        img[y, x, 2] = (byte)((x + y) % 255);
                     }
                 }
             }
@@ -89,14 +89,14 @@ namespace imageio3
         public static void Main(string[] args)
         {
             var img = imageio.imread("1.jpg");
-            for(int y = 0; y < 512; y++)
+            for(int y = 0; y < img.GetLength(0); y++)
             {
-                for(int x = 0; x < 512; x++)
+                for(int x = 0; x < img.GetLength(1); x++)
                 {
-                    var grayscale = (byte)((img[x, y, 0] + img[x, y, 1] + img[x, y, 2]) / 3);
-                    img[x, y, 0] = grayscale;
-                    img[x, y, 1] = grayscale;
-                    img[x, y, 2] = grayscale;
+                    var grayscale = (byte)((img[y, x, 0] + img[y, x, 1] + img[y, x, 2]) / 3);
+                    img[y, x, 0] = grayscale;
+                    img[y, x, 1] = grayscale;
+                    img[y, x, 2] = grayscale;
                 }
             }
             imageio.imwrite("2.png", img);
