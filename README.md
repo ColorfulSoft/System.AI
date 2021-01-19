@@ -16,7 +16,7 @@ Detailed instructions for launching on different platforms: https://github.com/C
 
 |Library            |Status    |Version |
 |:-----------------:|:--------:|:------:|
-|imageio.NET        |**stable**|1.0     |
+|imageio.NET        |**stable**|1.1     |
 |System.Half        |**ready** |1.0     |
 |DotnetExtension    |**stable**|0.1     |
 |Torch.NET          |**dev**   |0.1     |
@@ -29,4 +29,5 @@ Detailed instructions for launching on different platforms: https://github.com/C
 
 # Update history
 
+* **[19.01.2021]** The new version of ***ImageIO.NET*** library is ready to use! _In the new version:_ data format has been changed to HWC, as in imageio for Python, performance of `imageio.imread` and `imageio.imwrite` has been improved.
 * **[27.10.2020]** The new version of ***ImageIO.NET*** library is ready to use! Arrays of all standard numeric types are now supported for images. Also, ImageIO.NET now  supports reading and writing images from / to the stream.
