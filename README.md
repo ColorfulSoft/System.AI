@@ -14,20 +14,25 @@ Detailed instructions for launching on different platforms: https://github.com/C
 
 # Libraries included in the System.AI
 
-|Library            |Status    |Version |
-|:-----------------:|:--------:|:------:|
-|imageio.NET        |**stable**|1.1     |
-|System.Half        |**ready** |1.0     |
-|DotnetExtension    |**stable**|0.1     |
-|Torch.NET          |**dev**   |0.1     |
+|Library            |Status     |Version |
+|:-----------------:|:----------:|:------:|
+|DotnetExtension    |**stable**  |0.1     |
+|MKL*               |**dev/prev**|0.1     |
+|PyType.NET         |**stable**  |1.0     |
+|System.Half        |**ready**   |1.0     |
+|Imageio.NET        |**stable**  |1.1     |
+|Torch.NET          |**dev/prev**|0.1     |
+*_MKL from System.AI is **not associated** with the Intel ® Math Kernel Library. This is also the Math Kernel Library but is a development of ColorfulSoft specifically for System.AI._
 
 # The status of libraries in the System.AI
 
 * **ready** - Development is complete. The library is ready to use. Expansion of the functionality is not planned(but not excluded).
 * **stable** - Stable version, ready to use.
 * **dev** - Development is underway, and the code will be added soon.
+* **prev** - The code is posted for informational purposes and is currently not ready for use in production.
 
 # Update history
 
+* **[06.02.2021]** The code of ***Torch.NET*** and ***MKL*** is placed __for demonstration purposes__ in the form in which they are at this stage of development. Added the ***PyType.NET*** library.
 * **[19.01.2021]** The new version of ***ImageIO.NET*** library is ready to use! _In the new version:_ data format has been changed to HWC, as in imageio for Python, performance of `imageio.imread` and `imageio.imwrite` has been improved.
 * **[27.10.2020]** The new version of ***ImageIO.NET*** library is ready to use! Arrays of all standard numeric types are now supported for images. Also, ImageIO.NET now  supports reading and writing images from / to the stream.
