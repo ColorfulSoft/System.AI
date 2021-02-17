@@ -1,9 +1,9 @@
 # API reference
 
-* **imageio.imread(string uri) -> byte[,,]** - Reads an image from a file at the specified path uri. *Returns:* 3-d standard byte array with pixels in HWC RGB format.
-* **imageio.imwrite(string uri, byte[,,] im, string format = null, params object[] kwargs) -> void** - Writes an image to a file at the specified path in the specified format.
-* **imageio.__version__ -> string** - *Returns:* current imageio version as string.
-* **imageio.show_formats() -> void** - Outputs supported image formats to the console.
+* *static method* **imageio.imread(string uri) -> byte[,,]** - Reads an image from a file at the specified path uri. *Returns:* 3-d standard byte array with pixels in HWC RGB format.
+* *static method* **imageio.imwrite(string uri, byte[,,] im, string format = null, params object[] kwargs) -> void** - Writes an image to a file at the specified path in the specified format.
+* *static readonly property* **imageio.__version__ -> string** - *Returns:* current imageio version as string.
+* *static method* **imageio.show_formats() -> void** - Outputs supported image formats to the console.
 
 
 # Sample programs
