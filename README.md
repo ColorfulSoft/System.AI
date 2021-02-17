@@ -23,7 +23,7 @@ Detailed instructions for launching on different platforms: https://github.com/C
 |Imageio.NET        |**stable**  |1.1     |
 |Torch.NET          |**dev/prev**|0.1     |
 
-*_MKL from System.AI is **not associated** with the Intel ® Math Kernel Library. This is also the Math Kernel Library but is a development of ColorfulSoft specifically for System.AI._
+\* _MKL from System.AI is **not associated** with the Intel ® Math Kernel Library. This is also the Math Kernel Library but is a development of ColorfulSoft specifically for System.AI._
 
 # The status of libraries in the System.AI
 
