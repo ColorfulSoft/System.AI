@@ -62,7 +62,7 @@ namespace System
                                     for(int fy = 0; fy < kernel_height; fy++)
                                     {
                                         var iy = iy_ + fy * dilation_y;
-                                        if((ix >= x_height) || (ix < 0))
+                                        if((iy >= x_height) || (iy < 0))
                                         {
                                             continue;
                                         }
@@ -124,7 +124,7 @@ namespace System
                                     for(int fy = 0; fy < kernel_height; fy++)
                                     {
                                         var iy = iy_ + fy * dilation_y;
-                                        if((ix >= x_height) || (ix < 0))
+                                        if((iy >= x_height) || (iy < 0))
                                         {
                                             continue;
                                         }
@@ -186,7 +186,7 @@ namespace System
                                     for(int fy = 0; fy < kernel_height; fy++)
                                     {
                                         var iy = iy_ + fy * dilation_y;
-                                        if((ix >= x_height) || (ix < 0))
+                                        if((iy >= x_height) || (iy < 0))
                                         {
                                             continue;
                                         }
@@ -248,7 +248,7 @@ namespace System
                                     for(int fy = 0; fy < kernel_height; fy++)
                                     {
                                         var iy = iy_ + fy * dilation_y;
-                                        if((ix >= x_height) || (ix < 0))
+                                        if((iy >= x_height) || (iy < 0))
                                         {
                                             continue;
                                         }
@@ -310,7 +310,7 @@ namespace System
                                     for(int fy = 0; fy < kernel_height; fy++)
                                     {
                                         var iy = iy_ + fy * dilation_y;
-                                        if((ix >= x_height) || (ix < 0))
+                                        if((iy >= x_height) || (iy < 0))
                                         {
                                             continue;
                                         }
@@ -372,7 +372,7 @@ namespace System
                                     for(int fy = 0; fy < kernel_height; fy++)
                                     {
                                         var iy = iy_ + fy * dilation_y;
-                                        if((ix >= x_height) || (ix < 0))
+                                        if((iy >= x_height) || (iy < 0))
                                         {
                                             continue;
                                         }
@@ -434,7 +434,7 @@ namespace System
                                     for(int fy = 0; fy < kernel_height; fy++)
                                     {
                                         var iy = iy_ + fy * dilation_y;
-                                        if((ix >= x_height) || (ix < 0))
+                                        if((iy >= x_height) || (iy < 0))
                                         {
                                             continue;
                                         }
@@ -496,7 +496,7 @@ namespace System
                                     for(int fy = 0; fy < kernel_height; fy++)
                                     {
                                         var iy = iy_ + fy * dilation_y;
-                                        if((ix >= x_height) || (ix < 0))
+                                        if((iy >= x_height) || (iy < 0))
                                         {
                                             continue;
                                         }
