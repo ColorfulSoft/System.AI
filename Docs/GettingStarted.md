@@ -25,3 +25,9 @@
 8) Wait for the compilation to complete.
 9) The bin folder with the System.AI.dll file will appear in the Implementation folder of the unpacked repository.
 10) Reference the Mono binaries of System.AI in the C# project directly on your smartphone!
+
+## On Google Colab
+
+[![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ColorfulSoft/System.AI/blob/master/Docs/System.AI.ipynb)
+
+Follow the instructions from ipynb to install mono on Google Colab, compile System.AI from source code and run AI projects directly on the server.
