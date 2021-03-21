@@ -1,4 +1,9 @@
-﻿using System;
+﻿//***************************************************************************************************
+//* (C) ColorfulSoft corp., 2019 - 2021. All rights reserved.
+//* The code is available under the Apache-2.0 license. Read the License for details.
+//***************************************************************************************************
+
+using System;
 
 namespace System
 {

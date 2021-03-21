@@ -1,9 +1,9 @@
 ﻿//***************************************************************************************************
-//* (C) ColorfulSoft corp., 2019. All rights reserved.
+//* (C) ColorfulSoft corp., 2019 - 2021. All rights reserved.
 //* The code is available under the Apache-2.0 license. Read the License for details.
 //***************************************************************************************************
 
-//-> Latest commit: Brykin Gleb, 22.08.2020.
+//-> Latest commit: Brykin Gleb, 21.03.2021.
 
 using System;
 using System.Reflection;
@@ -172,9 +172,10 @@ namespace System
                     {
                         var result = new Dictionary<string, Tensor>();
                         var @params = this.parameters();
+                        var pad = this.GetType().Name.Length + 1;
                         for(int i = 0; i < @params.Count; i++)
                         {
-                            result.Add(@params[i].__name, @params[i].data);
+                            result.Add(@params[i].__name.Substring(pad), @params[i].data);
                         }
                         return result;
                     }
