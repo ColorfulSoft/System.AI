@@ -217,7 +217,7 @@ namespace System
                         }
                     }
 
-                    public Tensor forward(Tensor x)
+                    public virtual Tensor forward(Tensor x)
                     {
                         throw new NotImplementedException("Forward pass through the abstract module is not implemented.");
                     }

@@ -25,7 +25,7 @@ namespace System
                         this.p = p;
                     }
 
-                    public Tensor forward(Tensor x)
+                    public override Tensor forward(Tensor x)
                     {
                         return functional.dropout(x, this.p);
                     }

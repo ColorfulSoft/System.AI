@@ -15,7 +15,7 @@ namespace System
             public static partial class nn
             {
 
-                public sealed class MaxPool2d : Module
+                public sealed class AvgPool2d : Module
                 {
 
                     public Union<int, Tuple<int, int>> kernel_size;
@@ -26,7 +26,7 @@ namespace System
 
                     public Union<int, Tuple<int, int>> dilation;
 
-                    public MaxPool2d(Union<int, Tuple<int, int>> kernel_size, Union<int, Tuple<int, int>> stride = null, Union<int, Tuple<int, int>> padding = null, Union<int, Tuple<int, int>> dilation = null)
+                    public AvgPool2d(Union<int, Tuple<int, int>> kernel_size, Union<int, Tuple<int, int>> stride = null, Union<int, Tuple<int, int>> padding = null, Union<int, Tuple<int, int>> dilation = null)
                     {
                         this.kernel_size = kernel_size;
                         if(stride == null)
@@ -57,7 +57,7 @@ namespace System
 
                     public override Tensor forward(Tensor x)
                     {
-                        return functional.max_pool2d(x, this.kernel_size, this.stride, this.padding, this.dilation);
+                        return functional.avg_pool2d(x, this.kernel_size, this.stride, this.padding, this.dilation);
                     }
 
                 }

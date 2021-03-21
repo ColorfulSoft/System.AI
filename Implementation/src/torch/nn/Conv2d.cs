@@ -124,7 +124,7 @@ namespace System
                         }
                     }
 
-                    public Tensor forward(Tensor x)
+                    public override Tensor forward(Tensor x)
                     {
                         return functional.conv2d(x, this.weight, this.bias, this.stride, this.padding, this.dilation, this.groups);
                     }

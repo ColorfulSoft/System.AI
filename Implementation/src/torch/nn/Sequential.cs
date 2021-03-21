@@ -40,6 +40,18 @@ namespace System
                         }
                     }
 
+                    public Module this[int i]
+                    {
+                        get
+                        {
+                            return this.__modules[i];
+                        }
+                        set
+                        {
+                            this.__modules[i] = value;
+                        }
+                    }
+
                     private string __format_print(string s, int tab)
                     {
                         s += "Sequential(";
