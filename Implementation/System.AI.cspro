@@ -135,7 +135,7 @@
 //+src=src/System.Half/Half.cs
 //+src=src/System.Half/HalfHelper.cs
 
-# torch section
+// torch section
 
 //+src=src/torch/autograd/grad_mode/no_grad.cs
 //+src=src/torch/autograd/autograd.cs
