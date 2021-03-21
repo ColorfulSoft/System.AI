@@ -141,7 +141,9 @@
 //+src=src/torch/autograd/grad_mode/no_grad.cs
 //+src=src/torch/autograd/autograd.cs
 //+src=src/torch/nn/Conv2d.cs
+//+src=src/torch/nn/Dropout.cs
 //+src=src/torch/nn/functional.cs
+//+src=src/torch/nn/MaxPool2d.cs
 //+src=src/torch/nn/Module.cs
 //+src=src/torch/nn/Parameter.cs
 //+src=src/torch/nn/ReLU.cs
