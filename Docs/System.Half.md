@@ -102,3 +102,36 @@
 * *IConvertible method* **Half.ToUInt16(IFormatProvider provider) -> ushort**
 * *IConvertible method* **Half.ToUInt32(IFormatProvider provider) -> uint**
 * *IConvertible method* **Half.ToUInt64(IFormatProvider provider) -> ulong**
+
+# Sample programs
+
+Adding two Half numbers.
+
+```C#
+using System;
+
+namespace HalfExample
+{
+
+    public static class Program
+    {
+
+        public static void Main()
+        {
+            Console.Write("a = ");
+            var a = Half.Parse(Console.ReadLine());
+            Console.Write("b = ");
+            var b = Half.Parse(Console.ReadLine());
+            Console.WriteLine("a + b = " + (a + b).ToString());
+            Console.ReadKey(true);
+        }
+
+    }
+
+}
+```
+
+# Third-party codes as part of System.Half
+
+System.Half is a fully third-party code. Original source: https://sourceforge.net/projects/csharp-half/
+In accordance with the license of the original System.Half code, the source code was refactored and included in the System.AI stack as an integral part.
