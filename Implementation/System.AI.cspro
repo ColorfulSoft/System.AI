@@ -82,6 +82,7 @@
 //+src=src/MKL/Ops/Forward/Asin.cs
 //+src=src/MKL/Ops/Forward/Atan.cs
 //+src=src/MKL/Ops/Forward/BitwiseNot.cs
+//+src=src/MKL/Ops/Forward/Cat.cs
 //+src=src/MKL/Ops/Forward/Ceil.cs
 //+src=src/MKL/Ops/Forward/Clamp.cs
 //+src=src/MKL/Ops/Forward/Conv2d.cs

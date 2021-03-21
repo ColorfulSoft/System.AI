@@ -91,6 +91,7 @@
 "src\MKL\Ops\Forward\Asin.cs"
 "src\MKL\Ops\Forward\Atan.cs"
 "src\MKL\Ops\Forward\BitwiseNot.cs"
+"src\MKL\Ops\Forward\Cat.cs"
 "src\MKL\Ops\Forward\Ceil.cs"
 "src\MKL\Ops\Forward\Clamp.cs"
 "src\MKL\Ops\Forward\Conv2d.cs"
