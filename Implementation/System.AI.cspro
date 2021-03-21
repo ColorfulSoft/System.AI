@@ -58,6 +58,7 @@
 //+src=src/MKL/Ops/Backward/dAcos.cs
 //+src=src/MKL/Ops/Backward/dAsin.cs
 //+src=src/MKL/Ops/Backward/dAtan.cs
+//+src=src/MKL/Ops/Backward/dAvgPool2d.cs
 //+src=src/MKL/Ops/Backward/dClamp.cs
 //+src=src/MKL/Ops/Backward/dCos.cs
 //+src=src/MKL/Ops/Backward/dCosh.cs
@@ -81,6 +82,7 @@
 //+src=src/MKL/Ops/Forward/Acos.cs
 //+src=src/MKL/Ops/Forward/Asin.cs
 //+src=src/MKL/Ops/Forward/Atan.cs
+//+src=src/MKL/Ops/Forward/AvgPool2d.cs
 //+src=src/MKL/Ops/Forward/BitwiseNot.cs
 //+src=src/MKL/Ops/Forward/Cat.cs
 //+src=src/MKL/Ops/Forward/Ceil.cs
@@ -140,6 +142,7 @@
 
 //+src=src/torch/autograd/grad_mode/no_grad.cs
 //+src=src/torch/autograd/autograd.cs
+//+src=src/torch/nn/AvgPool2d.cs
 //+src=src/torch/nn/Conv2d.cs
 //+src=src/torch/nn/Dropout.cs
 //+src=src/torch/nn/functional.cs

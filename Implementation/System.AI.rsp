@@ -67,6 +67,7 @@
 "src\MKL\Ops\Backward\dAcos.cs"
 "src\MKL\Ops\Backward\dAsin.cs"
 "src\MKL\Ops\Backward\dAtan.cs"
+"src\MKL\Ops\Backward\dAvgPool2d.cs"
 "src\MKL\Ops\Backward\dClamp.cs"
 "src\MKL\Ops\Backward\dCos.cs"
 "src\MKL\Ops\Backward\dCosh.cs"
@@ -90,6 +91,7 @@
 "src\MKL\Ops\Forward\Acos.cs"
 "src\MKL\Ops\Forward\Asin.cs"
 "src\MKL\Ops\Forward\Atan.cs"
+"src\MKL\Ops\Forward\AvgPool2d.cs"
 "src\MKL\Ops\Forward\BitwiseNot.cs"
 "src\MKL\Ops\Forward\Cat.cs"
 "src\MKL\Ops\Forward\Ceil.cs"
@@ -151,6 +153,7 @@
 
 "src\torch\autograd\grad_mode\no_grad.cs"
 "src\torch\autograd\autograd.cs"
+"src\torch\nn\AvgPool2d.cs"
 "src\torch\nn\Conv2d.cs"
 "src\torch\nn\Dropout.cs"
 "src\torch\nn\functional.cs"
