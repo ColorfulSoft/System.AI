@@ -1,5 +1,5 @@
 ﻿//***************************************************************************************************
-//* (C) ColorfulSoft corp., 2020. All rights reserved.
+//* (C) ColorfulSoft corp., 2020 - 2021. All rights reserved.
 //* The code is available under the Apache-2.0 license. Read the License for details.
 //***************************************************************************************************
 
@@ -17,6 +17,91 @@ namespace System
         {
 
             #region Indexing, Slicing, Joining, Mutating Ops
+
+            public static Tensor flatten(this Tensor x, int start_dim = 0, int end_dim = -1)
+            {
+                if(end_dim < 0)
+                {
+                    end_dim = x.__shape.Length + end_dim;
+                }
+                var shape = new int[x.__shape.Length - (end_dim - start_dim)];
+                for(int i = 0; i < start_dim; i++)
+                {
+                    shape[i] = x.__shape[i];
+                }
+                var n = 1;
+                for(int i = start_dim; i <= end_dim; i++)
+                {
+                    n *= x.__shape[i];
+                }
+                shape[start_dim] = n;
+                for(int i = end_dim + 1; i < x.__shape.Length; i++)
+                {
+                    shape[i - end_dim + start_dim] = x.__shape[i];
+                }
+                var y = new Tensor(shape);
+                y.dtype = x.dtype;
+                y.__half = x.__half;
+                y.__float = x.__float;
+                y.__double = x.__double;
+                y.__int8 = x.__int8;
+                y.__uint8 = x.__uint8;
+                y.__int16 = x.__int16;
+                y.__int32 = x.__int32;
+                y.__int64 = x.__int64;
+                y.__bool = x.__bool;
+                y.requires_grad = x.requires_grad;
+                if(y.requires_grad)
+                {
+                    y.grad = x.grad.flatten(start_dim, end_dim);
+                    y.__backward_fn = () =>
+                    {
+                        if((y.grad.__half != x.grad.__half) ||
+                           (y.grad.__float != x.grad.__float) ||
+                           (y.grad.__double != x.grad.__double))
+                        {
+                            switch(x.dtype)
+                            {
+                                case torch.float16:
+                                {
+                                    var dy = y.grad.__half;
+                                    var dx = x.grad.__half;
+                                    for(int i = 0; i < dy.Length; i++)
+                                    {
+                                        dx[i] += dy[i];
+                                    }
+                                    break;
+                                }
+                                case torch.float32:
+                                {
+                                    var dy = y.grad.__float;
+                                    var dx = x.grad.__float;
+                                    for(int i = 0; i < dy.Length; i++)
+                                    {
+                                        dx[i] += dy[i];
+                                    }
+                                    break;
+                                }
+                                case torch.float64:
+                                {
+                                    var dy = y.grad.__double;
+                                    var dx = x.grad.__double;
+                                    for(int i = 0; i < dy.Length; i++)
+                                    {
+                                        dx[i] += dy[i];
+                                    }
+                                    break;
+                                }
+                            }
+                        }
+                        if(x.__backward_fn != null)
+                        {
+                            x.__backward_fn();
+                        }
+                    };
+                }
+                return y;
+            }
 
             public static bool is_floating_point(this DType dtype)
             {
