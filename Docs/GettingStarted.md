@@ -4,6 +4,8 @@
 
 ### Using Microsoft .NET Framework, w/o IDE
 
+* **Requires .NET 4.5 and higer. Windows 7(recommended) and higer. Windows XP is not officially supported.**
+
 1) Download and unpack the System.AI repository.
 2) Go to Implementation folder.
 3) Run Compile.bat file.
