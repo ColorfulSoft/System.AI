@@ -3,7 +3,7 @@
 //* The code is available under the Apache-2.0 license. Read the License for details.
 //***************************************************************************************************
 
-//-> Latest commit: Brykin Gleb, 20.01.2021
+//-> Latest commit: Brykin Gleb, 22.03.2021
 
 using System;
 using System.Threading;
@@ -36,7 +36,7 @@ namespace System
                         {
                             for(int oy = 0; oy < y_height; oy++)
                             {
-                                var i = ((oy * y_width + ox) * y_channel + c) * y_batch + b;
+                                var i = ((c * y_batch + b) * y_height + oy) * y_width + ox;
                                 dx[indices[i]] += dy[i];
                             }
                         }
@@ -59,7 +59,7 @@ namespace System
                         {
                             for(int oy = 0; oy < y_height; oy++)
                             {
-                                var i = ((oy * y_width + ox) * y_channel + c) * y_batch + b;
+                                var i = ((c * y_batch + b) * y_height + oy) * y_width + ox;
                                 dx[indices[i]] += dy[i];
                             }
                         }
@@ -82,7 +82,7 @@ namespace System
                         {
                             for(int oy = 0; oy < y_height; oy++)
                             {
-                                var i = ((oy * y_width + ox) * y_channel + c) * y_batch + b;
+                                var i = ((c * y_batch + b) * y_height + oy) * y_width + ox;
                                 dx[indices[i]] += dy[i];
                             }
                         }

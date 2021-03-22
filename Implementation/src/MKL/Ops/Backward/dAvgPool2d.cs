@@ -3,7 +3,7 @@
 //* The code is available under the Apache-2.0 license. Read the License for details.
 //***************************************************************************************************
 
-//-> Latest commit: Brykin Gleb, 21.03.2021
+//-> Latest commit: Brykin Gleb, 22.03.2021
 
 using System;
 using System.Threading;
@@ -51,7 +51,7 @@ namespace System
                             for(int oy = 0; oy < y_height; oy++)
                             {
                                 var iy_ = oy * stride_y - padding_y;
-                                Half grad = dy[((oy * y_width + ox) * y_channel + c) * y_batch + b] / norm;
+                                Half grad = dy[((c * y_batch + b) * y_height + oy) * y_width + ox] / norm;
                                 for(int fx = 0; fx < kernel_width; fx++)
                                 {
                                     var ix = ix_ + fx * dilation_x;
@@ -66,7 +66,7 @@ namespace System
                                         {
                                             continue;
                                         }
-                                        dx[((iy * x_width + ix) * x_channel + c) * x_batch + b] += grad;
+                                        dx[((c * x_batch + b) * x_height + iy) * x_width + ix] += grad;
                                     }
                                 }
                             }
@@ -105,7 +105,7 @@ namespace System
                             for(int oy = 0; oy < y_height; oy++)
                             {
                                 var iy_ = oy * stride_y - padding_y;
-                                float grad = dy[((oy * y_width + ox) * y_channel + c) * y_batch + b] / norm;
+                                float grad = dy[((c * y_batch + b) * y_height + oy) * y_width + ox] / norm;
                                 for(int fx = 0; fx < kernel_width; fx++)
                                 {
                                     var ix = ix_ + fx * dilation_x;
@@ -120,7 +120,7 @@ namespace System
                                         {
                                             continue;
                                         }
-                                        dx[((iy * x_width + ix) * x_channel + c) * x_batch + b] += grad;
+                                        dx[((c * x_batch + b) * x_height + iy) * x_width + ix] += grad;
                                     }
                                 }
                             }
@@ -159,7 +159,7 @@ namespace System
                             for(int oy = 0; oy < y_height; oy++)
                             {
                                 var iy_ = oy * stride_y - padding_y;
-                                double grad = dy[((oy * y_width + ox) * y_channel + c) * y_batch + b] / norm;
+                                double grad = dy[((c * y_batch + b) * y_height + oy) * y_width + ox] / norm;
                                 for(int fx = 0; fx < kernel_width; fx++)
                                 {
                                     var ix = ix_ + fx * dilation_x;
@@ -174,7 +174,7 @@ namespace System
                                         {
                                             continue;
                                         }
-                                        dx[((iy * x_width + ix) * x_channel + c) * x_batch + b] += grad;
+                                        dx[((c * x_batch + b) * x_height + iy) * x_width + ix] += grad;
                                     }
                                 }
                             }
