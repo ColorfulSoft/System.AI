@@ -3,7 +3,7 @@
 //* The code is available under the Apache-2.0 license. Read the License for details.
 //***************************************************************************************************
 
-//-> Latest commit: Brykin Gleb, 20.01.2021
+//-> Latest commit: Brykin Gleb, 22.01.2021
 
 using System;
 using System.Threading;
@@ -66,7 +66,7 @@ namespace System
                                         {
                                             continue;
                                         }
-                                        var i = ((iy * x_width + ix) * x_channel + c) * x_batch + b;
+                                        var i = ((c * x_batch + b) * x_height + iy) * x_width + ix;
                                         var v = x[i];
                                         if(v > max)
                                         {
@@ -75,8 +75,9 @@ namespace System
                                         }
                                     }
                                 }
-                                y[((oy * y_width + ox) * y_channel + c) * y_batch + b] = max;
-                                indices[((oy * y_width + ox) * y_channel + c) * y_batch + b] = max_i;
+                                var index = ((c * y_batch + b) * y_height + oy) * y_width + ox;
+                                y[index] = max;
+                                indices[index] = max_i;
                             }
                         }
                     });
@@ -128,7 +129,7 @@ namespace System
                                         {
                                             continue;
                                         }
-                                        var i = ((iy * x_width + ix) * x_channel + c) * x_batch + b;
+                                        var i = ((c * x_batch + b) * x_height + iy) * x_width + ix;
                                         var v = x[i];
                                         if(v > max)
                                         {
@@ -137,8 +138,9 @@ namespace System
                                         }
                                     }
                                 }
-                                y[((oy * y_width + ox) * y_channel + c) * y_batch + b] = max;
-                                indices[((oy * y_width + ox) * y_channel + c) * y_batch + b] = max_i;
+                                var index = ((c * y_batch + b) * y_height + oy) * y_width + ox;
+                                y[index] = max;
+                                indices[index] = max_i;
                             }
                         }
                     });
@@ -190,7 +192,7 @@ namespace System
                                         {
                                             continue;
                                         }
-                                        var i = ((iy * x_width + ix) * x_channel + c) * x_batch + b;
+                                        var i = ((c * x_batch + b) * x_height + iy) * x_width + ix;
                                         var v = x[i];
                                         if(v > max)
                                         {
@@ -199,8 +201,9 @@ namespace System
                                         }
                                     }
                                 }
-                                y[((oy * y_width + ox) * y_channel + c) * y_batch + b] = max;
-                                indices[((oy * y_width + ox) * y_channel + c) * y_batch + b] = max_i;
+                                var index = ((c * y_batch + b) * y_height + oy) * y_width + ox;
+                                y[index] = max;
+                                indices[index] = max_i;
                             }
                         }
                     });
@@ -252,7 +255,7 @@ namespace System
                                         {
                                             continue;
                                         }
-                                        var i = ((iy * x_width + ix) * x_channel + c) * x_batch + b;
+                                        var i = ((c * x_batch + b) * x_height + iy) * x_width + ix;
                                         var v = x[i];
                                         if(v > max)
                                         {
@@ -261,8 +264,9 @@ namespace System
                                         }
                                     }
                                 }
-                                y[((oy * y_width + ox) * y_channel + c) * y_batch + b] = max;
-                                indices[((oy * y_width + ox) * y_channel + c) * y_batch + b] = max_i;
+                                var index = ((c * y_batch + b) * y_height + oy) * y_width + ox;
+                                y[index] = max;
+                                indices[index] = max_i;
                             }
                         }
                     });
@@ -314,7 +318,7 @@ namespace System
                                         {
                                             continue;
                                         }
-                                        var i = ((iy * x_width + ix) * x_channel + c) * x_batch + b;
+                                        var i = ((c * x_batch + b) * x_height + iy) * x_width + ix;
                                         var v = x[i];
                                         if(v > max)
                                         {
@@ -323,8 +327,9 @@ namespace System
                                         }
                                     }
                                 }
-                                y[((oy * y_width + ox) * y_channel + c) * y_batch + b] = max;
-                                indices[((oy * y_width + ox) * y_channel + c) * y_batch + b] = max_i;
+                                var index = ((c * y_batch + b) * y_height + oy) * y_width + ox;
+                                y[index] = max;
+                                indices[index] = max_i;
                             }
                         }
                     });
@@ -376,7 +381,7 @@ namespace System
                                         {
                                             continue;
                                         }
-                                        var i = ((iy * x_width + ix) * x_channel + c) * x_batch + b;
+                                        var i = ((c * x_batch + b) * x_height + iy) * x_width + ix;
                                         var v = x[i];
                                         if(v > max)
                                         {
@@ -385,8 +390,9 @@ namespace System
                                         }
                                     }
                                 }
-                                y[((oy * y_width + ox) * y_channel + c) * y_batch + b] = max;
-                                indices[((oy * y_width + ox) * y_channel + c) * y_batch + b] = max_i;
+                                var index = ((c * y_batch + b) * y_height + oy) * y_width + ox;
+                                y[index] = max;
+                                indices[index] = max_i;
                             }
                         }
                     });
@@ -438,7 +444,7 @@ namespace System
                                         {
                                             continue;
                                         }
-                                        var i = ((iy * x_width + ix) * x_channel + c) * x_batch + b;
+                                        var i = ((c * x_batch + b) * x_height + iy) * x_width + ix;
                                         var v = x[i];
                                         if(v > max)
                                         {
@@ -447,8 +453,9 @@ namespace System
                                         }
                                     }
                                 }
-                                y[((oy * y_width + ox) * y_channel + c) * y_batch + b] = max;
-                                indices[((oy * y_width + ox) * y_channel + c) * y_batch + b] = max_i;
+                                var index = ((c * y_batch + b) * y_height + oy) * y_width + ox;
+                                y[index] = max;
+                                indices[index] = max_i;
                             }
                         }
                     });
@@ -500,7 +507,7 @@ namespace System
                                         {
                                             continue;
                                         }
-                                        var i = ((iy * x_width + ix) * x_channel + c) * x_batch + b;
+                                        var i = ((c * x_batch + b) * x_height + iy) * x_width + ix;
                                         var v = x[i];
                                         if(v > max)
                                         {
@@ -509,8 +516,9 @@ namespace System
                                         }
                                     }
                                 }
-                                y[((oy * y_width + ox) * y_channel + c) * y_batch + b] = max;
-                                indices[((oy * y_width + ox) * y_channel + c) * y_batch + b] = max_i;
+                                var index = ((c * y_batch + b) * y_height + oy) * y_width + ox;
+                                y[index] = max;
+                                indices[index] = max_i;
                             }
                         }
                     });
