@@ -189,3 +189,9 @@
 "src\torch\torch.uniform.cs"
 "src\torch\torch.zeros.cs"
 "src\torch\TorchException.cs"
+
+
+# torchvision section
+
+"src\torchvision\models\load_model.cs"
+"src\torchvision\models\squeezenet.cs"

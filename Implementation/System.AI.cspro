@@ -6,10 +6,12 @@
 
 //+src=src/AssemblyInfo.cs
 
+
 // DotnetExtension section
 
 //+src=src/DotnetExtension/ArrayExtension.cs
 //+src=src/DotnetExtension/StreamExtension.cs
+
 
 // imageio section
 
@@ -38,6 +40,7 @@
 //+src=src/imageio/__Warnings.cs
 //+src=src/imageio/imageio.cs
 //+src=src/imageio/ImageIOException.cs
+
 
 // MKL section
 
@@ -133,10 +136,12 @@
 
 //+src=src/PyType.NET/Union.cs
 
+
 // System.Half section
 
 //+src=src/System.Half/Half.cs
 //+src=src/System.Half/HalfHelper.cs
+
 
 // torch section
 
@@ -178,3 +183,9 @@
 //+src=src/torch/torch.uniform.cs
 //+src=src/torch/torch.zeros.cs
 //+src=src/torch/TorchException.cs
+
+
+// torchvision section
+
+//+src=src/torchvision/models/load_model.cs
+//+src=src/torchvision/models/squeezenet.cs
