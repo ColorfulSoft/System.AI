@@ -1,6 +1,7 @@
-cd System.AI/Implementation/
+cd "$(dirname "$0")"
 mkdir Release
 csc @System.AI.unix.rsp
-mv Release/System.AI.dll ../../System.AI.dll
-mv Release/System.AI.xml ../../System.AI.xml
-cd ../../
+for extension in dll xml
+do
+  mv "Release/System.AI.$extension" "../../System.AI.$extension"
+done
