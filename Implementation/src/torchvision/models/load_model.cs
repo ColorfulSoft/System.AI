@@ -22,7 +22,7 @@ namespace System
 
                 internal static Dictionary<string, torch.Tensor> __load_model(string path, string fname, string url, bool print = true)
                 {
-                    if(File.Exists(path))
+                    if(File.Exists(path + fname))
                     {
                         return (Dictionary<string, torch.Tensor>)torch.load(path);
                     }
