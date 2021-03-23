@@ -1,5 +1,7 @@
 ![Logo](https://github.com/ColorfulSoft/System.AI/blob/master/Logo/System.AI_logo.png)
 
+[![CI](https://github.com/alvinseville7cf/System.AI/actions/workflows/ci.yml/badge.svg)](https://github.com/alvinseville7cf/System.AI/actions/workflows/ci.yml)
+
 # What is System.AI
 
 System.AI is a stack of machine learning and data analysis technologies for the .NET ecosystem.
