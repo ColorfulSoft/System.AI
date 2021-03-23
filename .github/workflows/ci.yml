@@ -1,0 +1,25 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Mono build
+        run: |
+          folder="Implementation"
+          script="Compile.Mono.sh"
+
+          cd "$folder"
+          chmod +x "$script"
+          ./"$script" .
