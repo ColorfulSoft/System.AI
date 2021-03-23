@@ -24,7 +24,7 @@ namespace System
                 {
                     if(File.Exists(path + fname))
                     {
-                        return (Dictionary<string, torch.Tensor>)torch.load(path);
+                        return (Dictionary<string, torch.Tensor>)torch.load(path + fname);
                     }
                     else
                     {
