@@ -16,7 +16,7 @@ Detailed instructions for launching on different platforms: https://github.com/C
 
 # Libraries included in the System.AI
 
-|Library            |Status     |Version |
+|Library            |Status      |Version |
 |:-----------------:|:----------:|:------:|
 |DotnetExtension    |**stable**  |0.1     |
 |MKL*               |**dev/prev**|0.1     |
@@ -26,6 +26,13 @@ Detailed instructions for launching on different platforms: https://github.com/C
 |Torch.NET          |**dev/prev**|0.1     |
 
 \* _MKL from System.AI is **not associated** with the Intel ® Math Kernel Library. This is also the Math Kernel Library but is a development of ColorfulSoft specifically for System.AI._
+
+<details>
+  <summary><b>Warning!</b></summary>
+  
+  Note that the libraries of System.AI basically repeats the interface and behavior of the corresponding analogues from the Python ecosystem, but they do not do it 100%. This is largely due to the difference in topologies .NET and Python. For example, the torch.jit module that exists in PyTorch probably won't be implemented in Torch.NET, since it will not make sense in the case of working in the ecosystem .NET (programs with Torch.NET by themselves are portable and there is no point in making them even more portable with torchscript).
+  
+</details>
 
 # The status of libraries in the System.AI
 
