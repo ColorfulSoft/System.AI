@@ -147,7 +147,7 @@ namespace System
                         m.load_state_dict(
                           __load_model("",
                                        "squeezenet1_0.thn",
-                                       "https://github.com/ColorfulSoft/System.AI/raw/master/Implementation/src/torchvision/models/thn/squeezenet1_0.thn")
+                                       "https://github.com/ColorfulSoft/System.AI/releases/download/hub/squeezenet1_0.thn")
                         );
                     }
                     return m;
@@ -161,7 +161,7 @@ namespace System
                         m.load_state_dict(
                           __load_model("",
                                        "squeezenet1_1.thn",
-                                       "https://github.com/ColorfulSoft/System.AI/raw/master/Implementation/src/torchvision/models/thn/squeezenet1_1.thn")
+                                       "https://github.com/ColorfulSoft/System.AI/releases/download/hub/squeezenet1_1.thn")
                         );
                     }
                     return m;
