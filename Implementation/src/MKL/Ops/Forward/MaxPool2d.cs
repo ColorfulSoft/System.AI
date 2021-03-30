@@ -3,7 +3,7 @@
 //* The code is available under the Apache-2.0 license. Read the License for details.
 //***************************************************************************************************
 
-//-> Latest commit: Brykin Gleb, 22.01.2021
+//-> Latest commit: Brykin Gleb, 30.03.2021
 
 using System;
 using System.Threading;
@@ -66,7 +66,7 @@ namespace System
                                         {
                                             continue;
                                         }
-                                        var i = ((c * x_batch + b) * x_height + iy) * x_width + ix;
+                                        var i = ((b * x_channel + c) * x_height + iy) * x_width + ix;
                                         var v = x[i];
                                         if(v > max)
                                         {
@@ -75,7 +75,7 @@ namespace System
                                         }
                                     }
                                 }
-                                var index = ((c * y_batch + b) * y_height + oy) * y_width + ox;
+                                var index = ((b * y_channel + c) * y_height + oy) * y_width + ox;
                                 y[index] = max;
                                 indices[index] = max_i;
                             }
@@ -129,7 +129,7 @@ namespace System
                                         {
                                             continue;
                                         }
-                                        var i = ((c * x_batch + b) * x_height + iy) * x_width + ix;
+                                        var i = ((b * x_channel + c) * x_height + iy) * x_width + ix;
                                         var v = x[i];
                                         if(v > max)
                                         {
@@ -138,7 +138,7 @@ namespace System
                                         }
                                     }
                                 }
-                                var index = ((c * y_batch + b) * y_height + oy) * y_width + ox;
+                                var index = ((b * y_channel + c) * y_height + oy) * y_width + ox;
                                 y[index] = max;
                                 indices[index] = max_i;
                             }
@@ -192,7 +192,7 @@ namespace System
                                         {
                                             continue;
                                         }
-                                        var i = ((c * x_batch + b) * x_height + iy) * x_width + ix;
+                                        var i = ((b * x_channel + c) * x_height + iy) * x_width + ix;
                                         var v = x[i];
                                         if(v > max)
                                         {
@@ -201,7 +201,7 @@ namespace System
                                         }
                                     }
                                 }
-                                var index = ((c * y_batch + b) * y_height + oy) * y_width + ox;
+                                var index = ((b * y_channel + c) * y_height + oy) * y_width + ox;
                                 y[index] = max;
                                 indices[index] = max_i;
                             }
@@ -255,7 +255,7 @@ namespace System
                                         {
                                             continue;
                                         }
-                                        var i = ((c * x_batch + b) * x_height + iy) * x_width + ix;
+                                        var i = ((b * x_channel + c) * x_height + iy) * x_width + ix;
                                         var v = x[i];
                                         if(v > max)
                                         {
@@ -264,7 +264,7 @@ namespace System
                                         }
                                     }
                                 }
-                                var index = ((c * y_batch + b) * y_height + oy) * y_width + ox;
+                                var index = ((b * y_channel + c) * y_height + oy) * y_width + ox;
                                 y[index] = max;
                                 indices[index] = max_i;
                             }
@@ -318,7 +318,7 @@ namespace System
                                         {
                                             continue;
                                         }
-                                        var i = ((c * x_batch + b) * x_height + iy) * x_width + ix;
+                                        var i = ((b * x_channel + c) * x_height + iy) * x_width + ix;
                                         var v = x[i];
                                         if(v > max)
                                         {
@@ -327,7 +327,7 @@ namespace System
                                         }
                                     }
                                 }
-                                var index = ((c * y_batch + b) * y_height + oy) * y_width + ox;
+                                var index = ((b * y_channel + c) * y_height + oy) * y_width + ox;
                                 y[index] = max;
                                 indices[index] = max_i;
                             }
@@ -381,7 +381,7 @@ namespace System
                                         {
                                             continue;
                                         }
-                                        var i = ((c * x_batch + b) * x_height + iy) * x_width + ix;
+                                        var i = ((b * x_channel + c) * x_height + iy) * x_width + ix;
                                         var v = x[i];
                                         if(v > max)
                                         {
@@ -390,7 +390,7 @@ namespace System
                                         }
                                     }
                                 }
-                                var index = ((c * y_batch + b) * y_height + oy) * y_width + ox;
+                                var index = ((b * y_channel + c) * y_height + oy) * y_width + ox;
                                 y[index] = max;
                                 indices[index] = max_i;
                             }
@@ -444,7 +444,7 @@ namespace System
                                         {
                                             continue;
                                         }
-                                        var i = ((c * x_batch + b) * x_height + iy) * x_width + ix;
+                                        var i = ((b * x_channel + c) * x_height + iy) * x_width + ix;
                                         var v = x[i];
                                         if(v > max)
                                         {
@@ -453,7 +453,7 @@ namespace System
                                         }
                                     }
                                 }
-                                var index = ((c * y_batch + b) * y_height + oy) * y_width + ox;
+                                var index = ((b * y_channel + c) * y_height + oy) * y_width + ox;
                                 y[index] = max;
                                 indices[index] = max_i;
                             }
@@ -507,7 +507,7 @@ namespace System
                                         {
                                             continue;
                                         }
-                                        var i = ((c * x_batch + b) * x_height + iy) * x_width + ix;
+                                        var i = ((b * x_channel + c) * x_height + iy) * x_width + ix;
                                         var v = x[i];
                                         if(v > max)
                                         {
@@ -516,7 +516,7 @@ namespace System
                                         }
                                     }
                                 }
-                                var index = ((c * y_batch + b) * y_height + oy) * y_width + ox;
+                                var index = ((b * y_channel + c) * y_height + oy) * y_width + ox;
                                 y[index] = max;
                                 indices[index] = max_i;
                             }
