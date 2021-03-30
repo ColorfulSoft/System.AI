@@ -16,6 +16,8 @@
 # DotnetExtension section
 
 "src/DotnetExtension/ArrayExtension.cs"
+"src/DotnetExtension/BinaryReaderExtension.cs"
+"src/DotnetExtension/BinaryWriterExtension.cs"
 "src/DotnetExtension/StreamExtension.cs"
 
 

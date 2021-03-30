@@ -10,6 +10,8 @@
 // DotnetExtension section
 
 //+src=src/DotnetExtension/ArrayExtension.cs
+//+src=src/DotnetExtension/BinaryReaderExtension.cs
+//+src=src/DotnetExtension/BinaryWriterExtension.cs
 //+src=src/DotnetExtension/StreamExtension.cs
 
 
