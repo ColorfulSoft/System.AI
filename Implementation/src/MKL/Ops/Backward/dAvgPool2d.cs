@@ -3,7 +3,7 @@
 //* The code is available under the Apache-2.0 license. Read the License for details.
 //***************************************************************************************************
 
-//-> Latest commit: Brykin Gleb, 22.03.2021
+//-> Latest commit: Brykin Gleb, 30.03.2021
 
 using System;
 using System.Threading;
@@ -66,7 +66,7 @@ namespace System
                                         {
                                             continue;
                                         }
-                                        dx[((c * x_batch + b) * x_height + iy) * x_width + ix] += grad;
+                                        dx[((b * x_channel + c) * x_height + iy) * x_width + ix] += grad;
                                     }
                                 }
                             }
@@ -120,7 +120,7 @@ namespace System
                                         {
                                             continue;
                                         }
-                                        dx[((c * x_batch + b) * x_height + iy) * x_width + ix] += grad;
+                                        dx[((b * x_channel + c) * x_height + iy) * x_width + ix] += grad;
                                     }
                                 }
                             }
@@ -174,7 +174,7 @@ namespace System
                                         {
                                             continue;
                                         }
-                                        dx[((c * x_batch + b) * x_height + iy) * x_width + ix] += grad;
+                                        dx[((b * x_channel + c) * x_height + iy) * x_width + ix] += grad;
                                     }
                                 }
                             }
