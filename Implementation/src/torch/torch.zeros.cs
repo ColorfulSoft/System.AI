@@ -1,5 +1,5 @@
 ﻿//***************************************************************************************************
-//* (C) ColorfulSoft corp., 2020. All rights reserved.
+//* (C) ColorfulSoft corp., 2020 - 2021. All rights reserved.
 //* The code is available under the Apache-2.0 license. Read the License for details.
 //***************************************************************************************************
 
@@ -18,7 +18,57 @@ namespace System
 
             #region zeros
 
-            public static Tensor zeros_like(Tensor x, DType dtype = DType.@default, bool requires_grad = false)
+            public static Tensor zeros_(this Tensor x)
+            {
+                if(x.__half != null)
+                {
+                    x.__half = new Half[x.__half.Length];
+                    return x;
+                }
+                if(x.__float != null)
+                {
+                    x.__float = new float[x.__float.Length];
+                    return x;
+                }
+                if(x.__double != null)
+                {
+                    x.__double = new double[x.__double.Length];
+                    return x;
+                }
+                if(x.__int8 != null)
+                {
+                    x.__int8 = new sbyte[x.__int8.Length];
+                    return x;
+                }
+                if(x.__uint8 != null)
+                {
+                    x.__uint8 = new byte[x.__uint8.Length];
+                    return x;
+                }
+                if(x.__int16 != null)
+                {
+                    x.__int16 = new short[x.__int16.Length];
+                    return x;
+                }
+                if(x.__int32 != null)
+                {
+                    x.__int32 = new int[x.__int32.Length];
+                    return x;
+                }
+                if(x.__int64 != null)
+                {
+                    x.__int64 = new long[x.__int64.Length];
+                    return x;
+                }
+                if(x.__bool != null)
+                {
+                    x.__bool = new bool[x.__bool.Length];
+                    return x;
+                }
+                return x;
+            }
+
+            public static Tensor zeros_like(this Tensor x, DType dtype = DType.@default, bool requires_grad = false)
             {
                 return new Tensor(x.__shape, (dtype == DType.@default) ? x.dtype : dtype, requires_grad);
             }

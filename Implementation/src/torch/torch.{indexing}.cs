@@ -18,6 +18,68 @@ namespace System
 
             #region Indexing, Slicing, Joining, Mutating Ops
 
+            public static int numel(this Tensor x)
+            {
+                var n = 1;
+                foreach(var dim in x.__shape)
+                {
+                    n *= dim;
+                }
+                return n;
+            }
+
+            public static Tensor view(this Tensor x, params int[] shape)
+            {
+                var n = 1;
+                var m1 = false;
+                foreach(var dim in shape)
+                {
+                    if(dim >= 0)
+                    {
+                        n *= dim;
+                    }
+                    else
+                    {
+                        if(m1)
+                        {
+                            throw new TorchException("TorchException: Invalid shape dimention: " + dim.ToString());
+                        }
+                        if(dim != -1)
+                        {
+                            throw new TorchException("TorchException: Invalid shape dimention: " + dim.ToString());
+                        }
+                        m1 = true;
+                    }
+                }
+                var nshape = new int[shape.Length];
+                for(int i = 0; i < shape.Length; i++)
+                {
+                    if(shape[i] >= 0)
+                    {
+                        nshape[i] = shape[i];
+                    }
+                    else
+                    {
+                        nshape[i] = x.numel() / n;
+                    }
+                }
+                var y = new Tensor(nshape);
+                y.__half = x.__half;
+                y.__float = x.__float;
+                y.__double = x.__double;
+                y.__uint8 = x.__uint8;
+                y.__int8 = x.__int8;
+                y.__int16 = x.__int16;
+                y.__int32 = x.__int32;
+                y.__int64 = x.__int64;
+                y.__bool = x.__bool;
+                y.grad = x.grad;
+                y.requires_grad = x.requires_grad;
+                y.__backward_fn = x.__backward_fn;
+                y.dtype = x.dtype;
+                return y;
+            }
+
             public static Tensor flatten(this Tensor x, int start_dim = 0, int end_dim = -1)
             {
                 if(end_dim < 0)
@@ -458,6 +520,98 @@ namespace System
                 y.requires_grad = input.requires_grad;
                 y.__backward_fn = input.__backward_fn;
                 y.dtype = input.dtype;
+                return y;
+            }
+
+            public static Tensor permute(this Tensor x, params int[] dims)
+            {
+                var y_shape = new int[x.__shape.Length];
+                for(int i = 0; i < x.__shape.Length; i++)
+                {
+                    y_shape[i] = x.__shape[dims[i]];
+                }
+                var y = new Tensor(y_shape, x.dtype, (!torch.autograd.grad_mode.no_grad.prev) && x.requires_grad);
+                switch(x.dtype)
+                {
+                    case torch.float16:
+                    {
+                        MKL.Permute(x.__half, x.__shape, x.__strides, dims, y.__half, y.__shape, y.__strides);
+                        if(y.requires_grad)
+                        {
+                            y.__backward_fn = () =>
+                            {
+                                MKL.dPermute(x.grad.__half, x.__shape, x.__strides, dims, y.grad.__half, y.__shape, y.__strides);
+                                if(x.__backward_fn != null)
+                                {
+                                    x.__backward_fn();
+                                }
+                            };
+                        }
+                        break;
+                    }
+                    case torch.float32:
+                    {
+                        MKL.Permute(x.__float, x.__shape, x.__strides, dims, y.__float, y.__shape, y.__strides);
+                        if(y.requires_grad)
+                        {
+                            y.__backward_fn = () =>
+                            {
+                                MKL.dPermute(x.grad.__float, x.__shape, x.__strides, dims, y.grad.__float, y.__shape, y.__strides);
+                                if(x.__backward_fn != null)
+                                {
+                                    x.__backward_fn();
+                                }
+                            };
+                        }
+                        break;
+                    }
+                    case torch.float64:
+                    {
+                        MKL.Permute(x.__double, x.__shape, x.__strides, dims, y.__double, y.__shape, y.__strides);
+                        if(y.requires_grad)
+                        {
+                            y.__backward_fn = () =>
+                            {
+                                MKL.dPermute(x.grad.__double, x.__shape, x.__strides, dims, y.grad.__double, y.__shape, y.__strides);
+                                if(x.__backward_fn != null)
+                                {
+                                    x.__backward_fn();
+                                }
+                            };
+                        }
+                        break;
+                    }
+                    case torch.int8:
+                    {
+                        MKL.Permute(x.__int8, x.__shape, x.__strides, dims, y.__int8, y.__shape, y.__strides);
+                        break;
+                    }
+                    case torch.uint8:
+                    {
+                        MKL.Permute(x.__uint8, x.__shape, x.__strides, dims, y.__uint8, y.__shape, y.__strides);
+                        break;
+                    }
+                    case torch.int16:
+                    {
+                        MKL.Permute(x.__int16, x.__shape, x.__strides, dims, y.__int16, y.__shape, y.__strides);
+                        break;
+                    }
+                    case torch.int32:
+                    {
+                        MKL.Permute(x.__int32, x.__shape, x.__strides, dims, y.__int32, y.__shape, y.__strides);
+                        break;
+                    }
+                    case torch.int64:
+                    {
+                        MKL.Permute(x.__int64, x.__shape, x.__strides, dims, y.__int64, y.__shape, y.__strides);
+                        break;
+                    }
+                    case torch.@bool:
+                    {
+                        MKL.Permute(x.__bool, x.__shape, x.__strides, dims, y.__bool, y.__shape, y.__strides);
+                        break;
+                    }
+                }
                 return y;
             }
 
