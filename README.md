@@ -18,12 +18,12 @@ Detailed instructions for launching on different platforms: https://github.com/C
 
 |Library            |Status      |Version |
 |:-----------------:|:----------:|:------:|
-|DotnetExtension    |**stable**  |0.1     |
-|MKL*               |**dev/prev**|0.1     |
+|DotnetExtension    |**stable**  |1       |
+|MKL*               |**dev/prev**|0.2     |
 |PyType.NET         |**stable**  |1.0     |
 |System.Half        |**ready**   |1.0     |
 |Imageio.NET        |**stable**  |1.1     |
-|Torch.NET          |**dev/prev**|0.1     |
+|Torch.NET          |**dev/prev**|0.2     |
 
 \* _MKL from System.AI is **not associated** with the Intel ® Math Kernel Library. This is also the Math Kernel Library but is a development of ColorfulSoft specifically for System.AI._
 
