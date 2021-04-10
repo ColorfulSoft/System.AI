@@ -65,15 +65,18 @@
 //+src=src/MKL/Ops/Backward/dAtan.cs
 //+src=src/MKL/Ops/Backward/dAvgPool2d.cs
 //+src=src/MKL/Ops/Backward/dClamp.cs
+//+src=src/MKL/Ops/Backward/dConv2d.cs
 //+src=src/MKL/Ops/Backward/dCos.cs
 //+src=src/MKL/Ops/Backward/dCosh.cs
 //+src=src/MKL/Ops/Backward/dDivide.cs
 //+src=src/MKL/Ops/Backward/dDropout.cs
 //+src=src/MKL/Ops/Backward/dExp.cs
 //+src=src/MKL/Ops/Backward/dMaxPool2d.cs
+//+src=src/MKL/Ops/Backward/dMean.cs
 //+src=src/MKL/Ops/Backward/dMinus.cs
 //+src=src/MKL/Ops/Backward/dMultiply.cs
 //+src=src/MKL/Ops/Backward/dNeg.cs
+//+src=src/MKL/Ops/Backward/dPermute.cs
 //+src=src/MKL/Ops/Backward/dPlus.cs
 //+src=src/MKL/Ops/Backward/dPower.cs
 //+src=src/MKL/Ops/Backward/dReLU.cs
@@ -81,6 +84,7 @@
 //+src=src/MKL/Ops/Backward/dSin.cs
 //+src=src/MKL/Ops/Backward/dSinh.cs
 //+src=src/MKL/Ops/Backward/dSliceGet.cs
+//+src=src/MKL/Ops/Backward/dSum.cs
 //+src=src/MKL/Ops/Backward/dTanh.cs
 //+src=src/MKL/Ops/Backward/dTranspose.cs
 //+src=src/MKL/Ops/Forward/Abs.cs
@@ -108,10 +112,12 @@
 //+src=src/MKL/Ops/Forward/Log10.cs
 //+src=src/MKL/Ops/Forward/LogicalNot.cs
 //+src=src/MKL/Ops/Forward/MaxPool2d.cs
+//+src=src/MKL/Ops/Forward/Mean.cs
 //+src=src/MKL/Ops/Forward/Minus.cs
 //+src=src/MKL/Ops/Forward/Multiply.cs
 //+src=src/MKL/Ops/Forward/Neg.cs
 //+src=src/MKL/Ops/Forward/NotEquals.cs
+//+src=src/MKL/Ops/Forward/Permute.cs
 //+src=src/MKL/Ops/Forward/Plus.cs
 //+src=src/MKL/Ops/Forward/Power.cs
 //+src=src/MKL/Ops/Forward/ReLU.cs
@@ -121,6 +127,7 @@
 //+src=src/MKL/Ops/Forward/Sin.cs
 //+src=src/MKL/Ops/Forward/Sinh.cs
 //+src=src/MKL/Ops/Forward/SliceGet.cs
+//+src=src/MKL/Ops/Forward/Sum.cs
 //+src=src/MKL/Ops/Forward/Tanh.cs
 //+src=src/MKL/Ops/Forward/Transpose.cs
 //+src=src/MKL/UnsafeIO/ToBool.cs
@@ -176,6 +183,7 @@
 //+src=src/torch/Tensor/Tensor.cs
 //+src=src/torch/torch.{indexing}.cs
 //+src=src/torch/torch.{math.pointwise}.cs
+//+src=src/torch/torch.{reduction}.cs
 //+src=src/torch/torch.{serialization}.cs
 //+src=src/torch/torch.cs
 //+src=src/torch/torch.eye.cs
