@@ -3,7 +3,7 @@
 //* The code is available under the Apache-2.0 license. Read the License for details.
 //***************************************************************************************************
 
-//-> Latest commit: Brykin Gleb, 17.01.2021
+//-> Latest commit: Brykin Gleb, 10.04.2021
 
 using System;
 using System.Threading;
@@ -20,51 +20,6 @@ namespace System
         {
 
             #region Conv2d
-
-            /*
-            public static unsafe void Conv2d(float[] x, int batch, int srcC, int srcH, int srcW,
-                                             int kernelY, int kernelX, int dilationY, int dilationX,
-                                             int strideY, int strideX, int padY, int padX, int padH, int padW, int group,
-                                             float[] kernel, float[] y, int dstC, int dstH, int dstW)
-            {
-                dstC = dstC / group;
-                srcC = srcC / group;
-                for(int b = 0; b < batch; ++b)
-                {
-                    for(int g = 0; g < group; ++g)
-                    {
-                        for(int dc = 0; dc < dstC; ++dc)
-                        {
-                            for(int dy = 0; dy < dstH; ++dy)
-                            {
-                                for(int dx = 0; dx < dstW; ++dx)
-                                {
-                                    float sum = 0;
-                                    for(int sc = 0; sc < srcC; ++sc)
-                                    {
-                                        for(int ky = 0; ky < kernelY; ++ky)
-                                        {
-                                            for(int kx = 0; kx < kernelX; ++kx)
-                                            {
-                                                int sy = dy * strideY + ky * dilationY - padY;
-                                                int sx = dx * strideX + kx * dilationX - padX;
-                                                if(sy >= 0 && sy < srcH && sx >= 0 && sx < srcW)
-                                                {
-                                                    sum += x[(((b * group + g) * srcC + sc) * srcH + sy) * srcW + sx] * kernel[(((g * dstC + dc) * srcC + sc) * kernelY + ky) * kernelX + kx];
-                                                    //sum += x[(((sy * srcW + sx) * srcC + sc) * group + g) * batch + b] * kernel[(((ky * kernelX + kx) * srcC + sc) * dstC + dc) * group + g];
-                                                }
-                                            }
-                                        }
-                                    }
-                                    y[(((b * group + g) * dstC + dc) * dstH + dy) * dstW + dx] = sum;
-                                    //y[(((dy * dstW + dx) * dstC + dc) * group + g) * batch + b] = sum;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            */
 
             public static unsafe void Conv2d(Half[] x, int batch, int srcC, int srcH, int srcW,
                                              int kernelY, int kernelX, int dilationY, int dilationX,
