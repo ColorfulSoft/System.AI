@@ -479,6 +479,109 @@ namespace System
                                         {
                                             y = y + torch.unsqueeze(torch.unsqueeze(torch.unsqueeze(bias, 0), 2), 3);
                                         }
+                                        if(y.requires_grad)
+                                        {
+                                            y.__backward_fn = () =>
+                                            {
+                                                if(x.requires_grad && (!weight.requires_grad))
+                                                {
+                                                    MKL.dConv2d(x.__float,
+                                                                x.grad.__float,
+                                                                srcB,
+                                                                srcC,
+                                                                srcH,
+                                                                srcW,
+                                                                kernelY,
+                                                                kernelX,
+                                                                dilationY,
+                                                                dilationX,
+                                                                strideY,
+                                                                strideX,
+                                                                padY,
+                                                                padX,
+                                                                padH,
+                                                                padW,
+                                                                groups,
+                                                                weight.__float,
+                                                                null,
+                                                                y.grad.__float,
+                                                                dstC,
+                                                                dstH,
+                                                                dstW);
+                                                    if(x.__backward_fn != null)
+                                                    {
+                                                        x.__backward_fn();
+                                                    }
+                                                    return;
+                                                }
+                                                if(x.requires_grad && weight.requires_grad)
+                                                {
+                                                    MKL.dConv2d(x.__float,
+                                                                x.grad.__float,
+                                                                srcB,
+                                                                srcC,
+                                                                srcH,
+                                                                srcW,
+                                                                kernelY,
+                                                                kernelX,
+                                                                dilationY,
+                                                                dilationX,
+                                                                strideY,
+                                                                strideX,
+                                                                padY,
+                                                                padX,
+                                                                padH,
+                                                                padW,
+                                                                groups,
+                                                                weight.__float,
+                                                                weight.grad.__float,
+                                                                y.grad.__float,
+                                                                dstC,
+                                                                dstH,
+                                                                dstW);
+                                                    if(x.__backward_fn != null)
+                                                    {
+                                                        x.__backward_fn();
+                                                    }
+                                                    if(weight.__backward_fn != null)
+                                                    {
+                                                        weight.__backward_fn();
+                                                    }
+                                                    return;
+                                                }
+                                                MKL.dConv2d(x.__float,
+                                                            null,
+                                                            srcB,
+                                                            srcC,
+                                                            srcH,
+                                                            srcW,
+                                                            kernelY,
+                                                            kernelX,
+                                                            dilationY,
+                                                            dilationX,
+                                                            strideY,
+                                                            strideX,
+                                                            padY,
+                                                            padX,
+                                                            padH,
+                                                            padW,
+                                                            groups,
+                                                            weight.__float,
+                                                            weight.grad.__float,
+                                                            y.grad.__float,
+                                                            dstC,
+                                                            dstH,
+                                                            dstW);
+                                                if(x.__backward_fn != null)
+                                                {
+                                                    x.__backward_fn();
+                                                }
+                                                if(weight.__backward_fn != null)
+                                                {
+                                                    weight.__backward_fn();
+                                                }
+                                            };
+                                        }
                                         return y;
                                     }
                                 }
@@ -568,6 +671,33 @@ namespace System
                             }
                         }
                     }
+
+                    #region Loss functions
+
+                    public static Tensor mse_loss(Tensor input, Tensor target, string reduction = "mean")
+                    {
+                        switch(reduction)
+                        {
+                            case "none":
+                            {
+                                return (input - target) ^ 2;
+                            }
+                            case "mean":
+                            {
+                                return torch.mean(((input - target) ^ 2).view(input.shape[0], -1), new int[]{1});
+                            }
+                            case "sum":
+                            {
+                                return torch.sum(((input - target) ^ 2).view(input.shape[0], -1), new int[]{1});
+                            }
+                            default:
+                            {
+                                throw new TorchException(string.Format("TorchException: unsupported reduction {0}.", reduction));
+                            }
+                        }
+                    }
+
+                    #endregion
 
                 }
 
