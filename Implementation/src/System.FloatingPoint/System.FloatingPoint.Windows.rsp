@@ -1,0 +1,10 @@
+#****************************************************************************************************
+# (C) ColorfulSoft corp., 2019-2021. All Rights reserved.
+# This code is available under Apache-2.0 license
+#****************************************************************************************************
+
+"src\System.FloatingPoint\FloatExtensions.cs"
+"src\System.FloatingPoint\Half.cs"
+"src\System.FloatingPoint\HalfHelper.cs"
+"src\System.FloatingPoint\Quarter.cs"
+"src\System.FloatingPoint\QuarterHelper.cs"
