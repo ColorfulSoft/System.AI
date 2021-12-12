@@ -9,6 +9,7 @@ using System.Runtime.InteropServices;
 
 namespace System
 {
+
     /// <summary>
     /// Represents a half-precision floating point number. 
     /// </summary>
@@ -30,6 +31,7 @@ namespace System
     [Serializable]
     public struct Half : IComparable, IFormattable, IConvertible, IComparable<Half>, IEquatable<Half>
     {
+
         /// <summary>
         /// Internal representation of the half-precision floating-point number.
         /// </summary>
@@ -37,33 +39,41 @@ namespace System
         internal ushort value;
 
         #region Constants
+
         /// <summary>
         /// Represents the smallest positive System.Half value greater than zero. This field is constant.
         /// </summary>
         public static readonly Half Epsilon = Half.ToHalf(0x0001);
+
         /// <summary>
         /// Represents the largest possible value of System.Half. This field is constant.
         /// </summary>
         public static readonly Half MaxValue = Half.ToHalf(0x7bff);
+
         /// <summary>
         /// Represents the smallest possible value of System.Half. This field is constant.
         /// </summary>
         public static readonly Half MinValue = Half.ToHalf(0xfbff);
+
         /// <summary>
         /// Represents not a number (NaN). This field is constant.
         /// </summary>
         public static readonly Half NaN = Half.ToHalf(0xfe00);
+
         /// <summary>
         /// Represents negative infinity. This field is constant.
         /// </summary>
         public static readonly Half NegativeInfinity = Half.ToHalf(0xfc00);
+
         /// <summary>
         /// Represents positive infinity. This field is constant.
         /// </summary>
         public static readonly Half PositiveInfinity = Half.ToHalf(0x7c00);
+
         #endregion
 
         #region Constructors
+
         /// <summary>
         /// Initializes a new instance of System.Half to the value of the specified single-precision floating-point number.
         /// </summary>
@@ -72,6 +82,7 @@ namespace System
         {
             this = HalfHelper.SingleToHalf(value);
         }
+
         /// <summary>
         /// Initializes a new instance of System.Half to the value of the specified 32-bit signed integer.
         /// </summary>
@@ -79,6 +90,7 @@ namespace System
         public Half(int value) : this((float)value)
         {
         }
+
         /// <summary>
         /// Initializes a new instance of System.Half to the value of the specified 64-bit signed integer.
         /// </summary>
@@ -86,6 +98,7 @@ namespace System
         public Half(long value) : this((float)value)
         {
         }
+
         /// <summary>
         /// Initializes a new instance of System.Half to the value of the specified double-precision floating-point number.
         /// </summary>
@@ -93,6 +106,7 @@ namespace System
         public Half(double value) : this((float)value)
         {
         }
+
         /// <summary>
         /// Initializes a new instance of System.Half to the value of the specified decimal number.
         /// </summary>
@@ -100,6 +114,7 @@ namespace System
         public Half(decimal value) : this((float)value)
         {
         }
+
         /// <summary>
         /// Initializes a new instance of System.Half to the value of the specified 32-bit unsigned integer.
         /// </summary>
@@ -107,6 +122,7 @@ namespace System
         public Half(uint value) : this((float)value)
         {
         }
+
         /// <summary>
         /// Initializes a new instance of System.Half to the value of the specified 64-bit unsigned integer.
         /// </summary>
@@ -114,6 +130,7 @@ namespace System
         public Half(ulong value) : this((float)value)
         {
         }
+
         #endregion
         
         #region Numeric operators
@@ -127,6 +144,7 @@ namespace System
         {
             return -half;
         }
+
         /// <summary>
         /// Adds two specified System.Half values.
         /// </summary>
@@ -137,6 +155,7 @@ namespace System
         {
             return half1 + half2;
         }
+
         /// <summary>
         /// Subtracts one specified System.Half value from another.
         /// </summary>
@@ -147,6 +166,7 @@ namespace System
         {
             return half1 - half2;
         }
+
         /// <summary>
         /// Multiplies two specified System.Half values.
         /// </summary>
@@ -157,6 +177,7 @@ namespace System
         {
             return half1 * half2;
         }
+
         /// <summary>
         /// Divides two specified System.Half values.
         /// </summary>
@@ -178,6 +199,7 @@ namespace System
         {
             return half;
         }
+
         /// <summary>
         /// Negates the value of the specified System.Half operand.
         /// </summary>
@@ -187,6 +209,7 @@ namespace System
         {
             return HalfHelper.Negate(half);
         }
+
         /// <summary>
         /// Increments the System.Half operand by 1.
         /// </summary>
@@ -196,6 +219,7 @@ namespace System
         {
             return (Half)(half + 1f);
         }
+
         /// <summary>
         /// Decrements the System.Half operand by one.
         /// </summary>
@@ -205,6 +229,7 @@ namespace System
         {
             return (Half)(half - 1f);
         }
+
         /// <summary>
         /// Adds two specified System.Half values.
         /// </summary>
@@ -215,6 +240,7 @@ namespace System
         {
             return (Half)((float)half1 + (float)half2);
         }
+
         /// <summary>
         /// Subtracts two specified System.Half values.
         /// </summary>
@@ -225,6 +251,7 @@ namespace System
         {
             return (Half)((float)half1 - (float)half2);
         }
+
         /// <summary>
         /// Multiplies two specified System.Half values.
         /// </summary>
@@ -235,6 +262,7 @@ namespace System
         {
             return (Half)((float)half1 * (float)half2);
         }
+
         /// <summary>
         /// Divides two specified System.Half values.
         /// </summary>
@@ -245,6 +273,7 @@ namespace System
         {
             return (Half)((float)half1 / (float)half2);
         }
+
         /// <summary>
         /// Returns a value indicating whether two instances of System.Half are equal.
         /// </summary>
@@ -255,6 +284,7 @@ namespace System
         {
             return (!IsNaN(half1) && (half1.value == half2.value));
         }
+
         /// <summary>
         /// Returns a value indicating whether two instances of System.Half are not equal.
         /// </summary>
@@ -265,6 +295,7 @@ namespace System
         {
             return !(half1.value == half2.value);
         }
+
         /// <summary>
         /// Returns a value indicating whether a specified System.Half is less than another specified System.Half.
         /// </summary>
@@ -275,6 +306,7 @@ namespace System
         {
             return (float)half1 < (float)half2;
         }
+
         /// <summary>
         /// Returns a value indicating whether a specified System.Half is greater than another specified System.Half.
         /// </summary>
@@ -285,6 +317,7 @@ namespace System
         {
             return (float)half1 > (float)half2;
         }
+
         /// <summary>
         /// Returns a value indicating whether a specified System.Half is less than or equal to another specified System.Half.
         /// </summary>
@@ -295,6 +328,7 @@ namespace System
         {
             return (half1 == half2) || (half1 < half2);
         }
+
         /// <summary>
         /// Returns a value indicating whether a specified System.Half is greater than or equal to another specified System.Half.
         /// </summary>
@@ -305,9 +339,11 @@ namespace System
         {
             return (half1 == half2) || (half1 > half2);
         }
+
         #endregion
 
         #region Type casting operators
+
         /// <summary>
         /// Converts an 8-bit unsigned integer to a System.Half.
         /// </summary>
@@ -317,6 +353,7 @@ namespace System
         {
             return new Half((float)value);
         }
+
         /// <summary>
         /// Converts a 16-bit signed integer to a System.Half.
         /// </summary>
@@ -326,6 +363,7 @@ namespace System
         {
             return new Half((float)value);
         }
+
         /// <summary>
         /// Converts a Unicode character to a System.Half.
         /// </summary>
@@ -335,6 +373,7 @@ namespace System
         {
             return new Half((float)value);
         }
+
         /// <summary>
         /// Converts a 32-bit signed integer to a System.Half.
         /// </summary>
@@ -344,6 +383,7 @@ namespace System
         {
             return new Half((float)value);
         }
+
         /// <summary>
         /// Converts a 64-bit signed integer to a System.Half.
         /// </summary>
@@ -353,6 +393,7 @@ namespace System
         {
             return new Half((float)value);
         }
+
         /// <summary>
         /// Converts a quarter-precision floating-point number to a System.Half.
         /// </summary>
@@ -362,6 +403,7 @@ namespace System
         {
             return new Half((float)value);
         }
+
         /// <summary>
         /// Converts a single-precision floating-point number to a System.Half.
         /// </summary>
@@ -371,6 +413,7 @@ namespace System
         {
             return new Half((float)value);
         }
+
         /// <summary>
         /// Converts a double-precision floating-point number to a System.Half.
         /// </summary>
@@ -380,6 +423,7 @@ namespace System
         {
             return new Half((float)value);
         }
+
         /// <summary>
         /// Converts a decimal number to a System.Half.
         /// </summary>
@@ -389,6 +433,7 @@ namespace System
         {
             return new Half((float)value);
         }
+
         /// <summary>
         /// Converts a System.Half to an 8-bit unsigned integer.
         /// </summary>
@@ -398,6 +443,7 @@ namespace System
         {
             return (byte)(float)value;
         }
+
         /// <summary>
         /// Converts a System.Half to a Unicode character.
         /// </summary>
@@ -407,6 +453,7 @@ namespace System
         {
             return (char)(float)value;
         }
+
         /// <summary>
         /// Converts a System.Half to a 16-bit signed integer.
         /// </summary>
@@ -416,6 +463,7 @@ namespace System
         {
             return (short)(float)value;
         }
+
         /// <summary>
         /// Converts a System.Half to a 32-bit signed integer.
         /// </summary>
@@ -425,6 +473,7 @@ namespace System
         {
             return (int)(float)value;
         }
+
         /// <summary>
         /// Converts a System.Half to a 64-bit signed integer.
         /// </summary>
@@ -434,6 +483,7 @@ namespace System
         {
             return (long)(float)value;
         }
+
         /// <summary>
         /// Converts a System.Half to a single-precision floating-point number.
         /// </summary>
@@ -443,6 +493,7 @@ namespace System
         {
             return (float)HalfHelper.HalfToSingle(value);
         }
+
         /// <summary>
         /// Converts a System.Half to a double-precision floating-point number.
         /// </summary>
@@ -452,6 +503,7 @@ namespace System
         {
             return (double)(float)value;
         }
+
         /// <summary>
         /// Converts a System.Half to a decimal number.
         /// </summary>
@@ -461,6 +513,7 @@ namespace System
         {
             return (decimal)(float)value;
         }
+
         /// <summary>
         /// Converts an 8-bit signed integer to a System.Half.
         /// </summary>
@@ -470,6 +523,7 @@ namespace System
         {
             return new Half((float)value);
         }
+
         /// <summary>
         /// Converts a 16-bit unsigned integer to a System.Half.
         /// </summary>
@@ -479,6 +533,7 @@ namespace System
         {
             return new Half((float)value);
         }
+
         /// <summary>
         /// Converts a 32-bit unsigned integer to a System.Half.
         /// </summary>
@@ -488,6 +543,7 @@ namespace System
         {
             return new Half((float)value);
         }
+
         /// <summary>
         /// Converts a 64-bit unsigned integer to a System.Half.
         /// </summary>
@@ -497,6 +553,7 @@ namespace System
         {
             return new Half((float)value);
         }
+
         /// <summary>
         /// Converts a System.Half to an 8-bit signed integer.
         /// </summary>
@@ -506,6 +563,7 @@ namespace System
         {
             return (sbyte)(float)value;
         }
+
         /// <summary>
         /// Converts a System.Half to a 16-bit unsigned integer.
         /// </summary>
@@ -515,6 +573,7 @@ namespace System
         {
             return (ushort)(float)value;
         }
+
         /// <summary>
         /// Converts a System.Half to a 32-bit unsigned integer.
         /// </summary>
@@ -524,6 +583,7 @@ namespace System
         {
             return (uint)(float)value;
         }
+
         /// <summary>
         /// Converts a System.Half to a 64-bit unsigned integer.
         /// </summary>
@@ -533,6 +593,7 @@ namespace System
         {
             return (ulong)(float)value;
         }
+
         #endregion
 
         /// <summary>
@@ -577,6 +638,7 @@ namespace System
             }
             return result;
         }
+
         /// <summary>
         /// Compares this instance to a specified System.Object.
         /// </summary>
@@ -608,6 +670,7 @@ namespace System
             }
             return result;
         }
+
         /// <summary>
         /// Returns a value indicating whether this instance and a specified System.Half object represent the same value.
         /// </summary>
@@ -617,6 +680,7 @@ namespace System
         {
             return ((other == this) || (IsNaN(other) && IsNaN(this)));
         }
+
         /// <summary>
         /// Returns a value indicating whether this instance and a specified System.Object
         /// represent the same type and value.
@@ -636,6 +700,7 @@ namespace System
             }
             return result;
         }
+
         /// <summary>
         /// Returns the hash code for this instance.
         /// </summary>
@@ -644,6 +709,7 @@ namespace System
         {
             return value.GetHashCode();
         }
+
         /// <summary>
         /// Returns the System.TypeCode for value type System.Half.
         /// </summary>
@@ -654,6 +720,7 @@ namespace System
         }
 
         #region BitConverter & Math methods for Half
+
         /// <summary>
         /// Returns the specified half-precision floating point value as an array of bytes.
         /// </summary>
@@ -663,6 +730,7 @@ namespace System
         {
             return BitConverter.GetBytes(value.value);
         }
+
         /// <summary>
         /// Converts the value of a specified instance of System.Half to its equivalent binary representation.
         /// </summary>
@@ -672,6 +740,7 @@ namespace System
         {
             return value.value;
         }
+
         /// <summary>
         /// Returns a half-precision floating point number converted from two bytes
         /// at a specified position in a byte array.
@@ -689,6 +758,7 @@ namespace System
         {
             return Half.ToHalf((ushort)BitConverter.ToInt16(value, startIndex));
         }
+
         /// <summary>
         /// Returns a half-precision floating point number converted from its binary representation.
         /// </summary>
@@ -727,6 +797,7 @@ namespace System
             }
             return 0;
         }
+
         /// <summary>
         /// Returns the absolute value of a half-precision floating-point number.
         /// </summary>
@@ -736,6 +807,7 @@ namespace System
         {
             return HalfHelper.Abs(value);
         }
+
         /// <summary>
         /// Returns the larger of two half-precision floating-point numbers.
         /// </summary>
@@ -749,6 +821,7 @@ namespace System
         {
             return (value1 < value2) ? value2 : value1;
         }
+
         /// <summary>
         /// Returns the smaller of two half-precision floating-point numbers.
         /// </summary>
@@ -761,7 +834,8 @@ namespace System
         public static Half Min(Half value1, Half value2)
         {
             return (value1 < value2) ? value1 : value2;
-        }        
+        }
+
         #endregion
 
         /// <summary>
@@ -773,6 +847,7 @@ namespace System
         {
             return HalfHelper.IsNaN(half);
         }
+
         /// <summary>
         /// Returns a value indicating whether the specified number evaluates to negative or positive infinity.
         /// </summary>
@@ -782,6 +857,7 @@ namespace System
         {
             return HalfHelper.IsInfinity(half);
         }
+
         /// <summary>
         /// Returns a value indicating whether the specified number evaluates to negative infinity.
         /// </summary>
@@ -791,6 +867,7 @@ namespace System
         {
             return HalfHelper.IsNegativeInfinity(half);
         }
+
         /// <summary>
         /// Returns a value indicating whether the specified number evaluates to positive infinity.
         /// </summary>
@@ -802,6 +879,7 @@ namespace System
         }
 
         #region String operations (Parse and ToString)
+
         /// <summary>
         /// Converts the string representation of a number to its System.Half equivalent.
         /// </summary>
@@ -814,6 +892,7 @@ namespace System
         {
             return (Half)float.Parse(value, CultureInfo.InvariantCulture);
         }
+
         /// <summary>
         /// Converts the string representation of a number to its System.Half equivalent 
         /// using the specified culture-specific format information.
@@ -828,6 +907,7 @@ namespace System
         {
             return (Half)float.Parse(value, provider);
         }
+
         /// <summary>
         /// Converts the string representation of a number in a specified style to its System.Half equivalent.
         /// </summary>
@@ -849,6 +929,7 @@ namespace System
         {
             return (Half)float.Parse(value, style, CultureInfo.InvariantCulture);
         }
+
         /// <summary>
         /// Converts the string representation of a number to its System.Half equivalent 
         /// using the specified style and culture-specific format.
@@ -872,6 +953,7 @@ namespace System
         {
             return (Half)float.Parse(value, style, provider);
         }
+
         /// <summary>
         /// Converts the string representation of a number to its System.Half equivalent.
         /// A return value indicates whether the conversion succeeded or failed.
@@ -896,6 +978,7 @@ namespace System
             result = new Half();
             return false;
         }
+
         /// <summary>
         /// Converts the string representation of a number to its System.Half equivalent
         /// using the specified style and culture-specific format. A return value indicates
@@ -934,6 +1017,7 @@ namespace System
             }
             return parseResult;
         }
+
         /// <summary>
         /// Converts the numeric value of this instance to its equivalent string representation.
         /// </summary>
@@ -942,6 +1026,7 @@ namespace System
         {
             return ((float)this).ToString(CultureInfo.InvariantCulture);
         }
+
         /// <summary>
         /// Converts the numeric value of this instance to its equivalent string representation
         /// using the specified culture-specific format information.
@@ -952,6 +1037,7 @@ namespace System
         {
             return ((float)this).ToString(formatProvider);
         }
+
         /// <summary>
         /// Converts the numeric value of this instance to its equivalent string representation, using the specified format.
         /// </summary>
@@ -961,6 +1047,7 @@ namespace System
         {
             return ((float)this).ToString(format, CultureInfo.InvariantCulture);
         }
+
         /// <summary>
         /// Converts the numeric value of this instance to its equivalent string representation 
         /// using the specified format and culture-specific format information.
@@ -973,77 +1060,98 @@ namespace System
         {
             return ((float)this).ToString(format, formatProvider);
         }
+
         #endregion
 
         #region IConvertible Members
+
         float IConvertible.ToSingle(IFormatProvider provider)
         {
             return (float)this;
         }
+
         TypeCode IConvertible.GetTypeCode()
         {
             return GetTypeCode();
         }
+
         bool IConvertible.ToBoolean(IFormatProvider provider)
         {
             return Convert.ToBoolean((float)this);
         }
+
         byte IConvertible.ToByte(IFormatProvider provider)
         {
             return Convert.ToByte((float)this);
         }
+
         char IConvertible.ToChar(IFormatProvider provider)
         {
             throw new InvalidCastException(string.Format(CultureInfo.CurrentCulture, "Invalid cast from '{0}' to '{1}'.", "Half", "Char"));
         }
+
         DateTime IConvertible.ToDateTime(IFormatProvider provider)
         {
             throw new InvalidCastException(string.Format(CultureInfo.CurrentCulture, "Invalid cast from '{0}' to '{1}'.", "Half", "DateTime"));
         }
+
         decimal IConvertible.ToDecimal(IFormatProvider provider)
         {
             return Convert.ToDecimal((float)this);
         }
+
         double IConvertible.ToDouble(IFormatProvider provider)
         {
             return Convert.ToDouble((float)this);
         }
+
         short IConvertible.ToInt16(IFormatProvider provider)
         {
             return Convert.ToInt16((float)this);
         }
+
         int IConvertible.ToInt32(IFormatProvider provider)
         {
             return Convert.ToInt32((float)this);
         }
+
         long IConvertible.ToInt64(IFormatProvider provider)
         {
             return Convert.ToInt64((float)this);
         }
+
         sbyte IConvertible.ToSByte(IFormatProvider provider)
         {
             return Convert.ToSByte((float)this);
         }
+
         string IConvertible.ToString(IFormatProvider provider)
         {
             return Convert.ToString((float)this, CultureInfo.InvariantCulture);
         }
+
         object IConvertible.ToType(Type conversionType, IFormatProvider provider)
         {
             return (((float)this) as IConvertible).ToType(conversionType, provider);
         }
+
         ushort IConvertible.ToUInt16(IFormatProvider provider)
         {
             return Convert.ToUInt16((float)this);
         }
+
         uint IConvertible.ToUInt32(IFormatProvider provider)
         {
             return Convert.ToUInt32((float)this);
         }
+
         ulong IConvertible.ToUInt64(IFormatProvider provider)
         {
             return Convert.ToUInt64((float)this);
         }
+
         #endregion
+
     }
+
 }

@@ -9,6 +9,7 @@ using System.Runtime.InteropServices;
 
 namespace System
 {
+
     /// <summary>
     /// Represents a quarter-precision floating point number. 
     /// </summary>
@@ -26,6 +27,7 @@ namespace System
     [Serializable]
     public struct Quarter : IComparable, IFormattable, IConvertible, IComparable<Quarter>, IEquatable<Quarter>
     {
+
         /// <summary>
         /// Internal representation of the quarter-precision floating-point number.
         /// </summary>
@@ -33,33 +35,41 @@ namespace System
         internal byte value;
 
         #region Constants
+
         /// <summary>
         /// Represents the smallest positive System.Quarter value greater than zero. This field is constant.
         /// </summary>
         public static readonly Quarter Epsilon = Quarter.ToQuarter(0x0001);
+
         /// <summary>
         /// Represents the largest possible value of System.Quarter. This field is constant.
         /// </summary>
         public static readonly Quarter MaxValue = Quarter.ToQuarter(0x77);
+
         /// <summary>
         /// Represents the smallest possible value of System.Quarter. This field is constant.
         /// </summary>
         public static readonly Quarter MinValue = Quarter.ToQuarter(0xf7);
+
         /// <summary>
         /// Represents not a number (NaN). This field is constant.
         /// </summary>
         public static readonly Quarter NaN = Quarter.ToQuarter(0xfc);
+
         /// <summary>
         /// Represents negative infinity. This field is constant.
         /// </summary>
         public static readonly Quarter NegativeInfinity = Quarter.ToQuarter(0xf8);
+
         /// <summary>
         /// Represents positive infinity. This field is constant.
         /// </summary>
         public static readonly Quarter PositiveInfinity = Quarter.ToQuarter(0x78);
+
         #endregion
 
         #region Constructors
+
         /// <summary>
         /// Initializes a new instance of System.Quarter to the value of the specified single-precision floating-point number.
         /// </summary>
@@ -68,6 +78,7 @@ namespace System
         {
             this = QuarterHelper.SingleToQuarter(value);
         }
+
         /// <summary>
         /// Initializes a new instance of System.Quarter to the value of the specified 32-bit signed integer.
         /// </summary>
@@ -75,6 +86,7 @@ namespace System
         public Quarter(int value) : this((float)value)
         {
         }
+
         /// <summary>
         /// Initializes a new instance of System.Quarter to the value of the specified 64-bit signed integer.
         /// </summary>
@@ -82,6 +94,7 @@ namespace System
         public Quarter(long value) : this((float)value)
         {
         }
+
         /// <summary>
         /// Initializes a new instance of System.Quarter to the value of the specified double-precision floating-point number.
         /// </summary>
@@ -89,6 +102,7 @@ namespace System
         public Quarter(double value) : this((float)value)
         {
         }
+
         /// <summary>
         /// Initializes a new instance of System.Quarter to the value of the specified decimal number.
         /// </summary>
@@ -96,6 +110,7 @@ namespace System
         public Quarter(decimal value) : this((float)value)
         {
         }
+
         /// <summary>
         /// Initializes a new instance of System.Quarter to the value of the specified 32-bit unsigned integer.
         /// </summary>
@@ -103,6 +118,7 @@ namespace System
         public Quarter(uint value) : this((float)value)
         {
         }
+
         /// <summary>
         /// Initializes a new instance of System.Quarter to the value of the specified 64-bit unsigned integer.
         /// </summary>
@@ -110,6 +126,7 @@ namespace System
         public Quarter(ulong value) : this((float)value)
         {
         }
+
         #endregion
         
         #region Numeric operators
@@ -123,6 +140,7 @@ namespace System
         {
             return -quarter;
         }
+
         /// <summary>
         /// Adds two specified System.Quarter values.
         /// </summary>
@@ -133,6 +151,7 @@ namespace System
         {
             return quarter1 + quarter2;
         }
+
         /// <summary>
         /// Subtracts one specified System.Quarter value from another.
         /// </summary>
@@ -143,6 +162,7 @@ namespace System
         {
             return quarter1 - quarter2;
         }
+
         /// <summary>
         /// Multiplies two specified System.Quarter values.
         /// </summary>
@@ -153,6 +173,7 @@ namespace System
         {
             return quarter1 * quarter2;
         }
+
         /// <summary>
         /// Divides two specified System.Quarter values.
         /// </summary>
@@ -174,6 +195,7 @@ namespace System
         {
             return quarter;
         }
+
         /// <summary>
         /// Negates the value of the specified System.Quarter operand.
         /// </summary>
@@ -183,6 +205,7 @@ namespace System
         {
             return QuarterHelper.Negate(quarter);
         }
+
         /// <summary>
         /// Increments the System.Quarter operand by 1.
         /// </summary>
@@ -192,6 +215,7 @@ namespace System
         {
             return (Quarter)(quarter + 1f);
         }
+
         /// <summary>
         /// Decrements the System.Quarter operand by one.
         /// </summary>
@@ -201,6 +225,7 @@ namespace System
         {
             return (Quarter)(quarter - 1f);
         }
+
         /// <summary>
         /// Adds two specified System.Quarter values.
         /// </summary>
@@ -211,6 +236,7 @@ namespace System
         {
             return (Quarter)((float)quarter1 + (float)quarter2);
         }
+
         /// <summary>
         /// Subtracts two specified System.Quarter values.
         /// </summary>
@@ -221,6 +247,7 @@ namespace System
         {
             return (Quarter)((float)quarter1 - (float)quarter2);
         }
+
         /// <summary>
         /// Multiplies two specified System.Quarter values.
         /// </summary>
@@ -231,6 +258,7 @@ namespace System
         {
             return (Quarter)((float)quarter1 * (float)quarter2);
         }
+
         /// <summary>
         /// Divides two specified System.Quarter values.
         /// </summary>
@@ -241,6 +269,7 @@ namespace System
         {
             return (Quarter)((float)quarter1 / (float)quarter2);
         }
+
         /// <summary>
         /// Returns a value indicating whether two instances of System.Quarter are equal.
         /// </summary>
@@ -251,6 +280,7 @@ namespace System
         {
             return (!IsNaN(quarter1) && (quarter1.value == quarter2.value));
         }
+
         /// <summary>
         /// Returns a value indicating whether two instances of System.Quarter are not equal.
         /// </summary>
@@ -261,16 +291,18 @@ namespace System
         {
             return !(quarter1.value == quarter2.value);
         }
+
         /// <summary>
         /// Returns a value indicating whether a specified System.Quarter is less than another specified System.Quarter.
         /// </summary>
-        /// <param name="half1">A System.Half.</param>
-        /// <param name="half2">A System.Half.</param>
+        /// <param name="quarter1">A System.Quarter.</param>
+        /// <param name="quarter2">A System.Quarter.</param>
         /// <returns>true if quarter1 is less than quarter1; otherwise, false.</returns>
         public static bool operator <(Quarter quarter1, Quarter quarter2)
         {
             return (float)quarter1 < (float)quarter2;
         }
+
         /// <summary>
         /// Returns a value indicating whether a specified System.Quarter is greater than another specified System.Quarter.
         /// </summary>
@@ -281,6 +313,7 @@ namespace System
         {
             return (float)quarter1 > (float)quarter2;
         }
+
         /// <summary>
         /// Returns a value indicating whether a specified System.Quarter is less than or equal to another specified System.Quarter.
         /// </summary>
@@ -291,6 +324,7 @@ namespace System
         {
             return (quarter1 == quarter2) || (quarter1 < quarter2);
         }
+
         /// <summary>
         /// Returns a value indicating whether a specified System.Quarter is greater than or equal to another specified System.Quarter.
         /// </summary>
@@ -301,9 +335,11 @@ namespace System
         {
             return (quarter1 == quarter2) || (quarter1 > quarter2);
         }
+
         #endregion
 
         #region Type casting operators
+
         /// <summary>
         /// Converts an 8-bit unsigned integer to a System.Quarter.
         /// </summary>
@@ -313,6 +349,7 @@ namespace System
         {
             return new Quarter((float)value);
         }
+
         /// <summary>
         /// Converts a 16-bit signed integer to a System.Quarter.
         /// </summary>
@@ -322,6 +359,7 @@ namespace System
         {
             return new Quarter((float)value);
         }
+
         /// <summary>
         /// Converts a Unicode character to a System.Quarter.
         /// </summary>
@@ -331,6 +369,7 @@ namespace System
         {
             return new Quarter((float)value);
         }
+
         /// <summary>
         /// Converts a 32-bit signed integer to a System.Quarter.
         /// </summary>
@@ -340,6 +379,7 @@ namespace System
         {
             return new Quarter((float)value);
         }
+
         /// <summary>
         /// Converts a 64-bit signed integer to a System.Quarter.
         /// </summary>
@@ -349,6 +389,7 @@ namespace System
         {
             return new Quarter((float)value);
         }
+
         /// <summary>
         /// Converts a half-precision floating-point number to a System.Quarter.
         /// </summary>
@@ -358,6 +399,7 @@ namespace System
         {
             return new Quarter((float)value);
         }
+
         /// <summary>
         /// Converts a single-precision floating-point number to a System.Quarter.
         /// </summary>
@@ -367,6 +409,7 @@ namespace System
         {
             return new Quarter((float)value);
         }
+
         /// <summary>
         /// Converts a double-precision floating-point number to a System.Quarter.
         /// </summary>
@@ -376,6 +419,7 @@ namespace System
         {
             return new Quarter((float)value);
         }
+
         /// <summary>
         /// Converts a decimal number to a System.Quarter.
         /// </summary>
@@ -385,6 +429,7 @@ namespace System
         {
             return new Quarter((float)value);
         }
+
         /// <summary>
         /// Converts a System.Quarter to an 8-bit unsigned integer.
         /// </summary>
@@ -394,6 +439,7 @@ namespace System
         {
             return (byte)(float)value;
         }
+
         /// <summary>
         /// Converts a System.Quarter to a Unicode character.
         /// </summary>
@@ -403,6 +449,7 @@ namespace System
         {
             return (char)(float)value;
         }
+
         /// <summary>
         /// Converts a System.Quarter to a 16-bit signed integer.
         /// </summary>
@@ -412,6 +459,7 @@ namespace System
         {
             return (short)(float)value;
         }
+
         /// <summary>
         /// Converts a System.Quarter to a 32-bit signed integer.
         /// </summary>
@@ -421,6 +469,7 @@ namespace System
         {
             return (int)(float)value;
         }
+
         /// <summary>
         /// Converts a System.Quarter to a 64-bit signed integer.
         /// </summary>
@@ -430,6 +479,7 @@ namespace System
         {
             return (long)(float)value;
         }
+
         /// <summary>
         /// Converts a System.Quarter to a single-precision floating-point number.
         /// </summary>
@@ -439,6 +489,7 @@ namespace System
         {
             return (float)QuarterHelper.QuarterToSingle(value);
         }
+
         /// <summary>
         /// Converts a System.Quarter to a double-precision floating-point number.
         /// </summary>
@@ -448,6 +499,7 @@ namespace System
         {
             return (double)(float)value;
         }
+
         /// <summary>
         /// Converts a System.Quarter to a decimal number.
         /// </summary>
@@ -457,6 +509,7 @@ namespace System
         {
             return (decimal)(float)value;
         }
+
         /// <summary>
         /// Converts an 8-bit signed integer to a System.Quarter.
         /// </summary>
@@ -466,6 +519,7 @@ namespace System
         {
             return new Quarter((float)value);
         }
+
         /// <summary>
         /// Converts a 16-bit unsigned integer to a System.Quarter.
         /// </summary>
@@ -475,6 +529,7 @@ namespace System
         {
             return new Quarter((float)value);
         }
+
         /// <summary>
         /// Converts a 32-bit unsigned integer to a System.Quarter.
         /// </summary>
@@ -484,6 +539,7 @@ namespace System
         {
             return new Quarter((float)value);
         }
+
         /// <summary>
         /// Converts a 64-bit unsigned integer to a System.Quarter.
         /// </summary>
@@ -493,6 +549,7 @@ namespace System
         {
             return new Quarter((float)value);
         }
+
         /// <summary>
         /// Converts a System.Quarter to an 8-bit signed integer.
         /// </summary>
@@ -502,6 +559,7 @@ namespace System
         {
             return (sbyte)(float)value;
         }
+
         /// <summary>
         /// Converts a System.Quarter to a 16-bit unsigned integer.
         /// </summary>
@@ -511,6 +569,7 @@ namespace System
         {
             return (ushort)(float)value;
         }
+
         /// <summary>
         /// Converts a System.Quarter to a 32-bit unsigned integer.
         /// </summary>
@@ -520,6 +579,7 @@ namespace System
         {
             return (uint)(float)value;
         }
+
         /// <summary>
         /// Converts a System.Quarter to a 64-bit unsigned integer.
         /// </summary>
@@ -529,12 +589,13 @@ namespace System
         {
             return (ulong)(float)value;
         }
+
         #endregion
 
         /// <summary>
         /// Compares this instance to a specified System.Quarter object.
         /// </summary>
-        /// <param name="other">A System.Half object.</param>
+        /// <param name="other">A System.Quarter object.</param>
         /// <returns>
         /// A signed number indicating the relative values of this instance and value.
         /// Return Value Meaning Less than zero This instance is less than value. Zero
@@ -573,6 +634,7 @@ namespace System
             }
             return result;
         }
+
         /// <summary>
         /// Compares this instance to a specified System.Object.
         /// </summary>
@@ -604,6 +666,7 @@ namespace System
             }
             return result;
         }
+
         /// <summary>
         /// Returns a value indicating whether this instance and a specified System.Quarter object represent the same value.
         /// </summary>
@@ -613,6 +676,7 @@ namespace System
         {
             return ((other == this) || (IsNaN(other) && IsNaN(this)));
         }
+
         /// <summary>
         /// Returns a value indicating whether this instance and a specified System.Object
         /// represent the same type and value.
@@ -632,6 +696,7 @@ namespace System
             }
             return result;
         }
+
         /// <summary>
         /// Returns the hash code for this instance.
         /// </summary>
@@ -640,6 +705,7 @@ namespace System
         {
             return value.GetHashCode();
         }
+
         /// <summary>
         /// Returns the System.TypeCode for value type System.Quarter.
         /// </summary>
@@ -649,7 +715,8 @@ namespace System
             return (TypeCode)255;
         }
 
-        #region BitConverter & Math methods for Half
+        #region BitConverter & Math methods for Quarter
+
         /// <summary>
         /// Returns the specified quarter-precision floating point value as an array of bytes.
         /// </summary>
@@ -659,15 +726,17 @@ namespace System
         {
             return BitConverter.GetBytes(value.value);
         }
+
         /// <summary>
         /// Converts the value of a specified instance of System.Quarter to its equivalent binary representation.
         /// </summary>
-        /// <param name="value">A System.Half value.</param>
+        /// <param name="value">A System.Quarter value.</param>
         /// <returns>A 8-bit unsigned integer that contain the binary representation of value.</returns>        
         public static byte GetBits(Quarter value)
         {
             return value.value;
         }
+
         /// <summary>
         /// Returns a quarter-precision floating point number converted from one byte
         /// at a specified position in a byte array.
@@ -685,6 +754,7 @@ namespace System
         {
             return Quarter.ToQuarter(value[startIndex]);
         }
+
         /// <summary>
         /// Returns a quarter-precision floating point number converted from its binary representation.
         /// </summary>
@@ -723,6 +793,7 @@ namespace System
             }
             return 0;
         }
+
         /// <summary>
         /// Returns the absolute value of a quarter-precision floating-point number.
         /// </summary>
@@ -732,6 +803,7 @@ namespace System
         {
             return QuarterHelper.Abs(value);
         }
+
         /// <summary>
         /// Returns the larger of two quarter-precision floating-point numbers.
         /// </summary>
@@ -745,6 +817,7 @@ namespace System
         {
             return (value1 < value2) ? value2 : value1;
         }
+
         /// <summary>
         /// Returns the smaller of two quarter-precision floating-point numbers.
         /// </summary>
@@ -757,7 +830,8 @@ namespace System
         public static Quarter Min(Quarter value1, Quarter value2)
         {
             return (value1 < value2) ? value1 : value2;
-        }        
+        }
+
         #endregion
 
         /// <summary>
@@ -769,35 +843,39 @@ namespace System
         {
             return QuarterHelper.IsNaN(quarter);
         }
+
         /// <summary>
         /// Returns a value indicating whether the specified number evaluates to negative or positive infinity.
         /// </summary>
         /// <param name="quarter">A quarter-precision floating-point number.</param>
-        /// <returns>true if half evaluates to System.Quarter.PositiveInfinity or System.Quarter.NegativeInfinity; otherwise, false.</returns>
+        /// <returns>true if quarter evaluates to System.Quarter.PositiveInfinity or System.Quarter.NegativeInfinity; otherwise, false.</returns>
         public static bool IsInfinity(Quarter quarter)
         {
             return QuarterHelper.IsInfinity(quarter);
         }
+
         /// <summary>
         /// Returns a value indicating whether the specified number evaluates to negative infinity.
         /// </summary>
         /// <param name="quarter">A quarter-precision floating-point number.</param>
-        /// <returns>true if half evaluates to System.Quarter.NegativeInfinity; otherwise, false.</returns>
+        /// <returns>true if quarter evaluates to System.Quarter.NegativeInfinity; otherwise, false.</returns>
         public static bool IsNegativeInfinity(Quarter quarter)
         {
             return QuarterHelper.IsNegativeInfinity(quarter);
         }
+
         /// <summary>
         /// Returns a value indicating whether the specified number evaluates to positive infinity.
         /// </summary>
         /// <param name="quarter">A quarter-precision floating-point number.</param>
-        /// <returns>true if half evaluates to System.Quarter.PositiveInfinity; otherwise, false.</returns>
+        /// <returns>true if quarter evaluates to System.Quarter.PositiveInfinity; otherwise, false.</returns>
         public static bool IsPositiveInfinity(Quarter quarter)
         {
             return QuarterHelper.IsPositiveInfinity(quarter);
         }
 
         #region String operations (Parse and ToString)
+
         /// <summary>
         /// Converts the string representation of a number to its System.Quarter equivalent.
         /// </summary>
@@ -810,6 +888,7 @@ namespace System
         {
             return (Quarter)float.Parse(value, CultureInfo.InvariantCulture);
         }
+
         /// <summary>
         /// Converts the string representation of a number to its System.Quarter equivalent 
         /// using the specified culture-specific format information.
@@ -824,6 +903,7 @@ namespace System
         {
             return (Quarter)float.Parse(value, provider);
         }
+
         /// <summary>
         /// Converts the string representation of a number in a specified style to its System.Quarter equivalent.
         /// </summary>
@@ -845,6 +925,7 @@ namespace System
         {
             return (Quarter)float.Parse(value, style, CultureInfo.InvariantCulture);
         }
+
         /// <summary>
         /// Converts the string representation of a number to its System.Quarter equivalent 
         /// using the specified style and culture-specific format.
@@ -868,6 +949,7 @@ namespace System
         {
             return (Quarter)float.Parse(value, style, provider);
         }
+
         /// <summary>
         /// Converts the string representation of a number to its System.Quarter equivalent.
         /// A return value indicates whether the conversion succeeded or failed.
@@ -884,15 +966,15 @@ namespace System
         public static bool TryParse(string value, out Quarter result)
         {
             float f;
-            if (float.TryParse(value, out f))
+            if(float.TryParse(value, out f))
             {
                 result = (Quarter)f;
                 return true;
             }
-
             result = new Quarter();
             return false;
         }
+
         /// <summary>
         /// Converts the string representation of a number to its System.Quarter equivalent
         /// using the specified style and culture-specific format. A return value indicates
@@ -920,7 +1002,7 @@ namespace System
         {
             bool parseResult = false;
             float f;
-            if (float.TryParse(value, style, provider, out f))
+            if(float.TryParse(value, style, provider, out f))
             {
                 result = (Quarter)f;
                 parseResult = true;
@@ -929,9 +1011,9 @@ namespace System
             {
                 result = new Quarter();
             }
-
             return parseResult;
         }
+
         /// <summary>
         /// Converts the numeric value of this instance to its equivalent string representation.
         /// </summary>
@@ -940,6 +1022,7 @@ namespace System
         {
             return ((float)this).ToString(CultureInfo.InvariantCulture);
         }
+
         /// <summary>
         /// Converts the numeric value of this instance to its equivalent string representation
         /// using the specified culture-specific format information.
@@ -950,6 +1033,7 @@ namespace System
         {
             return ((float)this).ToString(formatProvider);
         }
+
         /// <summary>
         /// Converts the numeric value of this instance to its equivalent string representation, using the specified format.
         /// </summary>
@@ -959,6 +1043,7 @@ namespace System
         {
             return ((float)this).ToString(format, CultureInfo.InvariantCulture);
         }
+
         /// <summary>
         /// Converts the numeric value of this instance to its equivalent string representation 
         /// using the specified format and culture-specific format information.
@@ -971,77 +1056,98 @@ namespace System
         {
             return ((float)this).ToString(format, formatProvider);
         }
+
         #endregion
 
         #region IConvertible Members
+
         float IConvertible.ToSingle(IFormatProvider provider)
         {
             return (float)this;
         }
+
         TypeCode IConvertible.GetTypeCode()
         {
             return GetTypeCode();
         }
+
         bool IConvertible.ToBoolean(IFormatProvider provider)
         {
             return Convert.ToBoolean((float)this);
         }
+
         byte IConvertible.ToByte(IFormatProvider provider)
         {
             return Convert.ToByte((float)this);
         }
+
         char IConvertible.ToChar(IFormatProvider provider)
         {
-            throw new InvalidCastException(string.Format(CultureInfo.CurrentCulture, "Invalid cast from '{0}' to '{1}'.", "Half", "Char"));
+            throw new InvalidCastException(string.Format(CultureInfo.CurrentCulture, "Invalid cast from '{0}' to '{1}'.", "Quarter", "Char"));
         }
+
         DateTime IConvertible.ToDateTime(IFormatProvider provider)
         {
-            throw new InvalidCastException(string.Format(CultureInfo.CurrentCulture, "Invalid cast from '{0}' to '{1}'.", "Half", "DateTime"));
+            throw new InvalidCastException(string.Format(CultureInfo.CurrentCulture, "Invalid cast from '{0}' to '{1}'.", "Quarter", "DateTime"));
         }
+
         decimal IConvertible.ToDecimal(IFormatProvider provider)
         {
             return Convert.ToDecimal((float)this);
         }
+
         double IConvertible.ToDouble(IFormatProvider provider)
         {
             return Convert.ToDouble((float)this);
         }
+
         short IConvertible.ToInt16(IFormatProvider provider)
         {
             return Convert.ToInt16((float)this);
         }
+
         int IConvertible.ToInt32(IFormatProvider provider)
         {
             return Convert.ToInt32((float)this);
         }
+
         long IConvertible.ToInt64(IFormatProvider provider)
         {
             return Convert.ToInt64((float)this);
         }
+
         sbyte IConvertible.ToSByte(IFormatProvider provider)
         {
             return Convert.ToSByte((float)this);
         }
+
         string IConvertible.ToString(IFormatProvider provider)
         {
             return Convert.ToString((float)this, CultureInfo.InvariantCulture);
         }
+
         object IConvertible.ToType(Type conversionType, IFormatProvider provider)
         {
             return (((float)this) as IConvertible).ToType(conversionType, provider);
         }
+
         ushort IConvertible.ToUInt16(IFormatProvider provider)
         {
             return Convert.ToUInt16((float)this);
         }
+
         uint IConvertible.ToUInt32(IFormatProvider provider)
         {
             return Convert.ToUInt32((float)this);
         }
+
         ulong IConvertible.ToUInt64(IFormatProvider provider)
         {
             return Convert.ToUInt64((float)this);
         }
+
         #endregion
+
     }
+
 }

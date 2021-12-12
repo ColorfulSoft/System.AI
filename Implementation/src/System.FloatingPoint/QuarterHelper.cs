@@ -7,6 +7,7 @@ using System.Runtime.InteropServices;
 
 namespace System
 {
+
     /// <summary>
     /// Helper class for Quarter conversions and some low level operations.
     /// This class is internally used in the Quarter class.
@@ -18,6 +19,7 @@ namespace System
     [ComVisible(false)]
     internal static class QuarterHelper
     {
+
         public static unsafe float QuarterToSingle(Quarter quarter)
         {
             var v = quarter.value;
@@ -48,6 +50,7 @@ namespace System
             }
             return res;
         }
+
         public static unsafe Quarter SingleToQuarter(float single)
         {
             int E;
@@ -114,10 +117,12 @@ namespace System
             }
             return Quarter.ToQuarter(Res);
         }
+
         public static Quarter Negate(Quarter quarter)
         {
             return Quarter.ToQuarter((byte)(quarter.value ^ 0x80));
         }
+
         public static Quarter Abs(Quarter quarter)
         {
             return Quarter.ToQuarter((byte)(quarter.value & 0x7f));
@@ -127,17 +132,22 @@ namespace System
         {
             return ((quarter.value & 0x7f) > 0x78);
         }
+
         public static bool IsInfinity(Quarter quarter)
         {
             return ((quarter.value & 0x7f) == 0x78);
-        }        
+        }
+
         public static bool IsPositiveInfinity(Quarter quarter)
         {
             return (quarter.value == 0x78);
         }
+
         public static bool IsNegativeInfinity(Quarter quarter)
         {
             return (quarter.value == 0xf8);
         }
+
     }
+
 }

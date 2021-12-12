@@ -7,6 +7,7 @@ using System.Runtime.InteropServices;
 
 namespace System
 {
+
     /// <summary>
     /// Helper class for Half conversions and some low level operations.
     /// This class is internally used in the Half class.
@@ -18,10 +19,15 @@ namespace System
     [ComVisible(false)]
     internal static class HalfHelper
     {
+
         private static uint[] mantissaTable = GenerateMantissaTable();
+
         private static uint[] exponentTable = GenerateExponentTable();
+
         private static ushort[] offsetTable = GenerateOffsetTable();
+
         private static ushort[] baseTable = GenerateBaseTable();
+
         private static sbyte[] shiftTable = GenerateShiftTable();
 
         // Transforms the subnormal representation to a normalized one. 
@@ -54,6 +60,7 @@ namespace System
             }
             return mantissaTable;
         }
+
         private static uint[] GenerateExponentTable()
         {
             uint[] exponentTable = new uint[64];
@@ -71,6 +78,7 @@ namespace System
             exponentTable[63] = 0xc7800000;
             return exponentTable;
         }
+
         private static ushort[] GenerateOffsetTable()
         {
             ushort[] offsetTable = new ushort[64];
@@ -86,6 +94,7 @@ namespace System
             }
             return offsetTable;
         }
+
         private static ushort[] GenerateBaseTable()
         {
             ushort[] baseTable = new ushort[512];
@@ -129,6 +138,7 @@ namespace System
             }
             return baseTable;
         }
+
         private static sbyte[] GenerateShiftTable()
         {
             sbyte[] shiftTable = new sbyte[512];
@@ -178,6 +188,7 @@ namespace System
             uint result = mantissaTable[offsetTable[half.value >> 10] + (half.value & 0x3ff)] + exponentTable[half.value >> 10];
             return *((float*)&result);
         }
+
         public static unsafe Half SingleToHalf(float single)
         {
             uint value = *((uint*)&single);
@@ -190,6 +201,7 @@ namespace System
         {
             return Half.ToHalf((ushort)(half.value ^ 0x8000));
         }
+
         public static Half Abs(Half half)
         {
             return Half.ToHalf((ushort)(half.value & 0x7fff));
@@ -199,17 +211,22 @@ namespace System
         {
             return ((half.value & 0x7fff) > 0x7c00);
         }
+
         public static bool IsInfinity(Half half)
         {
             return ((half.value & 0x7fff) == 0x7c00);
-        }        
+        }
+
         public static bool IsPositiveInfinity(Half half)
         {
             return (half.value == 0x7c00);
         }
+
         public static bool IsNegativeInfinity(Half half)
         {
             return (half.value == 0xfc00);
         }
+
     }
+
 }
