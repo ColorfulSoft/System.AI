@@ -18,7 +18,7 @@ Detailed instructions for launching on different platforms: https://github.com/C
 
 |Library                 |Status      |Version |
 |:----------------------:|:----------:|:------:|
-|System.FloatingPoint    |**stable**  |1.0     |
+|System.FloatingPoint    |**stable**  |1.1     |
 
 <details>
   <summary><b>Warning!</b></summary>
@@ -38,6 +38,7 @@ Detailed instructions for launching on different platforms: https://github.com/C
 
 # Update history
 
+* **[13.12.2021]** Version 1.1 of the _System.FloatingPoint_ component has been released. The BFloat16 data type is implemented.
 * **[12.12.2021]** The restructuring of the project has been launched.
 * **[06.02.2021]** The code of ***Torch.NET*** and ***MKL*** is placed __for demonstration purposes__ in the form in which they are at this stage of development. Added the ***PyType.NET*** library.
 * **[19.01.2021]** The new version of ***ImageIO.NET*** library is ready to use! _In the new version:_ data format has been changed to HWC, as in imageio for Python, performance of `imageio.imread` and `imageio.imwrite` has been improved.
