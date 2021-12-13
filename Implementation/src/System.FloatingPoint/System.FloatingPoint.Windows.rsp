@@ -3,6 +3,8 @@
 # This code is available under Apache-2.0 license
 #****************************************************************************************************
 
+"src\System.FloatingPoint\BFloat16.cs"
+"src\System.FloatingPoint\BFloat16Helper.cs"
 "src\System.FloatingPoint\FloatExtensions.cs"
 "src\System.FloatingPoint\Half.cs"
 "src\System.FloatingPoint\HalfHelper.cs"
