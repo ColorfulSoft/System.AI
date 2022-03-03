@@ -19,6 +19,7 @@ Detailed instructions for launching on different platforms: https://github.com/C
 |Library                 |Status      |Version |
 |:----------------------:|:----------:|:------:|
 |System.FloatingPoint    |**stable**  |1.1     |
+|imageio.NET             |**stable**  |1.1     |
 
 <details>
   <summary><b>Warning!</b></summary>
@@ -38,6 +39,7 @@ Detailed instructions for launching on different platforms: https://github.com/C
 
 # Update history
 
+* **[03.03.2022]** An updated version of imageio.NET is now available in System.AI 2.0
 * **[13.12.2021]** Version 1.1 of the _System.FloatingPoint_ component has been released. The BFloat16 data type is implemented.
 * **[12.12.2021]** The restructuring of the project has been launched.
 * **[06.02.2021]** The code of ***Torch.NET*** and ***MKL*** is placed __for demonstration purposes__ in the form in which they are at this stage of development. Added the ***PyType.NET*** library.
