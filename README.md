@@ -16,10 +16,10 @@ Detailed instructions for launching on different platforms: https://github.com/C
 
 # Libraries included in the System.AI and architecture of the project
 
-|Library                 |Status      |Version |
-|:----------------------:|:----------:|:------:|
-|System.FloatingPoint    |**stable**  |1.1     |
-|imageio.NET             |**stable**  |1.1     |
+|Library                 |Root .NET namespace| Status     |Version |
+|:----------------------:|:-----------------:|:----------:|:------:|
+|System.FloatingPoint    |System             |**stable**  |1.1     |
+|imageio.NET             |System.IO          |**stable**  |1.11    |
 
 <details>
   <summary><b>Warning!</b></summary>
