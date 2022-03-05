@@ -10,7 +10,7 @@ using System.Collections.Generic;
 namespace System
 {
 
-    namespace AI
+    namespace IO
     {
 
         public static partial class imageio

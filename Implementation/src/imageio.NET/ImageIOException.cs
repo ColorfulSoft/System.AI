@@ -7,22 +7,17 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 
-namespace System
+namespace System.IO
 {
 
-    namespace AI
+    public static partial class imageio
     {
 
-        public static partial class imageio
+        public sealed class ImageIOException : Exception
         {
 
-            public sealed class ImageIOException : Exception
+            public ImageIOException(string text) : base(text)
             {
-
-                public ImageIOException(string text) : base(text)
-                {
-                }
-
             }
 
         }
