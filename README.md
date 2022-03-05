@@ -39,6 +39,7 @@ Detailed instructions for launching on different platforms: https://github.com/C
 
 # Update history
 
+* **[05.03.2022]** The generation of the debug version has been added, the imageio.NET library has been optimized.
 * **[03.03.2022]** An updated version of imageio.NET is now available in System.AI 2.0
 * **[13.12.2021]** Version 1.1 of the _System.FloatingPoint_ component has been released. The BFloat16 data type is implemented.
 * **[12.12.2021]** The restructuring of the project has been launched.
