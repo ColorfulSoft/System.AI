@@ -446,27 +446,27 @@ namespace System
                     case "jpeg":
                     case "jfif":
                     {
-                        new StbImageWriteSharp.ImageWriter().WriteJpg(data, width, height, StbImageWriteSharp.ColorComponents.RedGreenBlue, s, quality);
+                        new StbImageWriteSharp.ImageWriter().WriteJpg(data, width, height, ColorComponents.RedGreenBlue, s, quality);
                         return;
                     }
                     case "png":
                     {
-                        new StbImageWriteSharp.ImageWriter().WritePng(data, width, height, StbImageWriteSharp.ColorComponents.RedGreenBlue, s);
+                        new StbImageWriteSharp.ImageWriter().WritePng(data, width, height, ColorComponents.RedGreenBlue, s);
                         return;
                     }
                     case "hdr":
                     {
-                        new StbImageWriteSharp.ImageWriter().WriteHdr(data, width, height, StbImageWriteSharp.ColorComponents.RedGreenBlue, s);
+                        new StbImageWriteSharp.ImageWriter().WriteHdr(data, width, height, ColorComponents.RedGreenBlue, s);
                         return;
                     }
                     case "tga":
                     {
-                        new StbImageWriteSharp.ImageWriter().WriteTga(data, width, height, StbImageWriteSharp.ColorComponents.RedGreenBlue, s);
+                        new StbImageWriteSharp.ImageWriter().WriteTga(data, width, height, ColorComponents.RedGreenBlue, s);
                         return;
                     }
                     case "bmp":
                     {
-                        new StbImageWriteSharp.ImageWriter().WriteBmp(data, width, height, StbImageWriteSharp.ColorComponents.RedGreenBlue, s);
+                        new StbImageWriteSharp.ImageWriter().WriteBmp(data, width, height, ColorComponents.RedGreenBlue, s);
                         return;
                     }
                     default:
@@ -517,7 +517,7 @@ namespace System
                 {
                     throw new ArgumentException("The null value is invalid for the s parameter.");
                 }
-                var inf = StbImageSharp.ImageResult.FromStream(s, StbImageSharp.ColorComponents.RedGreenBlue);
+                var inf = StbImageSharp.ImageResult.FromStream(s, ColorComponents.RedGreenBlue);
                 var data = new byte[inf.Height, inf.Width, 3];
                 var idata = inf.Data;
                 fixed(byte* pdata = data)
