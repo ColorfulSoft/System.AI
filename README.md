@@ -20,6 +20,7 @@ Detailed instructions for launching on different platforms: https://github.com/C
 |:----------------------:|:-----------------:|:----------:|:------:|
 |System.FloatingPoint    |System             |**stable**  |1.1     |
 |imageio.NET             |System.IO          |**stable**  |1.11    |
+|warnings.NET            |System             |**stable**  |1.0     |
 
 <details>
   <summary><b>Warning!</b></summary>
@@ -39,6 +40,7 @@ Detailed instructions for launching on different platforms: https://github.com/C
 
 # Update history
 
+* **[05.03.2022]** Implemented a _warnings.NET_ warning module, an analogue of the standard _warnings_ module of the Python ecosystem.
 * **[05.03.2022]** The generation of the debug version has been added, the imageio.NET library has been optimized.
 * **[03.03.2022]** An updated version of imageio.NET is now available in System.AI 2.0
 * **[13.12.2021]** Version 1.1 of the _System.FloatingPoint_ component has been released. The BFloat16 data type is implemented.
