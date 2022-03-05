@@ -2,7 +2,7 @@
 using System.IO;
 using System.Runtime.InteropServices;
 
-namespace System.AI
+namespace System.IO
 {
 
     public static partial class imageio
