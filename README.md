@@ -40,11 +40,11 @@ Detailed instructions for launching on different platforms: https://github.com/C
 
 # Update history
 
-* **[05.03.2022]** Implemented a _warnings.NET_ warning module, an analogue of the standard _warnings_ module of the Python ecosystem.
-* **[05.03.2022]** The generation of the debug version has been added, the imageio.NET library has been optimized.
-* **[03.03.2022]** An updated version of imageio.NET is now available in System.AI 2.0
-* **[13.12.2021]** Version 1.1 of the _System.FloatingPoint_ component has been released. The BFloat16 data type is implemented.
+* **[05.03.2022]** Implemented a ***warnings.NET*** warning module, an analogue of the standard `warnings` module of the Python ecosystem.
+* **[05.03.2022]** The generation of the debug version has been added, the ***imageio.NET*** library has been optimized.
+* **[03.03.2022]** An updated version of ***imageio.NET*** is now available in System.AI 2.0
+* **[13.12.2021]** Version 1.1 of the ***System.FloatingPoint*** component has been released. The `BFloat16` data type is implemented.
 * **[12.12.2021]** The restructuring of the project has been launched.
-* **[06.02.2021]** The code of ***Torch.NET*** and ***MKL*** is placed __for demonstration purposes__ in the form in which they are at this stage of development. Added the ***PyType.NET*** library.
-* **[19.01.2021]** The new version of ***ImageIO.NET*** library is ready to use! _In the new version:_ data format has been changed to HWC, as in imageio for Python, performance of `imageio.imread` and `imageio.imwrite` has been improved.
-* **[27.10.2020]** The new version of ***ImageIO.NET*** library is ready to use! Arrays of all standard numeric types are now supported for images. Also, ImageIO.NET now  supports reading and writing images from / to the stream.
+* **[06.02.2021]** The code of ***torch.NET*** and ***MKL*** is placed __for demonstration purposes__ in the form in which they are at this stage of development. Added the ***PyType.NET*** library.
+* **[19.01.2021]** The new version of ***imageIO.NET*** library is ready to use! _In the new version:_ data format has been changed to HWC, as in imageio for Python, performance of `imageio.imread` and `imageio.imwrite` has been improved.
+* **[27.10.2020]** The new version of ***imageIO.NET*** library is ready to use! Arrays of all standard numeric types are now supported for images. Also, imageIO.NET now  supports reading and writing images from / to the stream.
