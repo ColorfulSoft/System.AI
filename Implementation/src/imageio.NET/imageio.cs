@@ -10,20 +10,15 @@ using System.Collections.Generic;
 namespace System.IO
 {
 
+    /// <summary>
+    /// Provides functions for reading and saving images from/to a file.
+    /// </summary>
     public static unsafe partial class imageio
     {
 
-        public static bool warnings_are_enabled
-        {
-            get;
-            set;
-        }
-
-        static imageio()
-        {
-            warnings_are_enabled = true;
-        }
-
+        /// <summary>
+        /// Stores the current version of the library.
+        /// </summary>
         public static string __version__
         {
 
@@ -34,6 +29,13 @@ namespace System.IO
 
         }
 
+        /// <summary>
+        /// Saves the image from the array im to the stream s in the format format with the specified quality (for jpg).
+        /// </summary>
+        /// <param name="s">Output stream.</param>
+        /// <param name="im">Pixels.</param>
+        /// <param name="format">Image format.</param>
+        /// <param name="kwargs">Optional parameters.</param>
         public static void imwrite(Stream s, Array im, string format = "jpg", params object[] kwargs)
         {
             if(s == null)
@@ -50,11 +52,11 @@ namespace System.IO
             }
             if(im.Rank != 3)
             {
-                throw new ImageIOException("The pixel array im is not three-dimensional.");
+                throw new ArgumentException("The pixel array im is not three-dimensional.");
             }
             if(im.GetLength(2) != 3)
             {
-                throw new ImageIOException("Image should have 3 channels. Pixel array im have " + im.GetLength(2).ToString() + " channels (WHC data format).");
+                throw new ArgumentException("Image should have 3 channels. Pixel array im have " + im.GetLength(2).ToString() + " channels (WHC data format).");
             }
             int quality = 80;
             bool quality_trigger = false;
@@ -102,7 +104,7 @@ namespace System.IO
                 }
                 if(!quality_trigger)
                 {
-                    throw new ImageIOException("The first optional argument is quality and it should be integer value.");
+                    throw new ArgumentException("The first optional argument is quality and it should be integer value.");
                 }
             }
             if((quality > 100) || (quality < 0))
@@ -142,7 +144,7 @@ namespace System.IO
                         min = v;
                     }
                 }
-                __Warnings.warn("Lossy conversion from int8 to uint8. Range [" + min.ToString() + ", " + max.ToString() + "]. Convert image to uint8 prior to saving to suppress this warning.", true);
+                warnings.warn("Lossy conversion from int8 to uint8. Range [" + min.ToString() + ", " + max.ToString() + "]. Convert image to uint8 prior to saving to suppress this warning.");
                 fixed(sbyte* pdata = im_)
                 {
                     for(int i = 0; i < data.Length; i++)
@@ -173,7 +175,7 @@ namespace System.IO
                         min = v;
                     }
                 }
-                __Warnings.warn("Lossy conversion from int16 to uint8. Range [" + min.ToString() + ", " + max.ToString() + "]. Convert image to uint8 prior to saving to suppress this warning.", true);
+                warnings.warn("Lossy conversion from int16 to uint8. Range [" + min.ToString() + ", " + max.ToString() + "]. Convert image to uint8 prior to saving to suppress this warning.");
                 fixed(short* pdata = im_)
                 {
                     for(int i = 0; i < data.Length; i++)
@@ -204,7 +206,7 @@ namespace System.IO
                         min = v;
                     }
                 }
-                __Warnings.warn("Lossy conversion from uint16 to uint8. Range [" + min.ToString() + ", " + max.ToString() + "]. Convert image to uint8 prior to saving to suppress this warning.", true);
+                warnings.warn("Lossy conversion from uint16 to uint8. Range [" + min.ToString() + ", " + max.ToString() + "]. Convert image to uint8 prior to saving to suppress this warning.");
                 fixed(ushort* pdata = im_)
                 {
                     for(int i = 0; i < data.Length; i++)
@@ -235,7 +237,7 @@ namespace System.IO
                         min = v;
                     }
                 }
-                __Warnings.warn("Lossy conversion from int32 to uint8. Range [" + min.ToString() + ", " + max.ToString() + "]. Convert image to uint8 prior to saving to suppress this warning.", true);
+                warnings.warn("Lossy conversion from int32 to uint8. Range [" + min.ToString() + ", " + max.ToString() + "]. Convert image to uint8 prior to saving to suppress this warning.");
                 fixed(int* pdata = im_)
                 {
                     for(int i = 0; i < data.Length; i++)
@@ -266,7 +268,7 @@ namespace System.IO
                         min = v;
                     }
                 }
-                __Warnings.warn("Lossy conversion from uint32 to uint8. Range [" + min.ToString() + ", " + max.ToString() + "]. Convert image to uint8 prior to saving to suppress this warning.", true);
+                warnings.warn("Lossy conversion from uint32 to uint8. Range [" + min.ToString() + ", " + max.ToString() + "]. Convert image to uint8 prior to saving to suppress this warning.");
                 fixed(uint* pdata = im_)
                 {
                     for(int i = 0; i < data.Length; i++)
@@ -297,7 +299,7 @@ namespace System.IO
                         min = v;
                     }
                 }
-                __Warnings.warn("Lossy conversion from int64 to uint8. Range [" + min.ToString() + ", " + max.ToString() + "]. Convert image to uint8 prior to saving to suppress this warning.", true);
+                warnings.warn("Lossy conversion from int64 to uint8. Range [" + min.ToString() + ", " + max.ToString() + "]. Convert image to uint8 prior to saving to suppress this warning.");
                 fixed(long* pdata = im_)
                 {
                     for(int i = 0; i < data.Length; i++)
@@ -328,8 +330,39 @@ namespace System.IO
                         min = v;
                     }
                 }
-                __Warnings.warn("Lossy conversion from uint64 to uint8. Range [" + min.ToString() + ", " + max.ToString() + "]. Convert image to uint8 prior to saving to suppress this warning.", true);
+                warnings.warn("Lossy conversion from uint64 to uint8. Range [" + min.ToString() + ", " + max.ToString() + "]. Convert image to uint8 prior to saving to suppress this warning.");
                 fixed(ulong* pdata = im_)
+                {
+                    for(int i = 0; i < data.Length; i++)
+                    {
+                        unchecked
+                        {
+                            var p = (pdata[i] - min) / (max - min) * 255;
+                            p = (p < 0) ? 0 : p;
+                            p = (p > 255) ? 255 : p;
+                            data[i] = (byte)p;
+                        }
+                    }
+                }
+            }
+            if(im.GetType() == typeof(Quarter[,,]))
+            {
+                float max = Quarter.MinValue;
+                float min = Quarter.MaxValue;
+                var im_ = im as Quarter[,,];
+                foreach(var v in im_)
+                {
+                    if(max < v)
+                    {
+                        max = v;
+                    }
+                    if(min > v)
+                    {
+                        min = v;
+                    }
+                }
+                warnings.warn("Lossy conversion from float8 to uint8. Range [" + min.ToString() + ", " + max.ToString() + "]. Convert image to uint8 prior to saving to suppress this warning.");
+                fixed(Quarter* pdata = im_)
                 {
                     for(int i = 0; i < data.Length; i++)
                     {
@@ -359,8 +392,39 @@ namespace System.IO
                         min = v;
                     }
                 }
-                __Warnings.warn("Lossy conversion from float16 to uint8. Range [" + min.ToString() + ", " + max.ToString() + "]. Convert image to uint8 prior to saving to suppress this warning.", true);
+                warnings.warn("Lossy conversion from float16 to uint8. Range [" + min.ToString() + ", " + max.ToString() + "]. Convert image to uint8 prior to saving to suppress this warning.");
                 fixed(Half* pdata = im_)
+                {
+                    for(int i = 0; i < data.Length; i++)
+                    {
+                        unchecked
+                        {
+                            var p = (pdata[i] - min) / (max - min) * 255;
+                            p = (p < 0) ? 0 : p;
+                            p = (p > 255) ? 255 : p;
+                            data[i] = (byte)p;
+                        }
+                    }
+                }
+            }
+            if(im.GetType() == typeof(BFloat16[,,]))
+            {
+                float max = BFloat16.MinValue;
+                float min = BFloat16.MaxValue;
+                var im_ = im as BFloat16[,,];
+                foreach(var v in im_)
+                {
+                    if(max < v)
+                    {
+                        max = v;
+                    }
+                    if(min > v)
+                    {
+                        min = v;
+                    }
+                }
+                warnings.warn("Lossy conversion from bfloat16 to uint8. Range [" + min.ToString() + ", " + max.ToString() + "]. Convert image to uint8 prior to saving to suppress this warning.");
+                fixed(BFloat16* pdata = im_)
                 {
                     for(int i = 0; i < data.Length; i++)
                     {
@@ -390,7 +454,7 @@ namespace System.IO
                         min = v;
                     }
                 }
-                __Warnings.warn("Lossy conversion from float32 to uint8. Range [" + min.ToString() + ", " + max.ToString() + "]. Convert image to uint8 prior to saving to suppress this warning.", true);
+                warnings.warn("Lossy conversion from float32 to uint8. Range [" + min.ToString() + ", " + max.ToString() + "]. Convert image to uint8 prior to saving to suppress this warning.");
                 fixed(float* pdata = im_)
                 {
                     for(int i = 0; i < data.Length; i++)
@@ -421,7 +485,7 @@ namespace System.IO
                         min = v;
                     }
                 }
-                __Warnings.warn("Lossy conversion from float64 to uint8. Range [" + min.ToString() + ", " + max.ToString() + "]. Convert image to uint8 prior to saving to suppress this warning.", true);
+                warnings.warn("Lossy conversion from float64 to uint8. Range [" + min.ToString() + ", " + max.ToString() + "]. Convert image to uint8 prior to saving to suppress this warning.");
                 fixed(double* pdata = im_)
                 {
                     for(int i = 0; i < data.Length; i++)
@@ -468,11 +532,18 @@ namespace System.IO
                 }
                 default:
                 {
-                    throw new ImageIOException("Invalid image format.");
+                    throw new NotImplementedException("Invalid image format.");
                 }
             }
         }
 
+        /// <summary>
+        /// Saves the image from the array im to the file with specified uri in the format format with the specified quality (for jpg).
+        /// </summary>
+        /// <param name="uri">Path to image file.</param>
+        /// <param name="im">Pixels.</param>
+        /// <param name="format">Image format. If null, determines it from uri. Default: null.</param>
+        /// <param name="kwargs">Optional parameters.</param>
         public static void imwrite(string uri, Array im, string format = null, params object[] kwargs)
         {
             if(format == null)
@@ -501,13 +572,18 @@ namespace System.IO
             }
             if(format == null)
             {
-                throw new ImageIOException("Couldn't determine the image format to save. Specify the required format explicitly using the format parameter.");
+                throw new ArgumentException("Couldn't determine the image format to save. Specify the required format explicitly using the format parameter.");
             }
             var img = File.Create(uri);
             imwrite(img, im, format, kwargs);
             img.Close();
         }
 
+        /// <summary>
+        /// Reads an image from stream s.
+        /// </summary>
+        /// <param name="s">Input stream.</param>
+        /// <returns>Pixels in HWC format.</returns>
         public static byte[,,] imread(Stream s)
         {
             if(s == null)
@@ -527,6 +603,11 @@ namespace System.IO
             return data;
         }
 
+        /// <summary>
+        /// Reads an image from the file with specified uri.
+        /// </summary>
+        /// <param name="uri">Path to file.</param>
+        /// <returns>Pixels in HWC format.</returns>
         public static byte[,,] imread(string uri)
         {
             var fs = File.OpenRead(uri);
@@ -535,6 +616,9 @@ namespace System.IO
             return img;
         }
 
+        /// <summary>
+        /// Displays image formats supported by imageio in the console.
+        /// </summary>
         public static void show_formats()
         {
             Console.WriteLine("Reading:");
