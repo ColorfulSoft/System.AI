@@ -10,7 +10,7 @@ System.AI is supported by any software and hardware platforms that support the M
 
 # Getting started
 
-[![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ColorfulSoft/System.AI/blob/master/Docs/System.AI.ipynb)
+[![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ColorfulSoft/System.AI/blob/v2.0/Docs/System.AI.ipynb)
 
 Detailed instructions for launching on different platforms: https://github.com/ColorfulSoft/System.AI/blob/master/Docs/GettingStarted.md
 
