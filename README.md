@@ -22,6 +22,7 @@ Detailed instructions for launching on different platforms: https://github.com/C
 |imageio.NET             |System.IO          |**stable**  |1.11    |
 |warnings.NET            |System             |**stable**  |1.0     |
 |System.Complex          |System             |**stable**  |1.0     |
+|PyType.NET              |System             |**stable**  |1.0     |
 
 <details>
   <summary><b>Warning!</b></summary>
