@@ -41,6 +41,7 @@ Detailed instructions for launching on different platforms: https://github.com/C
 
 # Update history
 
+* **[10.04.2022]** The ***System.Complex*** module is implemented, which contains `CQuarter`, `CHalf`, `CBFloat16`, `CFloat` and `CDouble` types of complex numbers. Added missing type conversions to the ***System.FloatingPoint*** module.
 * **[05.03.2022]** Implemented a ***warnings.NET*** warning module, an analogue of the standard `warnings` module of the Python ecosystem.
 * **[05.03.2022]** The generation of the debug version has been added, the ***imageio.NET*** library has been optimized.
 * **[03.03.2022]** An updated version of ***imageio.NET*** is now available in System.AI 2.0
