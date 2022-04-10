@@ -1,0 +1,18 @@
+#****************************************************************************************************
+# (C) ColorfulSoft corp., 2019-2022. All Rights reserved.
+# This code is available under Apache-2.0 license
+#****************************************************************************************************
+
+"src/warnings.NET/BytesWarning.cs"
+"src/warnings.NET/DeprecationWarning.cs"
+"src/warnings.NET/FutureWarning.cs"
+"src/warnings.NET/ImportWarning.cs"
+"src/warnings.NET/PendingDeprecationWarning.cs"
+"src/warnings.NET/ResourceWarning.cs"
+"src/warnings.NET/RuntimeWarning.cs"
+"src/warnings.NET/SyntaxWarning.cs"
+"src/warnings.NET/UnicodeWarning.cs"
+"src/warnings.NET/UserWarning.cs"
+"src/warnings.NET/Warning.cs"
+"src/warnings.NET/WarningCategory.cs"
+"src/warnings.NET/warnings.cs"
