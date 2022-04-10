@@ -405,6 +405,16 @@ namespace System
         }
 
         /// <summary>
+        /// Converts a google brain 16-bit floating-point number to a System.Half.
+        /// </summary>
+        /// <param name="value">A google brain 16-bit floating-point number.</param>
+        /// <returns>A System.Half that represents the converted google brain 16-bit floating point number.</returns>
+        public static explicit operator Half(BFloat16 value)
+        {
+            return new Half((float)value);
+        }
+
+        /// <summary>
         /// Converts a single-precision floating-point number to a System.Half.
         /// </summary>
         /// <param name="value">A single-precision floating-point number.</param>

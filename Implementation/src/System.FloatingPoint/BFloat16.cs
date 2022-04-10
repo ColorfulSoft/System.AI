@@ -395,6 +395,16 @@ namespace System
         }
 
         /// <summary>
+        /// Converts a half-precision floating-point number to a System.BFloat16.
+        /// </summary>
+        /// <param name="value">A half-precision floating-point number.</param>
+        /// <returns>A System.BFloat16 that represents the converted half-precision floating point number.</returns>
+        public static implicit operator BFloat16(Half value)
+        {
+            return new BFloat16((float)value);
+        }
+
+        /// <summary>
         /// Converts a single-precision floating-point number to a System.BFloat16.
         /// </summary>
         /// <param name="value">A single-precision floating-point number.</param>

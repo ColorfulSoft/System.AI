@@ -401,6 +401,16 @@ namespace System
         }
 
         /// <summary>
+        /// Converts a google brain 16-bit floating-point number to a System.Quarter.
+        /// </summary>
+        /// <param name="value">A google brain 16-bit floating-point number.</param>
+        /// <returns>A System.Quarter that represents the converted google brain 16-bit floating point number.</returns>
+        public static explicit operator Quarter(BFloat16 value)
+        {
+            return new Quarter((float)value);
+        }
+
+        /// <summary>
         /// Converts a single-precision floating-point number to a System.Quarter.
         /// </summary>
         /// <param name="value">A single-precision floating-point number.</param>
