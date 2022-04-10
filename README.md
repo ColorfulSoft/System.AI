@@ -19,7 +19,7 @@ Detailed instructions for launching on different platforms: https://github.com/C
 |Library                 |Root .NET namespace| Status     |Version |
 |:----------------------:|:-----------------:|:----------:|:------:|
 |System.FloatingPoint    |System             |**stable**  |1.1     |
-|imageio.NET             |System.IO          |**stable**  |1.11    |
+|imageio.NET             |System.IO          |**stable**  |1.2     |
 |warnings.NET            |System             |**stable**  |1.0     |
 |System.Complex          |System             |**stable**  |1.0     |
 |PyType.NET              |System             |**stable**  |1.0     |
@@ -42,6 +42,7 @@ Detailed instructions for launching on different platforms: https://github.com/C
 
 # Update history
 
+* **[10.04.2022]** A new version of ***imageio.NET*** has been released.
 * **[10.04.2022]** The ***System.Complex*** module is implemented, which contains `CQuarter`, `CHalf`, `CBFloat16`, `CFloat` and `CDouble` types of complex numbers. Added missing type conversions to the ***System.FloatingPoint*** module.
 * **[05.03.2022]** Implemented a ***warnings.NET*** warning module, an analogue of the standard `warnings` module of the Python ecosystem.
 * **[05.03.2022]** The generation of the debug version has been added, the ***imageio.NET*** library has been optimized.
