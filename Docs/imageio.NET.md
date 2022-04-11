@@ -2,6 +2,11 @@
 
 The library provides functionality for reading and saving images from/to a file.
 
+## Dependencies
+
+* **System.FloatingPoint**
+* **warnings.NET**
+
 ## API reference
 
 ![namespace](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/namespace.png) `System`
