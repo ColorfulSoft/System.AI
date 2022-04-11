@@ -1,4 +1,4 @@
-# System.FloatingPoint.dll
+# System.FloatingPoint
 
 ## API reference
 
@@ -166,3 +166,31 @@ IConvertible method Half.ToType(Type conversionType, IFormatProvider provider) -
 IConvertible method Half.ToUInt16(IFormatProvider provider) -> ushort
 IConvertible method Half.ToUInt32(IFormatProvider provider) -> uint
 IConvertible method Half.ToUInt64(IFormatProvider provider) -> ulong
+
+## Code samples
+
+```C#
+using System;
+
+namespace HalfExample
+{
+
+    public static class Program
+    {
+
+        public static void Main()
+        {
+            Console.Write("a = ");
+            var a = Half.Parse(Console.ReadLine());
+            Console.Write("b = ");
+            var b = Quarter.Parse(Console.ReadLine());
+            Console.Write("c = ");
+            var c = BFloat16.Parse(Console.ReadLine());
+            Console.WriteLine("(a + b) * c = " + ((a + b) * c).ToString());
+            Console.ReadKey(true);
+        }
+
+    }
+
+}
+```
