@@ -88,24 +88,42 @@
 
 * *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `explicit(Half value) -> byte` _Converts a `System.Half` to an 8-bit unsigned integer._
 
-operator Half.explicit(Half value) -> char - Converts a System.Half to a Unicode character.
-operator Half.explicit(Half value) -> short - Converts a System.Half to a 16-bit signed integer.
-operator Half.explicit(Half value) -> int - Converts a System.Half to a 32-bit signed integer.
-operator Half.explicit(Half value) -> long - Converts a System.Half to a 64-bit signed integer.
-operator Half.implicit(Half value) -> float - Converts a System.Half to a single-precision floating-point number.
-operator Half.implicit(Half value) -> double - Converts a System.Half to a double-precision floating-point number.
-operator Half.explicit(Half value) -> decimal - Converts a System.Half to a decimal number.
-operator Half.implicit(sbyte value) -> Half - Converts an 8-bit signed integer to a System.Half.
-operator Half.implicit(ushort value) -> Half - Converts a 16-bit unsigned integer to a System.Half.
-operator Half.implicit(uint value) -> Half - Converts a 32-bit unsigned integer to a System.Half.
-operator Half.implicit(ulong value) -> Half - Converts a 64-bit unsigned integer to a System.Half.
-operator Half.explicit(Half value) -> sbyte - Converts a System.Half to an 8-bit signed integer.
-operator Half.explicit(Half value) -> ushort - Converts a System.Half to a 16-bit unsigned integer.
-operator Half.explicit(Half value) -> uint - Converts a System.Half to a 32-bit unsigned integer.
-operator Half.explicit(Half value) -> ulong - Converts a System.Half to a 64-bit unsigned integer.
-method Half.CompareTo(Half other) -> int - Compares this instance to a specified System.Half object.
-method Half.CompareTo(object obj) -> int - Compares this instance to a specified System.Object.
-method Half.Equals(Half other) -> bool - Returns a value indicating whether this instance and a specified System.Half object represent the same value.
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `explicit(Half value) -> char` _Converts a `System.Half` to a Unicode character._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `explicit(Half value) -> short` _Converts a `System.Half` to a 16-bit signed integer._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `explicit(Half value) -> int` _Converts a `System.Half` to a 32-bit signed integer._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `explicit(Half value) -> long` _Converts a `System.Half` to a 64-bit signed integer._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `implicit(Half value) -> float` _Converts a `System.Half` to a single-precision floating-point number._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `implicit(Half value) -> double` _Converts a `System.Half` to a double-precision floating-point number._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `explicit(Half value) -> decimal` _Converts a `System.Half` to a decimal number._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `implicit(sbyte value) -> Half` _Converts an 8-bit signed integer to a `System.Half`._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `implicit(ushort value) -> Half` _Converts a 16-bit unsigned integer to a `System.Half`._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `implicit(uint value) -> Half` _Converts a 32-bit unsigned integer to a `System.Half`._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `implicit(ulong value) -> Half` _Converts a 64-bit unsigned integer to a `System.Half`._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `explicit(Half value) -> sbyte` _Converts a `System.Half` to an 8-bit signed integer._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `explicit(Half value) -> ushort` _Converts a `System.Half` to a 16-bit unsigned integer._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `explicit(Half value) -> uint` _Converts a `System.Half` to a 32-bit unsigned integer._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `explicit(Half value) -> ulong` _Converts a `System.Half` to a 64-bit unsigned integer._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `CompareTo(Half other) -> int` _Compares this instance to a specified `System.Half` object._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `CompareTo(object obj) -> int` _Compares this instance to a specified `System.Object`._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `Equals(Half other) -> bool` _Returns a value indicating whether this instance and a specified `System.Half` object represent the same value._
+
 override method Half.Equals(object obj) -> bool - Returns a value indicating whether this instance and a specified System.Object represent the same type and value.
 override method Half.GetHashCode() -> int - Returns the hash code for this instance.
 method Half.GetTypeCode() -> TypeCode - Returns the System.TypeCode for value type System.Half.
