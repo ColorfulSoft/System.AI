@@ -750,3 +750,9 @@ namespace FloatMatrixExample
 
 }
 ```
+
+## Third-party codes as part of System.FloatingPoint
+
+`System.Half` data type is a fully third-party code. Original source: https://sourceforge.net/projects/csharp-half/
+
+In accordance with the license of the original `System.Half` code, the source code was refactored and included in the System.AI stack as an integral part.
