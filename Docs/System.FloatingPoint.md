@@ -80,6 +80,10 @@
 
 * *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `implicit(long value) -> Half` _Converts a 64-bit signed integer to a `System.Half`._
 
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `implicit(Quarter value) -> Half` _Converts a quarter-precision floating-point number to a `System.Half`._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `explicit(BFloat16 value) -> Half` _Converts a 16-bit google brain floating-point number to a `System.Half`._
+
 * *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `explicit(float value) -> Half` _Converts a single-precision floating-point number to a `System.Half`._
 
 * *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `explicit(double value) -> Half` _Converts a double-precision floating-point number to a `System.Half`._
@@ -242,6 +246,7 @@ namespace FloatsExample
 * BFloat16 matrix multiplication
 
 ```C#
+//reference System.FloatingPoint.dll or System.AI.dll
 using System;
 
 namespace FloatMatrixExample
