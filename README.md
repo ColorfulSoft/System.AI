@@ -42,6 +42,8 @@ Detailed instructions for launching on different platforms: https://github.com/C
 
 # Update history
 
+* **[11.04.2022]** The current documentation for the ***System.FloatingPoint*** and ***imageio.NET*** libraries is posted.
+* **[10.04.2022]** A new version of the ***PyType.NET*** library is available.
 * **[10.04.2022]** A new version of ***imageio.NET*** has been released.
 * **[10.04.2022]** The ***System.Complex*** module is implemented, which contains `CQuarter`, `CHalf`, `CBFloat16`, `CFloat` and `CDouble` types of complex numbers. Added missing type conversions to the ***System.FloatingPoint*** module.
 * **[05.03.2022]** Implemented a ***warnings.NET*** warning module, an analogue of the standard `warnings` module of the Python ecosystem.
