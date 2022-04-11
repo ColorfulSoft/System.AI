@@ -124,27 +124,48 @@
 
 * *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `Equals(Half other) -> bool` _Returns a value indicating whether this instance and a specified `System.Half` object represent the same value._
 
-override method Half.Equals(object obj) -> bool - Returns a value indicating whether this instance and a specified System.Object represent the same type and value.
-override method Half.GetHashCode() -> int - Returns the hash code for this instance.
-method Half.GetTypeCode() -> TypeCode - Returns the System.TypeCode for value type System.Half.
-static method Half.GetBytes(Half value) -> byte[] - Returns the specified half-precision floating point value as an array of bytes.
-static method Half.GetBits(Half value) -> ushort - Converts the value of a specified instance of System.Half to its equivalent binary representation.
-static method Half.ToHalf(byte[] value, int startIndex) -> Half - Returns a half-precision floating point number converted from two bytes at a specified position in a byte array.
-static method Half.ToHalf(ushort bits) -> Half - Returns a half-precision floating point number converted from its binary representation.
-static method Half.Sign(Half value) -> int - Returns a value indicating the sign of a half-precision floating-point number.
-static method Half.Abs(Half value) -> Half - Returns the absolute value of a half-precision floating-point number.
-static method Half.Max(Half value1, Half value2) -> Half - Returns the larger of two half-precision floating-point numbers.
-static method Half.Min(Half value1, Half value2) -> Half - Returns the smaller of two half-precision floating-point numbers.
-static method Half.IsNaN(Half half) -> bool - Returns a value indicating whether the specified number evaluates to not a number (System.Half.NaN).
-static method Half.IsInfinity(Half half) -> bool - Returns a value indicating whether the specified number evaluates to negative or positive infinity.
-static method Half.IsNegativeInfinity(Half half) -> bool - Returns a value indicating whether the specified number evaluates to negative infinity.
-static method Half.IsPositiveInfinity(Half half) -> bool - Returns a value indicating whether the specified number evaluates to positive infinity.
-static method Half.Parse(string value) -> Half - Converts the string representation of a number to its System.Half equivalent.
-static method Half.Parse(string value, IFormatProvider provider) -> Half - Converts the string representation of a number to its System.Half equivalent using the specified culture-specific format information.
-static method Half.Parse(string value, NumberStyles style) -> Half - Converts the string representation of a number in a specified style to its System.Half equivalent.
-static method Half.Parse(string value, NumberStyles style, IFormatProvider provider) -> Half - Converts the string representation of a number to its System.Half equivalent using the specified style and culture-specific format.
-static method Half.TryParse(string value, out Half result) -> bool - Converts the string representation of a number to its System.Half equivalent. A return value indicates whether the conversion succeeded or failed.
-static method Half.TryParse(string value, NumberStyles style, IFormatProvider provider, out Half result) -> bool - Converts the string representation of a number to its System.Half equivalent using the specified style and culture-specific format. A return value indicates whether the conversion succeeded or failed.
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `Equals(object obj) -> bool` **override** _Returns a value indicating whether this instance and a specified `System.Object` represent the same type and value._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `GetHashCode() -> int` **override** _Returns the hash code for this instance._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `GetTypeCode() -> TypeCode` _Returns the `System.TypeCode` for value type `System.Half`._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `GetBytes(Half value) -> byte[]` **static** _Returns the specified half-precision floating point value as an array of bytes._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `GetBits(Half value) -> ushort` **static** _Converts the value of a specified instance of System.Half to its equivalent binary representation._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `ToHalf(byte[] value, int startIndex) -> Half` **static** _Returns a half-precision floating point number converted from two bytes at a specified position in a byte array._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `ToHalf(ushort bits) -> Half` **static** _Returns a half-precision floating point number converted from its binary representation._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `Sign(Half value) -> int` **static** _Returns a value indicating the sign of a half-precision floating-point number._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `Abs(Half value) -> Half` **static** _Returns the absolute value of a half-precision floating-point number._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `Max(Half value1, Half value2) -> Half` **static** _Returns the larger of two half-precision floating-point numbers._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `Min(Half value1, Half value2) -> Half` **static** _Returns the smaller of two half-precision floating-point numbers._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `IsNaN(Half half) -> bool` **static** _Returns a value indicating whether the specified number evaluates to not a number (System.Half.NaN)._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `IsInfinity(Half half) -> bool` **static** _Returns a value indicating whether the specified number evaluates to negative or positive infinity._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `IsNegativeInfinity(Half half) -> bool` **static** _Returns a value indicating whether the specified number evaluates to negative infinity._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `IsPositiveInfinity(Half half) -> boo` **static** _Returns a value indicating whether the specified number evaluates to positive infinity._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `Parse(string value) -> Half` **static** _Converts the string representation of a number to its `System.Half` equivalent._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `Parse(string value, IFormatProvider provider) -> Half` **static** _Converts the string representation of a number to its `System.Half` equivalent using the specified culture-specific format information._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `Parse(string value, NumberStyles style) -> Half` **static** _Converts the string representation of a number in a specified style to its `System.Half` equivalent._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `Parse(string value, NumberStyles style, IFormatProvider provider) -> Half` **static** _Converts the string representation of a number to its `System.Half` equivalent using the specified style and culture-specific format._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `TryParse(string value, out Half result) -> bool` **static** _Converts the string representation of a number to its `System.Half` equivalent. A return value indicates whether the conversion succeeded or failed._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `TryParse(string value, NumberStyles style, IFormatProvider provider, out Half result) -> bool` **static** _Converts the string representation of a number to its `System.Half` equivalent using the specified style and culture-specific format. A return value indicates whether the conversion succeeded or failed._
+
 override method Half.ToString() -> string - Converts the numeric value of this instance to its equivalent string representation.
 method Half.ToString(IFormatProvider formatProvider) -> string - Converts the numeric value of this instance to its equivalent string representation using the specified culture-specific format information.
 method Half.ToString(string format) -> string - Converts the numeric value of this instance to its equivalent string representation, using the specified format.
@@ -172,7 +193,7 @@ IConvertible method Half.ToUInt64(IFormatProvider provider) -> ulong
 ```C#
 using System;
 
-namespace HalfExample
+namespace FloatsExample
 {
 
     public static class Program
