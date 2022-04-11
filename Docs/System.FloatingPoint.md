@@ -2,6 +2,8 @@
 
 The library provides the floating-point numeric types `Quarter`, `Half` and `BFloat16`.
 
+***All types provided by this library are not hardware-accelerated and are implemented programmatically, so their performance is significantly lower than that of the native float and double types.***
+
 ## API reference
 
 ![namespace](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/namespace.png) `System`
@@ -423,6 +425,212 @@ The library provides the floating-point numeric types `Quarter`, `Half` and `BFl
 * *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `IConvertible.ToUInt64(IFormatProvider provider) -> ulong`
 
 * ![struct](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/struct.png) `BFloat16`
+
+* *  ![field](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/fieldreadonly.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `Epsilon -> BFloat16` **static readonly** _Represents the smallest positive `System.BFloat16` value greater than zero._
+  
+* *  ![field](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/fieldreadonly.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `MaxValue -> BFloat16` **static readonly** _Represents the largest possible value of `System.BFloat16`._
+
+* *  ![field](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/fieldreadonly.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `MinValue -> BFloat16` **static readonly** _Represents the smallest possible value of `System.BFloat16`._
+
+* *  ![field](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/fieldreadonly.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `NaN -> BFloat16` **static readonly** _Represents not a number (NaN)._
+
+* *  ![field](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/fieldreadonly.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `NegativeInfinity -> BFloat16` **static readonly** _Represents negative infinity._
+
+* *  ![field](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/fieldreadonly.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `PositiveInfinity -> BFloat16` **static readonly** _Represents positive infinity._
+
+* *  ![constructor](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/constructor.png) `BFloat16(float value) -> new BFloat16` _Initializes a new instance of `System.BFloat16` to the value of the specified single-precision floating-point number._
+
+* *  ![constructor](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/constructor.png) `BFloat16(int value) -> new BFloat16` _Initializes a new instance of `System.BFloat16` to the value of the specified 32-bit signed integer._
+
+* *  ![constructor](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/constructor.png) `BFloat16(long value) -> new BFloat16` _Initializes a new instance of `System.BFloat16` to the value of the specified 64-bit signed integer._
+
+* *  ![constructor](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/constructor.png) `BFloat16(double value) -> new BFloat16` _Initializes a new instance of `System.BFloat16` to the value of the specified double-precision floating-point number._
+
+* *  ![constructor](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/constructor.png) `BFloat16(decimal value) -> new BFloat16` _Initializes a new instance of `System.BFloat16` to the value of the specified decimal number._
+
+* *  ![constructor](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/constructor.png) `BFloat16(uint value) -> new BFloat16` _Initializes a new instance of `System.BFloat16` to the value of the specified 32-bit unsigned integer._
+
+* *  ![constructor](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/constructor.png) `BFloat16(ulong value) -> new BFloat16` _Initializes a new instance of `System.BFloat16` to the value of the specified 64-bit unsigned integer._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `Negate(BFloat16 bfloat16) -> BFloat16` **static** _Returns the result of multiplying the specified `System.BFloat16` value by negative one._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `Add(BFloat16 bfloat161, BFloat16 bfloat162) -> BFloat16` **static** _Adds two specified `System.BFloat16` values._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `Substract(BFloat16 bfloat161, BFloat16 bfloat162) -> BFloat16` **static** _Subtracts one specified `System.BFloat16` value from another._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `Multiply(BFloat16 bfloat161, BFloat16 bfloat162) -> BFloat16` **static** _Multiplies two specified `System.BFloat16` values._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `Divide(BFloat16 bfloat161, BFloat16 bfloat162) -> BFloat16` **static** _Divides two specified `System.BFloat16` values._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `+(BFloat16 bfloat16) -> BFloat16` _Returns the value of the `System.BFloat16` operand (the sign of the operand is unchanged)._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `-(BFloat16 bfloat16) -> BFloat16` _Negates the value of the specified `System.BFloat16` operand._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `++(BFloat16 bfloat16) -> BFloat16` _Increments the `System.BFloat16` operand by 1._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `--(BFloat16 bfloat16) -> BFloat16` _Decrements the `System.BFloat16` operand by one._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `+(BFloat16 bfloat161, BFloat16 bfloat162) -> BFloat16` _Adds two specified `System.BFloat16` values._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `-(BFloat16 bfloat161, BFloat16 bfloat162) -> BFloat16` _Subtracts two specified `System.BFloat16` values._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `*(BFloat16 bfloat161, BFloat16 bfloat162) -> BFloat16` _Multiplies two specified `System.BFloat16` values._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `/(BFloat16 bfloat161, BFloat16 bfloat162) -> BFloat16` _Divides two specified `System.BFloat16` values._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `==(BFloat16 bfloat161, BFloat16 bfloat162) -> bool` _Returns a value indicating whether two instances of `System.BFloat16` are equal._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `!=(BFloat16 bfloat161, BFloat16 bfloat162) -> bool` _Returns a value indicating whether two instances of `System.BFloat16` are not equal._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `<(BFloat16 bfloat161, BFloat16 bfloat162) -> bool` _Returns a value indicating whether a specified `System.BFloat16` is less than another specified `System.BFloat16`._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `>(BFloat16 bfloat161, BFloat16 bfloat162) -> bool` _Returns a value indicating whether a specified `System.BFloat16` is greater than another specified `System.BFloat16`._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `<=(BFloat16 bfloat161, BFloat16 bfloat162) -> bool` _Returns a value indicating whether a specified `System.BFloat16` is less than or equal to another specified `System.BFloat16`._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `>=(BFloat16 bfloat161, BFloat16 bfloat162) -> bool` _Returns a value indicating whether a specified `System.BFloat16` is greater than or equal to another specified `System.BFloat16`._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `implicit(byte value) -> BFloat16` _Converts an 8-bit unsigned integer to a `System.BFloat16`._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `implicit(short value) -> BFloat16` _Converts a 16-bit signed integer to a `System.BFloat16`._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `implicit(char value) -> BFloat16` _Converts a Unicode character to a `System.BFloat16`._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `implicit(int value) -> BFloat16` _Converts a 32-bit signed integer to a `System.BFloat16`._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `implicit(long value) -> BFloat16` _Converts a 64-bit signed integer to a `System.BFloat16`._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `implicit(Quarter value) -> BFloat16` _Converts a quarter-precision floating-point number to a `System.BFloat16`._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `implicit(Half value) -> BFloat16` _Converts a half-precision floating-point number to a `System.BFloat16`._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `explicit(float value) -> BFloat16` _Converts a single-precision floating-point number to a `System.BFloat16`._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `explicit(double value) -> BFloat16` _Converts a double-precision floating-point number to a `System.BFloat16`._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `explicit(decimal value) -> BFloat16` _Converts a decimal number to a `System.BFloat16`._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `explicit(BFloat16 value) -> byte` _Converts a `System.BFloat16` to an 8-bit unsigned integer._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `explicit(BFloat16 value) -> char` _Converts a `System.BFloat16` to a Unicode character._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `explicit(BFloat16 value) -> short` _Converts a `System.BFloat16` to a 16-bit signed integer._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `explicit(BFloat16 value) -> int` _Converts a `System.BFloat16` to a 32-bit signed integer._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `explicit(BFloat16 value) -> long` _Converts a `System.BFloat16` to a 64-bit signed integer._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `implicit(BFloat16 value) -> float` _Converts a `System.BFloat16` to a single-precision floating-point number._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `implicit(BFloat16 value) -> double` _Converts a `System.BFloat16` to a double-precision floating-point number._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `explicit(BFloat16 value) -> decimal` _Converts a `System.BFloat16` to a decimal number._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `implicit(sbyte value) -> BFloat16` _Converts an 8-bit signed integer to a `System.BFloat16`._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `implicit(ushort value) -> BFloat16` _Converts a 16-bit unsigned integer to a `System.BFloat16`._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `implicit(uint value) -> BFloat16` _Converts a 32-bit unsigned integer to a `System.BFloat16`._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `implicit(ulong value) -> BFloat16` _Converts a 64-bit unsigned integer to a `System.BFloat16`._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `explicit(BFloat16 value) -> sbyte` _Converts a `System.BFloat16` to an 8-bit signed integer._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `explicit(BFloat16 value) -> ushort` _Converts a `System.BFloat16` to a 16-bit unsigned integer._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `explicit(BFloat16 value) -> uint` _Converts a `System.BFloat16` to a 32-bit unsigned integer._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `explicit(BFloat16 value) -> ulong` _Converts a `System.BFloat16` to a 64-bit unsigned integer._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `CompareTo(BFloat16 other) -> int` _Compares this instance to a specified `System.BFloat16` object._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `CompareTo(object obj) -> int` _Compares this instance to a specified `System.Object`._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `Equals(BFloat16 other) -> bool` _Returns a value indicating whether this instance and a specified `System.BFloat16` object represent the same value._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `Equals(object obj) -> bool` **override** _Returns a value indicating whether this instance and a specified `System.Object` represent the same type and value._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `GetHashCode() -> int` **override** _Returns the hash code for this instance._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `GetTypeCode() -> TypeCode` _Returns the `System.TypeCode` for value type `System.BFloat16`._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `GetBytes(BFloat16 value) -> byte[]` **static** _Returns the specified 16-bit google brain floating point value as an array of bytes._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `GetBits(BFloat16 value) -> byte` **static** _Converts the value of a specified instance of System.BFloat16 to its equivalent binary representation._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `ToBFloat16(byte[] value, int startIndex) -> BFloat16` **static** _Returns a 16-bit google brain floating point number converted from one byte at a specified position in a byte array._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `ToBFloat16(byte bits) -> BFloat16` **static** _Returns a 16-bit google brain floating point number converted from its binary representation._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `Sign(BFloat16 value) -> int` **static** _Returns a value indicating the sign of a 16-bit google brain floating-point number._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `Abs(BFloat16 value) -> BFloat16` **static** _Returns the absolute value of a 16-bit google brain floating-point number._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `Max(BFloat16 value1, BFloat16 value2) -> BFloat16` **static** _Returns the larger of two 16-bit google brain floating-point numbers._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `Min(BFloat16 value1, BFloat16 value2) -> BFloat16` **static** _Returns the smaller of two 16-bit google brain floating-point numbers._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `IsNaN(BFloat16 bfloat16) -> bool` **static** _Returns a value indicating whether the specified number evaluates to not a number (System.BFloat16.NaN)._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `IsInfinity(BFloat16 bfloat16) -> bool` **static** _Returns a value indicating whether the specified number evaluates to negative or positive infinity._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `IsNegativeInfinity(BFloat16 bfloat16) -> bool` **static** _Returns a value indicating whether the specified number evaluates to negative infinity._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `IsPositiveInfinity(BFloat16 bfloat16) -> boo` **static** _Returns a value indicating whether the specified number evaluates to positive infinity._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `Parse(string value) -> BFloat16` **static** _Converts the string representation of a number to its `System.BFloat16` equivalent._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `Parse(string value, IFormatProvider provider) -> BFloat16` **static** _Converts the string representation of a number to its `System.BFloat16` equivalent using the specified culture-specific format information._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `Parse(string value, NumberStyles style) -> BFloat16` **static** _Converts the string representation of a number in a specified style to its `System.BFloat16` equivalent._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `Parse(string value, NumberStyles style, IFormatProvider provider) -> BFloat16` **static** _Converts the string representation of a number to its `System.BFloat16` equivalent using the specified style and culture-specific format._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `TryParse(string value, out BFloat16 result) -> bool` **static** _Converts the string representation of a number to its `System.BFloat16` equivalent. A return value indicates whether the conversion succeeded or failed._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `TryParse(string value, NumberStyles style, IFormatProvider provider, out BFloat16 result) -> bool` **static** _Converts the string representation of a number to its `System.BFloat16` equivalent using the specified style and culture-specific format. A return value indicates whether the conversion succeeded or failed._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `ToString() -> string` **override** _Converts the numeric value of this instance to its equivalent string representation._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `ToString(IFormatProvider formatProvider) -> string` **override** _Converts the numeric value of this instance to its equivalent string representation using the specified culture-specific format information._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `ToString(string format) -> string` **override** _Converts the numeric value of this instance to its equivalent string representation, using the specified format._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `ToString(string format, IFormatProvider formatProvider) -> string` **override** _Converts the numeric value of this instance to its equivalent string representation using the specified format and culture-specific format information._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `IConvertible.ToSingle(IFormatProvider provider) -> float`
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `IConvertible.GetTypeCode() -> TypeCode`
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `IConvertible.ToBoolean(IFormatProvider provider) -> bool`
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `IConvertible.ToByte(IFormatProvider provider) -> byte`
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `IConvertible.ToChar(IFormatProvider provider) -> char`
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `IConvertible.ToDateTime(IFormatProvider provider) -> DateTime`
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `IConvertible.ToDecimal(IFormatProvider provider) -> decimal`
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `IConvertible.ToDouble(IFormatProvider provider) -> double`
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `IConvertible.ToInt16(IFormatProvider provider) -> short`
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `IConvertible.ToInt32(IFormatProvider provider) -> int`
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `IConvertible.ToInt64(IFormatProvider provider) -> long`
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `IConvertible.ToSByte(IFormatProvider provider) -> sbyte`
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `IConvertible.ToString(IFormatProvider provider) -> string`
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `IConvertible.ToType(Type conversionType, IFormatProvider provider) -> Type`
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `IConvertible.ToUInt16(IFormatProvider provider) -> ushort`
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `IConvertible.ToUInt32(IFormatProvider provider) -> uint`
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `IConvertible.ToUInt64(IFormatProvider provider) -> ulong`
 
 ## Code samples
 
