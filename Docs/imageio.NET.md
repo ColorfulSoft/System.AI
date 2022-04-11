@@ -134,3 +134,12 @@ namespace imageio3
 
 }
 ```
+
+## Third-party codes as part of imageio.NET
+
+As a backend, `imageio.NET` uses a pure reimplementation of the STB(C language) library for C#.
+
+* StbImageWriteSharp original sources: https://github.com/StbSharp/StbImageWriteSharp
+* StbImageSharp original sources: https://github.com/StbSharp/StbImageSharp
+
+In accordance with the license of the original STB library, as well as those used in `imageio.NET` `StbImageSharp` and `StbImageWriteSharp` codes, the source codes were refactored and included in the `imageio.NET` library which is an integral part of the System.AI package.
