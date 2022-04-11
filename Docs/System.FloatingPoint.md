@@ -1,8 +1,218 @@
 # System.FloatingPoint
 
+The library provides the floating-point numeric types `Quarter`, `Half` and `BFloat16`.
+
 ## API reference
 
 ![namespace](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/namespace.png) `System`
+
+* ![struct](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/struct.png) `Quarter`
+
+* *  ![field](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/fieldreadonly.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `Epsilon -> Quarter` **static readonly** _Represents the smallest positive `System.Quarter` value greater than zero._
+  
+* *  ![field](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/fieldreadonly.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `MaxValue -> Quarter` **static readonly** _Represents the largest possible value of `System.Quarter`._
+
+* *  ![field](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/fieldreadonly.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `MinValue -> Quarter` **static readonly** _Represents the smallest possible value of `System.Quarter`._
+
+* *  ![field](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/fieldreadonly.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `NaN -> Quarter` **static readonly** _Represents not a number (NaN)._
+
+* *  ![field](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/fieldreadonly.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `NegativeInfinity -> Quarter` **static readonly** _Represents negative infinity._
+
+* *  ![field](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/fieldreadonly.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `PositiveInfinity -> Quarter` **static readonly** _Represents positive infinity._
+
+* *  ![constructor](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/constructor.png) `Quarter(float value) -> new Quarter` _Initializes a new instance of `System.Quarter` to the value of the specified single-precision floating-point number._
+
+* *  ![constructor](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/constructor.png) `Quarter(int value) -> new Quarter` _Initializes a new instance of `System.Quarter` to the value of the specified 32-bit signed integer._
+
+* *  ![constructor](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/constructor.png) `Quarter(long value) -> new Quarter` _Initializes a new instance of `System.Quarter` to the value of the specified 64-bit signed integer._
+
+* *  ![constructor](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/constructor.png) `Quarter(double value) -> new Quarter` _Initializes a new instance of `System.Quarter` to the value of the specified double-precision floating-point number._
+
+* *  ![constructor](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/constructor.png) `Quarter(decimal value) -> new Quarter` _Initializes a new instance of `System.Quarter` to the value of the specified decimal number._
+
+* *  ![constructor](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/constructor.png) `Quarter(uint value) -> new Quarter` _Initializes a new instance of `System.Quarter` to the value of the specified 32-bit unsigned integer._
+
+* *  ![constructor](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/constructor.png) `Quarter(ulong value) -> new Quarter` _Initializes a new instance of `System.Quarter` to the value of the specified 64-bit unsigned integer._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `Negate(Quarter quarter) -> Quarter` **static** _Returns the result of multiplying the specified `System.Quarter` value by negative one._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `Add(Quarter quarter1, Quarter quarter2) -> Quarter` **static** _Adds two specified `System.Quarter` values._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `Substract(Quarter quarter1, Quarter quarter2) -> Quarter` **static** _Subtracts one specified `System.Quarter` value from another._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `Multiply(Quarter quarter1, Quarter quarter2) -> Quarter` **static** _Multiplies two specified `System.Quarter` values._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `Divide(Quarter quarter1, Quarter quarter2) -> Quarter` **static** _Divides two specified `System.Quarter` values._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `+(Quarter quarter) -> Quarter` _Returns the value of the `System.Quarter` operand (the sign of the operand is unchanged)._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `-(Quarter quarter) -> Quarter` _Negates the value of the specified `System.Quarter` operand._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `++(Quarter quarter) -> Quarter` _Increments the `System.Quarter` operand by 1._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `--(Quarter quarter) -> Quarter` _Decrements the `System.Quarter` operand by one._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `+(Quarter quarter1, Quarter quarter2) -> Quarter` _Adds two specified `System.Quarter` values._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `-(Quarter quarter1, Quarter quarter2) -> Quarter` _Subtracts two specified `System.Quarter` values._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `*(Quarter quarter1, Quarter quarter2) -> Quarter` _Multiplies two specified `System.Quarter` values._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `/(Quarter quarter1, Quarter quarter2) -> Quarter` _Divides two specified `System.Quarter` values._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `==(Quarter quarter1, Quarter quarter2) -> bool` _Returns a value indicating whether two instances of `System.Quarter` are equal._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `!=(Quarter quarter1, Quarter quarter2) -> bool` _Returns a value indicating whether two instances of `System.Quarter` are not equal._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `<(Quarter quarter1, Quarter quarter2) -> bool` _Returns a value indicating whether a specified `System.Quarter` is less than another specified `System.Quarter`._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `>(Quarter quarter1, Quarter quarter2) -> bool` _Returns a value indicating whether a specified `System.Quarter` is greater than another specified `System.Quarter`._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `<=(Quarter quarter1, Quarter quarter2) -> bool` _Returns a value indicating whether a specified `System.Quarter` is less than or equal to another specified `System.Quarter`._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `>=(Quarter quarter1, Quarter quarter2) -> bool` _Returns a value indicating whether a specified `System.Quarter` is greater than or equal to another specified `System.Quarter`._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `implicit(byte value) -> Quarter` _Converts an 8-bit unsigned integer to a `System.Quarter`._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `implicit(short value) -> Quarter` _Converts a 16-bit signed integer to a `System.Quarter`._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `implicit(char value) -> Quarter` _Converts a Unicode character to a `System.Quarter`._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `implicit(int value) -> Quarter` _Converts a 32-bit signed integer to a `System.Quarter`._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `implicit(long value) -> Quarter` _Converts a 64-bit signed integer to a `System.Quarter`._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `explicit(Half value) -> Quarter` _Converts a half-precision floating-point number to a `System.Quarter`._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `explicit(BFloat16 value) -> Quarter` _Converts a 16-bit google brain floating-point number to a `System.Quarter`._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `explicit(float value) -> Quarter` _Converts a single-precision floating-point number to a `System.Quarter`._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `explicit(double value) -> Quarter` _Converts a double-precision floating-point number to a `System.Quarter`._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `explicit(decimal value) -> Quarter` _Converts a decimal number to a `System.Quarter`._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `explicit(Quarter value) -> byte` _Converts a `System.Quarter` to an 8-bit unsigned integer._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `explicit(Quarter value) -> char` _Converts a `System.Quarter` to a Unicode character._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `explicit(Quarter value) -> short` _Converts a `System.Quarter` to a 16-bit signed integer._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `explicit(Quarter value) -> int` _Converts a `System.Quarter` to a 32-bit signed integer._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `explicit(Quarter value) -> long` _Converts a `System.Quarter` to a 64-bit signed integer._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `implicit(Quarter value) -> float` _Converts a `System.Quarter` to a single-precision floating-point number._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `implicit(Quarter value) -> double` _Converts a `System.Quarter` to a double-precision floating-point number._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `explicit(Quarter value) -> decimal` _Converts a `System.Quarter` to a decimal number._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `implicit(sbyte value) -> Quarter` _Converts an 8-bit signed integer to a `System.Quarter`._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `implicit(ushort value) -> Quarter` _Converts a 16-bit unsigned integer to a `System.Quarter`._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `implicit(uint value) -> Quarter` _Converts a 32-bit unsigned integer to a `System.Quarter`._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `implicit(ulong value) -> Quarter` _Converts a 64-bit unsigned integer to a `System.Quarter`._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `explicit(Quarter value) -> sbyte` _Converts a `System.Quarter` to an 8-bit signed integer._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `explicit(Quarter value) -> ushort` _Converts a `System.Quarter` to a 16-bit unsigned integer._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `explicit(Quarter value) -> uint` _Converts a `System.Quarter` to a 32-bit unsigned integer._
+
+* *  ![operator](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/operator.png) `explicit(Quarter value) -> ulong` _Converts a `System.Quarter` to a 64-bit unsigned integer._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `CompareTo(Quarter other) -> int` _Compares this instance to a specified `System.Quarter` object._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `CompareTo(object obj) -> int` _Compares this instance to a specified `System.Object`._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `Equals(Quarter other) -> bool` _Returns a value indicating whether this instance and a specified `System.Quarter` object represent the same value._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `Equals(object obj) -> bool` **override** _Returns a value indicating whether this instance and a specified `System.Object` represent the same type and value._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `GetHashCode() -> int` **override** _Returns the hash code for this instance._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `GetTypeCode() -> TypeCode` _Returns the `System.TypeCode` for value type `System.Quarter`._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `GetBytes(Quarter value) -> byte[]` **static** _Returns the specified quarter-precision floating point value as an array of bytes._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `GetBits(Quarter value) -> byte` **static** _Converts the value of a specified instance of System.Quarter to its equivalent binary representation._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `ToQuarter(byte[] value, int startIndex) -> Quarter` **static** _Returns a quarter-precision floating point number converted from one byte at a specified position in a byte array._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `ToQuarter(byte bits) -> Quarter` **static** _Returns a quarter-precision floating point number converted from its binary representation._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `Sign(Quarter value) -> int` **static** _Returns a value indicating the sign of a quarter-precision floating-point number._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `Abs(Quarter value) -> Quarter` **static** _Returns the absolute value of a quarter-precision floating-point number._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `Max(Quarter value1, Quarter value2) -> Quarter` **static** _Returns the larger of two quarter-precision floating-point numbers._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `Min(Quarter value1, Quarter value2) -> Quarter` **static** _Returns the smaller of two quarter-precision floating-point numbers._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `IsNaN(Quarter quarter) -> bool` **static** _Returns a value indicating whether the specified number evaluates to not a number (System.Quarter.NaN)._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `IsInfinity(Quarter quarter) -> bool` **static** _Returns a value indicating whether the specified number evaluates to negative or positive infinity._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `IsNegativeInfinity(Quarter quarter) -> bool` **static** _Returns a value indicating whether the specified number evaluates to negative infinity._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `IsPositiveInfinity(Quarter quarter) -> boo` **static** _Returns a value indicating whether the specified number evaluates to positive infinity._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `Parse(string value) -> Quarter` **static** _Converts the string representation of a number to its `System.Quarter` equivalent._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `Parse(string value, IFormatProvider provider) -> Quarter` **static** _Converts the string representation of a number to its `System.Quarter` equivalent using the specified culture-specific format information._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `Parse(string value, NumberStyles style) -> Quarter` **static** _Converts the string representation of a number in a specified style to its `System.Quarter` equivalent._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `Parse(string value, NumberStyles style, IFormatProvider provider) -> Quarter` **static** _Converts the string representation of a number to its `System.Quarter` equivalent using the specified style and culture-specific format._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `TryParse(string value, out Quarter result) -> bool` **static** _Converts the string representation of a number to its `System.Quarter` equivalent. A return value indicates whether the conversion succeeded or failed._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `TryParse(string value, NumberStyles style, IFormatProvider provider, out Quarter result) -> bool` **static** _Converts the string representation of a number to its `System.Quarter` equivalent using the specified style and culture-specific format. A return value indicates whether the conversion succeeded or failed._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `ToString() -> string` **override** _Converts the numeric value of this instance to its equivalent string representation._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `ToString(IFormatProvider formatProvider) -> string` **override** _Converts the numeric value of this instance to its equivalent string representation using the specified culture-specific format information._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `ToString(string format) -> string` **override** _Converts the numeric value of this instance to its equivalent string representation, using the specified format._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `ToString(string format, IFormatProvider formatProvider) -> string` **override** _Converts the numeric value of this instance to its equivalent string representation using the specified format and culture-specific format information._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `IConvertible.ToSingle(IFormatProvider provider) -> float`
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `IConvertible.GetTypeCode() -> TypeCode`
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `IConvertible.ToBoolean(IFormatProvider provider) -> bool`
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `IConvertible.ToByte(IFormatProvider provider) -> byte`
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `IConvertible.ToChar(IFormatProvider provider) -> char`
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `IConvertible.ToDateTime(IFormatProvider provider) -> DateTime`
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `IConvertible.ToDecimal(IFormatProvider provider) -> decimal`
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `IConvertible.ToDouble(IFormatProvider provider) -> double`
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `IConvertible.ToInt16(IFormatProvider provider) -> short`
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `IConvertible.ToInt32(IFormatProvider provider) -> int`
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `IConvertible.ToInt64(IFormatProvider provider) -> long`
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `IConvertible.ToSByte(IFormatProvider provider) -> sbyte`
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `IConvertible.ToString(IFormatProvider provider) -> string`
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `IConvertible.ToType(Type conversionType, IFormatProvider provider) -> Type`
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `IConvertible.ToUInt16(IFormatProvider provider) -> ushort`
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `IConvertible.ToUInt32(IFormatProvider provider) -> uint`
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `IConvertible.ToUInt64(IFormatProvider provider) -> ulong`
 
 * ![struct](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/struct.png) `Half`
 
@@ -211,6 +421,8 @@
 * *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `IConvertible.ToUInt32(IFormatProvider provider) -> uint`
 
 * *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `IConvertible.ToUInt64(IFormatProvider provider) -> ulong`
+
+* ![struct](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/struct.png) `BFloat16`
 
 ## Code samples
 
