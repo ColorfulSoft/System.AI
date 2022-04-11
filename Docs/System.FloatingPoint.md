@@ -166,31 +166,54 @@
 
 * *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `TryParse(string value, NumberStyles style, IFormatProvider provider, out Half result) -> bool` **static** _Converts the string representation of a number to its `System.Half` equivalent using the specified style and culture-specific format. A return value indicates whether the conversion succeeded or failed._
 
-override method Half.ToString() -> string - Converts the numeric value of this instance to its equivalent string representation.
-method Half.ToString(IFormatProvider formatProvider) -> string - Converts the numeric value of this instance to its equivalent string representation using the specified culture-specific format information.
-method Half.ToString(string format) -> string - Converts the numeric value of this instance to its equivalent string representation, using the specified format.
-method Half.ToString(string format, IFormatProvider formatProvider) -> string - Converts the numeric value of this instance to its equivalent string representation using the specified format and culture-specific format information.
-IConvertible method Half.ToSingle(IFormatProvider provider) -> float
-IConvertible method Half.GetTypeCode() -> TypeCode
-IConvertible method Half.ToBoolean(IFormatProvider provider) -> bool
-IConvertible method Half.ToByte(IFormatProvider provider) -> byte
-IConvertible method Half.ToChar(IFormatProvider provider) -> char
-IConvertible method Half.ToDateTime(IFormatProvider provider) -> DateTime
-IConvertible method Half.ToDecimal(IFormatProvider provider) -> decimal
-IConvertible method Half.ToDouble(IFormatProvider provider) -> double
-IConvertible method Half.ToInt16(IFormatProvider provider) -> short
-IConvertible method Half.ToInt32(IFormatProvider provider) -> int
-IConvertible method Half.ToInt64(IFormatProvider provider) -> long
-IConvertible method Half.ToSByte(IFormatProvider provider) -> sbyte
-IConvertible method Half.ToString(IFormatProvider provider) -> string
-IConvertible method Half.ToType(Type conversionType, IFormatProvider provider) -> Type
-IConvertible method Half.ToUInt16(IFormatProvider provider) -> ushort
-IConvertible method Half.ToUInt32(IFormatProvider provider) -> uint
-IConvertible method Half.ToUInt64(IFormatProvider provider) -> ulong
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `ToString() -> string` **override** _Converts the numeric value of this instance to its equivalent string representation._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `ToString(IFormatProvider formatProvider) -> string` **override** _Converts the numeric value of this instance to its equivalent string representation using the specified culture-specific format information._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `ToString(string format) -> string` **override** _Converts the numeric value of this instance to its equivalent string representation, using the specified format._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `ToString(string format, IFormatProvider formatProvider) -> string` **override** _Converts the numeric value of this instance to its equivalent string representation using the specified format and culture-specific format information._
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `IConvertible.ToSingle(IFormatProvider provider) -> float`
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `IConvertible.GetTypeCode() -> TypeCode`
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `IConvertible.ToBoolean(IFormatProvider provider) -> bool`
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `IConvertible.ToByte(IFormatProvider provider) -> byte`
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `IConvertible.ToChar(IFormatProvider provider) -> char`
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `IConvertible.ToDateTime(IFormatProvider provider) -> DateTime`
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `IConvertible.ToDecimal(IFormatProvider provider) -> decimal`
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `IConvertible.ToDouble(IFormatProvider provider) -> double`
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `IConvertible.ToInt16(IFormatProvider provider) -> short`
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `IConvertible.ToInt32(IFormatProvider provider) -> int`
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `IConvertible.ToInt64(IFormatProvider provider) -> long`
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `IConvertible.ToSByte(IFormatProvider provider) -> sbyte`
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `IConvertible.ToString(IFormatProvider provider) -> string`
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `IConvertible.ToType(Type conversionType, IFormatProvider provider) -> Type`
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `IConvertible.ToUInt16(IFormatProvider provider) -> ushort`
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `IConvertible.ToUInt32(IFormatProvider provider) -> uint`
+
+* *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) `IConvertible.ToUInt64(IFormatProvider provider) -> ulong`
 
 ## Code samples
 
+* Input and output of floating-point numbers. The simplest operations on them.
+
 ```C#
+//reference System.FloatingPoint.dll or System.AI.dll
 using System;
 
 namespace FloatsExample
@@ -207,7 +230,94 @@ namespace FloatsExample
             var b = Quarter.Parse(Console.ReadLine());
             Console.Write("c = ");
             var c = BFloat16.Parse(Console.ReadLine());
-            Console.WriteLine("(a + b) * c = " + ((a + b) * c).ToString());
+            Console.WriteLine(string.Format("({0} + {1}) * {2} = {3}", a, b, c, (a + b) * c));
+            Console.ReadKey(true);
+        }
+
+    }
+
+}
+```
+
+* BFloat16 matrix multiplication
+
+```C#
+using System;
+
+namespace FloatMatrixExample
+{
+
+    public static class Program
+    {
+
+        public static BFloat16[,] MatMul(BFloat16[,] a, BFloat16[,] b)
+        {
+            var m = a.GetLength(0);
+            var n = b.GetLength(1);
+            var k = b.GetLength(0);
+            var c = new BFloat16[m, n];
+            for(int i = 0; i < m; ++i)
+            {
+                for(int z = 0; z < k; ++z)
+                {
+                    var av = a[i, z];
+                    for(int j = 0; j < n; ++j)
+                    {
+                        c[i, j] += av * b[z, j];
+                    }
+                }
+            }
+            return c;
+        }
+
+        public static BFloat16[,] RandomMatrix(int m, int n)
+        {
+            var matrix = new BFloat16[m, n];
+            var rand = new Random();
+            for(int i = 0; i < m; ++i)
+            {
+                for(int j = 0; j < n; ++j)
+                {
+                    matrix[i, j] = (BFloat16)rand.NextDouble();
+                }
+            }
+            return matrix;
+        }
+
+        public static void PrintMatrix(BFloat16[,] m)
+        {
+            var h = m.GetLength(0);
+            var w = m.GetLength(1);
+            for(int i = 0; i < h; ++i)
+            {
+                for(int j = 0; j < w; ++j)
+                {
+                    if((j + 1) < w)
+                    {
+                        Console.Write(string.Format("{0:f4}, ", m[i, j]));
+                    }
+                    else
+                    {
+                        Console.WriteLine(string.Format("{0:f4}", m[i, j]));
+                    }
+                }
+            }
+        }
+
+        public static void Main()
+        {
+            const int m = 4;
+            const int n = 7;
+            const int k = 3;
+            var a = RandomMatrix(m, n);
+            Console.WriteLine("a=");
+            PrintMatrix(a);
+            var b = RandomMatrix(n, k);
+            Console.WriteLine("\nb=");
+            PrintMatrix(b);
+            var c = MatMul(a, b);
+            Console.WriteLine("\nc=");
+            PrintMatrix(c);
             Console.ReadKey(true);
         }
 
