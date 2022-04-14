@@ -42,6 +42,7 @@ Detailed instructions for launching on different platforms: https://github.com/C
 
 # Update history
 
+* **[14.04.2022]** Added documentation for ***warnings.NET***.
 * **[11.04.2022]** The current documentation for the ***System.FloatingPoint*** and ***imageio.NET*** libraries is posted.
 * **[10.04.2022]** A new version of the ***PyType.NET*** library is available.
 * **[10.04.2022]** A new version of ***imageio.NET*** has been released.
