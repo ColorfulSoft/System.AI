@@ -751,6 +751,17 @@ namespace FloatMatrixExample
 }
 ```
 
+## Technical details
+
+**Quarter(float8)** is a 8-bit IEEE 754 floating point type. See https://en.wikipedia.org/wiki/Minifloat
+![float8](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/float8.png)
+
+**Half(float16)** is a 16-bit IEEE 754 floating point type. See https://en.wikipedia.org/wiki/Half-precision_floating-point_format
+![float16](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/float16.png)
+
+**BFloat16** is a 16-bit Google Brain's floating point type for AI. Is a truncated version of Single(float32) type. See https://en.wikipedia.org/wiki/Bfloat16_floating-point_format
+![bfloat16](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/bfloat16.png)
+
 ## Third-party codes as part of System.FloatingPoint
 
 `System.Half` data type is a fully third-party code. Original source: https://sourceforge.net/projects/csharp-half/
