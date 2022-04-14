@@ -101,7 +101,7 @@ namespace System.AI
                     }
                     case torch.bfloat16:
                     {
-                        var ptr = (Half*)this.data_ptr;
+                        var ptr = (BFloat16*)this.data_ptr;
                         for(int i = 0; i < n; ++i)
                         {
                             str += ptr[i].ToString() + '\n';
