@@ -1,4 +1,4 @@
-![Logo](https://github.com/ColorfulSoft/System.AI/blob/master/Logo/System.AI_logo.png)
+![Logo](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/System.AI_logo.png)
 
 # What is System.AI
 
