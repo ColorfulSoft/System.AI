@@ -70,7 +70,7 @@ namespace System.AI
                     throw new NotImplementedException("The maximum number of measurements is 32.");
                 }
                 this.__count = size.Length;
-                this.__data_ptr = (int*)Marshal.AllocHGlobal(this.__count).ToPointer();
+                this.__data_ptr = (int*)Marshal.AllocHGlobal(this.__count * sizeof(int)).ToPointer();
                 this.numel = 1;
                 for(int i = 0; i < this.__count; ++i)
                 {
@@ -107,6 +107,13 @@ namespace System.AI
                 }
             }
 
+            /// <summary>
+            /// Returns the index of the first occurrence of the specified value in the collection.
+            /// In Size, returns the number of the first dimension equal to value.
+            /// If none was found, it will return -1.
+            /// </summary>
+            /// <param name="value">The desired value.</param>
+            /// <returns>The index of the first occurrence of the value value in the collection or -1.</returns>
             int IList<int>.IndexOf(int value)
             {
                 for(int i = 0; i < this.__count; ++i)
@@ -119,16 +126,25 @@ namespace System.AI
                 return -1;
             }
 
+            /// <summary>
+            /// Does not belong to this class.
+            /// </summary>
             void IList<int>.Insert(int index, int value)
             {
                 throw new NotImplementedException();
             }
 
+            /// <summary>
+            /// Does not belong to this class.
+            /// </summary>
             void IList<int>.RemoveAt(int index)
             {
                 throw new NotImplementedException();
             }
 
+            /// <summary>
+            /// Returns a dimension by its number. Read-only. An attempt to write will create an exception.
+            /// </summary>
             public int this[int index]
             {
 
@@ -144,16 +160,27 @@ namespace System.AI
 
             }
 
+            /// <summary>
+            /// Does not belong to this class.
+            /// </summary>
             void ICollection<int>.Add(int value)
             {
                 throw new NotImplementedException();
             }
 
+            /// <summary>
+            /// Does not belong to this class.
+            /// </summary>
             void ICollection<int>.Clear()
             {
                 throw new NotImplementedException();
             }
 
+            /// <summary>
+            /// Checks whether there is a dimension equal to value.
+            /// </summary>
+            /// <param name="value">The desired value.</param>
+            /// <returns>Boolean value.</returns>
             bool ICollection<int>.Contains(int value)
             {
                 for(int i = 0; i < this.__count; ++i)
@@ -166,6 +193,12 @@ namespace System.AI
                 return false;
             }
 
+            /// <summary>
+            /// Copies the values of the current Size object to the dest array,
+            /// starting with the start index in it.
+            /// </summary>
+            /// <param name="dest">Target array.</param>
+            /// <param name="start">The initial index of the dest array.</param>
             void ICollection<int>.CopyTo(int[] dest, int start)
             {
                 for(int i = 0; i < this.__count; ++i)
@@ -174,11 +207,17 @@ namespace System.AI
                 }
             }
 
+            /// <summary>
+            /// Does not belong to this class.
+            /// </summary>
             bool ICollection<int>.Remove(int value)
             {
                 throw new NotImplementedException();
             }
 
+            /// <summary>
+            /// Gets a value indicating whether the current collection is read-only. Size is read-only.
+            /// </summary>
             bool ICollection<int>.IsReadOnly
             {
 
@@ -189,6 +228,10 @@ namespace System.AI
 
             }
 
+            /// <summary>
+            /// Gets an enumerator (for foreach loops).
+            /// </summary>
+            /// <returns>IEnumerator&lt;int&gt;.</returns>
             IEnumerator<int> IEnumerable<int>.GetEnumerator()
             {
                 for(int i = 0; i < this.__count; ++i)
@@ -197,6 +240,10 @@ namespace System.AI
                 }
             }
 
+            /// <summary>
+            /// Gets an enumerator (for foreach loops).
+            /// </summary>
+            /// <returns>IEnumerator.</returns>
             IEnumerator IEnumerable.GetEnumerator()
             {
                 for(int i = 0; i < this.__count; ++i)
