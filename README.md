@@ -42,6 +42,7 @@ Detailed instructions for launching on different platforms: https://github.com/C
 
 # Update history
 
+* **[20.08.2022]** Support for VisualStudio/SharpDevelop/MonoDevelop via handwritten *.sln and *.csproj files. Tested using SharpDevelop 5.1.
 * **[20.04.2022]** Active work is underway on the ***torch.NET*** and ***torchvision.NET*** modules. Some codes are placed in the repository for demonstration purposes.
 * **[14.04.2022]** Added documentation for ***warnings.NET***.
 * **[11.04.2022]** The current documentation for the ***System.FloatingPoint*** and ***imageio.NET*** libraries is posted.
