@@ -23,6 +23,7 @@ Detailed instructions for launching on different platforms: https://github.com/C
 |warnings.NET            |System             |**stable**  |1.0     |https://github.com/ColorfulSoft/System.AI/blob/v2.0/Docs/warnings.NET.md        |
 |System.Complex          |System             |**stable**  |1.0     |https://github.com/ColorfulSoft/System.AI/blob/v2.0/Docs/System.Complex.md      |
 |PyType.NET              |System             |**stable**  |1.0     |https://github.com/ColorfulSoft/System.AI/blob/v2.0/Docs/PyType.NET.md          |
+|torchfile.NET           |System.IO          |**stable**  |1.0     |https://github.com/ColorfulSoft/System.AI/blob/v2.0/Docs/torchfile.NET.md       |
 
 <details>
   <summary><b>Warning!</b></summary>
