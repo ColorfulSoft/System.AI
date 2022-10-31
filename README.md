@@ -1,4 +1,4 @@
-![Logo](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/System.AI_logo.png)
+![Logo](https://github.com/ColorfulSoft/System.AI/raw/master/Docs/Icons/System.AI_logo.png)
 
 # What is System.AI
 
@@ -10,20 +10,20 @@ System.AI is supported by any software and hardware platforms that support the M
 
 # Getting started
 
-[![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ColorfulSoft/System.AI/blob/v2.0/Docs/System.AI.ipynb)
+[![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ColorfulSoft/System.AI/blob/master/Docs/System.AI.ipynb)
 
 Detailed instructions for launching on different platforms: https://github.com/ColorfulSoft/System.AI/blob/master/Docs/GettingStarted.md
 
 # Libraries included in the System.AI and architecture of the project
 
-|Library                 |Root .NET namespace| Status     |Version |Docs                                                                            |
-|:----------------------:|:-----------------:|:----------:|:------:|:------------------------------------------------------------------------------:|
-|System.FloatingPoint    |System             |**stable**  |1.1     |https://github.com/ColorfulSoft/System.AI/blob/v2.0/Docs/System.FloatingPoint.md|
-|imageio.NET             |System.IO          |**stable**  |1.2     |https://github.com/ColorfulSoft/System.AI/blob/v2.0/Docs/imageio.NET.md         |
-|warnings.NET            |System             |**stable**  |1.0     |https://github.com/ColorfulSoft/System.AI/blob/v2.0/Docs/warnings.NET.md        |
-|System.Complex          |System             |**stable**  |1.0     |https://github.com/ColorfulSoft/System.AI/blob/v2.0/Docs/System.Complex.md      |
-|PyType.NET              |System             |**stable**  |1.0     |https://github.com/ColorfulSoft/System.AI/blob/v2.0/Docs/PyType.NET.md          |
-|torchfile.NET           |System.IO          |**stable**  |1.0     |https://github.com/ColorfulSoft/System.AI/blob/v2.0/Docs/torchfile.NET.md       |
+|Library                 |Root .NET namespace| Status     |Version |Docs                                                                              |
+|:----------------------:|:-----------------:|:----------:|:------:|:--------------------------------------------------------------------------------:|
+|System.FloatingPoint    |System             |**stable**  |1.1     |https://github.com/ColorfulSoft/System.AI/blob/master/Docs/System.FloatingPoint.md|
+|imageio.NET             |System.IO          |**stable**  |1.2     |https://github.com/ColorfulSoft/System.AI/blob/master/Docs/imageio.NET.md         |
+|warnings.NET            |System             |**stable**  |1.0     |https://github.com/ColorfulSoft/System.AI/blob/master/Docs/warnings.NET.md        |
+|System.Complex          |System             |**stable**  |1.0     |https://github.com/ColorfulSoft/System.AI/blob/master/Docs/System.Complex.md      |
+|PyType.NET              |System             |**stable**  |1.0     |https://github.com/ColorfulSoft/System.AI/blob/master/Docs/PyType.NET.md          |
+|torchfile.NET           |System.IO          |**stable**  |1.0     |https://github.com/ColorfulSoft/System.AI/blob/master/Docs/torchfile.NET.md       |
 
 <details>
   <summary><b>Warning!</b></summary>
