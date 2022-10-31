@@ -43,7 +43,7 @@ Detailed instructions for launching on different platforms: https://github.com/C
 
 # Update history
 
-* **[31.10.2022]** V2.0 is now the main branch.
+* **[31.10.2022]** **V2.0 is now the main branch.**
 * **[27.10.2022]** ***torchfile.NET*** library is now available.
 * **[20.07.2022]** Support for VisualStudio/SharpDevelop/MonoDevelop via handwritten *.sln and *.csproj files. Tested using SharpDevelop 5.1.
 * **[20.04.2022]** Active work is underway on the ***torch.NET*** and ***torchvision.NET*** modules. Some codes are placed in the repository for demonstration purposes.
