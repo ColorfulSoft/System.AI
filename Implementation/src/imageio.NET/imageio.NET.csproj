@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <ProjectGuid>{00000000-0000-0000-0000-000000000000}</ProjectGuid>
+    <ProjectTypeGuids>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <OutputType>Library</OutputType>
+    <RootNamespace>imageio</RootNamespace>
+    <AssemblyName>imageio</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <NoWin32Manifest>False</NoWin32Manifest>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <NoStdLib>False</NoStdLib>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <IntermediateOutputPath>..\..\obj\$(Configuration)\</IntermediateOutputPath>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <BaseAddress>4194304</BaseAddress>
+    <RegisterForComInterop>False</RegisterForComInterop>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+    <FileAlignment>4096</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <OutputPath>..\..\bin\Debug\</OutputPath>
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>Full</DebugType>
+    <Optimize>False</Optimize>
+    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <BaseIntermediateOutputPath>obj\</BaseIntermediateOutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>..\..\bin\Release\</OutputPath>
+    <DebugSymbols>False</DebugSymbols>
+    <DebugType>None</DebugType>
+    <Optimize>True</Optimize>
+    <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
+    <DefineConstants>TRACE</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="StbImageSharp\AnimatedFrameResult.cs" />
+    <Compile Include="StbImageSharp\ImageResult.cs" />
+    <Compile Include="StbImageSharp\StbImage.cs" />
+    <Compile Include="StbImageSharp\StbImage.Generated.Bmp.cs" />
+    <Compile Include="StbImageSharp\StbImage.Generated.Common.cs" />
+    <Compile Include="StbImageSharp\StbImage.Generated.Gif.cs" />
+    <Compile Include="StbImageSharp\StbImage.Generated.Jpg.cs" />
+    <Compile Include="StbImageSharp\StbImage.Generated.Png.cs" />
+    <Compile Include="StbImageSharp\StbImage.Generated.Psd.cs" />
+    <Compile Include="StbImageSharp\StbImage.Generated.Tga.cs" />
+    <Compile Include="StbImageSharp\StbImage.Generated.Zlib.cs" />
+    <Compile Include="StbImageWriteSharp\ImageWriter.cs" />
+    <Compile Include="StbImageWriteSharp\StbImageWrite.cs" />
+    <Compile Include="StbImageWriteSharp\StbImageWrite.Generated.cs" />
+    <Compile Include="ColorComponents.cs" />
+    <Compile Include="CRuntime.cs" />
+    <Compile Include="imageio.cs" />
+    <Compile Include="MemoryStats.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\System.Complex\System.Complex.csproj">
+      <Project>{00000000-0000-0000-0000-000000000002}</Project>
+      <Name>System.Complex</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\System.FloatingPoint\System.FloatingPoint.csproj">
+      <Project>{00000000-0000-0000-0000-000000000003}</Project>
+      <Name>System.FloatingPoint</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\warnings.NET\warnings.NET.csproj">
+      <Project>{00000000-0000-0000-0000-000000000006}</Project>
+      <Name>warnings.NET</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

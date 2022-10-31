@@ -1,0 +1,10 @@
+#****************************************************************************************************
+# (C) ColorfulSoft corp., 2019-2022. All Rights reserved.
+# This code is available under Apache-2.0 license
+#****************************************************************************************************
+
+"src/torchfile.NET/LuaFunction.cs"
+"src/torchfile.NET/T7Reader.cs"
+"src/torchfile.NET/T7ReaderException.cs"
+"src/torchfile.NET/torchfile.cs"
+"src/torchfile.NET/TorchObject.cs"

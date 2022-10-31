@@ -1,0 +1,23 @@
+#****************************************************************************************************
+# (C) ColorfulSoft corp., 2019-2021. All Rights reserved.
+# This code is available under Apache-2.0 license
+#****************************************************************************************************
+
+"src/imageio.NET/StbImageSharp/AnimatedFrameResult.cs"
+"src/imageio.NET/StbImageSharp/ImageResult.cs"
+"src/imageio.NET/StbImageSharp/StbImage.cs"
+"src/imageio.NET/StbImageSharp/StbImage.Generated.Bmp.cs"
+"src/imageio.NET/StbImageSharp/StbImage.Generated.Common.cs"
+"src/imageio.NET/StbImageSharp/StbImage.Generated.Gif.cs"
+"src/imageio.NET/StbImageSharp/StbImage.Generated.Jpg.cs"
+"src/imageio.NET/StbImageSharp/StbImage.Generated.Png.cs"
+"src/imageio.NET/StbImageSharp/StbImage.Generated.Psd.cs"
+"src/imageio.NET/StbImageSharp/StbImage.Generated.Tga.cs"
+"src/imageio.NET/StbImageSharp/StbImage.Generated.Zlib.cs"
+"src/imageio.NET/StbImageWriteSharp/ImageWriter.cs"
+"src/imageio.NET/StbImageWriteSharp/StbImageWrite.cs"
+"src/imageio.NET/StbImageWriteSharp/StbImageWrite.Generated.cs"
+"src/imageio.NET/ColorComponents.cs"
+"src/imageio.NET/CRuntime.cs"
+"src/imageio.NET/imageio.cs"
+"src/imageio.NET/MemoryStats.cs"
