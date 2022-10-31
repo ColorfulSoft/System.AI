@@ -3,7 +3,7 @@ A tiny scalar-valued autograd engine and a neural net library on top of it with 
 
 ## Attention
 
-**`^` operator is NOT power (but bitwise logical) operator in C# (there is no operator for pow in C#), so `^` has lower priority than `-`, `+`, `*` and `/`. Take it in braces.**
+**`^` operator used as power in micrograd.NET is NOT power (but bitwise logical) operator in C# (there is no operator for pow in C#), so `^` has lower priority than `-`, `+`, `*` and `/`. Take it in braces.**
 
 ## Code samples
 
