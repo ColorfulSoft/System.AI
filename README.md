@@ -24,6 +24,7 @@ Detailed instructions for launching on different platforms: https://github.com/C
 |System.Complex          |System             |**stable**  |1.0     |https://github.com/ColorfulSoft/System.AI/blob/master/Docs/System.Complex.md      |
 |PyType.NET              |System             |**stable**  |1.0     |https://github.com/ColorfulSoft/System.AI/blob/master/Docs/PyType.NET.md          |
 |torchfile.NET           |System.IO          |**stable**  |1.0     |https://github.com/ColorfulSoft/System.AI/blob/master/Docs/torchfile.NET.md       |
+|micrograd.NET           |System.AI          |**stable**  |1.0     |https://github.com/ColorfulSoft/System.AI/blob/master/Docs/micrograd.NET.md       |
 
 <details>
   <summary><b>Warning!</b></summary>
@@ -43,6 +44,7 @@ Detailed instructions for launching on different platforms: https://github.com/C
 
 # Update history
 
+* **[31.10.2022]** ***micrograd.NET*** library is now available.
 * **[31.10.2022]** **V2.0 is now the main branch.**
 * **[27.10.2022]** ***torchfile.NET*** library is now available.
 * **[20.07.2022]** Support for VisualStudio/SharpDevelop/MonoDevelop via handwritten *.sln and *.csproj files. Tested using SharpDevelop 5.1.
