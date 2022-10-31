@@ -9,23 +9,23 @@ The library provides functionality for reading and saving images from/to a file.
 
 ## API reference
 
-![namespace](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/namespace.png) `System`
+![namespace](https://github.com/ColorfulSoft/System.AI/raw/master/Docs/Icons/namespace.png) `System`
 
-* ![namespace](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/namespace.png) `IO`
+* ![namespace](https://github.com/ColorfulSoft/System.AI/raw/master/Docs/Icons/namespace.png) `IO`
 
-* * ![staticclass](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/staticclass.png) `imageio`
+* * ![staticclass](https://github.com/ColorfulSoft/System.AI/raw/master/Docs/Icons/staticclass.png) `imageio`
 
-* * *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `imread(string uri) -> byte[,,]` **static** _Reads an image from a file at the specified path uri. *Returns:* 3-d standard byte array with pixels in HWC RGB format._
+* * *  ![method](https://github.com/ColorfulSoft/System.AI/raw/master/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/master/Docs/Icons/overlaystatic.png) `imread(string uri) -> byte[,,]` **static** _Reads an image from a file at the specified path uri. *Returns:* 3-d standard byte array with pixels in HWC RGB format._
 
-* * *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `imread(Stream s) -> byte[,,]` **static** _Reads an image from stream s. *Returns:* 3-d standard byte array with pixels in HWC RGB format._
+* * *  ![method](https://github.com/ColorfulSoft/System.AI/raw/master/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/master/Docs/Icons/overlaystatic.png) `imread(Stream s) -> byte[,,]` **static** _Reads an image from stream s. *Returns:* 3-d standard byte array with pixels in HWC RGB format._
 
-* * *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `imwrite(string uri, Array im, string format = null, params object[] kwargs) -> void` **static** _Saves the image from the array im to the file with specified uri in the format format with the specified quality (for jpg). im parameter should be 3-dimensional array of integer or floating point data type._
+* * *  ![method](https://github.com/ColorfulSoft/System.AI/raw/master/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/master/Docs/Icons/overlaystatic.png) `imwrite(string uri, Array im, string format = null, params object[] kwargs) -> void` **static** _Saves the image from the array im to the file with specified uri in the format format with the specified quality (for jpg). im parameter should be 3-dimensional array of integer or floating point data type._
 
-* * *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `imwrite(Stream s, Array im, string format = null, params object[] kwargs) -> void` **static** _Saves the image from the array im to the stream s in the format format with the specified quality (for jpg). im parameter should be 3-dimensional array of integer or floating point data type._
+* * *  ![method](https://github.com/ColorfulSoft/System.AI/raw/master/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/master/Docs/Icons/overlaystatic.png) `imwrite(Stream s, Array im, string format = null, params object[] kwargs) -> void` **static** _Saves the image from the array im to the stream s in the format format with the specified quality (for jpg). im parameter should be 3-dimensional array of integer or floating point data type._
 
-* * *  ![property](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/property.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `__version__ -> string` **static readonly** _*Returns:* current imageio version as string._
+* * *  ![property](https://github.com/ColorfulSoft/System.AI/raw/master/Docs/Icons/property.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/master/Docs/Icons/overlaystatic.png) `__version__ -> string` **static readonly** _*Returns:* current imageio version as string._
 
-* * *  ![method](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/v2.0/Docs/Icons/overlaystatic.png) `show_formats() -> void` **static** _Outputs supported image formats to the console._
+* * *  ![method](https://github.com/ColorfulSoft/System.AI/raw/master/Docs/Icons/method.png) ![static](https://github.com/ColorfulSoft/System.AI/raw/master/Docs/Icons/overlaystatic.png) `show_formats() -> void` **static** _Outputs supported image formats to the console._
 
 ## Code samples
 
