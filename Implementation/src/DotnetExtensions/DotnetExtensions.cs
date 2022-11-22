@@ -128,9 +128,9 @@ namespace System
                     {
                         if((loc[dim - 1] + 1) != arr.GetLength(dim - 1))
                         {
+                            str += ',';
                             for(int j = 0; j < (arr.Rank - dim); ++j)
                             {
-                                str += ',';
                                 str += Environment.NewLine;
                             }
                         }
